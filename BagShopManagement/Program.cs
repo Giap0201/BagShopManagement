@@ -1,3 +1,5 @@
+using BagShopManagement.Views.Common;
+
 namespace BagShopManagement
 {
     internal static class Program
@@ -12,6 +14,7 @@ namespace BagShopManagement
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
+            Application.Run(new QuanLiBanHang());
         }
     }
 }
