@@ -108,18 +108,20 @@ namespace BagShopManagement.DataAccess
                 ExceptionHandler.Handle(new ArgumentException("Câu truy vấn không được để trống."), "Lỗi truy vấn.");
                 return null;
             }
+
             using (SqlConnection conn = GetConnection())
             {
-                if (conn == null) return null;
+                if (conn == null)
+                    return null;
+
                 try
                 {
-                    using (SqlCommand cmp = new SqlCommand(query, conn))
+                    using (SqlCommand cmd = new SqlCommand(query, conn))
                     {
                         if (parameters != null && parameters.Length > 0)
-                        {
-                            cmp.Parameters.AddRange(parameters);
-                            return cmp.ExecuteScalar();
-                        }
+                            cmd.Parameters.AddRange(parameters);
+
+                        return cmd.ExecuteScalar();
                     }
                 }
                 catch (Exception ex)
