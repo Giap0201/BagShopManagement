@@ -9,18 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Repositories\Interfaces\" />
-    <Folder Include="Repositories\Implementations\" />
-    <Folder Include="Services\Interfaces\" />
-    <Folder Include="Services\Implementations\" />
     <Folder Include="Views\Dev1\" />
     <Folder Include="Views\Dev2\" />
     <Folder Include="Views\Dev3\" />
     <Folder Include="Views\Dev4\" />
     <Folder Include="Views\Dev5\" />
-    <Folder Include="Views\Dev6\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,5 +34,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>
