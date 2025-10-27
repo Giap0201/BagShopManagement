@@ -1,4 +1,5 @@
 using BagShopManagement.Views.Common;
+using BagShopManagement.Views.Dev6;
 
 namespace BagShopManagement
 {
@@ -14,7 +15,7 @@ namespace BagShopManagement
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
-            Application.Run(new QuanLiBanHang());
+            Application.Run(new Form1());
         }
     }
 }

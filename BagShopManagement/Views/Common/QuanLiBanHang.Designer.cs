@@ -28,8 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
+            hoaDonNhapControl2 = new BagShopManagement.Views.Dev6.HoaDonNhapControl();
+            errorProvider1 = new ErrorProvider(components);
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // headerControl1
@@ -38,7 +42,7 @@
             headerControl1.Dock = DockStyle.Top;
             headerControl1.Location = new Point(0, 0);
             headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1226, 76);
+            headerControl1.Size = new Size(1321, 76);
             headerControl1.TabIndex = 0;
             // 
             // sideBarControl1
@@ -50,17 +54,31 @@
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
             // 
+            // hoaDonNhapControl2
+            // 
+            hoaDonNhapControl2.Dock = DockStyle.Fill;
+            hoaDonNhapControl2.Location = new Point(336, 76);
+            hoaDonNhapControl2.Name = "hoaDonNhapControl2";
+            hoaDonNhapControl2.Size = new Size(985, 620);
+            hoaDonNhapControl2.TabIndex = 2;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
+            // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1226, 696);
+            ClientSize = new Size(1321, 696);
+            Controls.Add(hoaDonNhapControl2);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "QuanLiBanHang";
             Text = "QuanLiBanHang";
             WindowState = FormWindowState.Maximized;
+            ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             ResumeLayout(false);
         }
 
@@ -68,5 +86,8 @@
 
         private Controls.HeaderControl headerControl1;
         private Controls.SideBarControl sideBarControl1;
+        private Dev6.HoaDonNhapControl hoaDonNhapControl1;
+        private Dev6.HoaDonNhapControl hoaDonNhapControl2;
+        private ErrorProvider errorProvider1;
     }
 }

@@ -1,143 +1,77 @@
 ﻿using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
-using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BagShopManagement.DataAccess
 {
     public static class DataAccessBase
     {
-        //chuoi ket noi tu SSMS
-        private static readonly string ConnectionString = "Server=localhost;Database=BagStoreDB;Trusted_Connection=True;";
+        private static readonly string ConnectionString = "Data Source=DESKTOP-0EECPLN\\SQLEXPRESS; DataBase = BagStoreDb;Integrated Security=True;TrustServerCertificate=True";
 
-        //phuong thuc tao va mo ket noi voi database
-        public static SqlConnection GetConnection()
-        {
-            try
-            {
-                var conn = new SqlConnection(ConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                return conn;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.Handle(ex, "Không thể kết nối với DB");
-                return null;
-            }
-        }
-
-        //thuc thi cau truy van select, tra ve datatable co ket qua
+        // 2. Thực thi truy vấn SELECT, trả về DataTable
         public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
         {
-            if (string.IsNullOrEmpty(query))
+            if (string.IsNullOrWhiteSpace(query))
+                throw new ArgumentException("Câu truy vấn không được để trống.", nameof(query));
+
+            DataTable dt = new DataTable();
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var cmd = new SqlCommand(query, conn))
+            using (var da = new SqlDataAdapter(cmd))
             {
-                ExceptionHandler.Handle(new ArgumentException("Câu truy vấn không được để trống."), "Lỗi truy vấn.");
-                return null;
+                if (parameters != null && parameters.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
+
+                conn.Open();
+                da.Fill(dt);
             }
-            using (var conn = GetConnection())
-            {
-                if (conn == null) return null;
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        if (parameters != null && parameters.Length > 0)
-                        {
-                            cmd.Parameters.AddRange(parameters);
-                        }
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.Handle(ex, $"Lỗi khi thực thi truy vấn: {query}");
-                    return null;
-                }
-            }
+
+            return dt;
         }
 
-        //thuc thi cau lenh select, update, delete, tra ve so dong bi anh huong
+        // 3. Thực thi INSERT, UPDATE, DELETE
         public static int ExecuteNonQuery(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
-            {
-                ExceptionHandler.Handle(new ArgumentException("Câu lệnh không được để trống."), "Lỗi câu lệnh.");
-                return -1;
-            }
+                throw new ArgumentException("Câu lệnh không được để trống.", nameof(query));
 
-            using (SqlConnection conn = GetConnection())
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var cmd = new SqlCommand(query, conn))
             {
-                if (conn == null)
-                    return -1;
+                if (parameters != null && parameters.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
 
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        if (parameters != null && parameters.Length > 0)
-                            cmd.Parameters.AddRange(parameters);
-                        return cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.Handle(ex, $"Lỗi khi thực thi câu lệnh: {query}");
-                    return -1;
-                }
+                conn.Open();
+                return cmd.ExecuteNonQuery();
             }
         }
 
-        //thuc thi cau truy van tra ve gia tri don count,sum
+        // 4. Thực thi truy vấn trả về 1 giá trị (COUNT, SUM, MAX...)
         public static object ExecuteScalar(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
+                throw new ArgumentException("Câu truy vấn không được để trống.", nameof(query));
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var cmd = new SqlCommand(query, conn))
             {
-                ExceptionHandler.Handle(new ArgumentException("Câu truy vấn không được để trống."), "Lỗi truy vấn.");
-                return null;
-            }
+                if (parameters != null && parameters.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
 
-            using (SqlConnection conn = GetConnection())
-            {
-                if (conn == null)
-                    return null;
-
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        if (parameters != null && parameters.Length > 0)
-                            cmd.Parameters.AddRange(parameters);
-
-                        return cmd.ExecuteScalar();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.Handle(ex, $"Lỗi khi thực thi truy vấn scalar: {query}");
-                    return null;
-                }
+                conn.Open();
+                return cmd.ExecuteScalar();
             }
         }
 
-        //kiem tra ket noi co so du lieu
-        public static bool TestConnection()
+        // 5. Kiểm tra kết nối
+        public static void TestConnection()
         {
-            using (SqlConnection conn = GetConnection())
+            using (var conn = new SqlConnection(ConnectionString))
             {
-                return conn != null && conn.State != ConnectionState.Open;
+                conn.Open(); // ném exception nếu thất bại
             }
         }
     }
