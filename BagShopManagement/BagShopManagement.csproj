@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Dev1\" />
-    <Folder Include="Views\Dev2\" />
     <Folder Include="Views\Dev3\" />
     <Folder Include="Views\Dev4\" />
     <Folder Include="Views\Dev5\" />

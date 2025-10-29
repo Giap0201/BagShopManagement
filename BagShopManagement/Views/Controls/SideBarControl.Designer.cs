@@ -37,7 +37,7 @@
             button7 = new Button();
             button6 = new Button();
             button5 = new Button();
-            button4 = new Button();
+            btnSanPham = new Button();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
@@ -54,7 +54,7 @@
             panel1.Controls.Add(button7);
             panel1.Controls.Add(button6);
             panel1.Controls.Add(button5);
-            panel1.Controls.Add(button4);
+            panel1.Controls.Add(btnSanPham);
             panel1.Controls.Add(button3);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
@@ -119,14 +119,15 @@
             button5.Text = "Hoá đơn bán";
             button5.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnSanPham
             // 
-            button4.Location = new Point(-2, 236);
-            button4.Name = "button4";
-            button4.Size = new Size(330, 57);
-            button4.TabIndex = 3;
-            button4.Text = "Sản phẩm";
-            button4.UseVisualStyleBackColor = true;
+            btnSanPham.Location = new Point(-2, 236);
+            btnSanPham.Name = "btnSanPham";
+            btnSanPham.Size = new Size(330, 57);
+            btnSanPham.TabIndex = 3;
+            btnSanPham.Text = "Sản phẩm";
+            btnSanPham.UseVisualStyleBackColor = true;
+            btnSanPham.Click += btnSanPham_Click;
             // 
             // button3
             // 
@@ -190,7 +191,7 @@
         private Button button7;
         private Button button6;
         private Button button5;
-        private Button button4;
+        private Button btnSanPham;
         private Button button3;
         private Button button2;
         private Button button1;
