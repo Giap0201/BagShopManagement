@@ -8,7 +8,7 @@ namespace BagShopManagement.DataAccess
 {
     public static class DataAccessBase
     {
-        private static readonly string ConnectionString = "Data Source=DESKTOP-0EECPLN\\SQLEXPRESS; DataBase = BagStoreDb;Integrated Security=True;TrustServerCertificate=True";
+        private static readonly string ConnectionString = "Data Source=ADMIN;Initial Catalog=BagStoreDB;Integrated Security=True;Trust Server Certificate=True";
 
         // 2. Thực thi truy vấn SELECT, trả về DataTable
         public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
