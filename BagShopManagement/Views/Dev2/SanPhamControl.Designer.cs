@@ -28,81 +28,77 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtSearch = new TextBox();
-            btnSearch = new Button();
-            btnAdd = new Button();
-            btnEdit = new Button();
-            btnDelete = new Button();
             dgvSanPham = new DataGridView();
+            txtTimKiem = new TextBox();
+            btnTim = new Button();
+            btnThem = new Button();
+            btnSua = new Button();
+            btnXoa = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).BeginInit();
             SuspendLayout();
             // 
-            // txtSearch
-            // 
-            txtSearch.Location = new Point(36, 41);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(125, 27);
-            txtSearch.TabIndex = 0;
-            // 
-            // btnSearch
-            // 
-            btnSearch.Location = new Point(36, 92);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(94, 29);
-            btnSearch.TabIndex = 1;
-            btnSearch.Text = "Tìm";
-            btnSearch.UseVisualStyleBackColor = true;
-            // 
-            // btnAdd
-            // 
-            btnAdd.Location = new Point(36, 152);
-            btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(94, 29);
-            btnAdd.TabIndex = 2;
-            btnAdd.Text = "Thêm";
-            btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            btnEdit.Location = new Point(36, 221);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(94, 29);
-            btnEdit.TabIndex = 3;
-            btnEdit.Text = "Sửa";
-            btnEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Location = new Point(36, 289);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(94, 29);
-            btnDelete.TabIndex = 4;
-            btnDelete.Text = "Xoá";
-            btnDelete.UseVisualStyleBackColor = false;
-            btnDelete.Click += btnDelete_Click;
-            // 
             // dgvSanPham
             // 
-            dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSanPham.Dock = DockStyle.Fill;
-            dgvSanPham.Location = new Point(0, 0);
+            dgvSanPham.ColumnHeadersHeight = 29;
+            dgvSanPham.Location = new Point(20, 60);
             dgvSanPham.Name = "dgvSanPham";
             dgvSanPham.RowHeadersWidth = 51;
-            dgvSanPham.Size = new Size(918, 481);
-            dgvSanPham.TabIndex = 5;
+            dgvSanPham.Size = new Size(800, 400);
+            dgvSanPham.TabIndex = 0;
+            // 
+            // txtTimKiem
+            // 
+            txtTimKiem.Location = new Point(20, 20);
+            txtTimKiem.Name = "txtTimKiem";
+            txtTimKiem.Size = new Size(200, 27);
+            txtTimKiem.TabIndex = 1;
+            // 
+            // btnTim
+            // 
+            btnTim.Location = new Point(230, 18);
+            btnTim.Name = "btnTim";
+            btnTim.Size = new Size(75, 29);
+            btnTim.TabIndex = 2;
+            btnTim.Text = "Tìm";
+            btnTim.Click += btnTim_Click;
+            // 
+            // btnThem
+            // 
+            btnThem.Location = new Point(320, 18);
+            btnThem.Name = "btnThem";
+            btnThem.Size = new Size(75, 29);
+            btnThem.TabIndex = 3;
+            btnThem.Text = "Thêm";
+            btnThem.Click += btnThem_Click;
+            // 
+            // btnSua
+            // 
+            btnSua.Location = new Point(410, 18);
+            btnSua.Name = "btnSua";
+            btnSua.Size = new Size(75, 29);
+            btnSua.TabIndex = 4;
+            btnSua.Text = "Sửa";
+            btnSua.Click += btnSua_Click;
+            // 
+            // btnXoa
+            // 
+            btnXoa.Location = new Point(500, 18);
+            btnXoa.Name = "btnXoa";
+            btnXoa.Size = new Size(75, 29);
+            btnXoa.TabIndex = 5;
+            btnXoa.Text = "Xoá";
+            btnXoa.Click += btnXoa_Click;
             // 
             // SanPhamControl
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(dgvSanPham);
-            Controls.Add(btnDelete);
-            Controls.Add(btnEdit);
-            Controls.Add(btnAdd);
-            Controls.Add(btnSearch);
-            Controls.Add(txtSearch);
+            Controls.Add(txtTimKiem);
+            Controls.Add(btnTim);
+            Controls.Add(btnThem);
+            Controls.Add(btnSua);
+            Controls.Add(btnXoa);
             Name = "SanPhamControl";
-            Size = new Size(918, 481);
+            Size = new Size(843, 482);
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -110,11 +106,11 @@
 
         #endregion
 
-        private TextBox txtSearch;
-        private Button btnSearch;
-        private Button btnAdd;
-        private Button btnEdit;
-        private Button btnDelete;
+        private TextBox txtTimKiem;
+        private Button btnTim;
+        private Button btnThem;
+        private Button btnSua;
+        private Button btnXoa;
         private DataGridView dgvSanPham;
     }
 }

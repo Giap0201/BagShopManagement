@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SideBarControl));
             panel1 = new Panel();
+            btnImportDanhMuc = new Button();
             button10 = new Button();
             button9 = new Button();
             button8 = new Button();
@@ -48,6 +49,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Info;
+            panel1.Controls.Add(btnImportDanhMuc);
             panel1.Controls.Add(button10);
             panel1.Controls.Add(button9);
             panel1.Controls.Add(button8);
@@ -63,6 +65,16 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(331, 788);
             panel1.TabIndex = 0;
+            // 
+            // btnImportDanhMuc
+            // 
+            btnImportDanhMuc.Location = new Point(0, 641);
+            btnImportDanhMuc.Name = "btnImportDanhMuc";
+            btnImportDanhMuc.Size = new Size(328, 58);
+            btnImportDanhMuc.TabIndex = 10;
+            btnImportDanhMuc.Text = "Import Danh Mục";
+            btnImportDanhMuc.UseVisualStyleBackColor = true;
+            btnImportDanhMuc.Click += btnImportDanhMuc_Click;
             // 
             // button10
             // 
@@ -198,5 +210,6 @@
         private Button button10;
         private Button button9;
         private ImageList menu;
+        private Button btnImportDanhMuc;
     }
 }

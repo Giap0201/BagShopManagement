@@ -2,6 +2,7 @@
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
+using BagShopManagement.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,81 +17,67 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class SanPhamControl : UserControl
     {
-        private readonly SanPhamController _controller;
-        private BindingSource _bs = new BindingSource();
+        private readonly ISanPhamService _sanPhamService;
 
         public SanPhamControl()
         {
             InitializeComponent();
-            _controller = new SanPhamController(new SanPhamService(new SanPhamImpl()));
 
-            LoadData();
-            SetupEvents();
+            // Tạm thời khởi tạo Service trực tiếp (sau này có thể dùng DI)
+            _sanPhamService = new SanPhamService(new SanPhamImpl());
+
+            LoadSanPham();
         }
 
-        private void SetupEvents()
+        private void LoadSanPham()
         {
-            btnSearch.Click += (s, e) => Search();
-            btnAdd.Click += (s, e) => AddSanPham();
-            btnEdit.Click += (s, e) => EditSanPham();
-            btnDelete.Click += (s, e) => DeleteSanPham();
-        }
-
-        private void LoadData()
-        {
-            _bs.DataSource = _controller.GetAll();
-            dgvSanPham.DataSource = _bs;
-            dgvSanPham.AutoGenerateColumns = true; // hiển thị cột tự động
-        }
-
-        private void Search()
-        {
-            string keyword = txtSearch.Text.Trim();
-            if (string.IsNullOrEmpty(keyword))
-                _bs.DataSource = _controller.GetAll();
-            else
-                _bs.DataSource = _controller.Search(keyword);
-        }
-
-        private void AddSanPham()
-        {
-            using (var frm = new SanPhamEditForm())
+            try
             {
-                if (frm.ShowDialog() == DialogResult.OK)
-                    LoadData();
+                var list = _sanPhamService.GetAll();
+                dgvSanPham.DataSource = list;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tải sản phẩm: {ex.Message}");
             }
         }
 
-        private void EditSanPham()
+        private void btnThem_Click(object sender, EventArgs e)
         {
-            if (_bs.Current is SanPham sp)
+            var editform = new SanPhamEditForm(_sanPhamService);
+            if (editform.ShowDialog() == DialogResult.OK)
+                LoadSanPham();
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (dgvSanPham.CurrentRow == null) return;
+
+            var sp = (SanPham)dgvSanPham.CurrentRow.DataBoundItem as SanPham;
+            if (sp == null) return;
+
+            var editform = new SanPhamEditForm(_sanPhamService, sp);
+            if (editform.ShowDialog() == DialogResult.OK)
+                LoadSanPham();
+        }
+
+        private void btnXoa_Click(object sender, EventArgs e)
+        {
+            if (dgvSanPham.CurrentRow == null) return;
+            var sp = dgvSanPham.CurrentRow.DataBoundItem as SanPham;
+            if (sp == null) return;
+
+            if (MessageBox.Show($"Xoá sản phẩm {sp.TenSP}?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                using (var frm = new SanPhamEditForm(sp))
-                {
-                    if (frm.ShowDialog() == DialogResult.OK)
-                        LoadData();
-                }
+                _sanPhamService.Delete(sp.MaSP);
+                LoadSanPham();
             }
         }
 
-        private void DeleteSanPham()
+        private void btnTim_Click(object sender, EventArgs e)
         {
-            if (_bs.Current is SanPham sp)
-            {
-                var confirm = MessageBox.Show($"Bạn có chắc muốn xóa '{sp.TenSP}'?", "Xác nhận",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-
-                if (confirm == DialogResult.Yes)
-                {
-                    _controller.Delete(sp.MaSP);
-                    LoadData();
-                }
-            }
-        }
-
-        private void btnDelete_Click(object sender, EventArgs e)
-        {
-            // Tạm thời không dùng (sự kiện xử lý trong SetupEvents)
+            var kw = txtTimKiem.Text.Trim();
+            dgvSanPham.DataSource = _sanPhamService.Search(kw);
         }
     }
 }
