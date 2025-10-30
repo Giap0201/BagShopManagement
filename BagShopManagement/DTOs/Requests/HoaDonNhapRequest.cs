@@ -13,6 +13,6 @@ namespace BagShopManagement.DTOs.Requests
         public string MaNV { get; set; }
         public DateTime NgayNhap { get; set; }
         public string? GhiChu { get; set; }
-        public List
+        public List<CreateChiTietHDNRequest> ChiTiet { get; set; }
     }
 }

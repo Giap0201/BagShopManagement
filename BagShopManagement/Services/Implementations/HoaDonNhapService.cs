@@ -1,4 +1,5 @@
-﻿using BagShopManagement.DTOs.Responses;
+﻿using BagShopManagement.DTOs.Requests;
+using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
@@ -37,6 +38,16 @@ namespace BagShopManagement.Services.Implementations
                 // Trả về danh sách rỗng nếu có lỗi, client có thể kiểm tra Count==0
                 return new List<HoaDonNhap>();
             }
+        }
+
+        public List<ChiTietHDNResponse> GetChiTietForDisplay(string maHDN)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<HoaDonNhapResponse> SearchHoaDonNhap(HoaDonNhapRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }
