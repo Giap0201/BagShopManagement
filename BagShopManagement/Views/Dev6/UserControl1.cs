@@ -10,21 +10,11 @@ using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev6
 {
-    public partial class HoaDonNhapControl : UserControl
+    public partial class UserControl1 : UserControl
     {
-        public HoaDonNhapControl()
+        public UserControl1()
         {
             InitializeComponent();
-        }
-
-        private void lblTieuDe_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
         }
     }
 }

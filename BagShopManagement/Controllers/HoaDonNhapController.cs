@@ -17,26 +17,5 @@ namespace BagShopManagement.Controllers
     // Controller cần biết Service và View mà nó điều khiển
     public class HoaDonNhapController
     {
-        private readonly IHoaDonNhapView _view;
-        private readonly IHoaDonNhapService _service;
-
-        public HoaDonNhapController(IHoaDonNhapView view, IHoaDonNhapService service)
-        {
-            _view = view;
-            _service = service;
-        }
-
-        public void LoadHoaDonNhap()
-        {
-            try
-            {
-                var list = _service.GetAllHoaDonNhap();
-                _view.DisplayHoaDonNhap(list);
-            }
-            catch (Exception ex)
-            {
-                _view.ShowError(ex.Message);
-            }
-        }
     }
 }

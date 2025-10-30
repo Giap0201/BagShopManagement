@@ -9,13 +9,16 @@ namespace BagShopManagement.Repositories.Interfaces
 {
     public interface IHoaDonNhapRepository
     {
+        //kiem tra hoa don nhap ton tai
+        bool Exists(string maHDN);
+
         List<HoaDonNhap> GetAll();
 
         HoaDonNhap GetById(string maHDN);
 
         List<HoaDonNhap> GetByDateRange(DateTime fromDate, DateTime toDate);
 
-        int Add(HoaDonNhap hoaDonNhap);
+        void Add(HoaDonNhap hoaDonNhap);
 
         void Update(HoaDonNhap hoaDonNhap);
 

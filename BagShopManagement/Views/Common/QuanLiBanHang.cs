@@ -30,5 +30,15 @@ namespace BagShopManagement.Views.Common
         private void hoaDonNhapControl1_Load(object sender, EventArgs e)
         {
         }
+
+        private void hoaDonNhapControl1_Load_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void QuanLiBanHang_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
