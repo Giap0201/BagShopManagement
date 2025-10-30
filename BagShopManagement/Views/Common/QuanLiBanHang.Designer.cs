@@ -51,7 +51,7 @@
             sideBarControl1.Dock = DockStyle.Left;
             sideBarControl1.Location = new Point(0, 76);
             sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(336, 620);
+            sideBarControl1.Size = new Size(336, 741);
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
             // 
@@ -64,7 +64,7 @@
             hoaDonNhapControl2.Dock = DockStyle.Fill;
             hoaDonNhapControl2.Location = new Point(336, 76);
             hoaDonNhapControl2.Name = "hoaDonNhapControl2";
-            hoaDonNhapControl2.Size = new Size(985, 620);
+            hoaDonNhapControl2.Size = new Size(985, 741);
             hoaDonNhapControl2.TabIndex = 2;
             hoaDonNhapControl2.Load += hoaDonNhapControl2_Load;
             // 
@@ -73,14 +73,14 @@
             panelMain.Dock = DockStyle.Fill;
             panelMain.Location = new Point(336, 76);
             panelMain.Name = "panelMain";
-            panelMain.Size = new Size(985, 620);
+            panelMain.Size = new Size(985, 741);
             panelMain.TabIndex = 3;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1321, 696);
+            ClientSize = new Size(1321, 817);
             Controls.Add(panelMain);
             Controls.Add(hoaDonNhapControl2);
             Controls.Add(sideBarControl1);
