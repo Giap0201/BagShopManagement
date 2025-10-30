@@ -42,7 +42,7 @@
             headerControl1.Dock = DockStyle.Top;
             headerControl1.Location = new Point(0, 0);
             headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1321, 76);
+            headerControl1.Size = new Size(1678, 76);
             headerControl1.TabIndex = 0;
             // 
             // sideBarControl1
@@ -59,7 +59,7 @@
             hoaDonNhapControl2.Dock = DockStyle.Fill;
             hoaDonNhapControl2.Location = new Point(336, 76);
             hoaDonNhapControl2.Name = "hoaDonNhapControl2";
-            hoaDonNhapControl2.Size = new Size(985, 620);
+            hoaDonNhapControl2.Size = new Size(1342, 620);
             hoaDonNhapControl2.TabIndex = 2;
             // 
             // errorProvider1
@@ -70,7 +70,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1321, 696);
+            ClientSize = new Size(1678, 696);
             Controls.Add(hoaDonNhapControl2);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);

@@ -46,10 +46,10 @@
             // dgvHoaDonNhap
             // 
             dgvHoaDonNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHoaDonNhap.Location = new Point(287, 58);
+            dgvHoaDonNhap.Location = new Point(13, 46);
             dgvHoaDonNhap.Name = "dgvHoaDonNhap";
             dgvHoaDonNhap.RowHeadersWidth = 51;
-            dgvHoaDonNhap.Size = new Size(1129, 547);
+            dgvHoaDonNhap.Size = new Size(1160, 557);
             dgvHoaDonNhap.TabIndex = 1;
             dgvHoaDonNhap.CellContentClick += dgvHoaDonNhap_CellContentClick;
             // 
@@ -60,7 +60,7 @@
             Controls.Add(dgvHoaDonNhap);
             Controls.Add(lblTieuDe);
             Name = "HoaDonNhapControl";
-            Size = new Size(1481, 659);
+            Size = new Size(1767, 659);
             ((System.ComponentModel.ISupportInitialize)dgvHoaDonNhap).EndInit();
             ResumeLayout(false);
             PerformLayout();
