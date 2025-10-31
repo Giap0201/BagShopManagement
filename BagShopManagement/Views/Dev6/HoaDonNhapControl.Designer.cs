@@ -92,6 +92,7 @@
             btnTimKiem.TabIndex = 10;
             btnTimKiem.Text = "Tìm";
             btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.Click += btnTimKiem_Click;
             // 
             // label6
             // 

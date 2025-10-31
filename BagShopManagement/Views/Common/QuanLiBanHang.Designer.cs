@@ -33,7 +33,7 @@
             sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
-            userControl11 = new BagShopManagement.Views.Dev6.HoaDonNhapControl();
+            themHoaDonNhapControl1 = new BagShopManagement.Views.Dev6.ThemHoaDonNhapControl();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -59,20 +59,20 @@
             headerControl1.Size = new Size(1745, 76);
             headerControl1.TabIndex = 0;
             // 
-            // userControl11
+            // themHoaDonNhapControl1
             // 
-            userControl11.Dock = DockStyle.Fill;
-            userControl11.Location = new Point(334, 76);
-            userControl11.Name = "userControl11";
-            userControl11.Size = new Size(1411, 620);
-            userControl11.TabIndex = 2;
+            themHoaDonNhapControl1.Dock = DockStyle.Fill;
+            themHoaDonNhapControl1.Location = new Point(334, 76);
+            themHoaDonNhapControl1.Name = "themHoaDonNhapControl1";
+            themHoaDonNhapControl1.Size = new Size(1411, 620);
+            themHoaDonNhapControl1.TabIndex = 2;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1745, 696);
-            Controls.Add(userControl11);
+            Controls.Add(themHoaDonNhapControl1);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -89,6 +89,6 @@
         private Controls.SideBarControl sideBarControl1;
         private Controls.HeaderControl headerControl1;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
-        private Dev6.HoaDonNhapControl userControl11;
+        private Dev6.ThemHoaDonNhapControl themHoaDonNhapControl1;
     }
 }

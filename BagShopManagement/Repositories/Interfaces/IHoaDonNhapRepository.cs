@@ -14,12 +14,16 @@ namespace BagShopManagement.Repositories.Interfaces
 
         HoaDonNhap GetById(string maHDN);
 
-        void Add(HoaDonNhap hoaDonNhap);
+        string Insert(HoaDonNhap hoaDonNhap);
 
-        void Update(HoaDonNhap hoaDonNhap);
+        bool Update(HoaDonNhap hoaDonNhap);
 
-        void Delete(string maHDN);
+        bool Delete(string maHDN);
+
+        List<HoaDonNhap> GetAll();
 
         List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV);
+
+        List<HoaDonNhapResponse> GetAllHoaDonNhap();
     }
 }

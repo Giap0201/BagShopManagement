@@ -19,7 +19,7 @@ namespace BagShopManagement.Services.Implementations
         private readonly INhaCungCapRepository _nccRepo;
         private readonly INhanVienRepository _nvRepo;
 
-        public HoaDonNhapService(
+        public readonly HoaDonNhapService(
             IHoaDonNhapRepository repo,
             IChiTietHDNRepository chiTietRepo,
             INhaCungCapRepository nccRepo,
@@ -86,6 +86,55 @@ namespace BagShopManagement.Services.Implementations
         public List<NhanVien> GetNhanVienList()
         {
             return _nvRepo.GetAll();
+        }
+
+        public List<HoaDonNhapResponse> GetAllHoaDonNhap()
+        {
+        }
+
+        public List<HoaDonNhapResponse> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public HoaDonNhap GetById(string maHDN)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Add(HoaDonNhapRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(HoaDonNhapRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(string maHDN)
+        {
+            throw new NotImplementedException();
+        }
+
+        public HoaDonNhapResponse GetHoaDonNhapById(string maHDN)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CreateHoaDonNhap(HoaDonNhapRequest request)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateHoaDonNhap(HoaDonNhapRequest request)
+        {
+            throw new NotImplementedException();
         }
     }
 }
