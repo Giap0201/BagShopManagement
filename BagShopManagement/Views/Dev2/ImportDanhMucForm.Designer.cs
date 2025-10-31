@@ -28,40 +28,42 @@
         /// </summary>
         private void InitializeComponent()
         {
-            cboTable = new ComboBox();
+            cboTableName = new ComboBox();
             label1 = new Label();
-            btnBrowse = new Button();
+            btnChonFile = new Button();
             btnImport = new Button();
             btnCancel = new Button();
             dgvPreview = new DataGridView();
+            txtFilePath = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvPreview).BeginInit();
             SuspendLayout();
             // 
-            // cboTable
+            // cboTableName
             // 
-            cboTable.FormattingEnabled = true;
-            cboTable.Location = new Point(224, 33);
-            cboTable.Name = "cboTable";
-            cboTable.Size = new Size(151, 28);
-            cboTable.TabIndex = 0;
+            cboTableName.FormattingEnabled = true;
+            cboTableName.Location = new Point(220, 30);
+            cboTableName.Name = "cboTableName";
+            cboTableName.Size = new Size(151, 28);
+            cboTableName.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(70, 36);
+            label1.Location = new Point(71, 33);
             label1.Name = "label1";
             label1.Size = new Size(107, 20);
             label1.TabIndex = 1;
             label1.Text = "Bảng cần nhập";
             // 
-            // btnBrowse
+            // btnChonFile
             // 
-            btnBrowse.Location = new Point(79, 100);
-            btnBrowse.Name = "btnBrowse";
-            btnBrowse.Size = new Size(94, 29);
-            btnBrowse.TabIndex = 2;
-            btnBrowse.Text = "Browse";
-            btnBrowse.UseVisualStyleBackColor = true;
+            btnChonFile.Location = new Point(71, 72);
+            btnChonFile.Name = "btnChonFile";
+            btnChonFile.Size = new Size(94, 29);
+            btnChonFile.TabIndex = 2;
+            btnChonFile.Text = "Browse";
+            btnChonFile.UseVisualStyleBackColor = true;
+            btnChonFile.Click += btnChonFile_Click;
             // 
             // btnImport
             // 
@@ -84,23 +86,31 @@
             // dgvPreview
             // 
             dgvPreview.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvPreview.Location = new Point(220, 103);
+            dgvPreview.Location = new Point(220, 122);
             dgvPreview.Name = "dgvPreview";
             dgvPreview.RowHeadersWidth = 51;
             dgvPreview.Size = new Size(554, 316);
             dgvPreview.TabIndex = 5;
+            // 
+            // txtFilePath
+            // 
+            txtFilePath.Location = new Point(220, 73);
+            txtFilePath.Name = "txtFilePath";
+            txtFilePath.Size = new Size(125, 27);
+            txtFilePath.TabIndex = 6;
             // 
             // ImportDanhMucForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(txtFilePath);
             Controls.Add(dgvPreview);
             Controls.Add(btnCancel);
             Controls.Add(btnImport);
-            Controls.Add(btnBrowse);
+            Controls.Add(btnChonFile);
             Controls.Add(label1);
-            Controls.Add(cboTable);
+            Controls.Add(cboTableName);
             Name = "ImportDanhMucForm";
             Text = "ImportDanhMucForm";
             ((System.ComponentModel.ISupportInitialize)dgvPreview).EndInit();
@@ -110,11 +120,12 @@
 
         #endregion
 
-        private ComboBox cboTable;
+        private ComboBox cboTableName;
         private Label label1;
-        private Button btnBrowse;
+        private Button btnChonFile;
         private Button btnImport;
         private Button btnCancel;
         private DataGridView dgvPreview;
+        private TextBox txtFilePath;
     }
 }
