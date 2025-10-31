@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class HoaDonNhapImpl : IHoaDonNhapRepository
+    public class HoaDonNhapImpl : BaseRepository, IHoaDonNhapRepository
     {
         public List<HoaDonNhap> GetAll()
         {
