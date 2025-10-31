@@ -16,6 +16,7 @@ namespace BagShopManagement
             ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
             Application.Run(new BagShopManagement.Views.Common.QuanLiBanHang());
+            //Application.Run(new Views.Dev2.SanPhamEditForm());
         }
     }
 }

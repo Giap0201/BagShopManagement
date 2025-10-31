@@ -18,28 +18,18 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class SanPhamEditForm : Form
     {
-        private readonly ISanPhamService _sanPhamService;
-        private readonly SanPham _sanPham; // null nếu đang thêm mới
+        private readonly SanPhamController _controller;
+        private readonly SanPham _sanPham;
         private readonly bool _isEdit;
-
         private readonly IDanhMucService _danhMucService = new DanhMucService(new DanhMucRepository());
 
-        public SanPhamEditForm(ISanPhamService sanPhamService, SanPham sp = null)
+        public SanPhamEditForm(SanPhamController controller, SanPham sp = null)
         {
             InitializeComponent();
-            _sanPhamService = sanPhamService;
+            _controller = controller;
             _sanPham = sp;
             _isEdit = sp != null;
 
-            if (_isEdit)
-            {
-                this.Text = "Chỉnh sửa sản phẩm";
-                LoadSanPhamToForm(sp);
-            }
-            else
-            {
-                this.Text = "Thêm sản phẩm mới";
-            }
             this.Load += SanPhamEditForm_Load;
         }
         private void SanPhamEditForm_Load(object sender, EventArgs e)
@@ -106,21 +96,16 @@ namespace BagShopManagement.Views.Dev2
                 SoLuongTon = (int)numSoLuong.Value,
                 MoTa = txtMoTa.Text.Trim(),
                 TrangThai = chkTrangThai.Checked,
-                NgayTao = _isEdit ? _sanPham.NgayTao : DateTime.Now
+                NgayTao = _isEdit ? _sanPham.NgayTao : DateTime.Now,
+                MaLoaiTui = cboLoaiTui.SelectedValue?.ToString(),
+                MaThuongHieu = cboThuongHieu.SelectedValue?.ToString(),
+                MaChatLieu = cboChatLieu.SelectedValue?.ToString(),
+                MaMau = cboMau.SelectedValue?.ToString(),
+                MaKichThuoc = cboKichThuoc.SelectedValue?.ToString(),
+                MaNCC = cboNCC.SelectedValue?.ToString()
             };
 
-            sp.MaLoaiTui = cboLoaiTui.SelectedValue?.ToString();
-            sp.MaThuongHieu = cboThuongHieu.SelectedValue?.ToString();
-            sp.MaChatLieu = cboChatLieu.SelectedValue?.ToString();
-            sp.MaMau = cboMau.SelectedValue?.ToString();
-            sp.MaKichThuoc = cboKichThuoc.SelectedValue?.ToString();
-            sp.MaNCC = cboNCC.SelectedValue?.ToString();
-
-            bool success;
-            if (_isEdit)
-                success = _sanPhamService.Update(sp);
-            else
-                success = _sanPhamService.Add(sp);
+            bool success = _isEdit ? _controller.Update(sp) : _controller.Add(sp);
 
             if (success)
             {
@@ -133,6 +118,7 @@ namespace BagShopManagement.Views.Dev2
                 MessageBox.Show("Không thể lưu sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         private void btnCancel_Click(object sender, EventArgs e)
         {

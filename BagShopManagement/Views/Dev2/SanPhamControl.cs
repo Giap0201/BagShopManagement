@@ -5,26 +5,21 @@ using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev2
 {
     public partial class SanPhamControl : UserControl
     {
-        private readonly ISanPhamService _sanPhamService;
+        private readonly SanPhamController _controller;
 
         public SanPhamControl()
         {
             InitializeComponent();
 
-            // Tạm thời khởi tạo Service trực tiếp (sau này có thể dùng DI)
-            _sanPhamService = new SanPhamService(new SanPhamImpl());
+            // Khởi tạo controller đầy đủ qua service & repo
+            ISanPhamService sanPhamService = new SanPhamService(new SanPhamRepository());
+            _controller = new SanPhamController(sanPhamService);
 
             LoadSanPham();
         }
@@ -33,7 +28,7 @@ namespace BagShopManagement.Views.Dev2
         {
             try
             {
-                var list = _sanPhamService.GetAll();
+                var list = _controller.GetAll();
                 dgvSanPham.DataSource = list;
             }
             catch (Exception ex)
@@ -44,8 +39,8 @@ namespace BagShopManagement.Views.Dev2
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            var editform = new SanPhamEditForm(_sanPhamService);
-            if (editform.ShowDialog() == DialogResult.OK)
+            var editForm = new SanPhamEditForm(_controller);
+            if (editForm.ShowDialog() == DialogResult.OK)
                 LoadSanPham();
         }
 
@@ -53,23 +48,24 @@ namespace BagShopManagement.Views.Dev2
         {
             if (dgvSanPham.CurrentRow == null) return;
 
-            var sp = (SanPham)dgvSanPham.CurrentRow.DataBoundItem as SanPham;
+            var sp = dgvSanPham.CurrentRow.DataBoundItem as SanPham;
             if (sp == null) return;
 
-            var editform = new SanPhamEditForm(_sanPhamService, sp);
-            if (editform.ShowDialog() == DialogResult.OK)
+            var editForm = new SanPhamEditForm(_controller, sp);
+            if (editForm.ShowDialog() == DialogResult.OK)
                 LoadSanPham();
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
             if (dgvSanPham.CurrentRow == null) return;
+
             var sp = dgvSanPham.CurrentRow.DataBoundItem as SanPham;
             if (sp == null) return;
 
             if (MessageBox.Show($"Xoá sản phẩm {sp.TenSP}?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
-                _sanPhamService.Delete(sp.MaSP);
+                _controller.Delete(sp.MaSP);
                 LoadSanPham();
             }
         }
@@ -77,7 +73,7 @@ namespace BagShopManagement.Views.Dev2
         private void btnTim_Click(object sender, EventArgs e)
         {
             var kw = txtTimKiem.Text.Trim();
-            dgvSanPham.DataSource = _sanPhamService.Search(kw);
+            dgvSanPham.DataSource = _controller.Search(kw);
         }
     }
 }

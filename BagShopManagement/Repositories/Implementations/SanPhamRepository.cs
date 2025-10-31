@@ -5,13 +5,10 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class SanPhamImpl : ISanPhamRepository
+    public class SanPhamRepository : BaseRepository, ISanPhamRepository
     {
         private SanPham MapToSanPham(DataRow row)
         {
@@ -38,7 +35,7 @@ namespace BagShopManagement.Repositories.Implementations
         public List<SanPham> GetAll()
         {
             string query = "SELECT * FROM SanPham";
-            var dt = DataAccessBase.ExecuteQuery(query);
+            var dt = ExecuteQuery(query);
             var list = new List<SanPham>();
             foreach (DataRow row in dt.Rows)
                 list.Add(MapToSanPham(row));
@@ -48,7 +45,7 @@ namespace BagShopManagement.Repositories.Implementations
         public SanPham GetById(string maSP)
         {
             string query = "SELECT * FROM SanPham WHERE MaSP = @MaSP";
-            var dt = DataAccessBase.ExecuteQuery(query, new SqlParameter("@MaSP", maSP));
+            var dt = ExecuteQuery(query, new SqlParameter("@MaSP", maSP));
             if (dt.Rows.Count == 0) return null;
             return MapToSanPham(dt.Rows[0]);
         }
@@ -79,7 +76,7 @@ namespace BagShopManagement.Repositories.Implementations
                 new SqlParameter("@NgayTao", sp.NgayTao)
             };
 
-            return DataAccessBase.ExecuteNonQuery(query, param) > 0;
+            return ExecuteNonQuery(query, param) > 0;
         }
 
         public bool Update(SanPham sp)
@@ -107,19 +104,19 @@ namespace BagShopManagement.Repositories.Implementations
                 new SqlParameter("@TrangThai", sp.TrangThai)
             };
 
-            return DataAccessBase.ExecuteNonQuery(query, param) > 0;
+            return ExecuteNonQuery(query, param) > 0;
         }
 
         public bool Delete(string maSP)
         {
             string query = "DELETE FROM SanPham WHERE MaSP=@MaSP";
-            return DataAccessBase.ExecuteNonQuery(query, new SqlParameter("@MaSP", maSP)) > 0;
+            return ExecuteNonQuery(query, new SqlParameter("@MaSP", maSP)) > 0;
         }
 
         public List<SanPham> Search(string keyword)
         {
             string query = "SELECT * FROM SanPham WHERE TenSP LIKE @kw";
-            var dt = DataAccessBase.ExecuteQuery(query, new SqlParameter("@kw", $"%{keyword}%"));
+            var dt = ExecuteQuery(query, new SqlParameter("@kw", $"%{keyword}%"));
             var list = new List<SanPham>();
             foreach (DataRow row in dt.Rows)
                 list.Add(MapToSanPham(row));
