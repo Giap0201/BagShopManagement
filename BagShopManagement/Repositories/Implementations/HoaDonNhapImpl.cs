@@ -1,4 +1,5 @@
 ﻿using BagShopManagement.DataAccess;
+using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Utils;
@@ -46,16 +47,6 @@ namespace BagShopManagement.Repositories.Implementations
             return Convert.ToInt32(result) > 0;
         }
 
-        public List<HoaDonNhap> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<HoaDonNhap> GetByDateRange(DateTime fromDate, DateTime toDate)
-        {
-            throw new NotImplementedException();
-        }
-
         public HoaDonNhap GetById(string maHDN)
         {
             string query = "SELECT * FROM HoaDonNhap WHERE MaHDN = @MaHDN";
@@ -73,6 +64,73 @@ namespace BagShopManagement.Repositories.Implementations
                 TongTien = (decimal)row["TongTien"],
                 GhiChu = row["GhiChu"]?.ToString()
             };
+        }
+
+        public List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV)
+        {
+            // 1. Query join các bảng để lấy tên, thay vì chỉ lấy ID
+            var queryBuilder = new StringBuilder(@"
+                SELECT hdn.MaHDN, ncc.TenNCC, nv.HoTen AS TenNV, hdn.NgayNhap, hdn.TongTien, hdn.GhiChu
+                FROM HoaDonNhap hdn
+                LEFT JOIN NhaCungCap ncc ON hdn.MaNCC = ncc.MaNCC
+                LEFT JOIN NhanVien nv ON hdn.MaNV = nv.MaNV
+                WHERE 1=1
+            ");
+
+            var parameters = new List<SqlParameter>();
+
+            // 2. Thêm điều kiện lọc động (để tránh SQL Injection)
+            if (!string.IsNullOrWhiteSpace(maHDN))
+            {
+                queryBuilder.Append(" AND hdn.MaHDN LIKE @MaHDN");
+                parameters.Add(new SqlParameter("@MaHDN", "%" + maHDN + "%"));
+            }
+
+            if (tuNgay.HasValue)
+            {
+                queryBuilder.Append(" AND hdn.NgayNhap >= @TuNgay");
+                parameters.Add(new SqlParameter("@TuNgay", tuNgay.Value.Date)); // Lấy 00:00:00
+            }
+
+            if (denNgay.HasValue)
+            {
+                queryBuilder.Append(" AND hdn.NgayNhap <= @DenNgay");
+                // Lấy 23:59:59 của ngày kết thúc
+                parameters.Add(new SqlParameter("@DenNgay", denNgay.Value.Date.AddDays(1).AddTicks(-1)));
+            }
+
+            if (!string.IsNullOrWhiteSpace(maNCC))
+            {
+                queryBuilder.Append(" AND hdn.MaNCC = @MaNCC");
+                parameters.Add(new SqlParameter("@MaNCC", maNCC));
+            }
+
+            if (!string.IsNullOrWhiteSpace(maNV))
+            {
+                queryBuilder.Append(" AND hdn.MaNV = @MaNV");
+                parameters.Add(new SqlParameter("@MaNV", maNV));
+            }
+
+            queryBuilder.Append(" ORDER BY hdn.NgayNhap DESC");
+
+            // 3. Thực thi query
+            DataTable dt = base.ExecuteQuery(queryBuilder.ToString(), parameters.ToArray());
+
+            // 4. Map kết quả sang DTO
+            var list = new List<HoaDonNhapResponse>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(new HoaDonNhapResponse
+                {
+                    MaHDN = row["MaHDN"].ToString(),
+                    TenNCC = row["TenNCC"]?.ToString(),
+                    TenNV = row["TenNV"]?.ToString(),
+                    NgayNhap = (DateTime)row["NgayNhap"],
+                    TongTien = (decimal)row["TongTien"],
+                    GhiChu = row["GhiChu"]?.ToString()
+                });
+            }
+            return list;
         }
 
         public void Update(HoaDonNhap hoaDonNhap)

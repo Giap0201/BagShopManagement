@@ -33,7 +33,7 @@
             sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
-            userControl11 = new BagShopManagement.Views.Dev6.UserControl1();
+            userControl11 = new BagShopManagement.Views.Dev6.HoaDonNhapControl();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -89,6 +89,6 @@
         private Controls.SideBarControl sideBarControl1;
         private Controls.HeaderControl headerControl1;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
-        private Dev6.UserControl1 userControl11;
+        private Dev6.HoaDonNhapControl userControl11;
     }
 }

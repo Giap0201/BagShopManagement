@@ -11,12 +11,14 @@ namespace BagShopManagement.Services.Interfaces
 {
     public interface IHoaDonNhapService
     {
-        //tim kiem tat ca hoa don nhap
-        List<HoaDonNhapResponse> SearchHoaDonNhap(HoaDonNhapRequest request);
+        List<HoaDonNhapResponse> SearchHoaDonNhap(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV);
 
-        //lay ra chi tiet hoa don de hien thi (da join)
         List<ChiTietHDNResponse> GetChiTietForDisplay(string maHDN);
 
-        List<HoaDonNhap> GetAllHoaDonNhap();
+        void DeleteHoaDonNhap(string maHDN);
+
+        List<NhaCungCap> GetNhaCungCapList();
+
+        List<NhanVien> GetNhanVienList();
     }
 }
