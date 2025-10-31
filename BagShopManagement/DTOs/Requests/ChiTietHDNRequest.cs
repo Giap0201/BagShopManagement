@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.DTOs.Requests
 {
-    public class CreateChiTietHDNRequest
+    public class ChiTietHDNRequest
     {
         public string MaSP { get; set; }
         public int SoLuong { get; set; }

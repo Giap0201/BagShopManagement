@@ -9,29 +9,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
     public class HoaDonNhapImpl : BaseRepository, IHoaDonNhapRepository
     {
-        public void Add(HoaDonNhap hoaDonNhap)
-        {
-            string query = "INSERT INTO HoaDonNhap (MaHDN, MaNCC, MaNV, NgayNhap, TongTien, GhiChu) " +
-                           "VALUES (@MaHDN, @MaNCC, @MaNV, @NgayNhap, @TongTien, @GhiChu)";
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@MaHDN", hoaDonNhap.MaHDN),
-                new SqlParameter("@MaNCC", hoaDonNhap.MaNCC),
-                new SqlParameter("@MaNV", hoaDonNhap.MaNV),
-                new SqlParameter("@NgayNhap", hoaDonNhap.NgayNhap),
-                new SqlParameter("@TongTien", hoaDonNhap.TongTien),
-                new SqlParameter("@GhiChu", (object?)hoaDonNhap.GhiChu ?? DBNull.Value)
-            };
-
-            base.ExecuteNonQuery(query, parameters);
-        }
-
         public void Delete(string maHDN)
         {
             string query = "DELETE FROM HoaDonNhap WHERE MaHDN = @MaHDN";
@@ -47,23 +31,87 @@ namespace BagShopManagement.Repositories.Implementations
             return Convert.ToInt32(result) > 0;
         }
 
+        public List<HoaDonNhap> GetAll()
+        {
+            string query = "SELECT * FROM HoaDonNhap";
+            var dt = ExecuteQuery(query);
+
+            List<HoaDonNhap> list = new List<HoaDonNhap>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(new HoaDonNhap
+                {
+                    MaHDN = row["MaHDN"].ToString(),
+                    MaNCC = row["MaNCC"].ToString(),
+                    MaNV = row["MaNV"].ToString(),
+                    NgayNhap = Convert.ToDateTime(row["NgayNhap"]),
+                    TongTien = Convert.ToDecimal(row["TongTien"]),
+                    GhiChu = row["GhiChu"] != DBNull.Value ? row["GhiChu"].ToString() : null
+                });
+            }
+            return list;
+        }
+
+        public List<HoaDonNhapResponse> GetAllHoaDonNhap()
+        {
+            string query = @"
+                SELECT hdn.MaHDN, ncc.TenNCC, nv.HoTen AS TenNV, hdn.NgayNhap, hdn.TongTien, hdn.GhiChu
+                FROM HoaDonNhap hdn
+                LEFT JOIN NhaCungCap ncc ON hdn.MaNCC = ncc.MaNCC
+                LEFT JOIN NhanVien nv ON hdn.MaNV = nv.MaNV
+                ORDER BY hdn.NgayNhap DESC";
+            DataTable dt = base.ExecuteQuery(query.ToString());
+
+            var list = new List<HoaDonNhapResponse>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(new HoaDonNhapResponse
+                {
+                    MaHDN = row["MaHDN"].ToString(),
+                    TenNCC = row["TenNCC"]?.ToString(),
+                    TenNV = row["TenNV"]?.ToString(),
+                    NgayNhap = (DateTime)row["NgayNhap"],
+                    TongTien = (decimal)row["TongTien"],
+                    GhiChu = row["GhiChu"]?.ToString()
+                });
+            }
+            return list;
+        }
+
         public HoaDonNhap GetById(string maHDN)
         {
             string query = "SELECT * FROM HoaDonNhap WHERE MaHDN = @MaHDN";
-            var param = new SqlParameter("@MaHDN", maHDN);
-            DataTable dt = base.ExecuteQuery(query, param);
+            var dt = ExecuteQuery(query, new SqlParameter("@MaHDN", maHDN));
             if (dt.Rows.Count == 0)
                 return null;
-            DataRow row = dt.Rows[0];
+            var row = dt.Rows[0];
             return new HoaDonNhap
             {
                 MaHDN = row["MaHDN"].ToString(),
                 MaNCC = row["MaNCC"].ToString(),
                 MaNV = row["MaNV"].ToString(),
-                NgayNhap = (DateTime)row["NgayNhap"],
-                TongTien = (decimal)row["TongTien"],
-                GhiChu = row["GhiChu"]?.ToString()
+                NgayNhap = Convert.ToDateTime(row["NgayNhap"]),
+                TongTien = Convert.ToDecimal(row["TongTien"]),
+                GhiChu = row["GhiChu"] != DBNull.Value ? row["GhiChu"].ToString() : null
             };
+        }
+
+        public string Insert(HoaDonNhap hoaDonNhap)
+        {
+            string query = @"INSERT INTO HoaDonNhap(MaHDN, MaNCC, MaNV, NgayNhap, TongTien, GhiChu)
+                             VALUES(@MaHDN, @MaNCC, @MaNV, @NgayNhap, @TongTien, @GhiChu)";
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@MaHDN", hoaDonNhap.MaHDN),
+                new SqlParameter("@MaNCC", hoaDonNhap.MaNCC),
+                new SqlParameter("@MaNV", hoaDonNhap.MaNV),
+                new SqlParameter("@NgayNhap", hoaDonNhap.NgayNhap),
+                new SqlParameter("@TongTien", hoaDonNhap.TongTien),
+                new SqlParameter("@GhiChu", (object?)hoaDonNhap.GhiChu ?? DBNull.Value)
+            };
+            ExecuteNonQuery(query, parameters);
+            return hoaDonNhap.MaHDN;
         }
 
         public List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV)
@@ -147,6 +195,35 @@ namespace BagShopManagement.Repositories.Implementations
                 new SqlParameter("@MaHDN", hoaDonNhap.MaHDN)
             };
             base.ExecuteNonQuery(query, parameters);
+        }
+
+        bool IHoaDonNhapRepository.Delete(string maHDN)
+        {
+            string query = "DELETE FROM HoaDonNhap WHERE MaHDN=@MaHDN";
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@MaHDN", maHDN)
+            };
+            return ExecuteNonQuery(query, parameters) > 0;
+        }
+
+        bool IHoaDonNhapRepository.Update(HoaDonNhap hoaDonNhap)
+        {
+            string query = @"UPDATE HoaDonNhap
+                             SET MaNCC=@MaNCC, MaNV=@MaNV, NgayNhap=@NgayNhap, TongTien=@TongTien, GhiChu=@GhiChu
+                             WHERE MaHDN=@MaHDN";
+
+            var parameters = new SqlParameter[]
+            {
+                new SqlParameter("@MaHDN", hoaDonNhap.MaHDN),
+                new SqlParameter("@MaNCC", hoaDonNhap.MaNCC),
+                new SqlParameter("@MaNV", hoaDonNhap.MaNV),
+                new SqlParameter("@NgayNhap", hoaDonNhap.NgayNhap),
+                new SqlParameter("@TongTien", hoaDonNhap.TongTien),
+                new SqlParameter("@GhiChu", (object ?)hoaDonNhap.GhiChu ?? DBNull.Value)
+            };
+
+            return ExecuteNonQuery(query, parameters) > 0;
         }
     }
 }
