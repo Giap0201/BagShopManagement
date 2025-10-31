@@ -28,11 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            miniToolStrip = new StatusStrip();
-            tsslTongCong = new ToolStripStatusLabel();
-            tableLayoutPanel2 = new TableLayoutPanel();
-            flowLayoutPanel1 = new FlowLayoutPanel();
-            btnThemMoi = new Button();
+            label1 = new Label();
             groupBox1 = new GroupBox();
             btnTimKiem = new Button();
             label6 = new Label();
@@ -45,71 +41,28 @@
             label3 = new Label();
             dtpTuNgay = new DateTimePicker();
             label2 = new Label();
-            label1 = new Label();
-            tableLayoutPanel1 = new TableLayoutPanel();
-            statusStrip1 = new StatusStrip();
+            btnThemMoi = new Button();
+            btnSua = new Button();
+            btnXoa = new Button();
             dgvHoaDonNhap = new DataGridView();
-            tableLayoutPanel2.SuspendLayout();
-            flowLayoutPanel1.SuspendLayout();
+            statusStrip1 = new StatusStrip();
+            tsslTongCong = new ToolStripStatusLabel();
+            btnChiTiet = new Button();
             groupBox1.SuspendLayout();
-            tableLayoutPanel1.SuspendLayout();
-            statusStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHoaDonNhap).BeginInit();
+            statusStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // miniToolStrip
+            // label1
             // 
-            miniToolStrip.AccessibleName = "New item selection";
-            miniToolStrip.AccessibleRole = AccessibleRole.ButtonDropDown;
-            miniToolStrip.AutoSize = false;
-            miniToolStrip.Dock = DockStyle.None;
-            miniToolStrip.ImageScalingSize = new Size(20, 20);
-            miniToolStrip.Location = new Point(1741, 27);
-            miniToolStrip.Name = "miniToolStrip";
-            miniToolStrip.Size = new Size(1739, 26);
-            miniToolStrip.TabIndex = 3;
-            // 
-            // tsslTongCong
-            // 
-            tsslTongCong.Name = "tsslTongCong";
-            tsslTongCong.Size = new Size(191, 20);
-            tsslTongCong.Text = "Tổng cộng: 0 hóa đơn nhập";
-            // 
-            // tableLayoutPanel2
-            // 
-            tableLayoutPanel2.ColumnCount = 2;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
-            tableLayoutPanel2.Controls.Add(flowLayoutPanel1, 1, 0);
-            tableLayoutPanel2.Controls.Add(groupBox1, 0, 0);
-            tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 41);
-            tableLayoutPanel2.Name = "tableLayoutPanel2";
-            tableLayoutPanel2.RowCount = 1;
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel2.Size = new Size(1733, 158);
-            tableLayoutPanel2.TabIndex = 1;
-            // 
-            // flowLayoutPanel1
-            // 
-            flowLayoutPanel1.Controls.Add(btnThemMoi);
-            flowLayoutPanel1.Dock = DockStyle.Bottom;
-            flowLayoutPanel1.Location = new Point(1216, 3);
-            flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(514, 152);
-            flowLayoutPanel1.TabIndex = 1;
-            // 
-            // btnThemMoi
-            // 
-            btnThemMoi.FlatStyle = FlatStyle.Flat;
-            btnThemMoi.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnThemMoi.Location = new Point(3, 3);
-            btnThemMoi.Name = "btnThemMoi";
-            btnThemMoi.Size = new Size(161, 46);
-            btnThemMoi.TabIndex = 0;
-            btnThemMoi.Text = "Thêm mới";
-            btnThemMoi.UseVisualStyleBackColor = true;
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(559, 11);
+            label1.Name = "label1";
+            label1.Size = new Size(362, 38);
+            label1.TabIndex = 1;
+            label1.Text = "QUẢN LÍ HOÁ ĐƠN NHẬP";
+            label1.TextAlign = ContentAlignment.TopCenter;
             // 
             // groupBox1
             // 
@@ -124,17 +77,16 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(dtpTuNgay);
             groupBox1.Controls.Add(label2);
-            groupBox1.Location = new Point(3, 3);
+            groupBox1.Location = new Point(52, 77);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1207, 152);
-            groupBox1.TabIndex = 0;
+            groupBox1.Size = new Size(1133, 209);
+            groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Tìm kiếm và lọc";
-            groupBox1.Enter += groupBox1_Enter;
             // 
             // btnTimKiem
             // 
-            btnTimKiem.Location = new Point(729, 16);
+            btnTimKiem.Location = new Point(579, 16);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(182, 29);
             btnTimKiem.TabIndex = 10;
@@ -161,7 +113,7 @@
             // 
             cboNhanVien.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNhanVien.FormattingEnabled = true;
-            cboNhanVien.Location = new Point(729, 102);
+            cboNhanVien.Location = new Point(579, 107);
             cboNhanVien.Name = "cboNhanVien";
             cboNhanVien.Size = new Size(182, 28);
             cboNhanVien.TabIndex = 7;
@@ -169,7 +121,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(507, 105);
+            label5.Location = new Point(427, 110);
             label5.Name = "label5";
             label5.Size = new Size(75, 20);
             label5.TabIndex = 6;
@@ -196,7 +148,7 @@
             // dtpDenNgay
             // 
             dtpDenNgay.Format = DateTimePickerFormat.Short;
-            dtpDenNgay.Location = new Point(729, 60);
+            dtpDenNgay.Location = new Point(579, 62);
             dtpDenNgay.Name = "dtpDenNgay";
             dtpDenNgay.Size = new Size(182, 27);
             dtpDenNgay.TabIndex = 3;
@@ -204,7 +156,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(507, 60);
+            label3.Location = new Point(427, 60);
             label3.Name = "label3";
             label3.Size = new Size(72, 20);
             label3.TabIndex = 2;
@@ -227,47 +179,38 @@
             label2.TabIndex = 0;
             label2.Text = "Từ ngày";
             // 
-            // label1
+            // btnThemMoi
             // 
-            label1.AutoSize = true;
-            label1.Dock = DockStyle.Fill;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(1733, 38);
-            label1.TabIndex = 0;
-            label1.Text = "QUẢN LÍ HOÁ ĐƠN NHẬP";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            btnThemMoi.FlatStyle = FlatStyle.Flat;
+            btnThemMoi.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnThemMoi.Location = new Point(1219, 127);
+            btnThemMoi.Name = "btnThemMoi";
+            btnThemMoi.Size = new Size(132, 46);
+            btnThemMoi.TabIndex = 3;
+            btnThemMoi.Text = "Thêm mới";
+            btnThemMoi.UseVisualStyleBackColor = true;
             // 
-            // tableLayoutPanel1
+            // btnSua
             // 
-            tableLayoutPanel1.ColumnCount = 1;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle());
-            tableLayoutPanel1.Controls.Add(label1, 0, 0);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 0, 1);
-            tableLayoutPanel1.Controls.Add(dgvHoaDonNhap, 0, 2);
-            tableLayoutPanel1.Controls.Add(statusStrip1, 0, 3);
-            tableLayoutPanel1.Dock = DockStyle.Fill;
-            tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Name = "tableLayoutPanel1";
-            tableLayoutPanel1.RowCount = 4;
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.RowStyles.Add(new RowStyle());
-            tableLayoutPanel1.Size = new Size(1739, 532);
-            tableLayoutPanel1.TabIndex = 0;
+            btnSua.FlatStyle = FlatStyle.Flat;
+            btnSua.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnSua.Location = new Point(1219, 209);
+            btnSua.Name = "btnSua";
+            btnSua.Size = new Size(132, 46);
+            btnSua.TabIndex = 4;
+            btnSua.Text = "Sửa";
+            btnSua.UseVisualStyleBackColor = true;
             // 
-            // statusStrip1
+            // btnXoa
             // 
-            statusStrip1.Dock = DockStyle.None;
-            statusStrip1.ImageScalingSize = new Size(20, 20);
-            statusStrip1.Items.AddRange(new ToolStripItem[] { tsslTongCong });
-            statusStrip1.Location = new Point(0, 506);
-            statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(247, 26);
-            statusStrip1.TabIndex = 3;
-            statusStrip1.Text = "statusStrip1";
+            btnXoa.FlatStyle = FlatStyle.Flat;
+            btnXoa.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnXoa.Location = new Point(1390, 127);
+            btnXoa.Name = "btnXoa";
+            btnXoa.Size = new Size(135, 46);
+            btnXoa.TabIndex = 5;
+            btnXoa.Text = "Xoá";
+            btnXoa.UseVisualStyleBackColor = true;
             // 
             // dgvHoaDonNhap
             // 
@@ -275,38 +218,69 @@
             dgvHoaDonNhap.AllowUserToDeleteRows = false;
             dgvHoaDonNhap.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvHoaDonNhap.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHoaDonNhap.Location = new Point(3, 205);
+            dgvHoaDonNhap.Location = new Point(52, 306);
             dgvHoaDonNhap.Name = "dgvHoaDonNhap";
             dgvHoaDonNhap.ReadOnly = true;
             dgvHoaDonNhap.RowHeadersWidth = 51;
             dgvHoaDonNhap.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvHoaDonNhap.Size = new Size(1733, 298);
-            dgvHoaDonNhap.TabIndex = 2;
+            dgvHoaDonNhap.Size = new Size(1473, 507);
+            dgvHoaDonNhap.TabIndex = 6;
+            // 
+            // statusStrip1
+            // 
+            statusStrip1.Dock = DockStyle.None;
+            statusStrip1.ImageScalingSize = new Size(20, 20);
+            statusStrip1.Items.AddRange(new ToolStripItem[] { tsslTongCong });
+            statusStrip1.Location = new Point(52, 853);
+            statusStrip1.Name = "statusStrip1";
+            statusStrip1.Size = new Size(208, 26);
+            statusStrip1.TabIndex = 7;
+            statusStrip1.Text = "statusStrip1";
+            // 
+            // tsslTongCong
+            // 
+            tsslTongCong.Name = "tsslTongCong";
+            tsslTongCong.Size = new Size(191, 20);
+            tsslTongCong.Text = "Tổng cộng: 0 hóa đơn nhập";
+            // 
+            // btnChiTiet
+            // 
+            btnChiTiet.FlatStyle = FlatStyle.Flat;
+            btnChiTiet.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnChiTiet.Location = new Point(1390, 209);
+            btnChiTiet.Name = "btnChiTiet";
+            btnChiTiet.Size = new Size(135, 46);
+            btnChiTiet.TabIndex = 8;
+            btnChiTiet.Text = "Chi tiết";
+            btnChiTiet.UseVisualStyleBackColor = true;
+            btnChiTiet.UseWaitCursor = true;
             // 
             // HoaDonNhapControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(tableLayoutPanel1);
+            Controls.Add(btnChiTiet);
+            Controls.Add(statusStrip1);
+            Controls.Add(dgvHoaDonNhap);
+            Controls.Add(btnXoa);
+            Controls.Add(btnSua);
+            Controls.Add(btnThemMoi);
+            Controls.Add(groupBox1);
+            Controls.Add(label1);
             Name = "HoaDonNhapControl";
-            Size = new Size(1739, 532);
-            tableLayoutPanel2.ResumeLayout(false);
-            flowLayoutPanel1.ResumeLayout(false);
+            Size = new Size(1604, 959);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            tableLayoutPanel1.ResumeLayout(false);
-            tableLayoutPanel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvHoaDonNhap).EndInit();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvHoaDonNhap).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
-        private StatusStrip miniToolStrip;
-        private ToolStripStatusLabel tsslTongCong;
-        private TableLayoutPanel tableLayoutPanel2;
+        private Label label1;
         private GroupBox groupBox1;
         private Button btnTimKiem;
         private Label label6;
@@ -319,11 +293,12 @@
         private Label label3;
         private DateTimePicker dtpTuNgay;
         private Label label2;
-        private FlowLayoutPanel flowLayoutPanel1;
         private Button btnThemMoi;
-        private Label label1;
-        private TableLayoutPanel tableLayoutPanel1;
+        private Button btnSua;
+        private Button btnXoa;
         private DataGridView dgvHoaDonNhap;
         private StatusStrip statusStrip1;
+        private ToolStripStatusLabel tsslTongCong;
+        private Button btnChiTiet;
     }
 }
