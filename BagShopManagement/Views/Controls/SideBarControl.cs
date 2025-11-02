@@ -10,8 +10,11 @@ using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Controls
 {
+
+    
     public partial class SideBarControl : UserControl
     {
+        public event Action<string> NavigationButtonClicked;
         public SideBarControl()
         {
             InitializeComponent();
@@ -20,6 +23,12 @@ namespace BagShopManagement.Views.Controls
         private void button1_Click(object sender, EventArgs e)
         {
 
+        }
+
+
+        private void btnKhuyenMai_Click(object sender, EventArgs e)
+        {
+            NavigationButtonClicked?.Invoke("KhuyenMai");
         }
     }
 }
