@@ -13,7 +13,7 @@ namespace BagShopManagement.DataAccess
     public static class DataAccessBase
     {
         //chuoi ket noi tu SSMS
-        private static readonly string ConnectionString = "Server=localhost;Database=BagStoreDB;Trusted_Connection=True;";
+        private static readonly string ConnectionString = "Server=LAPTOP-7PVL0SIL;Database=BagStoreDB;Trusted_Connection=True;TrustServerCertificate=True;";
 
         //phuong thuc tao va mo ket noi voi database
         public static SqlConnection GetConnection()

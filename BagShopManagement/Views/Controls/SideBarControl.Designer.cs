@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SideBarControl));
             panel1 = new Panel();
+            btnKhuyenMai = new Button();
             button10 = new Button();
             button9 = new Button();
             button8 = new Button();
@@ -48,6 +49,7 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Info;
+            panel1.Controls.Add(btnKhuyenMai);
             panel1.Controls.Add(button10);
             panel1.Controls.Add(button9);
             panel1.Controls.Add(button8);
@@ -64,10 +66,20 @@
             panel1.Size = new Size(331, 788);
             panel1.TabIndex = 0;
             // 
+            // btnKhuyenMai
+            // 
+            btnKhuyenMai.Location = new Point(-2, 528);
+            btnKhuyenMai.Name = "btnKhuyenMai";
+            btnKhuyenMai.Size = new Size(330, 57);
+            btnKhuyenMai.TabIndex = 10;
+            btnKhuyenMai.Text = "Khuyến mãi";
+            btnKhuyenMai.UseVisualStyleBackColor = true;
+            btnKhuyenMai.Click += btnKhuyenMai_Click;
+            // 
             // button10
             // 
             button10.BackColor = SystemColors.Info;
-            button10.Location = new Point(-2, 578);
+            button10.Location = new Point(0, 654);
             button10.Name = "button10";
             button10.Size = new Size(330, 57);
             button10.TabIndex = 9;
@@ -76,7 +88,7 @@
             // 
             // button9
             // 
-            button9.Location = new Point(-2, 521);
+            button9.Location = new Point(-2, 591);
             button9.Name = "button9";
             button9.Size = new Size(330, 57);
             button9.TabIndex = 8;
@@ -85,7 +97,7 @@
             // 
             // button8
             // 
-            button8.Location = new Point(-2, 464);
+            button8.Location = new Point(-2, 470);
             button8.Name = "button8";
             button8.Size = new Size(330, 57);
             button8.TabIndex = 7;
@@ -197,5 +209,6 @@
         private Button button10;
         private Button button9;
         private ImageList menu;
+        private Button btnKhuyenMai;
     }
 }
