@@ -16,6 +16,6 @@ namespace BagShopManagement.DTOs.Responses
         public DateTime NgayNhap { get; set; }
         public decimal TongTien { get; set; }
         public string? GhiChu { get; set; }
-        public List<ChiTietHDNResponse> ChiTiet { get; set; }
+        public List<ChiTietHDNResponse>? ChiTiet { get; set; }
     }
 }

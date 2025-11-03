@@ -14,125 +14,167 @@ namespace BagShopManagement.Services.Implementations
 {
     public class HoaDonNhapService : IHoaDonNhapService
     {
-        private readonly IHoaDonNhapRepository _repo;
+        private readonly IHoaDonNhapRepository _hoaDonNhapRepo;
         private readonly IChiTietHDNRepository _chiTietRepo;
-        private readonly INhaCungCapRepository _nccRepo;
-        private readonly INhanVienRepository _nvRepo;
+        private readonly INhanVienRepository _nhanVienRepo;
+        private readonly INhaCungCapRepository _nhaCungCapRepo;
+        private readonly ISanPhamRepository _sanPhamRepo;
 
-        public readonly HoaDonNhapService(
-            IHoaDonNhapRepository repo,
+        public HoaDonNhapService(
+            IHoaDonNhapRepository hoaDonNhapRepo,
             IChiTietHDNRepository chiTietRepo,
-            INhaCungCapRepository nccRepo,
-            INhanVienRepository nvRepo)
+            INhaCungCapRepository nhaCungCapRepo,
+            INhanVienRepository nhanVienRepo,
+            ISanPhamRepository sanPhamRepo)
         {
-            _repo = repo;
+            _hoaDonNhapRepo = hoaDonNhapRepo;
             _chiTietRepo = chiTietRepo;
-            _nccRepo = nccRepo;
-            _nvRepo = nvRepo;
+            _nhaCungCapRepo = nhaCungCapRepo;
+            _nhanVienRepo = nhanVienRepo;
+            _sanPhamRepo = sanPhamRepo;
         }
 
-        public List<ChiTietHDNResponse> GetChiTietForDisplay(string maHDN)
+        //them hoa don nhap cung toan bo chi tiet hoa don nhap
+        public string CreateHoaDonNhap(HoaDonNhapRequest request)
         {
-            try
+            //xu li Exception
+            handleExceptionCreate(request);
+            var hoaDon = new HoaDonNhap
             {
-                // Gọi phương thức đã có sẵn của ChiTietHDNImpl
-                return _chiTietRepo.GetDetailsByMaHDN(maHDN);
-            }
-            catch (Exception ex)
+                MaHDN = request.MaHDN,
+                MaNCC = request.MaNCC,
+                MaNV = request.MaNV,
+                NgayNhap = request.NgayNhap,
+                GhiChu = request.GhiChu
+            };
+
+            var chiTiets = request.ChiTiet.Select(ct => new ChiTietHoaDonNhap
             {
-                ExceptionHandler.Handle(ex);
-                return new List<ChiTietHDNResponse>();
+                MaHDN = hoaDon.MaHDN,
+                MaSP = ct.MaSP,
+                SoLuong = ct.SoLuong,
+                DonGia = ct.DonGia
+            }).ToList();
+
+            //tinh tong tien
+            var tongTien = chiTiets.Sum(ct => ct.SoLuong * ct.DonGia);
+            hoaDon.TongTien = tongTien;
+
+            string result = _hoaDonNhapRepo.InsertWithDetails(hoaDon, chiTiets);
+            if (result == null)
+            {
+                throw new Exception("Thêm hóa đơn nhập thất bại, dữ liệu có thể chưa được lưu.");
             }
+            return hoaDon.MaHDN;
         }
 
-        // TRIỂN KHAI SearchHoaDonNhap
-        public List<HoaDonNhapResponse> SearchHoaDonNhap(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV)
+        private void handleExceptionCreate(HoaDonNhapRequest request)
         {
-            try
+            //kiem tra request dau vao
+            if (request == null)
             {
-                return _repo.Search(maHDN, tuNgay, denNgay, maNCC, maNV);
+                throw new ArgumentNullException(nameof(request), "Dữ liệu hóa đơn không được để trống.");
             }
-            catch (Exception ex)
+            if (string.IsNullOrWhiteSpace(request.MaHDN))
             {
-                ExceptionHandler.Handle(ex);
-                return new List<HoaDonNhapResponse>();
+                throw new ArgumentException("Mã hóa đơn nhập không được để trống.", nameof(request.MaHDN));
+            }
+
+            if (string.IsNullOrWhiteSpace(request.MaNV))
+            {
+                throw new ArgumentException("Mã nhân viên không được để trống.", nameof(request.MaNV));
+            }
+
+            if (string.IsNullOrWhiteSpace(request.MaNCC))
+            {
+                throw new ArgumentException("Mã nhà cung cấp không được để trống.", nameof(request.MaNCC));
+            }
+            if (request.NgayNhap > DateTime.Now)
+            {
+                throw new ArgumentException("Ngày nhập không được lớn hơn ngày hiện tại.", nameof(request.NgayNhap));
+            }
+
+            //kiem tra nghiep vu ton tai
+            if (_hoaDonNhapRepo.Exists(request.MaHDN))
+                throw new ArgumentException($"Hóa đơn nhập với mã {request.MaHDN} đã tồn tại.", nameof(request.MaHDN));
+
+            //if (!_nhaCungCapRepo.Exists(request.MaNCC))
+            //    throw new InvalidOperationException("Nhà cung cấp không tồn tại.");
+
+            //if (!_nhanVienRepo.Exists(request.MaNV))
+            //    throw new InvalidOperationException("Nhân viên không tồn tại.");
+
+            //kiem tra du lieu chi tiet hoa don
+            if (request.ChiTiet == null || !request.ChiTiet.Any())
+            {
+                throw new ArgumentException("Danh sách chi tiết hóa đơn không được để trống.", nameof(request.ChiTiet));
+            }
+            var productSet = new HashSet<string>();
+            foreach (var ct in request.ChiTiet)
+            {
+                if (string.IsNullOrWhiteSpace(ct.MaSP))
+                    throw new ArgumentException("Mã sản phẩm không được rỗng.");
+
+                if (ct.SoLuong <= 0)
+                    throw new ArgumentException($"Số lượng của sản phẩm {ct.MaSP} phải lớn hơn 0.");
+
+                if (ct.DonGia <= 0)
+                    throw new ArgumentException($"Đơn giá của sản phẩm {ct.MaSP} phải lớn hơn 0.");
+
+                //if (!_sanPhamRepo.Exists(ct.MaSP))
+                //    throw new InvalidOperationException($"Sản phẩm {ct.MaSP} không tồn tại trong hệ thống.");
+
+                if (!productSet.Add(ct.MaSP))
+                    throw new ArgumentException($"Sản phẩm {ct.MaSP} bị trùng trong danh sách chi tiết.");
             }
         }
 
-        // TRIỂN KHAI DeleteHoaDonNhap (NGHIỆP VỤ QUAN TRỌNG)
-        public void DeleteHoaDonNhap(string maHDN)
-        {
-            try
-            {
-                // 1. Phải xoá chi tiết hóa đơn trước (để tránh lỗi khóa ngoại)
-                _chiTietRepo.DeleteByMaHDN(maHDN);
-
-                // 2. Sau đó mới xoá hóa đơn chính
-                _repo.Delete(maHDN);
-            }
-            catch (Exception ex)
-            {
-                // Ném lỗi lên tầng trên (Controller) để hiển thị
-                throw new ApplicationException($"Lỗi khi xoá hoá đơn {maHDN}: {ex.Message}", ex);
-            }
-        }
-
-        // TRIỂN KHAI LẤY DỮ LIỆU COMBOBOX
-        public List<NhaCungCap> GetNhaCungCapList()
-        {
-            return _nccRepo.GetAll();
-        }
-
-        public List<NhanVien> GetNhanVienList()
-        {
-            return _nvRepo.GetAll();
-        }
-
+        //lay danh sach hoa don nhap de xem chi tiet 1 hoa don nahp
         public List<HoaDonNhapResponse> GetAllHoaDonNhap()
         {
+            return _hoaDonNhapRepo.GetAllHoaDonNhap();
         }
 
-        public List<HoaDonNhapResponse> GetAll()
+        //lay hoa don nhap va chi tiet hoa don don nhap cua no
+        public HoaDonNhapResponse GetHoaDonNhapById(string maHDN)
         {
-            throw new NotImplementedException();
-        }
+            if (string.IsNullOrWhiteSpace(maHDN))
+            {
+                throw new ArgumentException("Mã hoá đơn nhập không được bỏ trống");
+            }
 
-        public HoaDonNhap GetById(string maHDN)
-        {
-            throw new NotImplementedException();
+            var response = _hoaDonNhapRepo.HoaDonNhapViewModel(maHDN);
+            if (response == null)
+            {
+                throw new InvalidOperationException($"Không tìm thấy hóa đơn nhập với mã {maHDN}.");
+            }
+            return response;
         }
 
         public List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV)
         {
-            throw new NotImplementedException();
+            return _hoaDonNhapRepo.Search(maHDN, tuNgay, denNgay, maNCC, maNV);
         }
 
-        public void Add(HoaDonNhapRequest request)
+        public bool UpdateHoaDonNhap(HoaDonNhapUpdateRequest request)
         {
-            throw new NotImplementedException();
+            //xu li loi
+            handleUpdateExceptioin(request);
+            if (!_hoaDonNhapRepo.Exists(request.MaHDN)) return false;
+            return _hoaDonNhapRepo.UpdateInfo(request.MaHDN, request.NgayNhap, request.GhiChu);
         }
 
-        public void Update(HoaDonNhapRequest request)
+        private void handleUpdateExceptioin(HoaDonNhapUpdateRequest request)
         {
-            throw new NotImplementedException();
+            if (request == null)
+                throw new ArgumentNullException(nameof(request), "Dữ liệu cập nhập không được bỏ trống");
+            if (string.IsNullOrWhiteSpace(request.MaHDN))
+                throw new ArgumentException("Mã hoá đơn cập nhật không được bỏ trống", nameof(request.MaHDN));
+            if (request.NgayNhap > DateTime.Now)
+                throw new ArgumentException("Ngày nhập không được lớn hơn ngày hiện tại.", nameof(request.NgayNhap));
         }
 
-        public void Delete(string maHDN)
-        {
-            throw new NotImplementedException();
-        }
-
-        public HoaDonNhapResponse GetHoaDonNhapById(string maHDN)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void CreateHoaDonNhap(HoaDonNhapRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void UpdateHoaDonNhap(HoaDonNhapRequest request)
+        bool IHoaDonNhapService.DeleteHoaDonNhap(string maHDN)
         {
             throw new NotImplementedException();
         }

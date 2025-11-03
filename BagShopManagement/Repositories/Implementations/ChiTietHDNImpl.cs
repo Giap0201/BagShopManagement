@@ -2,9 +2,11 @@
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
+using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Text;
@@ -16,7 +18,7 @@ namespace BagShopManagement.Repositories.Implementations
     {
         public List<ChiTietHoaDonNhap> GetByMaHDN(string maHDN)
         {
-            string query = "SELECT * FROM ChiTietHoaDonNhap WHERE MaHDN=@MaHDN";
+            string query = "SELECT MaHDN, MaSP, SoLuong, DonGia  FROM ChiTietHoaDonNhap WHERE MaHDN=@MaHDN";
             var dt = ExecuteQuery(query, new SqlParameter("@MaHDN", maHDN));
             List<ChiTietHoaDonNhap> list = new List<ChiTietHoaDonNhap>();
 
@@ -35,6 +37,7 @@ namespace BagShopManagement.Repositories.Implementations
 
         public bool Insert(ChiTietHoaDonNhap chiTiet)
         {
+            if (chiTiet == null) throw new ArgumentNullException(nameof(chiTiet));
             string query = @"INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia)
                              VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia)";
             var parameters = new SqlParameter[]
@@ -49,14 +52,38 @@ namespace BagShopManagement.Repositories.Implementations
 
         public bool InsertMany(List<ChiTietHoaDonNhap> chiTiets)
         {
-            foreach (var ct in chiTiets)
+            if (chiTiets == null || chiTiets.Count == 0) return false;
+            // dung transaction de dam bao tinh toan ven du lieu
+            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
             {
-                if (!Insert(ct))
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
                 {
-                    return false;
+                    try
+                    {
+                        foreach (var ct in chiTiets)
+                        {
+                            string query = @"INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia)
+                                             VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia)";
+                            using (var cmd = new SqlCommand(query, conn, tran))
+                            {
+                                cmd.Parameters.AddWithValue("@MaHDN", ct.MaHDN);
+                                cmd.Parameters.AddWithValue("@MaSP", ct.MaSP);
+                                cmd.Parameters.AddWithValue("@SoLuong", ct.SoLuong);
+                                cmd.Parameters.AddWithValue("@DonGia", ct.DonGia);
+                                cmd.ExecuteNonQuery();
+                            }
+                        }
+                        tran.Commit();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
+                        tran.Rollback();
+                        throw new ApplicationException("Lỗi khi thêm nhiều chi tiết hóa đơn nhập. Giao dịch đã được hoàn tác.");
+                    }
                 }
             }
-            return true;
         }
 
         public bool DeleteByMaHDN(string maHDN)
