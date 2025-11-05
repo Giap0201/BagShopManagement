@@ -33,7 +33,7 @@
             sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
-            themHoaDonNhapControl1 = new BagShopManagement.Views.Dev6.ThemHoaDonNhapControl();
+            ucHoaDonNhapList2 = new BagShopManagement.Views.Dev6.ucHoaDonNhapList();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -46,7 +46,7 @@
             sideBarControl1.Dock = DockStyle.Left;
             sideBarControl1.Location = new Point(0, 76);
             sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(334, 620);
+            sideBarControl1.Size = new Size(341, 620);
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
             // 
@@ -56,23 +56,23 @@
             headerControl1.Dock = DockStyle.Top;
             headerControl1.Location = new Point(0, 0);
             headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1745, 76);
+            headerControl1.Size = new Size(1693, 76);
             headerControl1.TabIndex = 0;
             // 
-            // themHoaDonNhapControl1
+            // ucHoaDonNhapList2
             // 
-            themHoaDonNhapControl1.Dock = DockStyle.Fill;
-            themHoaDonNhapControl1.Location = new Point(334, 76);
-            themHoaDonNhapControl1.Name = "themHoaDonNhapControl1";
-            themHoaDonNhapControl1.Size = new Size(1411, 620);
-            themHoaDonNhapControl1.TabIndex = 2;
+            ucHoaDonNhapList2.Dock = DockStyle.Fill;
+            ucHoaDonNhapList2.Location = new Point(341, 76);
+            ucHoaDonNhapList2.Name = "ucHoaDonNhapList2";
+            ucHoaDonNhapList2.Size = new Size(1352, 620);
+            ucHoaDonNhapList2.TabIndex = 2;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1745, 696);
-            Controls.Add(themHoaDonNhapControl1);
+            ClientSize = new Size(1693, 696);
+            Controls.Add(ucHoaDonNhapList2);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -89,6 +89,7 @@
         private Controls.SideBarControl sideBarControl1;
         private Controls.HeaderControl headerControl1;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
-        private Dev6.ThemHoaDonNhapControl themHoaDonNhapControl1;
+        private Dev6.ucHoaDonNhapList ucHoaDonNhapList1;
+        private Dev6.ucHoaDonNhapList ucHoaDonNhapList2;
     }
 }

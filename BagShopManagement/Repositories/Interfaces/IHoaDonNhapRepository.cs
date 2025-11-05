@@ -1,41 +1,49 @@
-﻿using BagShopManagement.DTOs.Responses;
+﻿// Namespaces của bạn
+using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
+using BagShopManagement.Models.Enums; // Cần thêm Enum
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Interfaces
 {
     public interface IHoaDonNhapRepository
     {
-        //kiem tra xem hoa don nhao da ton tai chua
+        //Kiem tra hoa don nhap da ton tai trong he thong chua
         bool Exists(string maHDN);
 
-        //lay ra hoa don nhap theo ma hoa don nhap
+        //Lay thuc the hoa don nhap theo ma hoa don nhap
         HoaDonNhap GetById(string maHDN);
 
-        //them hoa don nhap va chi tiet hoa don nhap cung luc
-        string InsertWithDetails(HoaDonNhap hoaDonNhap, List<ChiTietHoaDonNhap> chiTiets);
-
-        string Insert(HoaDonNhap hoaDonNhap);
-
-        bool Update(HoaDonNhap hoaDonNhap);
-
-        bool Delete(string maHDN);
-
-        List<HoaDonNhap> GetAll();
-
-        List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV);
-
-        //lay ra danh sach hoa don nhap cua he thong
+        //Lay danh sach tat ca hoa don nhap de hien thi ra UI
         List<HoaDonNhapResponse> GetAllHoaDonNhap();
 
-        //phuong thuc lay ra 1 hoa don nhap va cac chi tiet hoa don nhap cua no dung de xem chi tiet hoa don
-        HoaDonNhapResponse HoaDonNhapViewModel(string maHDN);
+        //Tim kiem hoa don nhap theo cac tieu chi
+        List<HoaDonNhapResponse> Search(
+            string? maHDN,
+            DateTime? tuNgay,
+            DateTime? denNgay,
+            string? maNCC,
+            string? maNV,
+            byte? trangThai = null
+        );
 
-        //chi cho cap nhat cac thong tin can thiet, khong cap nhat cac thong tin goc
-        bool UpdateInfo(string maHDN, DateTime ngayNhap, string ghiChu);
+        // lay chi tiet 1 hoa don nhap dung cho phan xem chi tiet
+        HoaDonNhapResponse GetHoaDonNhapDetail(string maHDN);
+
+        //Tao moi hoa don nhap o trang thai tam luu
+        string InsertDraft(HoaDonNhap hoaDonNhap, List<ChiTietHoaDonNhap> chiTiets);
+
+        ///Cap nhat thong tin hoa don nhap o trang thai tam luu
+        bool UpdateDraftHeader(HoaDonNhap hoaDonNhap);
+
+        // cap nhap trang thai hoa don nhap va cong ton kho khi duyet hoa don
+        bool ApproveDraftHoaDonNhap(string maHDN, DateTime ngayDuyet, List<ChiTietHoaDonNhap> chiTiets);
+
+        //huy hoa don khi hoa don dang o trang thai hoat dong, phai kiem tra xem ton kho truoc khi huy
+        bool CancelActiveHoaDonNhap(string maHDN, DateTime ngayHuy, List<ChiTietHoaDonNhap> chiTiets);
+
+        // cap nhat trang thai don gian khong anh huong den ton kho
+        bool UpdateTrangThai(string maHDN, TrangThaiHoaDonNhap trangThai);
     }
 }
