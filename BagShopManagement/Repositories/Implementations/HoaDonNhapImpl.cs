@@ -1,23 +1,26 @@
 ﻿using BagShopManagement.DataAccess;
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
+using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
-using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
     public class HoaDonNhapImpl : BaseRepository, IHoaDonNhapRepository
     {
-        // Helper map tu SqlDataReader/DataRow sang Model
+        private readonly string _connectionString;
+
+        public HoaDonNhapImpl()
+        {
+            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+        }
+
         private HoaDonNhap MapToHoaDonNhap(DataRow row)
         {
             return new HoaDonNhap
@@ -26,268 +29,352 @@ namespace BagShopManagement.Repositories.Implementations
                 MaNCC = row["MaNCC"].ToString(),
                 MaNV = row["MaNV"].ToString(),
                 NgayNhap = Convert.ToDateTime(row["NgayNhap"]),
+                NgayDuyet = row.IsNull("NgayDuyet") ? null : Convert.ToDateTime(row["NgayDuyet"]),
                 TongTien = Convert.ToDecimal(row["TongTien"]),
-                GhiChu = row["GhiChu"] != DBNull.Value ? row["GhiChu"].ToString() : null
+                GhiChu = row.IsNull("GhiChu") ? null : row["GhiChu"].ToString(),
+                TrangThai = Convert.ToByte(row["TrangThai"])
             };
         }
 
-        // Helper map tu SqlDataReader/DataRow sang DTO
         private HoaDonNhapResponse MapToHoaDonNhapResponse(DataRow row)
         {
             return new HoaDonNhapResponse
             {
                 MaHDN = row["MaHDN"].ToString(),
-                TenNCC = row["TenNCC"] != DBNull.Value ? row["TenNCC"].ToString() : null,
-                TenNV = row["TenNV"] != DBNull.Value ? row["TenNV"].ToString() : null,
-                NgayNhap = (DateTime)row["NgayNhap"],
-                TongTien = (decimal)row["TongTien"],
-                GhiChu = row["GhiChu"] != DBNull.Value ? row["GhiChu"].ToString() : null
+                MaNCC = row["MaNCC"].ToString(),
+                TenNCC = row.IsNull("TenNCC") ? "" : row["TenNCC"].ToString(),
+                MaNV = row["MaNV"].ToString(),
+                TenNV = row.IsNull("TenNV") ? "" : row["TenNV"].ToString(),
+                NgayNhap = Convert.ToDateTime(row["NgayNhap"]),
+                NgayDuyet = row.IsNull("NgayDuyet") ? null : Convert.ToDateTime(row["NgayDuyet"]),
+                TongTien = Convert.ToDecimal(row["TongTien"]),
+                GhiChu = row.IsNull("GhiChu") ? null : row["GhiChu"].ToString(),
+                TrangThai = (TrangThaiHoaDonNhap)Convert.ToByte(row["TrangThai"])
             };
         }
 
-        //kiem tra da co hoa don nhap ton tai chua
+        private HoaDonNhapResponse MapHeader(IDataRecord reader)
+        {
+            return new HoaDonNhapResponse
+            {
+                MaHDN = reader["MaHDN"].ToString(),
+                MaNCC = reader.IsDBNull(reader.GetOrdinal("MaNCC")) ? "" : reader["MaNCC"].ToString(),
+                TenNCC = reader.IsDBNull(reader.GetOrdinal("TenNCC")) ? "" : reader["TenNCC"].ToString(),
+                MaNV = reader.IsDBNull(reader.GetOrdinal("MaNV")) ? "" : reader["MaNV"].ToString(),
+                TenNV = reader.IsDBNull(reader.GetOrdinal("TenNV")) ? "" : reader["TenNV"].ToString(),
+                NgayNhap = Convert.ToDateTime(reader["NgayNhap"]),
+                NgayDuyet = reader.IsDBNull(reader.GetOrdinal("NgayDuyet")) ? null : Convert.ToDateTime(reader["NgayDuyet"]),
+                TongTien = Convert.ToDecimal(reader["TongTien"]),
+                GhiChu = reader.IsDBNull(reader.GetOrdinal("GhiChu")) ? null : reader["GhiChu"].ToString(),
+                TrangThai = (TrangThaiHoaDonNhap)Convert.ToByte(reader["TrangThai"])
+            };
+        }
+
+        private ChiTietHDNResponse MapDetail(IDataRecord reader)
+        {
+            return new ChiTietHDNResponse
+            {
+                MaSP = reader["MaSP"].ToString(),
+                TenSP = reader.IsDBNull(reader.GetOrdinal("TenSP")) ? "" : reader["TenSP"].ToString(),
+                SoLuong = Convert.ToInt32(reader["SoLuong"]),
+                DonGia = Convert.ToDecimal(reader["DonGia"])
+                // Thành tiền được tính ở lớp DTO Response
+            };
+        }
+
         public bool Exists(string maHDN)
         {
-            string query = "SELECT COUNT(1) FROM HoaDonNhap WHERE MaHDN = @MaHDN";
-            var param = new SqlParameter("@MaHDN", maHDN);
-            Object result = base.ExecuteScalar(query, param);
-            return Convert.ToInt32(result) > 0;
+            string sql = "SELECT COUNT(1) FROM HoaDonNhap WHERE MaHDN = @MaHDN";
+            return Convert.ToInt32(ExecuteScalar(sql, new SqlParameter("@MaHDN", maHDN))) > 0;
         }
 
-        //lay toan bo hoa do nhap chua join thong tin khac
-        public List<HoaDonNhap> GetAll()
+        public HoaDonNhap GetById(string maHDN)
         {
-            string query = "SELECT MaHDN, MaNCC, MaNV, NgayNhap, TongTien, GhiChu FROM HoaDonNhap";
-            var dt = ExecuteQuery(query);
-
-            List<HoaDonNhap> list = new List<HoaDonNhap>();
-            foreach (DataRow row in dt.Rows)
-            {
-                list.Add(MapToHoaDonNhap(row));
-            }
-            return list;
+            string query = "SELECT * FROM HoaDonNhap WHERE MaHDN = @MaHDN";
+            // Giả định BaseRepository có phương thức ExecuteQuery
+            var dt = ExecuteQuery(query, new SqlParameter("@MaHDN", maHDN));
+            return dt.Rows.Count > 0 ? MapToHoaDonNhap(dt.Rows[0]) : null;
         }
 
-        //lay toan bo hoa don nhap da join thong tin khac de hien thi len giao dien
         public List<HoaDonNhapResponse> GetAllHoaDonNhap()
         {
             string query = @"
-                SELECT hdn.MaHDN, ncc.TenNCC, nv.HoTen AS TenNV, hdn.NgayNhap, hdn.TongTien, hdn.GhiChu
+                SELECT hdn.MaHDN, hdn.MaNCC, ncc.TenNCC, hdn.MaNV, nv.HoTen AS TenNV,
+                       hdn.NgayNhap, hdn.NgayDuyet, hdn.TongTien, hdn.GhiChu, hdn.TrangThai
                 FROM HoaDonNhap hdn
                 LEFT JOIN NhaCungCap ncc ON hdn.MaNCC = ncc.MaNCC
                 LEFT JOIN NhanVien nv ON hdn.MaNV = nv.MaNV
                 ORDER BY hdn.NgayNhap DESC";
-            DataTable dt = base.ExecuteQuery(query.ToString());
+            DataTable dt = ExecuteQuery(query);
 
             var list = new List<HoaDonNhapResponse>();
             foreach (DataRow row in dt.Rows)
-            {
                 list.Add(MapToHoaDonNhapResponse(row));
-            }
             return list;
         }
 
-        //lay ra hoa don nhap theo ma hoa don nhap chua map thong tin khac
-        public HoaDonNhap GetById(string maHDN)
+        public string InsertDraft(HoaDonNhap hoaDonNhap, List<ChiTietHoaDonNhap> chiTiets)
         {
-            string query = "SELECT * FROM HoaDonNhap WHERE MaHDN = @MaHDN";
-            string connString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            using (var conn = new SqlConnection(connString))
-            using (var cmd = new SqlCommand(query, conn))
+            if (hoaDonNhap == null) throw new ArgumentNullException(nameof(hoaDonNhap));
+            if (chiTiets == null || chiTiets.Count == 0)
+                throw new ArgumentException("Danh sách chi tiết không được rỗng.", nameof(chiTiets));
+
+            hoaDonNhap.TrangThai = (byte)TrangThaiHoaDonNhap.TamLuu;
+            hoaDonNhap.NgayDuyet = null;
+
+            using var conn = new SqlConnection(_connectionString);
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+            try
             {
-                cmd.Parameters.AddWithValue("@MaHDN", maHDN);
-                conn.Open();
-                using (var reader = cmd.ExecuteReader())
+                string sqlInsertHDN = @"
+                    INSERT INTO HoaDonNhap(MaHDN, MaNCC, MaNV, NgayNhap, NgayDuyet, TongTien, GhiChu, TrangThai)
+                    VALUES(@MaHDN, @MaNCC, @MaNV, @NgayNhap, @NgayDuyet, @TongTien, @GhiChu, @TrangThai)";
+                using (var cmd = new SqlCommand(sqlInsertHDN, conn, tran))
                 {
-                    if (reader.Read())
-                    {
-                        return new HoaDonNhap
-                        {
-                            MaHDN = reader["MaHDN"].ToString(),
-                            MaNCC = reader["MaNCC"].ToString(),
-                            MaNV = reader["MaNV"].ToString(),
-                            NgayNhap = Convert.ToDateTime(reader["NgayNhap"]),
-                            TongTien = Convert.ToDecimal(reader["TongTien"]),
-                            GhiChu = reader["GhiChu"] != DBNull.Value ? reader["GhiChu"].ToString() : null
-                        };
-                    }
+                    cmd.Parameters.AddWithValue("@MaHDN", hoaDonNhap.MaHDN);
+                    cmd.Parameters.AddWithValue("@MaNCC", hoaDonNhap.MaNCC);
+                    cmd.Parameters.AddWithValue("@MaNV", hoaDonNhap.MaNV);
+                    cmd.Parameters.AddWithValue("@NgayNhap", hoaDonNhap.NgayNhap);
+                    cmd.Parameters.AddWithValue("@NgayDuyet", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TongTien", hoaDonNhap.TongTien);
+                    cmd.Parameters.AddWithValue("@GhiChu", (object?)hoaDonNhap.GhiChu ?? DBNull.Value);
+                    cmd.Parameters.AddWithValue("@TrangThai", hoaDonNhap.TrangThai);
+                    cmd.ExecuteNonQuery();
                 }
+
+                string sqlCT = @"
+                    INSERT INTO ChiTietHoaDonNhap(MaHDN, MaSP, SoLuong, DonGia, ThanhTien)
+                    VALUES(@MaHDN, @MaSP, @SL, @DG, @TT)";
+
+                using var cmdCT = new SqlCommand(sqlCT, conn, tran);
+                cmdCT.Parameters.Add("@MaHDN", SqlDbType.VarChar, 20).Value = hoaDonNhap.MaHDN;
+                cmdCT.Parameters.Add("@MaSP", SqlDbType.VarChar, 20);
+                cmdCT.Parameters.Add("@SL", SqlDbType.Int);
+                cmdCT.Parameters.Add("@DG", SqlDbType.Decimal);
+                cmdCT.Parameters.Add("@TT", SqlDbType.Decimal);
+
+                foreach (var ct in chiTiets)
+                {
+                    cmdCT.Parameters["@MaSP"].Value = ct.MaSP;
+                    cmdCT.Parameters["@SL"].Value = ct.SoLuong;
+                    cmdCT.Parameters["@DG"].Value = ct.DonGia;
+                    cmdCT.Parameters["@TT"].Value = ct.ThanhTien;
+                    cmdCT.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+                return hoaDonNhap.MaHDN;
             }
-            return null;
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Lỗi khi thêm hóa đơn nhập: " + ex.Message, ex);
+            }
         }
 
-        //phuong thuc lay ra 1 hoa don nhap va cac chi tiet hoa don nhap cua no dung de xem chi tiet hoa don
-        public HoaDonNhapResponse HoaDonNhapViewModel(string maHDN)
+        public bool UpdateDraftHeader(HoaDonNhap hoaDonNhap)
         {
-            string query1 = @"
+            string sql = @"
+                UPDATE HoaDonNhap
+                SET MaNCC = @MaNCC,
+                    MaNV = @MaNV,
+                    NgayNhap = @NgayNhap,
+                    GhiChu = @GhiChu
+                WHERE MaHDN = @MaHDN AND TrangThai = @TamLuu";
+
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@MaNCC", hoaDonNhap.MaNCC);
+            cmd.Parameters.AddWithValue("@MaNV", hoaDonNhap.MaNV);
+            cmd.Parameters.AddWithValue("@NgayNhap", hoaDonNhap.NgayNhap);
+            cmd.Parameters.AddWithValue("@GhiChu", (object?)hoaDonNhap.GhiChu ?? DBNull.Value);
+            cmd.Parameters.AddWithValue("@MaHDN", hoaDonNhap.MaHDN);
+            cmd.Parameters.AddWithValue("@TamLuu", (byte)TrangThaiHoaDonNhap.TamLuu);
+
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
+        /// Duyệt hóa đơn nhập → cập nhật trạng thái = Hoạt động, gán NgàyDuyet, cộng tồn kho.
+        public bool ApproveDraftHoaDonNhap(string maHDN, DateTime ngayDuyet, List<ChiTietHoaDonNhap> chiTiets)
+        {
+            if (chiTiets == null || chiTiets.Count == 0)
+                throw new ArgumentException("Chi tiết không được rỗng để duyệt.", nameof(chiTiets));
+
+            using var conn = new SqlConnection(_connectionString);
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+            try
+            {
+                string sqlUpdateKho = "UPDATE SanPham SET SoLuongTon = SoLuongTon + @SL WHERE MaSP = @MaSP";
+                using (var cmdKho = new SqlCommand(sqlUpdateKho, conn, tran))
+                {
+                    cmdKho.Parameters.Add("@SL", SqlDbType.Int);
+                    cmdKho.Parameters.Add("@MaSP", SqlDbType.VarChar, 20);
+
+                    foreach (var ct in chiTiets)
+                    {
+                        cmdKho.Parameters["@SL"].Value = ct.SoLuong;
+                        cmdKho.Parameters["@MaSP"].Value = ct.MaSP;
+                        cmdKho.ExecuteNonQuery();
+                    }
+                }
+
+                string sqlHDN = @"
+                    UPDATE HoaDonNhap
+                    SET TrangThai = @TrangThaiMoi, NgayDuyet = @NgayDuyet
+                    WHERE MaHDN = @MaHDN AND TrangThai = @TrangThaiCu";
+                using var cmdHDN = new SqlCommand(sqlHDN, conn, tran);
+                cmdHDN.Parameters.AddWithValue("@TrangThaiMoi", (byte)TrangThaiHoaDonNhap.HoatDong);
+                cmdHDN.Parameters.AddWithValue("@NgayDuyet", ngayDuyet);
+                cmdHDN.Parameters.AddWithValue("@MaHDN", maHDN);
+                cmdHDN.Parameters.AddWithValue("@TrangThaiCu", (byte)TrangThaiHoaDonNhap.TamLuu);
+
+                int rowsAffected = cmdHDN.ExecuteNonQuery();
+                if (rowsAffected == 0)
+                    throw new ApplicationException("Hóa đơn không ở trạng thái 'Tạm lưu' hoặc không tồn tại.");
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Lỗi khi duyệt hóa đơn nhập: " + ex.Message, ex);
+            }
+        }
+
+        public bool CancelActiveHoaDonNhap(string maHDN, DateTime ngayHuy, List<ChiTietHoaDonNhap> chiTiets)
+        {
+            if (chiTiets == null || chiTiets.Count == 0)
+                throw new ArgumentException("Chi tiết không được rỗng để hủy.", nameof(chiTiets));
+
+            using var conn = new SqlConnection(_connectionString);
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+            try
+            {
+                string sqlTruKho = "UPDATE SanPham SET SoLuongTon = SoLuongTon - @SL WHERE MaSP = @MaSP";
+                using (var cmdKho = new SqlCommand(sqlTruKho, conn, tran))
+                {
+                    cmdKho.Parameters.Add("@SL", SqlDbType.Int);
+                    cmdKho.Parameters.Add("@MaSP", SqlDbType.VarChar, 20);
+
+                    foreach (var ct in chiTiets)
+                    {
+                        cmdKho.Parameters["@SL"].Value = ct.SoLuong;
+                        cmdKho.Parameters["@MaSP"].Value = ct.MaSP;
+                        cmdKho.ExecuteNonQuery();
+                    }
+                }
+
+                string sqlUpdate = @"
+                    UPDATE HoaDonNhap
+                    SET TrangThai = @TrangThaiMoi, NgayHuy = @NgayHuy
+                    WHERE MaHDN = @MaHDN AND TrangThai = @TrangThaiCu";
+                using var cmdU = new SqlCommand(sqlUpdate, conn, tran);
+                cmdU.Parameters.AddWithValue("@TrangThaiMoi", (byte)TrangThaiHoaDonNhap.DaHuy);
+                cmdU.Parameters.AddWithValue("@NgayHuy", ngayHuy);
+                cmdU.Parameters.AddWithValue("@MaHDN", maHDN);
+                cmdU.Parameters.AddWithValue("@TrangThaiCu", (byte)TrangThaiHoaDonNhap.HoatDong);
+
+                if (cmdU.ExecuteNonQuery() == 0)
+                    throw new ApplicationException("Hóa đơn không ở trạng thái 'Hoạt động' hoặc không tồn tại.");
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Lỗi khi hủy hóa đơn nhập: " + ex.Message, ex);
+            }
+        }
+
+        public bool UpdateTrangThai(string maHDN, TrangThaiHoaDonNhap trangThai)
+        {
+            string sql = "UPDATE HoaDonNhap SET TrangThai = @TT WHERE MaHDN = @MaHDN";
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@TT", (byte)trangThai);
+            cmd.Parameters.AddWithValue("@MaHDN", maHDN);
+
+            conn.Open();
+            return cmd.ExecuteNonQuery() > 0;
+        }
+
+        public HoaDonNhapResponse GetHoaDonNhapDetail(string maHDN)
+        {
+            string sql = @"
                 SELECT h.MaHDN, h.MaNCC, ncc.TenNCC, h.MaNV, nv.HoTen AS TenNV,
-                       h.NgayNhap, h.TongTien, h.GhiChu
+                       h.NgayNhap, h.NgayDuyet, h.TongTien, h.GhiChu, h.TrangThai
                 FROM HoaDonNhap h
                 LEFT JOIN NhaCungCap ncc ON h.MaNCC = ncc.MaNCC
                 LEFT JOIN NhanVien nv ON h.MaNV = nv.MaNV
                 WHERE h.MaHDN = @MaHDN;
-            ";
 
-            string query2 = @"
                 SELECT c.MaSP, sp.TenSP, c.SoLuong, c.DonGia
                 FROM ChiTietHoaDonNhap c
                 LEFT JOIN SanPham sp ON c.MaSP = sp.MaSP
-                WHERE c.MaHDN = @MaHDN;
-            ";
-            string finalQuery = query1 + query2;
-            HoaDonNhapResponse hoaDonNhapResponse = null;
-            var chiTiets = new List<ChiTietHDNResponse>();
-            string connString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            using (var conn = new SqlConnection(connString))
+                WHERE c.MaHDN = @MaHDN;";
+
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@MaHDN", maHDN);
+            conn.Open();
+
+            HoaDonNhapResponse result = null;
+            List<ChiTietHDNResponse> details = new();
+
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+                result = MapHeader(reader);
+
+            if (reader.NextResult())
             {
-                using (var cmd = new SqlCommand(finalQuery, conn))
-                {
-                    cmd.Parameters.AddWithValue("@MaHDN", maHDN);
-                    conn.Open();
-
-                    using (var reader = cmd.ExecuteReader())
-                    {
-                        if (reader.Read())
-                        {
-                            hoaDonNhapResponse = new HoaDonNhapResponse
-                            {
-                                MaHDN = reader["MaHDN"].ToString(),
-                                MaNCC = reader["MaNCC"] != DBNull.Value ? reader["MaNCC"].ToString() : null,
-                                TenNCC = reader["TenNCC"] != DBNull.Value ? reader["TenNCC"].ToString() : null,
-                                MaNV = reader["MaNV"] != DBNull.Value ? reader["MaNV"].ToString() : null,
-                                TenNV = reader["TenNV"] != DBNull.Value ? reader["TenNV"].ToString() : null,
-                                NgayNhap = Convert.ToDateTime(reader["NgayNhap"]),
-                                TongTien = Convert.ToDecimal(reader["TongTien"]),
-                                GhiChu = reader["GhiChu"] != DBNull.Value ? reader["GhiChu"].ToString() : null
-                            };
-                        }
-                        if (hoaDonNhapResponse == null) return null;
-
-                        if (reader.NextResult())
-                        {
-                            while (reader.Read())
-                            {
-                                var chiTiet = new ChiTietHDNResponse
-                                {
-                                    MaSP = reader["MaSP"].ToString(),
-                                    TenSP = reader["TenSP"] != DBNull.Value ? reader["TenSP"].ToString() : null,
-                                    SoLuong = Convert.ToInt32(reader["SoLuong"]),
-                                    DonGia = Convert.ToDecimal(reader["DonGia"])
-                                };
-                                chiTiets.Add(chiTiet);
-                            }
-                        }
-                        hoaDonNhapResponse.ChiTiet = chiTiets;
-                    }
-                }
+                while (reader.Read())
+                    details.Add(MapDetail(reader));
             }
 
-            return hoaDonNhapResponse;
+            if (result != null)
+                result.ChiTiet = details;
+
+            return result;
         }
 
-        //them hoa don nhap khong co chi tiet hoa don nhap
-        public string Insert(HoaDonNhap hoaDonNhap)
-        {
-            string query = @"INSERT INTO HoaDonNhap(MaHDN, MaNCC, MaNV, NgayNhap, TongTien, GhiChu)
-                             VALUES(@MaHDN, @MaNCC, @MaNV, @NgayNhap, @TongTien, @GhiChu)";
-
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@MaHDN", hoaDonNhap.MaHDN),
-                new SqlParameter("@MaNCC", hoaDonNhap.MaNCC),
-                new SqlParameter("@MaNV", hoaDonNhap.MaNV),
-                new SqlParameter("@NgayNhap", hoaDonNhap.NgayNhap),
-                new SqlParameter("@TongTien", hoaDonNhap.TongTien),
-                new SqlParameter("@GhiChu", (object?)hoaDonNhap.GhiChu ?? DBNull.Value)
-            };
-            ExecuteNonQuery(query, parameters);
-            return hoaDonNhap.MaHDN;
-        }
-
-        // them hoa don nhap va chi tiet hoa don nhap cung luc va cap nhat ton kho
-        public string InsertWithDetails(HoaDonNhap hoaDonNhap, List<ChiTietHoaDonNhap> chiTiets)
-        {
-            if (hoaDonNhap == null) throw new ArgumentNullException(nameof(hoaDonNhap));
-            if (chiTiets == null || chiTiets.Count == 0) throw new ArgumentException("Danh sách chi tiết không được rỗng.", nameof(chiTiets));
-
-            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
-            {
-                conn.Open();
-                using (var tran = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        // Thêm hóa đơn nhập
-                        string insertHDNQuery = @"INSERT INTO HoaDonNhap(MaHDN, MaNCC, MaNV, NgayNhap, TongTien, GhiChu)
-                                                  VALUES(@MaHDN, @MaNCC, @MaNV, @NgayNhap, @TongTien, @GhiChu)";
-                        using (var cmdHDN = new SqlCommand(insertHDNQuery, conn, tran))
-                        {
-                            cmdHDN.Parameters.AddWithValue("@MaHDN", hoaDonNhap.MaHDN);
-                            cmdHDN.Parameters.AddWithValue("@MaNCC", hoaDonNhap.MaNCC);
-                            cmdHDN.Parameters.AddWithValue("@MaNV", hoaDonNhap.MaNV);
-                            cmdHDN.Parameters.AddWithValue("@NgayNhap", hoaDonNhap.NgayNhap);
-                            cmdHDN.Parameters.AddWithValue("@TongTien", hoaDonNhap.TongTien);
-                            cmdHDN.Parameters.AddWithValue("@GhiChu", (object?)hoaDonNhap.GhiChu ?? DBNull.Value);
-                            cmdHDN.ExecuteNonQuery();
-                        }
-
-                        // Thêm chi tiết HĐN (LINES) VÀ CẬP NHẬT KHO
-                        foreach (var ct in chiTiets)
-                        {
-                            //  Thêm chi tiết hóa đơn nhập
-                            string insertCTQuery = @"INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia)
-                                                     VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia)";
-                            using (var cmdCT = new SqlCommand(insertCTQuery, conn, tran))
-                            {
-                                cmdCT.Parameters.AddWithValue("@MaHDN", ct.MaHDN);
-                                cmdCT.Parameters.AddWithValue("@MaSP", ct.MaSP);
-                                cmdCT.Parameters.AddWithValue("@SoLuong", ct.SoLuong);
-                                cmdCT.Parameters.AddWithValue("@DonGia", ct.DonGia);
-                                cmdCT.ExecuteNonQuery();
-                            }
-
-                            // Cập nhật tồn kho
-                            // Câu lệnh này cộng dồn số lượng vào tồn kho
-                            string updateTonKhoQuery = @"UPDATE SanPham
-                                                         SET SoLuongTon = SoLuongTon + @SoLuongNhap
-                                                         WHERE MaSP = @MaSP";
-                            using (var cmdTonKho = new SqlCommand(updateTonKhoQuery, conn, tran))
-                            {
-                                cmdTonKho.Parameters.AddWithValue("@SoLuongNhap", ct.SoLuong);
-                                cmdTonKho.Parameters.AddWithValue("@MaSP", ct.MaSP);
-                                cmdTonKho.ExecuteNonQuery();
-                            }
-                        }
-
-                        // Nếu tất cả OK -> Commit
-                        tran.Commit();
-                        return hoaDonNhap.MaHDN;
-                    }
-                    catch (Exception)
-                    {
-                        // Nếu có bất kỳ lỗi nào -> Rollback
-                        tran.Rollback();
-                        // Ném lỗi ra để tầng Service/Controller bắt
-                        throw new ApplicationException("Lỗi khi thêm hoá đơn nhập, chi tiết và cập nhật tồn kho. Giao dịch đã được hoàn tác.");
-                    }
-                }
-            }
-        }
-
-        public List<HoaDonNhapResponse> Search(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV)
+        public List<HoaDonNhapResponse> Search(string? maHDN, DateTime? tuNgay, DateTime? denNgay, string? maNCC, string? maNV, byte? trangThai = null)
         {
             var queryBuilder = new StringBuilder(@"
-                SELECT hdn.MaHDN, ncc.TenNCC, nv.HoTen AS TenNV, hdn.NgayNhap, hdn.TongTien, hdn.GhiChu
+                SELECT hdn.MaHDN, hdn.MaNCC, ncc.TenNCC, hdn.MaNV, nv.HoTen AS TenNV,
+                       hdn.NgayNhap, hdn.NgayDuyet, hdn.TongTien, hdn.GhiChu, hdn.TrangThai
                 FROM HoaDonNhap hdn
                 LEFT JOIN NhaCungCap ncc ON hdn.MaNCC = ncc.MaNCC
                 LEFT JOIN NhanVien nv ON hdn.MaNV = nv.MaNV
-                WHERE 1=1
-            ");
+                WHERE 1=1");
+
             var parameters = new List<SqlParameter>();
-            if (!string.IsNullOrWhiteSpace(maHDN))
+
+            if (!string.IsNullOrEmpty(maHDN))
             {
                 queryBuilder.Append(" AND hdn.MaHDN LIKE @MaHDN");
-                parameters.Add(new SqlParameter("@MaHDN", "%" + maHDN + "%"));
+                parameters.Add(new SqlParameter("@MaHDN", $"%{maHDN}%"));
+            }
+            if (!string.IsNullOrEmpty(maNCC))
+            {
+                queryBuilder.Append(" AND hdn.MaNCC = @MaNCC");
+                parameters.Add(new SqlParameter("@MaNCC", maNCC));
+            }
+            if (!string.IsNullOrEmpty(maNV))
+            {
+                queryBuilder.Append(" AND hdn.MaNV = @MaNV");
+                parameters.Add(new SqlParameter("@MaNV", maNV));
+            }
+            if (trangThai.HasValue)
+            {
+                queryBuilder.Append(" AND hdn.TrangThai = @TrangThai");
+                parameters.Add(new SqlParameter("@TrangThai", trangThai.Value));
             }
             if (tuNgay.HasValue)
             {
@@ -296,75 +383,18 @@ namespace BagShopManagement.Repositories.Implementations
             }
             if (denNgay.HasValue)
             {
-                queryBuilder.Append(" AND hdn.NgayNhap <= @DenNgay");
-                parameters.Add(new SqlParameter("@DenNgay", denNgay.Value.Date.AddDays(1).AddTicks(-1)));
+                queryBuilder.Append(" AND hdn.NgayNhap < @DenNgay");
+                parameters.Add(new SqlParameter("@DenNgay", denNgay.Value.Date.AddDays(1)));
             }
-            if (!string.IsNullOrWhiteSpace(maNCC))
-            {
-                queryBuilder.Append(" AND hdn.MaNCC = @MaNCC");
-                parameters.Add(new SqlParameter("@MaNCC", maNCC));
-            }
-            if (!string.IsNullOrWhiteSpace(maNV))
-            {
-                queryBuilder.Append(" AND hdn.MaNV = @MaNV");
-                parameters.Add(new SqlParameter("@MaNV", maNV));
-            }
+
             queryBuilder.Append(" ORDER BY hdn.NgayNhap DESC");
 
-            // Thực thi query
-            DataTable dt = base.ExecuteQuery(queryBuilder.ToString(), parameters.ToArray());
+            DataTable dt = ExecuteQuery(queryBuilder.ToString(), parameters.ToArray());
 
-            // Map kết quả
             var list = new List<HoaDonNhapResponse>();
             foreach (DataRow row in dt.Rows)
-            {
-                // Dùng helper để map an toàn
                 list.Add(MapToHoaDonNhapResponse(row));
-            }
             return list;
-        }
-
-        //Hàm này chuẩn
-        public bool UpdateInfo(string maHDN, DateTime ngayNhap, string ghiChu)
-        {
-            string query = @"UPDATE HoaDonNhap
-                             SET NgayNhap=@NgayNhap, GhiChu=@GhiChu
-                             WHERE MaHDN=@MaHDN";
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@MaHDN", maHDN),
-                new SqlParameter("@NgayNhap", ngayNhap),
-                new SqlParameter("@GhiChu", (object ?)ghiChu ?? DBNull.Value)
-            };
-            return ExecuteNonQuery(query, parameters) > 0;
-        }
-
-        // Các hàm implement interface rõ ràng
-        bool IHoaDonNhapRepository.Delete(string maHDN)
-        {
-            string query = "DELETE FROM HoaDonNhap WHERE MaHDN=@MaHDN";
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@MaHDN", maHDN)
-            };
-            return ExecuteNonQuery(query, parameters) > 0;
-        }
-
-        bool IHoaDonNhapRepository.Update(HoaDonNhap hoaDonNhap)
-        {
-            string query = @"UPDATE HoaDonNhap
-                             SET MaNCC=@MaNCC, MaNV=@MaNV, NgayNhap=@NgayNhap, TongTien=@TongTien, GhiChu=@GhiChu
-                             WHERE MaHDN=@MaHDN";
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@MaHDN", hoaDonNhap.MaHDN),
-                new SqlParameter("@MaNCC", hoaDonNhap.MaNCC),
-                new SqlParameter("@MaNV", hoaDonNhap.MaNV),
-                new SqlParameter("@NgayNhap", hoaDonNhap.NgayNhap),
-                new SqlParameter("@TongTien", hoaDonNhap.TongTien),
-                new SqlParameter("@GhiChu", (object ?)hoaDonNhap.GhiChu ?? DBNull.Value)
-            };
-            return ExecuteNonQuery(query, parameters) > 0;
         }
     }
 }

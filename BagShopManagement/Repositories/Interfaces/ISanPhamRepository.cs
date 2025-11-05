@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Interfaces
 {
-    public class ISanPhamRepository
+    public interface ISanPhamRepository
     {
     }
 }

@@ -25,6 +25,7 @@ namespace BagShopManagement.Views.Common
 
         private void sideBarControl1_Load(object sender, EventArgs e)
         {
+
         }
 
         private void hoaDonNhapControl1_Load(object sender, EventArgs e)

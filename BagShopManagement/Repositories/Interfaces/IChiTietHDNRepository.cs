@@ -10,14 +10,31 @@ namespace BagShopManagement.Repositories.Interfaces
 {
     public interface IChiTietHDNRepository
     {
-        bool Insert(ChiTietHoaDonNhap chiTiet);
+        //lay tat ca chi tiet cua 1 hoa don nhap
+        List<ChiTietHoaDonNhap> GetByHoaDonNhapId(string maHDN);
 
-        bool InsertMany(List<ChiTietHoaDonNhap> chiTiets);
+        //lay 1 chi tiet cu the cua hoa don nhap
+        ChiTietHoaDonNhap GetDetailById(string maHDN, string maSP);
 
-        bool Update(ChiTietHoaDonNhap chiTiet);
+        // kiem tra xem chi tiet da ton tai trong hoa don nhap chua
+        bool DetailExists(string maHDN, string maSP);
 
-        bool DeleteByMaHDN(string maHDN);
+        /// <summary>
+        /// [TRANSACTION] Thêm 1 chi tiết vào hóa đơn (khi đang Tạm lưu).
+        /// Phải cập nhật lại TongTien của HoaDonNhap cha.
+        /// </summary>
+        bool AddDetailToDraft(ChiTietHoaDonNhap chiTiet);
 
-        List<ChiTietHoaDonNhap> GetByMaHDN(string maHDN);
+        /// <summary>
+        /// [TRANSACTION] Cập nhật 1 chi tiết (Số lượng, Đơn giá) (khi đang Tạm lưu).
+        /// Phải cập nhật lại TongTien của HoaDonNhap cha.
+        /// </summary>
+        bool UpdateDetailInDraft(ChiTietHoaDonNhap chiTiet);
+
+        /// <summary>
+        /// [TRANSACTION] Xóa 1 chi tiết khỏi hóa đơn (khi đang Tạm lưu).
+        /// Phải cập nhật lại TongTien của HoaDonNhap cha.
+        /// </summary>
+        bool DeleteDetailFromDraft(string maHDN, string maSP);
     }
 }

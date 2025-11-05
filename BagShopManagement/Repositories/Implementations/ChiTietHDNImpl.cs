@@ -1,110 +1,240 @@
 ﻿using BagShopManagement.DataAccess;
-using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
+using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
-using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
     public class ChiTietHDNImpl : BaseRepository, IChiTietHDNRepository
     {
-        public List<ChiTietHoaDonNhap> GetByMaHDN(string maHDN)
-        {
-            string query = "SELECT MaHDN, MaSP, SoLuong, DonGia  FROM ChiTietHoaDonNhap WHERE MaHDN=@MaHDN";
-            var dt = ExecuteQuery(query, new SqlParameter("@MaHDN", maHDN));
-            List<ChiTietHoaDonNhap> list = new List<ChiTietHoaDonNhap>();
+        private readonly string _connectionString;
 
-            foreach (DataRow row in dt.Rows)
+        public ChiTietHDNImpl()
+        {
+            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+        }
+
+        private ChiTietHoaDonNhap MapToChiTiet(IDataRecord reader)
+        {
+            return new ChiTietHoaDonNhap
             {
-                list.Add(new ChiTietHoaDonNhap
-                {
-                    MaHDN = row["MaHDN"].ToString(),
-                    MaSP = row["MaSP"].ToString(),
-                    SoLuong = Convert.ToInt32(row["SoLuong"]),
-                    DonGia = Convert.ToDecimal(row["DonGia"])
-                });
+                MaHDN = reader["MaHDN"].ToString(),
+                MaSP = reader["MaSP"].ToString(),
+                SoLuong = Convert.ToInt32(reader["SoLuong"]),
+                DonGia = Convert.ToDecimal(reader["DonGia"]),
+                ThanhTien = Convert.ToDecimal(reader["ThanhTien"])
+            };
+        }
+
+        public List<ChiTietHoaDonNhap> GetByHoaDonNhapId(string maHDN)
+        {
+            var list = new List<ChiTietHoaDonNhap>();
+            string sql = "SELECT * FROM ChiTietHoaDonNhap WHERE MaHDN = @MaHDN";
+
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@MaHDN", maHDN);
+
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                list.Add(MapToChiTiet(reader));
             }
             return list;
         }
 
-        public bool Insert(ChiTietHoaDonNhap chiTiet)
+        public ChiTietHoaDonNhap GetDetailById(string maHDN, string maSP)
         {
-            if (chiTiet == null) throw new ArgumentNullException(nameof(chiTiet));
-            string query = @"INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia)
-                             VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia)";
-            var parameters = new SqlParameter[]
-            {
-                new SqlParameter("@MaHDN", chiTiet.MaHDN),
-                new SqlParameter("@MaSP", chiTiet.MaSP),
-                new SqlParameter("@SoLuong", chiTiet.SoLuong),
-                new SqlParameter("@DonGia", chiTiet.DonGia)
-            };
-            return ExecuteNonQuery(query, parameters) > 0;
+            string sql = "SELECT * FROM ChiTietHoaDonNhap WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@MaHDN", maHDN);
+            cmd.Parameters.AddWithValue("@MaSP", maSP);
+
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            return reader.Read() ? MapToChiTiet(reader) : null;
         }
 
-        public bool InsertMany(List<ChiTietHoaDonNhap> chiTiets)
+        public bool DetailExists(string maHDN, string maSP)
         {
-            if (chiTiets == null || chiTiets.Count == 0) return false;
-            // dung transaction de dam bao tinh toan ven du lieu
-            using (var conn = new SqlConnection(ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString))
+            string sql = "SELECT COUNT(1) FROM ChiTietHoaDonNhap WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
+            var result = ExecuteScalar(sql,
+                new SqlParameter("@MaHDN", maHDN),
+                new SqlParameter("@MaSP", maSP));
+            return Convert.ToInt32(result) > 0;
+        }
+
+        /// <summary>
+        /// [TRANSACTION] Thêm 1 chi tiết vào hóa đơn (khi đang Tạm lưu).
+        /// Cập nhật lại TongTien của HoaDonNhap cha.
+        /// </summary>
+        public bool AddDetailToDraft(ChiTietHoaDonNhap chiTiet)
+        {
+            using var conn = new SqlConnection(_connectionString);
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+            try
             {
-                conn.Open();
-                using (var tran = conn.BeginTransaction())
+                // 1. Thêm chi tiết
+                string sqlInsert = @"
+                    INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia, ThanhTien)
+                    VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia, @ThanhTien)";
+                using (var cmd = new SqlCommand(sqlInsert, conn, tran))
                 {
-                    try
-                    {
-                        foreach (var ct in chiTiets)
-                        {
-                            string query = @"INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia)
-                                             VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia)";
-                            using (var cmd = new SqlCommand(query, conn, tran))
-                            {
-                                cmd.Parameters.AddWithValue("@MaHDN", ct.MaHDN);
-                                cmd.Parameters.AddWithValue("@MaSP", ct.MaSP);
-                                cmd.Parameters.AddWithValue("@SoLuong", ct.SoLuong);
-                                cmd.Parameters.AddWithValue("@DonGia", ct.DonGia);
-                                cmd.ExecuteNonQuery();
-                            }
-                        }
-                        tran.Commit();
-                        return true;
-                    }
-                    catch (Exception)
-                    {
-                        tran.Rollback();
-                        throw new ApplicationException("Lỗi khi thêm nhiều chi tiết hóa đơn nhập. Giao dịch đã được hoàn tác.");
-                    }
+                    cmd.Parameters.AddWithValue("@MaHDN", chiTiet.MaHDN);
+                    cmd.Parameters.AddWithValue("@MaSP", chiTiet.MaSP);
+                    cmd.Parameters.AddWithValue("@SoLuong", chiTiet.SoLuong);
+                    cmd.Parameters.AddWithValue("@DonGia", chiTiet.DonGia);
+                    cmd.Parameters.AddWithValue("@ThanhTien", chiTiet.ThanhTien);
+                    cmd.ExecuteNonQuery();
                 }
+
+                // 2. Cập nhật Tổng tiền của hóa đơn cha
+                string sqlUpdateHD = @"
+                    UPDATE HoaDonNhap
+                    SET TongTien = TongTien + @ThanhTien
+                    WHERE MaHDN = @MaHDN AND TrangThai = @TamLuu";
+                using (var cmdUpdate = new SqlCommand(sqlUpdateHD, conn, tran))
+                {
+                    cmdUpdate.Parameters.AddWithValue("@ThanhTien", chiTiet.ThanhTien);
+                    cmdUpdate.Parameters.AddWithValue("@MaHDN", chiTiet.MaHDN);
+                    cmdUpdate.Parameters.AddWithValue("@TamLuu", (byte)TrangThaiHoaDonNhap.TamLuu);
+                    cmdUpdate.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Lỗi khi thêm chi tiết vào phiếu nháp: " + ex.Message, ex);
             }
         }
 
-        public bool DeleteByMaHDN(string maHDN)
+        /// <summary>
+        /// [TRANSACTION] Cập nhật 1 chi tiết (Số lượng, Đơn giá) (khi đang Tạm lưu).
+        /// Cập nhật lại TongTien của HoaDonNhap cha.
+        /// </summary>
+        public bool UpdateDetailInDraft(ChiTietHoaDonNhap chiTiet)
         {
-            string query = "DELETE FROM ChiTietHoaDonNhap WHERE MaHDN=@MaHDN";
-            return ExecuteNonQuery(query, new SqlParameter("@MaHDN", maHDN)) > 0;
+            using var conn = new SqlConnection(_connectionString);
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+            try
+            {
+                // 1. Lấy thành tiền cũ
+                string sqlGetOld = "SELECT ThanhTien FROM ChiTietHoaDonNhap WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
+                decimal oldThanhTien = 0;
+                using (var cmdGet = new SqlCommand(sqlGetOld, conn, tran))
+                {
+                    cmdGet.Parameters.AddWithValue("@MaHDN", chiTiet.MaHDN);
+                    cmdGet.Parameters.AddWithValue("@MaSP", chiTiet.MaSP);
+                    var result = cmdGet.ExecuteScalar();
+                    if (result == null) throw new Exception("Chi tiết không tồn tại để cập nhật.");
+                    oldThanhTien = Convert.ToDecimal(result);
+                }
+
+                decimal delta = chiTiet.ThanhTien - oldThanhTien; // Tính chênh lệch
+
+                // 2. Cập nhật chi tiết
+                string sqlUpdateCT = @"
+                    UPDATE ChiTietHoaDonNhap
+                    SET SoLuong = @SoLuong, DonGia = @DonGia, ThanhTien = @ThanhTien
+                    WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
+                using (var cmdUpdateCT = new SqlCommand(sqlUpdateCT, conn, tran))
+                {
+                    cmdUpdateCT.Parameters.AddWithValue("@SoLuong", chiTiet.SoLuong);
+                    cmdUpdateCT.Parameters.AddWithValue("@DonGia", chiTiet.DonGia);
+                    cmdUpdateCT.Parameters.AddWithValue("@ThanhTien", chiTiet.ThanhTien);
+                    cmdUpdateCT.Parameters.AddWithValue("@MaHDN", chiTiet.MaHDN);
+                    cmdUpdateCT.Parameters.AddWithValue("@MaSP", chiTiet.MaSP);
+                    cmdUpdateCT.ExecuteNonQuery();
+                }
+
+                // 3. Cập nhật Tổng tiền của hóa đơn cha
+                string sqlUpdateHD = @"
+                    UPDATE HoaDonNhap
+                    SET TongTien = TongTien + @Delta
+                    WHERE MaHDN = @MaHDN AND TrangThai = @TamLuu";
+                using (var cmdUpdateHD = new SqlCommand(sqlUpdateHD, conn, tran))
+                {
+                    cmdUpdateHD.Parameters.AddWithValue("@Delta", delta);
+                    cmdUpdateHD.Parameters.AddWithValue("@MaHDN", chiTiet.MaHDN);
+                    cmdUpdateHD.Parameters.AddWithValue("@TamLuu", (byte)TrangThaiHoaDonNhap.TamLuu);
+                    cmdUpdateHD.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Lỗi khi cập nhật chi tiết trong phiếu nháp: " + ex.Message, ex);
+            }
         }
 
-        public bool Update(ChiTietHoaDonNhap chiTiet)
+        /// <summary>
+        /// [TRANSACTION] Xóa 1 chi tiết khỏi hóa đơn (khi đang Tạm lưu).
+        /// Cập nhật lại TongTien của HoaDonNhap cha.
+        /// </summary>
+        public bool DeleteDetailFromDraft(string maHDN, string maSP)
         {
-            string query = @"UPDATE ChiTietHoaDonNhap
-                             SET SoLuong = @SoLuong, DonGia = @DonGia
-                             WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
-            var parameters = new SqlParameter[]
+            using var conn = new SqlConnection(_connectionString);
+            conn.Open();
+            using var tran = conn.BeginTransaction();
+            try
             {
-                new SqlParameter("@SoLuong", chiTiet.SoLuong),
-                new SqlParameter("@DonGia", chiTiet.DonGia),
-                new SqlParameter("@MaHDN", chiTiet.MaHDN),
-                new SqlParameter("@MaSP", chiTiet.MaSP)
-            };
-            return ExecuteNonQuery(query, parameters) > 0;
+                // 1. Lấy thành tiền của chi tiết sắp xóa
+                string sqlGetOld = "SELECT ThanhTien FROM ChiTietHoaDonNhap WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
+                decimal oldThanhTien = 0;
+                using (var cmdGet = new SqlCommand(sqlGetOld, conn, tran))
+                {
+                    cmdGet.Parameters.AddWithValue("@MaHDN", maHDN);
+                    cmdGet.Parameters.AddWithValue("@MaSP", maSP);
+                    var result = cmdGet.ExecuteScalar();
+                    if (result == null) throw new Exception("Chi tiết không tồn tại để xóa.");
+                    oldThanhTien = Convert.ToDecimal(result);
+                }
+
+                // 2. Xóa chi tiết
+                string sqlDeleteCT = "DELETE FROM ChiTietHoaDonNhap WHERE MaHDN = @MaHDN AND MaSP = @MaSP";
+                using (var cmdDeleteCT = new SqlCommand(sqlDeleteCT, conn, tran))
+                {
+                    cmdDeleteCT.Parameters.AddWithValue("@MaHDN", maHDN);
+                    cmdDeleteCT.Parameters.AddWithValue("@MaSP", maSP);
+                    cmdDeleteCT.ExecuteNonQuery();
+                }
+
+                // 3. Cập nhật (trừ) Tổng tiền của hóa đơn cha
+                string sqlUpdateHD = @"
+                    UPDATE HoaDonNhap
+                    SET TongTien = TongTien - @ThanhTienBiXoa
+                    WHERE MaHDN = @MaHDN AND TrangThai = @TamLuu";
+                using (var cmdUpdateHD = new SqlCommand(sqlUpdateHD, conn, tran))
+                {
+                    cmdUpdateHD.Parameters.AddWithValue("@ThanhTienBiXoa", oldThanhTien);
+                    cmdUpdateHD.Parameters.AddWithValue("@MaHDN", maHDN);
+                    cmdUpdateHD.Parameters.AddWithValue("@TamLuu", (byte)TrangThaiHoaDonNhap.TamLuu);
+                    cmdUpdateHD.ExecuteNonQuery();
+                }
+
+                tran.Commit();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Lỗi khi xóa chi tiết khỏi phiếu nháp: " + ex.Message, ex);
+            }
         }
     }
 }

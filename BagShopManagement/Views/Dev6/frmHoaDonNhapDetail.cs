@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev6
 {
-    public partial class ThemHoaDonNhapControl : UserControl
+    public partial class frmHoaDonNhapDetail : Form
     {
-        public ThemHoaDonNhapControl()
+        public frmHoaDonNhapDetail()
         {
             InitializeComponent();
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
