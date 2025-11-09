@@ -75,5 +75,17 @@ namespace BagShopManagement.Views.Dev2
             var kw = txtTimKiem.Text.Trim();
             dgvSanPham.DataSource = _controller.Search(kw);
         }
+
+        private void dgvSanPham_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            var sp = dgvSanPham.Rows[e.RowIndex].DataBoundItem as SanPham;
+            if (sp == null) return;
+
+            var editform = new SanPhamEditForm(_controller, sp);
+            if (editform.ShowDialog() == DialogResult.OK)
+                LoadSanPham();
+        }
     }
 }

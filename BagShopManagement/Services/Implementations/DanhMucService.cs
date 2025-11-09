@@ -1,5 +1,6 @@
 ﻿using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -20,9 +21,14 @@ namespace BagShopManagement.Services.Implementations
 
         public DataTable GetAll(string tableName) => _repo.GetAll(tableName);
 
-        public int ImportDanhMuc(string tableName, DataTable data)
+        //public int ImportDanhMuc(string tableName, DataTable data)
+        //{
+        //    return _repo.ImportDanhMuc(tableName, data);
+        //}
+
+        public int ImportFromExcel(ExcelWorksheet ws, string tableName)
         {
-            return _repo.ImportDanhMuc(tableName, data);
+            return _repo.ImportFromExcel(ws, tableName);
         }
 
     }
