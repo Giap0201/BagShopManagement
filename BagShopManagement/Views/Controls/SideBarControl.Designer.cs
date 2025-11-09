@@ -39,7 +39,7 @@
             button6 = new Button();
             button5 = new Button();
             btnSanPham = new Button();
-            button3 = new Button();
+            btnDanhMuc = new Button();
             button2 = new Button();
             button1 = new Button();
             menu = new ImageList(components);
@@ -57,7 +57,7 @@
             panel1.Controls.Add(button6);
             panel1.Controls.Add(button5);
             panel1.Controls.Add(btnSanPham);
-            panel1.Controls.Add(button3);
+            panel1.Controls.Add(btnDanhMuc);
             panel1.Controls.Add(button2);
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Left;
@@ -141,14 +141,15 @@
             btnSanPham.UseVisualStyleBackColor = true;
             btnSanPham.Click += btnSanPham_Click;
             // 
-            // button3
+            // btnDanhMuc
             // 
-            button3.Location = new Point(-2, 179);
-            button3.Name = "button3";
-            button3.Size = new Size(330, 57);
-            button3.TabIndex = 2;
-            button3.Text = "Danh mục sản phẩm";
-            button3.UseVisualStyleBackColor = true;
+            btnDanhMuc.Location = new Point(-2, 179);
+            btnDanhMuc.Name = "btnDanhMuc";
+            btnDanhMuc.Size = new Size(330, 57);
+            btnDanhMuc.TabIndex = 2;
+            btnDanhMuc.Text = "Danh mục";
+            btnDanhMuc.UseVisualStyleBackColor = true;
+            btnDanhMuc.Click += btnDanhMuc_Click;
             // 
             // button2
             // 
@@ -204,7 +205,7 @@
         private Button button6;
         private Button button5;
         private Button btnSanPham;
-        private Button button3;
+        private Button btnDanhMuc;
         private Button button2;
         private Button button1;
         private Button button10;

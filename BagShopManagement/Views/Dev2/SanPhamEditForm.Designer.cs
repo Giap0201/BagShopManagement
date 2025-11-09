@@ -55,6 +55,8 @@
             label5 = new Label();
             label6 = new Label();
             label1 = new Label();
+            btnChonAnh = new Button();
+            txtAnhChinh = new TextBox();
             ((System.ComponentModel.ISupportInitialize)numGiaNhap).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numGiaBan).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuong).BeginInit();
@@ -165,7 +167,7 @@
             // chkTrangThai
             // 
             chkTrangThai.AutoSize = true;
-            chkTrangThai.Location = new Point(150, 320);
+            chkTrangThai.Location = new Point(506, 283);
             chkTrangThai.Name = "chkTrangThai";
             chkTrangThai.Size = new Size(103, 24);
             chkTrangThai.TabIndex = 12;
@@ -288,11 +290,30 @@
             label1.TabIndex = 27;
             label1.Text = "Loại túi";
             // 
+            // btnChonAnh
+            // 
+            btnChonAnh.Location = new Point(35, 322);
+            btnChonAnh.Name = "btnChonAnh";
+            btnChonAnh.Size = new Size(100, 29);
+            btnChonAnh.TabIndex = 28;
+            btnChonAnh.Text = "Chọn Ảnh Chính";
+            btnChonAnh.UseVisualStyleBackColor = true;
+            btnChonAnh.Click += btnChonAnh_Click;
+            // 
+            // txtAnhChinh
+            // 
+            txtAnhChinh.Location = new Point(150, 324);
+            txtAnhChinh.Name = "txtAnhChinh";
+            txtAnhChinh.Size = new Size(250, 27);
+            txtAnhChinh.TabIndex = 29;
+            // 
             // SanPhamEditForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(845, 430);
+            Controls.Add(txtAnhChinh);
+            Controls.Add(btnChonAnh);
             Controls.Add(label1);
             Controls.Add(label6);
             Controls.Add(label5);
@@ -363,5 +384,7 @@
         private Label label5;
         private Label label6;
         private Label label1;
+        private Button btnChonAnh;
+        private TextBox txtAnhChinh;
     }
 }
