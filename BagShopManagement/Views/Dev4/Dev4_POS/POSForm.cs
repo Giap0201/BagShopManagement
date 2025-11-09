@@ -1,6 +1,7 @@
 ﻿using BagShopManagement.Controllers;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
+using BagShopManagement.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,12 +17,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
     public partial class POSForm : Form
     {
         private readonly POSController _controller;
-        private string _lastSavedInvoiceId;
+        private string? _lastSavedInvoiceId;
 
         public POSForm()
         {
             InitializeComponent();
 
+            // Nếu sử dụng DI trong Program.cs thì nên nhận controller qua constructor hoặc field injection.
+            // Nhưng ở đây khởi tạo thủ công.
             var sanPhamRepo = new SanPhamRepository();
             var hoaDonRepo = new HoaDonBanRepository();
 
@@ -33,20 +36,79 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             _controller = new POSController(posService);
         }
 
-
         private void POSForm_Load(object sender, EventArgs e)
         {
+            SetupCartColumns();
+        }
 
+        /// <summary>
+        /// Thiết lập các cột cho DataGridView giỏ hàng
+        /// </summary>
+        private void SetupCartColumns()
+        {
+            dgvCart.AutoGenerateColumns = false;
+            dgvCart.Columns.Clear();
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Mã SP",
+                DataPropertyName = "MaSP",
+                Name = "MaSP",
+                Width = 120
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Tên sản phẩm",
+                DataPropertyName = "TenSP",
+                Name = "TenSP",
+                Width = 220
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Số lượng",
+                DataPropertyName = "SoLuong",
+                Name = "SoLuong",
+                Width = 100
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Đơn giá",
+                DataPropertyName = "DonGia",
+                Name = "DonGia",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Giảm/SP",
+                DataPropertyName = "GiamGiaSP",
+                Name = "GiamGiaSP",
+                Width = 120,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+            });
+
+            dgvCart.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Thành tiền",
+                DataPropertyName = "ThanhTien",
+                Name = "ThanhTien",
+                Width = 150,
+                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+            });
         }
 
         private void label1_Click(object sender, EventArgs e)
         {
-
+            // Xử lý event click cho label, nếu cần.
         }
 
         private void label1_Click_1(object sender, EventArgs e)
         {
-
+            // Xử lý event click cho label khác, nếu cần.
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -70,12 +132,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             numQty.Value = 1;
             txtMaSP.Focus();
         }
+
         private void RefreshCartGrid()
         {
             try
             {
-                dgvCart.AutoGenerateColumns = false; // Tắt auto sinh cột
-
                 var cart = _controller.GetCart();
 
                 if (cart == null || cart.Count == 0)
@@ -85,21 +146,15 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     return;
                 }
 
-                // Chuẩn hóa dữ liệu hiển thị: format giá, tổng tiền,...
-                cart.Select(c => new
+                // Đảm bảo columns đã được setup trước khi bind data
+                if (dgvCart.Columns.Count == 0)
                 {
-                    MaSP = c.MaSP,
-                    TenSP = c.TenSP ?? "", // Lấy tên sản phẩm
-                    SoLuong = c.SoLuong,
-                    DonGia = c.DonGia,
-                    GiamGiaSP = c.GiamGiaSP,
-                    ThanhTien = (c.DonGia - c.GiamGiaSP) * c.SoLuong
-                })
-                .ToList();
+                    SetupCartColumns();
+                }
 
+                dgvCart.DataSource = null; // Clear trước để tránh lỗi binding
                 dgvCart.DataSource = cart;
 
-                // 🧮 Tính tổng tiền
                 decimal total = cart.Sum(i => (i.DonGia - i.GiamGiaSP) * i.SoLuong);
                 lblTotal.Text = $"Tổng: {total:N0} ₫";
             }
@@ -109,7 +164,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
 
         private void btnClear_Click(object sender, EventArgs e)
         {
@@ -129,7 +183,40 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            _controller.ApplyDiscount(percent);
+            // Nếu không có row được chọn thì yêu cầu chọn một sản phẩm để áp dụng giảm giá
+            if (dgvCart.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một sản phẩm trong giỏ để áp dụng giảm giá.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var selectedRow = dgvCart.SelectedRows[0];
+
+            // Lấy MaSP an toàn từ cell
+            string? maSP = null;
+            if (dgvCart.Columns.Contains("MaSP"))
+            {
+                maSP = selectedRow.Cells["MaSP"].Value?.ToString();
+            }
+            else
+            {
+                foreach (DataGridViewColumn col in dgvCart.Columns)
+                {
+                    if (col.DataPropertyName == "MaSP" || col.Name == "MaSP")
+                    {
+                        maSP = selectedRow.Cells[col.Index].Value?.ToString();
+                        break;
+                    }
+                }
+            }
+
+            if (string.IsNullOrEmpty(maSP))
+            {
+                MessageBox.Show("Không thể xác định mã sản phẩm được chọn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            _controller.ApplyDiscountToProduct(maSP, percent);
             RefreshCartGrid();
         }
 
@@ -137,7 +224,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         {
             SaveOrCheckout(saveDraft: true);
         }
-        // 🧾 Lưu / Thanh toán hóa đơn (hàm dùng chung)
+
+        // Lưu hoặc thanh toán hóa đơn
         private void SaveOrCheckout(bool saveDraft)
         {
             string maKH = txtMaKH.Text.Trim();
@@ -172,12 +260,21 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         {
             if (string.IsNullOrEmpty(_lastSavedInvoiceId))
             {
-                MessageBox.Show("Chưa có hóa đơn nào để in.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Chưa có hóa đơn nào để in.", "Thông báo",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            // Placeholder – phần này có thể thay bằng ReportViewer hoặc PrintDocument
-            MessageBox.Show($"In hóa đơn {_lastSavedInvoiceId} (tính năng đang phát triển).", "In hóa đơn", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                var printService = new InvoicePrintService();
+                printService.PrintInvoice(_lastSavedInvoiceId);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message, "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void btnCheckout_Click(object sender, EventArgs e)
@@ -187,24 +284,22 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
         private void lblNv_Click(object sender, EventArgs e)
         {
-
+            // Xử lý khi click label mã nhân viên, nếu có.
         }
 
         private void chkSaveDraft_CheckedChanged(object sender, EventArgs e)
         {
-
+            // Nếu có checkbox lưu tạm hóa đơn, thêm xử lý tại đây.
         }
 
         private void lblTotal_Click(object sender, EventArgs e)
         {
-
+            // Click tổng tiền (nếu muốn, ví dụ hiện chi tiết).
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            
-        }
-
+        /// <summary>
+        /// Xóa một sản phẩm được chọn khỏi giỏ hàng
+        /// </summary>
         private void btn_Click(object sender, EventArgs e)
         {
             if (dgvCart.SelectedRows.Count == 0)
@@ -214,9 +309,47 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // 🔹 Lấy mã sản phẩm từ cột "Mã SP"
-            string maSP = dgvCart.SelectedRows[0].Cells["MaSP"].Value?.ToString();
-            string tenSP = dgvCart.SelectedRows[0].Cells["TenSP"].Value?.ToString();
+            var selectedRow = dgvCart.SelectedRows[0];
+
+            // Truy cập cột an toàn bằng cách kiểm tra column tồn tại trước
+            string? maSP = null;
+            string? tenSP = null;
+
+            // Kiểm tra và lấy MaSP
+            if (dgvCart.Columns.Contains("MaSP"))
+            {
+                maSP = selectedRow.Cells["MaSP"].Value?.ToString();
+            }
+            else
+            {
+                // Fallback: tìm cột theo index hoặc DataPropertyName
+                foreach (DataGridViewColumn col in dgvCart.Columns)
+                {
+                    if (col.DataPropertyName == "MaSP" || col.Name == "MaSP")
+                    {
+                        maSP = selectedRow.Cells[col.Index].Value?.ToString();
+                        break;
+                    }
+                }
+            }
+
+            // Kiểm tra và lấy TenSP
+            if (dgvCart.Columns.Contains("TenSP"))
+            {
+                tenSP = selectedRow.Cells["TenSP"].Value?.ToString();
+            }
+            else
+            {
+                // Fallback: tìm cột theo DataPropertyName
+                foreach (DataGridViewColumn col in dgvCart.Columns)
+                {
+                    if (col.DataPropertyName == "TenSP" || col.Name == "TenSP")
+                    {
+                        tenSP = selectedRow.Cells[col.Index].Value?.ToString();
+                        break;
+                    }
+                }
+            }
 
             if (string.IsNullOrEmpty(maSP))
             {
@@ -225,12 +358,20 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // 🔹 Xác nhận xóa
-            if (MessageBox.Show($"Bạn có chắc muốn xóa sản phẩm [{tenSP}] (Mã: {maSP}) khỏi giỏ hàng?",
-                "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            // Xác nhận trước khi xóa
+            var confirmResult = MessageBox.Show(
+                $"Bạn có chắc muốn xóa sản phẩm [{tenSP ?? "N/A"}] (Mã: {maSP}) khỏi giỏ hàng?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmResult == DialogResult.Yes)
             {
                 _controller.RemoveProduct(maSP);
                 RefreshCartGrid();
+
+                // Focus lại vào DataGridView để có thể tiếp tục xóa nếu cần
+                dgvCart.Focus();
             }
         }
     }
