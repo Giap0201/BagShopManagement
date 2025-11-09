@@ -208,16 +208,23 @@ namespace BagShopManagement.Repositories.Implementations
             using var tran = conn.BeginTransaction();
             try
             {
-                string sqlUpdateKho = "UPDATE SanPham SET SoLuongTon = SoLuongTon + @SL WHERE MaSP = @MaSP";
+                string sqlUpdateKho = @"
+                    UPDATE SanPham
+                    SET SoLuongTon = SoLuongTon + @SL,
+                        GiaNhap = @DonGia
+                    WHERE MaSP = @MaSP";
+
                 using (var cmdKho = new SqlCommand(sqlUpdateKho, conn, tran))
                 {
                     cmdKho.Parameters.Add("@SL", SqlDbType.Int);
                     cmdKho.Parameters.Add("@MaSP", SqlDbType.VarChar, 20);
+                    cmdKho.Parameters.Add("@DonGia", SqlDbType.Decimal);
 
                     foreach (var ct in chiTiets)
                     {
                         cmdKho.Parameters["@SL"].Value = ct.SoLuong;
                         cmdKho.Parameters["@MaSP"].Value = ct.MaSP;
+                        cmdKho.Parameters["@DonGia"].Value = ct.DonGia;
                         cmdKho.ExecuteNonQuery();
                     }
                 }

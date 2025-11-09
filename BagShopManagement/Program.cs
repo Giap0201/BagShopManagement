@@ -1,5 +1,11 @@
+﻿using BagShopManagement.Controllers;
+using BagShopManagement.Repositories.Implementations;
+using BagShopManagement.Repositories.Interfaces;
+using BagShopManagement.Services.Implementations;
+using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Views.Common;
 using BagShopManagement.Views.Dev6;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace BagShopManagement
 {
@@ -11,11 +17,31 @@ namespace BagShopManagement
         [STAThread]
         private static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             //Application.Run(new Form1());
-            Application.Run(new frmHoaDonNhapDetail());
+            var services = new ServiceCollection();
+
+            // Đăng ký tất cả dependencies
+            services.AddTransient<IHoaDonNhapRepository, HoaDonNhapImpl>();
+            services.AddTransient<IChiTietHDNRepository, ChiTietHDNImpl>();
+            services.AddTransient<INhaCungCapRepository, NhaCungCapImpl>();
+            services.AddTransient<INhanVienRepository, NhanVienImpl>();
+            services.AddTransient<ISanPhamRepository, SanPhamImpl>();
+
+            services.AddTransient<IHoaDonNhapService, HoaDonNhapService>();
+            services.AddTransient<HoaDonNhapController>();
+
+            // Đăng ký Form
+            services.AddTransient<frmHoaDonNhapDetail>();
+
+            var serviceProvider = services.BuildServiceProvider();
+
+            // Mở Form
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            var mainForm = serviceProvider.GetRequiredService<frmHoaDonNhapDetail>();
+            Application.Run(mainForm);
         }
     }
 }

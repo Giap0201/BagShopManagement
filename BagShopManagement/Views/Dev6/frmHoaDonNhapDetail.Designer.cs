@@ -64,12 +64,12 @@
             label10 = new Label();
             dgvChiTiet = new DataGridView();
             btnTaoMoiHDN = new Button();
-            button2 = new Button();
-            button6 = new Button();
+            btnThoat = new Button();
+            btnInHDN = new Button();
             errorProvider1 = new ErrorProvider(components);
-            button8 = new Button();
-            button9 = new Button();
-            button10 = new Button();
+            btnDuyetHDN = new Button();
+            btnTamLuuHDN = new Button();
+            btnSuaHDN = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvChiTiet).BeginInit();
@@ -97,7 +97,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(65, 22);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1175, 216);
+            groupBox1.Size = new Size(1401, 216);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin chung";
@@ -264,7 +264,7 @@
             groupBox2.Controls.Add(dgvChiTiet);
             groupBox2.Location = new Point(65, 270);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1175, 409);
+            groupBox2.Size = new Size(1401, 409);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "Chi tiết hoá đơn";
@@ -274,47 +274,50 @@
             lblTongTien.AutoSize = true;
             lblTongTien.Location = new Point(140, 370);
             lblTongTien.Name = "lblTongTien";
-            lblTongTien.Size = new Size(75, 20);
+            lblTongTien.Size = new Size(17, 20);
             lblTongTien.TabIndex = 17;
-            lblTongTien.Text = "Tổng tiền:";
+            lblTongTien.Text = "0";
             // 
             // txtThanhTien
             // 
-            txtThanhTien.Location = new Point(759, 213);
+            txtThanhTien.Location = new Point(960, 213);
             txtThanhTien.Name = "txtThanhTien";
             txtThanhTien.Size = new Size(151, 27);
             txtThanhTien.TabIndex = 16;
             // 
             // txtDonGia
             // 
-            txtDonGia.Location = new Point(759, 170);
+            txtDonGia.Location = new Point(960, 170);
             txtDonGia.Name = "txtDonGia";
             txtDonGia.Size = new Size(151, 27);
             txtDonGia.TabIndex = 15;
+            txtDonGia.TextChanged += txtDonGia_TextChanged;
             // 
             // txtSoLuong
             // 
-            txtSoLuong.Location = new Point(759, 120);
+            txtSoLuong.Location = new Point(960, 120);
             txtSoLuong.Name = "txtSoLuong";
             txtSoLuong.Size = new Size(151, 27);
             txtSoLuong.TabIndex = 14;
+            txtSoLuong.TextChanged += txtSoLuong_TextChanged;
             // 
             // cboSanPham
             // 
             cboSanPham.FormattingEnabled = true;
-            cboSanPham.Location = new Point(759, 64);
+            cboSanPham.Location = new Point(960, 64);
             cboSanPham.Name = "cboSanPham";
             cboSanPham.Size = new Size(151, 28);
             cboSanPham.TabIndex = 13;
             // 
             // btnLuuChiTietHDN
             // 
-            btnLuuChiTietHDN.Location = new Point(973, 308);
+            btnLuuChiTietHDN.Location = new Point(1174, 308);
             btnLuuChiTietHDN.Name = "btnLuuChiTietHDN";
             btnLuuChiTietHDN.Size = new Size(94, 29);
             btnLuuChiTietHDN.TabIndex = 11;
             btnLuuChiTietHDN.Text = "LƯU";
             btnLuuChiTietHDN.UseVisualStyleBackColor = true;
+            btnLuuChiTietHDN.Click += btnLuuChiTietHDN_Click;
             // 
             // label14
             // 
@@ -327,26 +330,28 @@
             // 
             // btnXoaChiTietHDN
             // 
-            btnXoaChiTietHDN.Location = new Point(856, 308);
+            btnXoaChiTietHDN.Location = new Point(1057, 308);
             btnXoaChiTietHDN.Name = "btnXoaChiTietHDN";
             btnXoaChiTietHDN.Size = new Size(94, 29);
             btnXoaChiTietHDN.TabIndex = 4;
             btnXoaChiTietHDN.Text = "XOÁ";
             btnXoaChiTietHDN.UseVisualStyleBackColor = true;
+            btnXoaChiTietHDN.Click += btnXoaChiTietHDN_Click;
             // 
             // btnSuaChiTietHDN
             // 
-            btnSuaChiTietHDN.Location = new Point(739, 308);
+            btnSuaChiTietHDN.Location = new Point(940, 308);
             btnSuaChiTietHDN.Name = "btnSuaChiTietHDN";
             btnSuaChiTietHDN.Size = new Size(94, 29);
             btnSuaChiTietHDN.TabIndex = 5;
             btnSuaChiTietHDN.Text = "SỬA";
             btnSuaChiTietHDN.UseVisualStyleBackColor = true;
+            btnSuaChiTietHDN.Click += btnSuaChiTietHDN_Click;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(619, 170);
+            label13.Location = new Point(820, 170);
             label13.Name = "label13";
             label13.Size = new Size(62, 20);
             label13.TabIndex = 9;
@@ -355,7 +360,7 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Location = new Point(619, 213);
+            label12.Location = new Point(820, 213);
             label12.Name = "label12";
             label12.Size = new Size(78, 20);
             label12.TabIndex = 8;
@@ -364,7 +369,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(619, 127);
+            label11.Location = new Point(820, 127);
             label11.Name = "label11";
             label11.Size = new Size(69, 20);
             label11.TabIndex = 7;
@@ -372,7 +377,7 @@
             // 
             // btnThemChiTietHDN
             // 
-            btnThemChiTietHDN.Location = new Point(619, 308);
+            btnThemChiTietHDN.Location = new Point(820, 308);
             btnThemChiTietHDN.Name = "btnThemChiTietHDN";
             btnThemChiTietHDN.Size = new Size(109, 29);
             btnThemChiTietHDN.TabIndex = 6;
@@ -383,7 +388,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(619, 73);
+            label10.Location = new Point(820, 73);
             label10.Name = "label10";
             label10.Size = new Size(75, 20);
             label10.TabIndex = 6;
@@ -396,8 +401,9 @@
             dgvChiTiet.Name = "dgvChiTiet";
             dgvChiTiet.RowHeadersWidth = 51;
             dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvChiTiet.Size = new Size(507, 325);
+            dgvChiTiet.Size = new Size(695, 325);
             dgvChiTiet.TabIndex = 0;
+            dgvChiTiet.CellClick += dgvChiTiet_CellClick_1;
             // 
             // btnTaoMoiHDN
             // 
@@ -409,65 +415,69 @@
             btnTaoMoiHDN.UseVisualStyleBackColor = true;
             btnTaoMoiHDN.Click += btnTaoMoiHDN_Click;
             // 
-            // button2
+            // btnThoat
             // 
-            button2.Location = new Point(930, 714);
-            button2.Name = "button2";
-            button2.Size = new Size(94, 29);
-            button2.TabIndex = 3;
-            button2.Text = "THOÁT";
-            button2.UseVisualStyleBackColor = true;
+            btnThoat.Location = new Point(930, 714);
+            btnThoat.Name = "btnThoat";
+            btnThoat.Size = new Size(94, 29);
+            btnThoat.TabIndex = 3;
+            btnThoat.Text = "THOÁT";
+            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.Click += btnThoat_Click;
             // 
-            // button6
+            // btnInHDN
             // 
-            button6.Location = new Point(448, 714);
-            button6.Name = "button6";
-            button6.Size = new Size(131, 29);
-            button6.TabIndex = 7;
-            button6.Text = "IN HOÁ ĐƠN";
-            button6.UseVisualStyleBackColor = true;
+            btnInHDN.Location = new Point(448, 714);
+            btnInHDN.Name = "btnInHDN";
+            btnInHDN.Size = new Size(131, 29);
+            btnInHDN.TabIndex = 7;
+            btnInHDN.Text = "IN HOÁ ĐƠN";
+            btnInHDN.UseVisualStyleBackColor = true;
             // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
             // 
-            // button8
+            // btnDuyetHDN
             // 
-            button8.Location = new Point(743, 714);
-            button8.Name = "button8";
-            button8.Size = new Size(131, 29);
-            button8.TabIndex = 8;
-            button8.Text = "LƯU HOÁ ĐƠN";
-            button8.UseVisualStyleBackColor = true;
+            btnDuyetHDN.Location = new Point(743, 714);
+            btnDuyetHDN.Name = "btnDuyetHDN";
+            btnDuyetHDN.Size = new Size(131, 29);
+            btnDuyetHDN.TabIndex = 8;
+            btnDuyetHDN.Text = "DUYỆT";
+            btnDuyetHDN.UseVisualStyleBackColor = true;
+            btnDuyetHDN.Click += btnDuyetHDN_Click;
             // 
-            // button9
+            // btnTamLuuHDN
             // 
-            button9.Location = new Point(615, 714);
-            button9.Name = "button9";
-            button9.Size = new Size(94, 29);
-            button9.TabIndex = 9;
-            button9.Text = "NHẬP KHO";
-            button9.UseVisualStyleBackColor = true;
+            btnTamLuuHDN.Location = new Point(615, 714);
+            btnTamLuuHDN.Name = "btnTamLuuHDN";
+            btnTamLuuHDN.Size = new Size(94, 29);
+            btnTamLuuHDN.TabIndex = 9;
+            btnTamLuuHDN.Text = "TẠM LƯU";
+            btnTamLuuHDN.UseVisualStyleBackColor = true;
+            btnTamLuuHDN.Click += btnTamLuuHDN_Click;
             // 
-            // button10
+            // btnSuaHDN
             // 
-            button10.Location = new Point(270, 714);
-            button10.Name = "button10";
-            button10.Size = new Size(131, 29);
-            button10.TabIndex = 10;
-            button10.Text = "SỬA";
-            button10.UseVisualStyleBackColor = true;
+            btnSuaHDN.Location = new Point(270, 714);
+            btnSuaHDN.Name = "btnSuaHDN";
+            btnSuaHDN.Size = new Size(131, 29);
+            btnSuaHDN.TabIndex = 10;
+            btnSuaHDN.Text = "SỬA";
+            btnSuaHDN.UseVisualStyleBackColor = true;
+            btnSuaHDN.Click += btnSuaHDN_Click;
             // 
             // frmHoaDonNhapDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1591, 788);
-            Controls.Add(button10);
-            Controls.Add(button9);
-            Controls.Add(button8);
-            Controls.Add(button6);
-            Controls.Add(button2);
+            Controls.Add(btnSuaHDN);
+            Controls.Add(btnTamLuuHDN);
+            Controls.Add(btnDuyetHDN);
+            Controls.Add(btnInHDN);
+            Controls.Add(btnThoat);
             Controls.Add(btnTaoMoiHDN);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
@@ -478,6 +488,7 @@
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "frmHoaDonNhapDetail";
+            Load += frmHoaDonNhapDetail_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
@@ -500,11 +511,11 @@
         private GroupBox groupBox2;
         private DataGridView dgvChiTiet;
         private Button btnTaoMoiHDN;
-        private Button button2;
+        private Button btnThoat;
         private Button btnXoaChiTietHDN;
         private Button btnSuaChiTietHDN;
         private Button btnThemChiTietHDN;
-        private Button button6;
+        private Button btnInHDN;
         private Label label10;
         private Label label11;
         private Label label12;
@@ -520,13 +531,13 @@
         private ComboBox cboNhanVien;
         private ComboBox cboNhaCungCap;
         private ErrorProvider errorProvider1;
-        private Button button8;
-        private Button button9;
+        private Button btnDuyetHDN;
+        private Button btnTamLuuHDN;
         private Label lblNgayHuy;
         private Label lblNgayDuyet;
         private ComboBox cboTrangThai;
         private Label label3;
-        private Button button10;
+        private Button btnSuaHDN;
         private DateTimePicker dtpNgayHuy;
         private DateTimePicker dtpNgayDuyet;
         private Label lblTongTien;

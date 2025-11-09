@@ -12,6 +12,6 @@ namespace BagShopManagement.DTOs.Responses
         public string TenSP { get; set; } // Mở rộng
         public int SoLuong { get; set; }
         public decimal DonGia { get; set; }
-        public decimal ThanhTien => SoLuong * DonGia;
+        public decimal ThanhTien { get; set; }
     }
 }
