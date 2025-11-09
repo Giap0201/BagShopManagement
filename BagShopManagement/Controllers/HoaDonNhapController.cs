@@ -48,21 +48,15 @@ namespace BagShopManagement.Controllers
 
         #region === NGHIỆP VỤ CHÍNH (WRITE) ===
 
-        /// <summary>
         /// Yêu cầu tạo mới HĐN ở trạng thái Tạm lưu
-        /// </summary>
         public string TaoMoiHoaDon(HoaDonNhapRequest request)
         {
             if (request == null)
                 throw new ArgumentNullException(nameof(request), "Dữ liệu tạo hóa đơn rỗng.");
-
-            // Sửa: Gọi đúng tên hàm BLL (CreateDraftHoaDonNhap)
             return _hoaDonNhapService.CreateDraftHoaDonNhap(request);
         }
 
-        /// <summary>
-        /// (MỚI) Yêu cầu duyệt HĐN (Tạm lưu -> Hoạt động, cộng kho)
-        /// </summary>
+        // duyet hoa don, cap nhat trang thai hoa don, ton kho, gia nhap moi
         public void DuyetHoaDon(string maHDN)
         {
             if (string.IsNullOrWhiteSpace(maHDN))

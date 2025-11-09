@@ -38,18 +38,13 @@ namespace BagShopManagement.Services.Implementations
 
         #region === NGHIỆP VỤ CHÍNH (CREATE/APPROVE/CANCEL) ===
 
-        /// <summary>
         /// Tạo mới một Hóa đơn Nhập ở trạng thái "Tạm lưu".
-        /// BLL chịu trách nhiệm tính toán và validation.
-        /// </summary>
         public string CreateDraftHoaDonNhap(HoaDonNhapRequest request)
         {
-            // 1. Validation dữ liệu đầu vào
-            ValidateHoaDonNhapRequest(request); // Dùng helper bên dưới
+            ValidateHoaDonNhapRequest(request);
 
             try
             {
-                // 2. Mapping DTO -> Model (Lớp POCO để lưu CSDL)
                 var hoaDon = new HoaDonNhap
                 {
                     MaHDN = request.MaHDN,
@@ -57,42 +52,32 @@ namespace BagShopManagement.Services.Implementations
                     MaNV = request.MaNV,
                     NgayNhap = request.NgayNhap,
                     GhiChu = request.GhiChu,
-                    TrangThai = (byte)TrangThaiHoaDonNhap.TamLuu, // Nghiệp vụ mới
+                    TrangThai = (byte)TrangThaiHoaDonNhap.TamLuu,
                     NgayDuyet = null
                 };
 
-                // 3. Mapping và TÍNH TOÁN NGHIỆP VỤ (BLL)
                 var chiTiets = request.ChiTiet.Select(ct => new ChiTietHoaDonNhap
                 {
                     MaHDN = hoaDon.MaHDN,
                     MaSP = ct.MaSP,
                     SoLuong = ct.SoLuong,
                     DonGia = ct.DonGia,
-                    // BLL tính toán ThanhTien (server-side)
                     ThanhTien = ct.SoLuong * ct.DonGia
                 }).ToList();
 
-                // BLL tính toán TongTien (server-side)
                 hoaDon.TongTien = chiTiets.Sum(ct => ct.ThanhTien);
-
-                // 4. Gọi Repository (DAL) để lưu
-                // (Hàm này đã có Transaction bên trong DAL)
                 string result = _hoaDonNhapRepo.InsertDraft(hoaDon, chiTiets);
                 return result;
             }
             catch (Exception ex)
             {
-                // (Nên Log lỗi tại đây)
                 throw new ApplicationException($"Lỗi hệ thống khi tạo hóa đơn nháp: {ex.Message}", ex);
             }
         }
 
-        /// <summary>
-        /// Duyệt một Hóa đơn Nhập (Tạm lưu -> Hoạt động).
-        /// </summary>
+        // duyet hoa don, cap nhat trang thai hoa don, ton kho, gia nhap moi
         public void ApproveHoaDonNhap(string maHDN)
         {
-            // 1. Kiểm tra nghiệp vụ
             HoaDonNhap hoadon = GetHoaDonHoacNemLoi(maHDN);
 
             if (hoadon.TrangThai != (byte)TrangThaiHoaDonNhap.TamLuu)
@@ -100,7 +85,6 @@ namespace BagShopManagement.Services.Implementations
                 throw new InvalidOperationException("Chỉ có thể duyệt hóa đơn ở trạng thái 'Tạm lưu'.");
             }
 
-            // 2. Lấy chi tiết để cộng kho
             var chiTiets = _chiTietRepo.GetByHoaDonNhapId(maHDN);
             if (chiTiets == null || !chiTiets.Any())
             {
@@ -109,7 +93,6 @@ namespace BagShopManagement.Services.Implementations
 
             try
             {
-                // 3. Gọi DAL (Hàm này có Transaction để cộng kho VÀ đổi trạng thái)
                 _hoaDonNhapRepo.ApproveDraftHoaDonNhap(maHDN, DateTime.Now, chiTiets);
             }
             catch (Exception ex)

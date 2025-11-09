@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BagShopManagement.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,6 @@ namespace BagShopManagement.Repositories.Interfaces
 {
     public interface ISanPhamRepository
     {
+        List<SanPham> GetAll();
     }
 }

@@ -8,20 +8,10 @@ namespace BagShopManagement.Services.Interfaces
 {
     public interface IHoaDonNhapService
     {
-        /// <summary>
         /// Tạo mới một Hóa đơn Nhập ở trạng thái "Tạm lưu".
-        /// BLL sẽ tính toán TongTien và ThanhTien trước khi gọi DAL.
-        /// </summary>
-        /// <exception cref="ArgumentException">Ném lỗi nếu dữ liệu đầu vào không hợp lệ.</exception>
-        /// <exception cref="ApplicationException">Ném lỗi nếu CSDL thất bại.</exception>
         string CreateDraftHoaDonNhap(HoaDonNhapRequest request);
 
-        /// <summary>
-        /// Duyệt một Hóa đơn Nhập (Tạm lưu -> Hoạt động).
-        /// Nghiệp vụ: Cập nhật trạng thái VÀ cộng hàng vào tồn kho.
-        /// </summary>
-        /// <param name="maHDN">Mã HĐN cần duyệt.</param>
-        /// <exception cref="InvalidOperationException">Ném lỗi nếu HĐN không ở trạng thái "Tạm lưu".</exception>
+        // Duyet hoa don tu trang thai tam luu sang hoat dong, cap nhat ton kho, gia nhap moi
         void ApproveHoaDonNhap(string maHDN);
 
         /// <summary>
