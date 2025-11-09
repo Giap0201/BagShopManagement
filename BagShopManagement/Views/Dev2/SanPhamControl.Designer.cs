@@ -45,8 +45,7 @@
             dgvSanPham.RowHeadersWidth = 51;
             dgvSanPham.Size = new Size(800, 400);
             dgvSanPham.TabIndex = 0;
-
-            this.dgvSanPham.CellDoubleClick += new DataGridViewCellEventHandler(this.dgvSanPham_CellDoubleClick);
+            dgvSanPham.CellDoubleClick += dgvSanPham_CellDoubleClick;
             // 
             // txtTimKiem
             // 
@@ -100,7 +99,7 @@
             Controls.Add(btnSua);
             Controls.Add(btnXoa);
             Name = "SanPhamControl";
-            Size = new Size(843, 482);
+            Size = new Size(843, 487);
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).EndInit();
             ResumeLayout(false);
             PerformLayout();

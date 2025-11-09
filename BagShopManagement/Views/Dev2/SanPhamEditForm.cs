@@ -22,6 +22,7 @@ namespace BagShopManagement.Views.Dev2
         private readonly SanPham _sanPham;
         private readonly bool _isEdit;
         private readonly IDanhMucService _danhMucService = new DanhMucService(new DanhMucRepository());
+        private string _selectedImagePath; // path ảnh gốc
 
         public SanPhamEditForm(SanPhamController controller, SanPham sp = null)
         {
@@ -105,6 +106,27 @@ namespace BagShopManagement.Views.Dev2
                 MaNCC = cboNCC.SelectedValue?.ToString()
             };
 
+            // ====== Xử lý ảnh ======
+            if (!string.IsNullOrEmpty(_selectedImagePath) && File.Exists(_selectedImagePath))
+            {
+                string ext = Path.GetExtension(_selectedImagePath);
+                string newFileName = sp.MaSP + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ext;
+
+                string destFolder = Path.Combine(Application.StartupPath, "Resources", "AnhSanPham");
+                if (!Directory.Exists(destFolder))
+                    Directory.CreateDirectory(destFolder);
+
+                string destPath = Path.Combine(destFolder, newFileName);
+                File.Copy(_selectedImagePath, destPath, true);
+
+                sp.AnhChinh = newFileName; // save DB filename
+            }
+            else
+            {
+                sp.AnhChinh = txtAnhChinh.Text.Trim();
+            }
+            // ========================
+
             bool success = _isEdit ? _controller.Update(sp) : _controller.Add(sp);
 
             if (success)
@@ -126,5 +148,23 @@ namespace BagShopManagement.Views.Dev2
         }
 
         
+
+        private void btnChonAnh_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog ofd = new OpenFileDialog())
+            {
+                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
+
+                if (ofd.ShowDialog() == DialogResult.OK)
+                {
+                    _selectedImagePath = ofd.FileName;
+                    txtAnhChinh.Text = Path.GetFileName(ofd.FileName); // tạm placeholder
+                    //picAnh.ImageLocation = ofd.FileName;
+                }
+            }
+        }
+
+
+
     }
 }

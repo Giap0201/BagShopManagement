@@ -32,6 +32,7 @@ namespace BagShopManagement.Views.Common
             // 🟢 Gắn sự kiện cho sidebar đã có sẵn trong Designer
             sideBarControl1.SanPhamClicked += Sidebar_SanPhamClicked;
             sideBarControl1.ImportDanhMucClicked += Sidebar_ImportDanhMucClicked;
+            sideBarControl1.DanhMucClicked += Sidebar_DanhMucClicked;
         }
 
         // 🔵 Khi nhấn nút Sản phẩm trong SideBar
@@ -41,6 +42,14 @@ namespace BagShopManagement.Views.Common
             var spControl = new SanPhamControl();
             spControl.Dock = DockStyle.Fill;
             panelMain.Controls.Add(spControl);
+        }
+
+        private void Sidebar_DanhMucClicked(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            var uc = new DanhMucMenuControl();
+            uc.Dock = DockStyle.Fill;
+            panelMain.Controls.Add(uc);
         }
 
         private void Sidebar_ImportDanhMucClicked(object sender, EventArgs e)
