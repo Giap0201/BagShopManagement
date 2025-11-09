@@ -45,6 +45,8 @@
             dgvSanPham.RowHeadersWidth = 51;
             dgvSanPham.Size = new Size(800, 400);
             dgvSanPham.TabIndex = 0;
+
+            this.dgvSanPham.CellDoubleClick += new DataGridViewCellEventHandler(this.dgvSanPham_CellDoubleClick);
             // 
             // txtTimKiem
             // 
