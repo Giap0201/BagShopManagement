@@ -216,7 +216,7 @@
             btn.TabIndex = 8;
             btn.Text = "Xóa";
             btn.UseVisualStyleBackColor = true;
-            btn.Click += button1_Click;
+            btn.Click += btn_Click;
 
             // btnClear
             btnClear.Location = new Point(194, 328);
@@ -277,54 +277,63 @@
 
             // dgvCart
             dgvCart.AllowUserToAddRows = false;
-            dgvCart.AutoGenerateColumns = false; // ❌ Tắt tự sinh cột
+            dgvCart.AutoGenerateColumns = false; // keep manual columns
+            // Let columns auto-size to fill available space and scale when the form is resized
+            dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvCart.Dock = DockStyle.Fill;
             dgvCart.ReadOnly = true;
             dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
-            // Xóa tất cả cột cũ nếu có
+            // Clear any existing columns
             dgvCart.Columns.Clear();
 
-            // ✅ Thêm cột thủ công bạn muốn hiển thị
+            // Add manual columns and use Fill autosize with FillWeight to keep proportions
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Mã SP",
                 DataPropertyName = "MaSP",
-                Width = 120
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 10F
             });
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Tên sản phẩm",
-                DataPropertyName = "TenSP", // ⚠️ Nếu ChiTietHoaDonBan không có, bạn cần map trong RefreshCartGrid()
-                Width = 220
+                DataPropertyName = "TenSP", // map in RefreshCartGrid() if needed
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 30F
             });
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Số lượng",
                 DataPropertyName = "SoLuong",
-                Width = 100
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 8F,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight }
             });
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Đơn giá",
                 DataPropertyName = "DonGia",
-                Width = 120,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 12F,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight, Format = "N0" }
             });
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Giảm/SP",
                 DataPropertyName = "GiamGiaSP",
-                Width = 120,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 10F,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight, Format = "N0" }
             });
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Thành tiền",
                 DataPropertyName = "ThanhTien",
-                Width = 150,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 20F,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleRight, Format = "N0" }
             });
 
             // ================== POSForm ==================

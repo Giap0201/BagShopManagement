@@ -21,6 +21,10 @@ namespace BagShopManagement.Controllers
         public void ApplyDiscount(decimal percent)
             => _pos.ApplyDiscounts(percent);
 
+        // 💸 Áp dụng giảm giá cho 1 sản phẩm
+        public void ApplyDiscountToProduct(string maSP, decimal percent)
+            => _pos.ApplyDiscountToProduct(maSP, percent);
+
         // 🧾 Thanh toán hoặc lưu tạm hóa đơn
         public (bool ok, string res) Checkout(string maKH, string maNV,
             bool saveDraft = false, string phuongThucTT = null, string ghiChu = null)

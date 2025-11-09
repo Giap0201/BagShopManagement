@@ -3,6 +3,8 @@ using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
+using BagShopManagement.DataAccess;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,16 +69,33 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// Áp dụng phần trăm giảm giá cho 1 sản phẩm trong giỏ hàng (theo Mã SP)
+        /// </summary>
+        public void ApplyDiscountToProduct(string maSP, decimal percent)
+        {
+            if (string.IsNullOrWhiteSpace(maSP) || percent <= 0) return;
+
+            var item = _cart.FirstOrDefault(i => string.Equals(i.MaSP, maSP, StringComparison.OrdinalIgnoreCase));
+            if (item != null)
+            {
+                item.GiamGiaSP = Math.Round(item.DonGia * (percent / 100m), 2);
+            }
+        }
+
         public (bool ok, string result) Checkout(string maKH, string maNV, bool saveDraft = false,
                                                  string phuongThucTT = null, string ghiChu = null)
         {
             if (_cart.Count == 0)
                 return (false, "Giỏ hàng rỗng");
 
+            // Validate và chuẩn hóa MaKH
+            string? validatedMaKH = ValidateMaKH(maKH);
+
             var hd = new HoaDonBan
             {
                 MaHDB = string.Empty,
-                MaKH = maKH,
+                MaKH = validatedMaKH,
                 MaNV = maNV,
                 NgayBan = DateTime.Now,
                 TongTien = _cart.Sum(i => i.ThanhTien),
@@ -133,6 +152,44 @@ namespace BagShopManagement.Services.Implementations
             var item = _cart.FirstOrDefault(c => c.MaSP == maSP);
             if (item != null)
                 _cart.Remove(item);
+        }
+
+        /// <summary>
+        /// Validate MaKH: nếu không rỗng nhưng không tồn tại trong DB, trả về null (khách lẻ)
+        /// </summary>
+        private string? ValidateMaKH(string? maKH)
+        {
+            // Nếu rỗng hoặc null, trả về null (khách lẻ)
+            if (string.IsNullOrWhiteSpace(maKH))
+                return null;
+
+            // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
+            try
+            {
+                var dt = DataAccessBase.ExecuteQuery(
+                    "SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH",
+                    new SqlParameter("@MaKH", maKH.Trim()));
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    int count = Convert.ToInt32(dt.Rows[0][0]);
+                    if (count > 0)
+                    {
+                        // MaKH tồn tại, trả về giá trị
+                        return maKH.Trim();
+                    }
+                }
+
+                // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
+                Logger.Log($"MaKH '{maKH}' không tồn tại trong database, xử lý như khách lẻ");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Nếu có lỗi khi check, log và trả về null để tránh lỗi foreign key
+                Logger.Log($"Lỗi khi validate MaKH '{maKH}': {ex.Message}. Xử lý như khách lẻ.");
+                return null;
+            }
         }
     }
 }
