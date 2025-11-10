@@ -30,6 +30,7 @@
         {
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
+            panelContent = new Panel();
             SuspendLayout();
             // 
             // headerControl1
@@ -50,16 +51,25 @@
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
             // 
+            // panelContent
+            // 
+            panelContent.Dock = DockStyle.Fill;
+            panelContent.Location = new Point(336, 76);
+            panelContent.Name = "panelContent";
+            panelContent.Size = new Size(890, 620);
+            panelContent.TabIndex = 2;
+            // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1226, 696);
+            Controls.Add(panelContent);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "QuanLiBanHang";
-            Text = "QuanLiBanHang";
+            Text = "Quản lý bán hàng - Bag Shop Management";
             WindowState = FormWindowState.Maximized;
             ResumeLayout(false);
         }
@@ -68,5 +78,6 @@
 
         private Controls.HeaderControl headerControl1;
         private Controls.SideBarControl sideBarControl1;
+        private Panel panelContent;
     }
 }
