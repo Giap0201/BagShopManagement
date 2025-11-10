@@ -2,15 +2,20 @@
 {
     partial class LoaiTuiEditForm
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
+        private System.Windows.Forms.Label lblMa;
+        private System.Windows.Forms.Label lblTen;
+        private System.Windows.Forms.Label lblMoTa;
+        internal System.Windows.Forms.TextBox txtMa;
+        internal System.Windows.Forms.TextBox txtTen;
+        internal System.Windows.Forms.TextBox txtMoTa;
+        internal System.Windows.Forms.Button btnSave;
+        internal System.Windows.Forms.Button btnCancel;
 
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing"></param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,118 +25,116 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
-            txtMa = new TextBox();
-            txtTen = new TextBox();
-            txtMoTa = new TextBox();
-            btnSave = new Button();
-            brnCancel = new Button();
-            SuspendLayout();
+            this.lblMa = new System.Windows.Forms.Label();
+            this.lblTen = new System.Windows.Forms.Label();
+            this.lblMoTa = new System.Windows.Forms.Label();
+            this.txtMa = new System.Windows.Forms.TextBox();
+            this.txtTen = new System.Windows.Forms.TextBox();
+            this.txtMoTa = new System.Windows.Forms.TextBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.SuspendLayout();
             // 
-            // label1
+            // Form size and basic props
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(119, 79);
-            label1.Name = "label1";
-            label1.Size = new Size(80, 20);
-            label1.TabIndex = 0;
-            label1.Text = "Mã loại túi";
+            this.ClientSize = new System.Drawing.Size(360, 260);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
+            this.Name = "LoaiTuiEditForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             // 
-            // label2
+            // lblMa
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(123, 128);
-            label2.Name = "label2";
-            label2.Size = new Size(82, 20);
-            label2.TabIndex = 1;
-            label2.Text = "Tên loại túi";
+            this.lblMa.AutoSize = true;
+            this.lblMa.Location = new System.Drawing.Point(18, 20);
+            this.lblMa.Name = "lblMa";
+            this.lblMa.Size = new System.Drawing.Size(90, 20);
+            this.lblMa.TabIndex = 0;
+            this.lblMa.Text = "Mã loại túi:";
             // 
-            // label3
+            // txtMa (full width)
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(124, 188);
-            label3.Name = "label3";
-            label3.Size = new Size(48, 20);
-            label3.TabIndex = 2;
-            label3.Text = "Mô tả";
+            this.txtMa.Location = new System.Drawing.Point(18, 44);
+            this.txtMa.Name = "txtMa";
+            this.txtMa.ReadOnly = true;
+            this.txtMa.Size = new System.Drawing.Size(324, 27);
+            this.txtMa.TabIndex = 1;
             // 
-            // txtMa
+            // lblTen
             // 
-            txtMa.Location = new Point(234, 84);
-            txtMa.Name = "txtMa";
-            txtMa.Size = new Size(125, 27);
-            txtMa.TabIndex = 3;
+            this.lblTen.AutoSize = true;
+            this.lblTen.Location = new System.Drawing.Point(18, 80);
+            this.lblTen.Name = "lblTen";
+            this.lblTen.Size = new System.Drawing.Size(99, 20);
+            this.lblTen.TabIndex = 2;
+            this.lblTen.Text = "Tên loại túi:*";
             // 
-            // txtTen
+            // txtTen (full width)
             // 
-            txtTen.Location = new Point(232, 127);
-            txtTen.Name = "txtTen";
-            txtTen.Size = new Size(125, 27);
-            txtTen.TabIndex = 4;
+            this.txtTen.Location = new System.Drawing.Point(18, 104);
+            this.txtTen.Name = "txtTen";
+            this.txtTen.Size = new System.Drawing.Size(324, 27);
+            this.txtTen.TabIndex = 3;
             // 
-            // txtMoTa
+            // lblMoTa
             // 
-            txtMoTa.Location = new Point(233, 189);
-            txtMoTa.Name = "txtMoTa";
-            txtMoTa.Size = new Size(125, 27);
-            txtMoTa.TabIndex = 5;
+            this.lblMoTa.AutoSize = true;
+            this.lblMoTa.Location = new System.Drawing.Point(18, 140);
+            this.lblMoTa.Name = "lblMoTa";
+            this.lblMoTa.Size = new System.Drawing.Size(55, 20);
+            this.lblMoTa.TabIndex = 4;
+            this.lblMoTa.Text = "Mô tả:";
             // 
-            // btnSave
+            // txtMoTa (full width multiline)
             // 
-            btnSave.Location = new Point(126, 260);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(94, 29);
-            btnSave.TabIndex = 6;
-            btnSave.Text = "Lưu";
-            btnSave.UseVisualStyleBackColor = true;
+            this.txtMoTa.Location = new System.Drawing.Point(18, 164);
+            this.txtMoTa.Multiline = true;
+            this.txtMoTa.Name = "txtMoTa";
+            this.txtMoTa.Size = new System.Drawing.Size(324, 52);
+            this.txtMoTa.TabIndex = 5;
             // 
-            // brnCancel
+            // btnCancel (left, grey)
             // 
-            brnCancel.Location = new Point(280, 264);
-            brnCancel.Name = "brnCancel";
-            brnCancel.Size = new Size(94, 29);
-            brnCancel.TabIndex = 7;
-            brnCancel.Text = "Huỷ";
-            brnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Location = new System.Drawing.Point(150, 222);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(90, 30);
+            this.btnCancel.TabIndex = 6;
+            this.btnCancel.Text = "Huỷ";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnCancel.FlatAppearance.BorderSize = 0;
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
+            this.btnCancel.ForeColor = System.Drawing.Color.Black;
             // 
-            // LoaiTuiEditForm
+            // btnSave (right, Material Blue 700)
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(brnCancel);
-            Controls.Add(btnSave);
-            Controls.Add(txtMoTa);
-            Controls.Add(txtTen);
-            Controls.Add(txtMa);
-            Controls.Add(label3);
-            Controls.Add(label2);
-            Controls.Add(label1);
-            Name = "LoaiTuiEditForm";
-            Text = "LoaiTuiEditForm";
-            ResumeLayout(false);
-            PerformLayout();
+            this.btnSave.Location = new System.Drawing.Point(264, 222);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(78, 30);
+            this.btnSave.TabIndex = 7;
+            this.btnSave.Text = "Lưu";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnSave.FlatAppearance.BorderSize = 0;
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(25, 118, 210); // Material Blue 700
+            this.btnSave.ForeColor = System.Drawing.Color.White;
+            // 
+            // add controls to form
+            // 
+            this.Controls.Add(this.lblMa);
+            this.Controls.Add(this.txtMa);
+            this.Controls.Add(this.lblTen);
+            this.Controls.Add(this.txtTen);
+            this.Controls.Add(this.lblMoTa);
+            this.Controls.Add(this.txtMoTa);
+            this.Controls.Add(this.btnCancel);
+            this.Controls.Add(this.btnSave);
+
+            this.ResumeLayout(false);
+            this.PerformLayout();
         }
-
-        #endregion
-
-        private Label label1;
-        private Label label2;
-        private Label label3;
-        private TextBox txtMa;
-        private TextBox txtTen;
-        private TextBox txtMoTa;
-        private Button btnSave;
-        private Button brnCancel;
     }
 }

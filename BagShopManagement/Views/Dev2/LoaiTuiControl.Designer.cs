@@ -30,11 +30,11 @@
         {
             dgvLoaiTui = new DataGridView();
             txtSearch = new TextBox();
-            btnThem = new Button();
-            btnSua = new Button();
-            btnXoa = new Button();
+            btnAdd = new Button();
+            btnEdit = new Button();
+            btnDelete = new Button();
             btnRefresh = new Button();
-            btnTim = new Button();
+            btnSearch = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvLoaiTui).BeginInit();
             SuspendLayout();
             // 
@@ -54,32 +54,32 @@
             txtSearch.Size = new Size(260, 27);
             txtSearch.TabIndex = 1;
             // 
-            // btnThem
+            // btnAdd
             // 
-            btnThem.Location = new Point(432, 55);
-            btnThem.Name = "btnThem";
-            btnThem.Size = new Size(94, 29);
-            btnThem.TabIndex = 2;
-            btnThem.Text = "Thêm";
-            btnThem.UseVisualStyleBackColor = true;
+            btnAdd.Location = new Point(432, 55);
+            btnAdd.Name = "btnAdd";
+            btnAdd.Size = new Size(94, 29);
+            btnAdd.TabIndex = 2;
+            btnAdd.Text = "Thêm";
+            btnAdd.UseVisualStyleBackColor = true;
             // 
-            // btnSua
+            // btnEdit
             // 
-            btnSua.Location = new Point(553, 55);
-            btnSua.Name = "btnSua";
-            btnSua.Size = new Size(94, 29);
-            btnSua.TabIndex = 3;
-            btnSua.Text = "Sửa";
-            btnSua.UseVisualStyleBackColor = true;
+            btnEdit.Location = new Point(553, 55);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(94, 29);
+            btnEdit.TabIndex = 3;
+            btnEdit.Text = "Sửa";
+            btnEdit.UseVisualStyleBackColor = true;
             // 
-            // btnXoa
+            // btnDelete
             // 
-            btnXoa.Location = new Point(679, 55);
-            btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(94, 29);
-            btnXoa.TabIndex = 4;
-            btnXoa.Text = "Xoá";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnDelete.Location = new Point(679, 55);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(94, 29);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Xoá";
+            btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnRefresh
             // 
@@ -90,24 +90,24 @@
             btnRefresh.Text = "Làm mới";
             btnRefresh.UseVisualStyleBackColor = true;
             // 
-            // btnTim
+            // btnSearch
             // 
-            btnTim.Location = new Point(318, 55);
-            btnTim.Name = "btnTim";
-            btnTim.Size = new Size(94, 29);
-            btnTim.TabIndex = 6;
-            btnTim.Text = "Tìm";
-            btnTim.UseVisualStyleBackColor = true;
+            btnSearch.Location = new Point(318, 55);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(94, 29);
+            btnSearch.TabIndex = 6;
+            btnSearch.Text = "Tìm";
+            btnSearch.UseVisualStyleBackColor = true;
             // 
             // LoaiTuiControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(btnTim);
+            Controls.Add(btnSearch);
             Controls.Add(btnRefresh);
-            Controls.Add(btnXoa);
-            Controls.Add(btnSua);
-            Controls.Add(btnThem);
+            Controls.Add(btnDelete);
+            Controls.Add(btnEdit);
+            Controls.Add(btnAdd);
             Controls.Add(txtSearch);
             Controls.Add(dgvLoaiTui);
             Name = "LoaiTuiControl";
@@ -121,10 +121,10 @@
 
         private DataGridView dgvLoaiTui;
         private TextBox txtSearch;
-        private Button btnThem;
-        private Button btnSua;
-        private Button btnXoa;
+        private Button btnAdd;
+        private Button btnEdit;
+        private Button btnDelete;
         private Button btnRefresh;
-        private Button btnTim;
+        private Button btnSearch;
     }
 }
