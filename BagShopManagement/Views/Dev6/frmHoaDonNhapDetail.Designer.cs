@@ -433,6 +433,7 @@
             btnInHDN.TabIndex = 7;
             btnInHDN.Text = "IN HOÁ ĐƠN";
             btnInHDN.UseVisualStyleBackColor = true;
+            btnInHDN.Click += btnInHDN_Click;
             // 
             // errorProvider1
             // 

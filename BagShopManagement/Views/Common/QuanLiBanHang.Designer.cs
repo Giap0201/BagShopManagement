@@ -30,25 +30,18 @@
         {
             components = new System.ComponentModel.Container();
             errorProvider1 = new ErrorProvider(components);
-            sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sqlCommandBuilder1 = new Microsoft.Data.SqlClient.SqlCommandBuilder();
-            ucHoaDonNhapList2 = new BagShopManagement.Views.Dev6.ucHoaDonNhapList();
+            panel1 = new Panel();
+            label1 = new Label();
+            sideBarControl = new BagShopManagement.Views.Controls.SideBarControl();
+            pnlMainContent = new Panel();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
             // errorProvider1
             // 
             errorProvider1.ContainerControl = this;
-            // 
-            // sideBarControl1
-            // 
-            sideBarControl1.Dock = DockStyle.Left;
-            sideBarControl1.Location = new Point(0, 76);
-            sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(341, 620);
-            sideBarControl1.TabIndex = 1;
-            sideBarControl1.Load += sideBarControl1_Load;
             // 
             // headerControl1
             // 
@@ -59,21 +52,47 @@
             headerControl1.Size = new Size(1693, 76);
             headerControl1.TabIndex = 0;
             // 
-            // ucHoaDonNhapList2
+            // panel1
             // 
-            ucHoaDonNhapList2.Dock = DockStyle.Fill;
-            ucHoaDonNhapList2.Location = new Point(341, 76);
-            ucHoaDonNhapList2.Name = "ucHoaDonNhapList2";
-            ucHoaDonNhapList2.Size = new Size(1352, 620);
-            ucHoaDonNhapList2.TabIndex = 2;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(200, 100);
+            panel1.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(181, 54);
+            label1.Name = "label1";
+            label1.Size = new Size(41, 20);
+            label1.TabIndex = 0;
+            label1.Text = "TEST";
+            // 
+        
+            // 
+            // sideBarControl
+            // 
+            sideBarControl.Dock = DockStyle.Left;
+            sideBarControl.Location = new Point(0, 76);
+            sideBarControl.Name = "sideBarControl";
+            sideBarControl.Size = new Size(356, 620);
+            sideBarControl.TabIndex = 1;
+            // 
+            // pnlMainContent
+            // 
+            pnlMainContent.Dock = DockStyle.Fill;
+            pnlMainContent.Location = new Point(356, 76);
+            pnlMainContent.Name = "pnlMainContent";
+            pnlMainContent.Size = new Size(1337, 620);
+            pnlMainContent.TabIndex = 2;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1693, 696);
-            Controls.Add(ucHoaDonNhapList2);
-            Controls.Add(sideBarControl1);
+            Controls.Add(pnlMainContent);
+            Controls.Add(sideBarControl);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "QuanLiBanHang";
@@ -86,10 +105,14 @@
 
         #endregion
         private ErrorProvider errorProvider1;
-        private Controls.SideBarControl sideBarControl1;
         private Controls.HeaderControl headerControl1;
         private Microsoft.Data.SqlClient.SqlCommandBuilder sqlCommandBuilder1;
         private Dev6.ucHoaDonNhapList ucHoaDonNhapList1;
         private Dev6.ucHoaDonNhapList ucHoaDonNhapList2;
+        private Controls.SideBarControl sideBarControl1;
+        private Panel panel1;
+        private Label label1;
+        private Panel pnlMainContent;
+        private Controls.SideBarControl sideBarControl;
     }
 }

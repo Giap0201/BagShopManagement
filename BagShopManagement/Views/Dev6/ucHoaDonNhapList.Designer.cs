@@ -228,6 +228,7 @@
             btnThem.TabIndex = 2;
             btnThem.Text = "Thêm mới";
             btnThem.UseVisualStyleBackColor = true;
+            btnThem.Click += btnThem_Click;
             // 
             // btnLamMoi
             // 
@@ -304,7 +305,6 @@
         private ComboBox cmbSearchNhanVien;
         private ComboBox cmbSearchTrangThai;
         private ComboBox cmbSearchNCC;
-        private ComboBox cmbSearchMaHDN;
         private GroupBox groupBox2;
         private Button btnHuy;
         private Button btnDuyet;
@@ -314,5 +314,6 @@
         private Button btnTimKiem;
         private DataGridView dgvDanhSach;
         private Label label7;
+        private ComboBox cmbSearchMaHDN;
     }
 }

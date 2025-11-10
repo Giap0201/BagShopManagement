@@ -42,6 +42,7 @@
             button2 = new Button();
             button1 = new Button();
             menu = new ImageList(components);
+            backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -61,7 +62,7 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(331, 788);
+            panel1.Size = new Size(330, 788);
             panel1.TabIndex = 0;
             // 
             // button10
@@ -100,6 +101,7 @@
             button7.TabIndex = 6;
             button7.Text = "Nhân viên";
             button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
             // 
             // button6
             // 
@@ -127,6 +129,7 @@
             button4.TabIndex = 3;
             button4.Text = "Sản phẩm";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
@@ -145,6 +148,7 @@
             button2.TabIndex = 1;
             button2.Text = "Bán hàng";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -157,7 +161,7 @@
             button1.ImageList = menu;
             button1.Location = new Point(0, 0);
             button1.Name = "button1";
-            button1.Size = new Size(331, 80);
+            button1.Size = new Size(330, 80);
             button1.TabIndex = 0;
             button1.Text = "DashBoard";
             button1.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -178,7 +182,8 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Name = "SideBarControl";
-            Size = new Size(439, 788);
+            Size = new Size(336, 788);
+            Load += SideBarControl_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -197,5 +202,6 @@
         private Button button10;
         private Button button9;
         private ImageList menu;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }
