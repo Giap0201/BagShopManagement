@@ -31,16 +31,81 @@ namespace BagShopManagement.Views.Common
         {
             switch (menuKey)
             {
-                case "POS":
+                case "Dashboard":
+                    ShowDashboard();
+                    break;
+
+                case "BanHang":
                     LoadForm<POSForm>();
                     break;
-                case "HoaDon":
+
+                case "DanhMucSanPham":
+                    MessageBox.Show("Chức năng Danh mục sản phẩm đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "SanPham":
+                    MessageBox.Show("Chức năng Sản phẩm đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "HoaDonBan":
                     LoadForm<HoaDonBanForm>();
                     break;
-                case "SanPham":
-                    MessageBox.Show("Chức năng Sản phẩm đang phát triển", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                case "KhachHang":
+                    MessageBox.Show("Chức năng Khách hàng đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "NhanVien":
+                    MessageBox.Show("Chức năng Nhân viên đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "NhaCungCap":
+                    MessageBox.Show("Chức năng Nhà cung cấp đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "TaiKhoan":
+                    MessageBox.Show("Chức năng Tài khoản đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    break;
+
+                case "HeThong":
+                    MessageBox.Show("Chức năng Hệ thống đang phát triển", "Thông báo",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
                     break;
             }
+        }
+
+        private void ShowDashboard()
+        {
+            // Đóng form hiện tại nếu có
+            if (_currentChildForm != null)
+            {
+                _currentChildForm.Close();
+                _currentChildForm.Dispose();
+                _currentChildForm = null;
+            }
+
+            // Hiển thị dashboard/welcome screen
+            panelContent.Controls.Clear();
+            var lblWelcome = new Label
+            {
+                Text = "🏪 BAG SHOP MANAGEMENT\n\n" +
+                       "📊 Dashboard - Tổng quan hệ thống\n\n" +
+                       "Vui lòng chọn chức năng từ menu bên trái để bắt đầu làm việc.\n\n" +
+                       "✅ Bán hàng: Tạo hóa đơn bán hàng (POS)\n" +
+                       "✅ Hóa đơn bán: Xem và quản lý hóa đơn",
+                Font = new Font("Segoe UI", 14F, FontStyle.Regular),
+                ForeColor = Color.FromArgb(52, 73, 94),
+                TextAlign = ContentAlignment.MiddleCenter,
+                Dock = DockStyle.Fill,
+                BackColor = Color.White
+            };
+            panelContent.Controls.Add(lblWelcome);
         }
 
         private void LoadForm<T>() where T : Form
@@ -69,8 +134,13 @@ namespace BagShopManagement.Views.Common
 
         private void sideBarControl1_Load(object sender, EventArgs e)
         {
-            // Tự động load form POS khi khởi động
-            LoadForm<POSForm>();
+            // Hiển thị Dashboard khi khởi động
+            ShowDashboard();
+        }
+
+        private void QuanLiBanHang_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

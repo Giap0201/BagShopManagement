@@ -18,70 +18,27 @@ namespace BagShopManagement.Views.Controls
         public SideBarControl()
         {
             InitializeComponent();
-            SetupMenuButtons();
+            SetupMenuEventHandlers();
         }
 
-        private void SetupMenuButtons()
+        private void SetupMenuEventHandlers()
         {
-            // Thêm các nút menu vào SideBarControl
-            Button btnBanHang = new Button
-            {
-                Text = "🛒 Bán hàng (POS)",
-                Width = 280,
-                Height = 60,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                BackColor = Color.FromArgb(52, 152, 219),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Location = new Point(20, 20),
-                Tag = "POS"
-            };
-            btnBanHang.Click += MenuItem_Click;
-
-            Button btnHoaDon = new Button
-            {
-                Text = "📄 Quản lý hóa đơn",
-                Width = 280,
-                Height = 60,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                BackColor = Color.FromArgb(46, 204, 113),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Location = new Point(20, 100),
-                Tag = "HoaDon"
-            };
-            btnHoaDon.Click += MenuItem_Click;
-
-            Button btnSanPham = new Button
-            {
-                Text = "📦 Sản phẩm",
-                Width = 280,
-                Height = 60,
-                Font = new Font("Segoe UI", 12F, FontStyle.Bold),
-                BackColor = Color.FromArgb(155, 89, 182),
-                ForeColor = Color.White,
-                FlatStyle = FlatStyle.Flat,
-                Location = new Point(20, 180),
-                Tag = "SanPham"
-            };
-            btnSanPham.Click += MenuItem_Click;
-
-            this.Controls.Add(btnBanHang);
-            this.Controls.Add(btnHoaDon);
-            this.Controls.Add(btnSanPham);
-        }
-
-        private void MenuItem_Click(object? sender, EventArgs e)
-        {
-            if (sender is Button btn && btn.Tag is string menuKey)
-            {
-                MenuItemClicked?.Invoke(this, menuKey);
-            }
+            // Gán event handlers cho các button có sẵn trong Designer
+            button1.Click += (s, e) => MenuItemClicked?.Invoke(this, "Dashboard");
+            button2.Click += (s, e) => MenuItemClicked?.Invoke(this, "BanHang");
+            button3.Click += (s, e) => MenuItemClicked?.Invoke(this, "DanhMucSanPham");
+            button4.Click += (s, e) => MenuItemClicked?.Invoke(this, "SanPham");
+            button5.Click += (s, e) => MenuItemClicked?.Invoke(this, "HoaDonBan");
+            button6.Click += (s, e) => MenuItemClicked?.Invoke(this, "KhachHang");
+            button7.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhanVien");
+            button8.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhaCungCap");
+            button9.Click += (s, e) => MenuItemClicked?.Invoke(this, "TaiKhoan");
+            button10.Click += (s, e) => MenuItemClicked?.Invoke(this, "HeThong");
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Giữ lại cho tương thích, nhưng không dùng nữa
+            // Event handler này sẽ được override bởi SetupMenuEventHandlers
         }
     }
 }

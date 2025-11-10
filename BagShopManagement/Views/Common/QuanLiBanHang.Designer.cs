@@ -38,39 +38,44 @@
             headerControl1.BackColor = SystemColors.ControlLight;
             headerControl1.Dock = DockStyle.Top;
             headerControl1.Location = new Point(0, 0);
+            headerControl1.Margin = new Padding(13, 12, 13, 12);
             headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1226, 76);
+            headerControl1.Size = new Size(2605, 156);
             headerControl1.TabIndex = 0;
             // 
             // sideBarControl1
             // 
             sideBarControl1.Dock = DockStyle.Left;
-            sideBarControl1.Location = new Point(0, 76);
+            sideBarControl1.Location = new Point(0, 156);
+            sideBarControl1.Margin = new Padding(13, 12, 13, 12);
             sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(336, 620);
+            sideBarControl1.Size = new Size(714, 1271);
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
             // 
             // panelContent
             // 
             panelContent.Dock = DockStyle.Fill;
-            panelContent.Location = new Point(336, 76);
+            panelContent.Location = new Point(714, 156);
+            panelContent.Margin = new Padding(6, 6, 6, 6);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(890, 620);
+            panelContent.Size = new Size(1891, 1271);
             panelContent.TabIndex = 2;
             // 
             // QuanLiBanHang
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1226, 696);
+            ClientSize = new Size(2605, 1427);
             Controls.Add(panelContent);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(6, 6, 6, 6);
             Name = "QuanLiBanHang";
             Text = "Quản lý bán hàng - Bag Shop Management";
             WindowState = FormWindowState.Maximized;
+            Load += QuanLiBanHang_Load;
             ResumeLayout(false);
         }
 
