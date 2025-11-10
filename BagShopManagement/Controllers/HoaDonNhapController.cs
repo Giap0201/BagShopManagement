@@ -1,6 +1,5 @@
 ﻿using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
-using BagShopManagement.Models;
 using BagShopManagement.Models.Enums; // Thêm
 using BagShopManagement.Services.Interfaces;
 
@@ -24,7 +23,6 @@ namespace BagShopManagement.Controllers
 
         public List<HoaDonNhapResponse> LayDanhSachHoaDon()
         {
-            // Pass-through call
             return _hoaDonNhapService.GetAllHoaDonNhap();
         }
 

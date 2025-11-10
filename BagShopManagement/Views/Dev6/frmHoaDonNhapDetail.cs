@@ -1,18 +1,13 @@
 ﻿using BagShopManagement.Controllers;
 using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
-using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
-using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Repositories.Interfaces;
-using BagShopManagement.Services.Implementations;
-using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
-using System;
-using System.Collections.Generic;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows.Forms;
+using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace BagShopManagement.Views.Dev6
 {
@@ -563,5 +558,230 @@ namespace BagShopManagement.Views.Dev6
         private void btnSuaHDN_Click(object sender, EventArgs e)
         {
         }
+
+        private void btnInHDN_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(txtMaHDN.Text))
+            {
+                MessageBox.Show("Vui lòng chọn hoặc tạo hoá đơn trước khi xuất.",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (_listChiTiets == null || !_listChiTiets.Any())
+            {
+                MessageBox.Show("Hóa đơn chưa có chi tiết để xuất.",
+                    "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            using var sfd = new SaveFileDialog
+            {
+                Title = "Lưu hóa đơn nhập",
+                Filter = "Excel file (*.xlsx)|*.xlsx",
+                FileName = $"HoaDonNhap_{txtMaHDN.Text}.xlsx"
+            };
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            string filePath = sfd.FileName;
+
+            try
+            {
+                // ✅ Cấu hình LicenseContext cho EPPlus 8 trở lên
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+                // ======= LẤY DỮ LIỆU CƠ BẢN =======
+                string maHDN = txtMaHDN.Text.Trim();
+                string ncc = cboNhaCungCap.Text;
+                string nv = cboNhanVien.Text;
+                string ngay = dtpNgayNhap.Value.ToString("dd/MM/yyyy");
+                string ghiChu = txtGhiChu.Text.Trim();
+                decimal tongTien = _listChiTiets.Sum(ct => ct.ThanhTien);
+
+                using (var package = new ExcelPackage())
+                {
+                    var ws = package.Workbook.Worksheets.Add("Hóa đơn nhập");
+
+                    int row = 1;
+
+                    // ======= TIÊU ĐỀ =======
+                    ws.Cells[row, 1].Value = "PHIẾU NHẬP HÀNG";
+                    ws.Cells[row, 1, row, 5].Merge = true;
+                    ws.Cells[row, 1].Style.Font.Bold = true;
+                    ws.Cells[row, 1].Style.Font.Size = 18;
+                    ws.Cells[row, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    row += 2;
+
+                    // ======= THÔNG TIN CHUNG =======
+                    ws.Cells[row++, 1].Value = $"Mã hóa đơn: {maHDN}";
+                    ws.Cells[row++, 1].Value = $"Nhà cung cấp: {ncc}";
+                    ws.Cells[row++, 1].Value = $"Nhân viên lập: {nv}";
+                    ws.Cells[row++, 1].Value = $"Ngày nhập: {ngay}";
+                    if (!string.IsNullOrEmpty(ghiChu))
+                        ws.Cells[row++, 1].Value = $"Ghi chú: {ghiChu}";
+                    row++;
+
+                    // ======= HEADER BẢNG =======
+                    ws.Cells[row, 1].Value = "Tên sản phẩm";
+                    ws.Cells[row, 2].Value = "Số lượng";
+                    ws.Cells[row, 3].Value = "Đơn giá (VNĐ)";
+                    ws.Cells[row, 4].Value = "Thành tiền (VNĐ)";
+
+                    using (var range = ws.Cells[row, 1, row, 4])
+                    {
+                        range.Style.Font.Bold = true;
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                        range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        range.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    }
+
+                    row++;
+
+                    // ======= NỘI DUNG CHI TIẾT =======
+                    foreach (var item in _listChiTiets)
+                    {
+                        ws.Cells[row, 1].Value = item.TenSP;
+                        ws.Cells[row, 2].Value = item.SoLuong;
+                        ws.Cells[row, 3].Value = item.DonGia;
+                        ws.Cells[row, 4].Value = item.ThanhTien;
+
+                        ws.Cells[row, 3, row, 4].Style.Numberformat.Format = "#,##0";
+                        row++;
+                    }
+
+                    // ======= TỔNG CỘNG =======
+                    ws.Cells[row, 3].Value = "Tổng cộng:";
+                    ws.Cells[row, 4].Value = tongTien;
+                    ws.Cells[row, 3, row, 4].Style.Font.Bold = true;
+                    ws.Cells[row, 4].Style.Numberformat.Format = "#,##0";
+                    row += 2;
+
+                    // ======= KÝ TÊN =======
+                    ws.Cells[row, 2].Value = "Người lập phiếu";
+                    ws.Cells[row, 4].Value = "Nhà cung cấp";
+                    ws.Cells[row, 2, row, 2].Style.Font.Italic = true;
+                    ws.Cells[row, 4, row, 4].Style.Font.Italic = true;
+                    ws.Cells[row, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    ws.Cells[row, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    // ======= ĐỊNH DẠNG CHUNG =======
+                    ws.Cells.AutoFitColumns();
+                    ws.Cells[1, 1, row, 4].Style.Border.BorderAround(ExcelBorderStyle.None);
+
+                    // ======= LƯU FILE =======
+                    File.WriteAllBytes(filePath, package.GetAsByteArray());
+                }
+
+                MessageBox.Show($"Xuất file Excel thành công!\nĐã lưu tại: {filePath}",
+                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = filePath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        //private void btnInHDN_Click(object sender, EventArgs e)
+        //{
+        //    QuestPDF.Settings.License = LicenseType.Community;
+
+        //    if (string.IsNullOrWhiteSpace(txtMaHDN.Text))
+        //    {
+        //        MessageBox.Show("Vui lòng chọn hoặc tạo hoá đơn trước khi xuất.",
+        //            "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+
+        //    if (_listChiTiets == null || !_listChiTiets.Any())
+        //    {
+        //        MessageBox.Show("Hóa đơn chưa có chi tiết để xuất.",
+        //            "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        return;
+        //    }
+
+        //    using var sfd = new SaveFileDialog
+        //    {
+        //        Title = "Lưu hóa đơn nhập",
+        //        Filter = "PDF file (*.pdf)|*.pdf",
+        //        FileName = $"HoaDonNhap_{txtMaHDN.Text}.pdf"
+        //    };
+
+        //    if (sfd.ShowDialog() != DialogResult.OK)
+        //        return;
+
+        //    string filePath = sfd.FileName;
+
+        //    try
+        //    {
+        //        // Dữ liệu cơ bản
+        //        string maHDN = txtMaHDN.Text.Trim();
+        //        string ncc = cboNhaCungCap.Text;
+        //        string nv = cboNhanVien.Text;
+        //        string ngay = dtpNgayNhap.Value.ToString("dd/MM/yyyy");
+        //        string ghiChu = txtGhiChu.Text.Trim();
+        //        decimal tongTien = _listChiTiets.Sum(ct => ct.ThanhTien);
+
+        //        // 1️⃣ Tạo tài liệu PDF
+        //        var doc = QDoc.Create(container =>
+        //        {
+        //            container.Page(page =>
+        //            {
+        //                page.Size(PageSizes.A4);
+        //                page.Margin(30);
+
+        //                page.Content().Column(col =>
+        //                {
+        //                    col.Item().Text($"PHIẾU NHẬP HÀNG").FontSize(18).Bold();
+        //                    col.Item().Text($"Mã hóa đơn: {maHDN}");
+        //                    col.Item().Text($"Nhà cung cấp: {ncc}");
+        //                    col.Item().Text($"Nhân viên lập: {nv}");
+        //                    col.Item().Text($"Ngày nhập: {ngay}");
+        //                    if (!string.IsNullOrEmpty(ghiChu))
+        //                        col.Item().Text($"Ghi chú: {ghiChu}");
+
+        //                    col.Item().Text("");
+        //                    col.Item().Text("Chi tiết hóa đơn:");
+
+        //                    // Bảng chi tiết (dạng text đơn giản)
+        //                    foreach (var item in _listChiTiets)
+        //                    {
+        //                        col.Item().Text($"- {item.TenSP} | SL: {item.SoLuong} | Đơn giá: {item.DonGia:N0} | Thành tiền: {item.ThanhTien:N0}");
+        //                    }
+
+        //                    col.Item().Text("");
+        //                    col.Item().Text($"Tổng cộng: {tongTien:N0} VNĐ").Bold();
+        //                });
+        //            });
+        //        });
+
+        //        // 2️⃣ Ghi file PDF ra đĩa
+        //        doc.GeneratePdf(filePath);
+
+        //        MessageBox.Show($"Xuất hoá đơn thành công!\nĐã lưu tại: {filePath}",
+        //            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+        //        // 3️⃣ Mở file PDF sau khi lưu
+        //        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+        //        {
+        //            FileName = filePath,
+        //            UseShellExecute = true
+        //        });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Lỗi khi xuất PDF: {ex.Message}",
+        //            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
     }
 }

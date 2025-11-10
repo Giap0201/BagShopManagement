@@ -14,8 +14,9 @@ namespace BagShopManagement.DTOs.Responses
         public string TenNCC { get; set; } // mở rộng
         public string MaNV { get; set; }
         public string TenNV { get; set; } // mở rộng
-        public DateTime NgayNhap { get; set; }
+        public DateTime? NgayNhap { get; set; }
         public DateTime? NgayDuyet { get; set; }
+        public DateTime? NgayHuy { get; set; }
         public decimal TongTien { get; set; }
         public string? GhiChu { get; set; }
         public TrangThaiHoaDonNhap TrangThai { get; set; }

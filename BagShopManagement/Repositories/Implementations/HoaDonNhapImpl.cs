@@ -40,16 +40,21 @@ namespace BagShopManagement.Repositories.Implementations
         {
             return new HoaDonNhapResponse
             {
-                MaHDN = row["MaHDN"].ToString(),
-                MaNCC = row["MaNCC"].ToString(),
-                TenNCC = row.IsNull("TenNCC") ? "" : row["TenNCC"].ToString(),
-                MaNV = row["MaNV"].ToString(),
-                TenNV = row.IsNull("TenNV") ? "" : row["TenNV"].ToString(),
-                NgayNhap = Convert.ToDateTime(row["NgayNhap"]),
-                NgayDuyet = row.IsNull("NgayDuyet") ? null : Convert.ToDateTime(row["NgayDuyet"]),
-                TongTien = Convert.ToDecimal(row["TongTien"]),
-                GhiChu = row.IsNull("GhiChu") ? null : row["GhiChu"].ToString(),
-                TrangThai = (TrangThaiHoaDonNhap)Convert.ToByte(row["TrangThai"])
+                MaHDN = row["MaHDN"]?.ToString() ?? "N/A",
+                MaNCC = row["MaNCC"]?.ToString() ?? "N/A",
+                TenNCC = row.IsNull("TenNCC") ? "N/A" : row["TenNCC"].ToString(),
+                MaNV = row["MaNV"]?.ToString() ?? "N/A",
+                TenNV = row.IsNull("TenNV") ? "N/A" : row["TenNV"].ToString(),
+                NgayNhap = row.IsNull("NgayNhap") ? (DateTime?)null : Convert.ToDateTime(row["NgayNhap"]),
+                NgayDuyet = row.IsNull("NgayDuyet") ? (DateTime?)null : Convert.ToDateTime(row["NgayDuyet"]),
+                NgayHuy = row.IsNull("NgayHuy") ? (DateTime?)null : Convert.ToDateTime(row["NgayHuy"]),
+
+                TongTien = row.IsNull("TongTien") ? 0 : Convert.ToDecimal(row["TongTien"]),
+                GhiChu = row.IsNull("GhiChu") ? "" : row["GhiChu"].ToString(),
+
+                TrangThai = row.IsNull("TrangThai")
+                    ? TrangThaiHoaDonNhap.TamLuu
+                    : (TrangThaiHoaDonNhap)Convert.ToByte(row["TrangThai"])
             };
         }
 
@@ -100,7 +105,7 @@ namespace BagShopManagement.Repositories.Implementations
         {
             string query = @"
                 SELECT hdn.MaHDN, hdn.MaNCC, ncc.TenNCC, hdn.MaNV, nv.HoTen AS TenNV,
-                       hdn.NgayNhap, hdn.NgayDuyet, hdn.TongTien, hdn.GhiChu, hdn.TrangThai
+                       hdn.NgayNhap, hdn.NgayDuyet, hdn.NgayHuy, hdn.TongTien, hdn.GhiChu, hdn.TrangThai
                 FROM HoaDonNhap hdn
                 LEFT JOIN NhaCungCap ncc ON hdn.MaNCC = ncc.MaNCC
                 LEFT JOIN NhanVien nv ON hdn.MaNV = nv.MaNV

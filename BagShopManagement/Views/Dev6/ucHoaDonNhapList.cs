@@ -2,116 +2,82 @@
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
-using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Repositories.Interfaces;
-using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
+using BagShopManagement.Views.Dev6; // Thêm
+using Microsoft.Extensions.DependencyInjection; // Thêm
 using System;
 using System.Collections.Generic;
-using System.ComponentModel; // Quan trọng để sử dụng DesignMode
+using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using System.Configuration; // Thêm dòng này nếu bạn đọc App.config trực tiếp
 
 namespace BagShopManagement.Views.Dev6
 {
     public partial class ucHoaDonNhapList : UserControl
     {
-        // === 1. KHAI BÁO CONTROLLER VÀ REPO (KHÔNG KHỞI TẠO TẠI ĐÂY) ===
-        private HoaDonNhapController _controller; // Khong dung readonly vi se gan lai trong Load
+        private readonly HoaDonNhapController _controller;
+        private readonly INhaCungCapRepository _nhaCungCapRepo;
+        private readonly INhanVienRepository _nhanVienRepo;
+        private readonly IServiceProvider _serviceProvider;
 
-        private INhaCungCapRepository _nhaCungCapRepo; // Khong dung readonly
-        private INhanVienRepository _nhanVienRepo; // Khong dung readonly
-
-        public ucHoaDonNhapList()
+        public ucHoaDonNhapList(
+            HoaDonNhapController controller,
+            INhaCungCapRepository nhaCungCapRepo,
+            INhanVienRepository nhanVienRepo,
+            IServiceProvider serviceProvider)
         {
             InitializeComponent();
 
-            // Constructor chỉ nên chứa các logic khởi tạo giao diện cơ bản
-            // và gán sự kiện nếu cần.
-            // KHÔNG KHỞI TẠO CÁC REPOSITORY HOẶC SERVICE Ở ĐÂY!
-            // Gán sự kiện cho DataGridView
-            this.dgvDanhSach.SelectionChanged += new System.EventHandler(this.dgvDanhSach_SelectionChanged);
+            // Gán các dependency
+            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _nhaCungCapRepo = nhaCungCapRepo ?? throw new ArgumentNullException(nameof(nhaCungCapRepo));
+            _nhanVienRepo = nhanVienRepo ?? throw new ArgumentNullException(nameof(nhanVienRepo));
+            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
         }
 
-        // === 3. SỰ KIỆN LOAD CHÍNH ===
         private void ucHoaDonNhapList_Load(object sender, EventArgs e)
         {
-            // --- TOÀN BỘ LOGIC KHỞI TẠO VÀ TẢI DỮ LIỆU ĐƯA VÀO ĐÂY ---
-            if (!this.DesignMode) // Chỉ chạy khi ứng dụng chạy, không phải trong Design Mode
+            if (!this.DesignMode)
             {
-                // === 2. KHỞI TẠO (POOR MAN'S DI) ===
-                IHoaDonNhapRepository hoaDonNhapRepo = new HoaDonNhapImpl();
-                IChiTietHDNRepository chiTietRepo = new ChiTietHDNImpl();
-                INhaCungCapRepository nhaCungCapRepo = new NhaCungCapImpl();
-                INhanVienRepository nhanVienRepo = new NhanVienImpl();
-                ISanPhamRepository sanPhamRepo = new SanPhamImpl();
-
-                // Lưu lại repo để load ComboBox
-                _nhaCungCapRepo = nhaCungCapRepo;
-                _nhanVienRepo = nhanVienRepo;
-
-                IHoaDonNhapService hoaDonNhapService = new HoaDonNhapService(
-                    hoaDonNhapRepo, chiTietRepo, nhaCungCapRepo, nhanVienRepo, sanPhamRepo
-                );
-
-                _controller = new HoaDonNhapController(hoaDonNhapService);
-
-                // Tải các ComboBox tìm kiếm
-                LoadComboBoxes();
-
-                // Tải danh sách hóa đơn (Chức năng chính bạn yêu cầu)
-                LoadAllInvoices();
-
-                // Cập nhật trạng thái nút (lúc đầu chưa chọn gì)
-                UpdateUIState(null);
+                try
+                {
+                    LoadComboBoxes();
+                    LoadAllInvoices();
+                    UpdateUIState(null);
+                }
+                catch (Exception ex)
+                {
+                    Utils.ExceptionHandler.Show(ex, "Không thể tải danh sách hóa đơn.");
+                }
             }
         }
 
         #region === CÁC HÀM TẢI DỮ LIỆU (LOAD) ===
 
-        /// <summary>
-        /// Hàm chính: Tải toàn bộ HĐN lên DataGridView
-        /// </summary>
         private void LoadAllInvoices()
         {
-            // Kiểm tra _controller đã được khởi tạo chưa (phòng trường hợp DesignMode)
-            if (_controller == null) return; // Thêm dòng này để an toàn hơn
-
+            if (_controller == null) return;
             try
             {
-                // 1. Gọi Controller
                 List<HoaDonNhapResponse> danhSach = _controller.LayDanhSachHoaDon();
-
-                // 2. Gán dữ liệu (Binding)
                 dgvDanhSach.DataSource = null;
                 dgvDanhSach.DataSource = danhSach;
-
-                // 3. Cấu hình hiển thị cho lưới
                 FormatInvoiceGrid();
-            }
-            catch (ApplicationException ex)
-            {
-                MessageBox.Show(ex.Message, "Lỗi tải dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi không xác định: {ex.Message}", "Lỗi nghiêm trọng", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                Utils.ExceptionHandler.Show(ex, "Lỗi tải dữ liệu");
             }
         }
 
-        /// <summary>
-        /// Cấu hình cột và tô màu cho DataGridView
-        /// </summary>
         private void FormatInvoiceGrid()
         {
             if (dgvDanhSach.DataSource == null) return;
-
-            // 1. Cấu hình Cột
             dgvDanhSach.Columns["TenTrangThai"].HeaderText = "Trạng Thái";
             dgvDanhSach.Columns["MaHDN"].HeaderText = "Mã HĐN";
             dgvDanhSach.Columns["TenNCC"].HeaderText = "Nhà Cung Cấp";
@@ -119,32 +85,22 @@ namespace BagShopManagement.Views.Dev6
             dgvDanhSach.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
             dgvDanhSach.Columns["NgayDuyet"].HeaderText = "Ngày Duyệt";
             dgvDanhSach.Columns["TongTien"].HeaderText = "Tổng Tiền";
-
-            // Định dạng tiền tệ
             dgvDanhSach.Columns["TongTien"].DefaultCellStyle.Format = "N0";
-
-            // Ẩn các cột không cần thiết
             dgvDanhSach.Columns["MaNCC"].Visible = false;
             dgvDanhSach.Columns["MaNV"].Visible = false;
             dgvDanhSach.Columns["TrangThai"].Visible = false;
             dgvDanhSach.Columns["GhiChu"].Visible = false;
-
             if (dgvDanhSach.Columns.Contains("ChiTiet"))
             {
                 dgvDanhSach.Columns["ChiTiet"].Visible = false;
             }
-
-            // 2. Tô màu các dòng
             foreach (DataGridViewRow row in dgvDanhSach.Rows)
             {
                 if (row.DataBoundItem == null) continue;
-
                 var trangThai = (TrangThaiHoaDonNhap)row.Cells["TrangThai"].Value;
-
                 row.DefaultCellStyle.BackColor = SystemColors.Window;
                 row.DefaultCellStyle.Font = new Font(this.Font, FontStyle.Regular);
                 row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
-
                 if (trangThai == TrangThaiHoaDonNhap.DaHuy)
                 {
                     row.DefaultCellStyle.BackColor = Color.LightGray;
@@ -158,9 +114,6 @@ namespace BagShopManagement.Views.Dev6
             }
         }
 
-        /// <summary>
-        /// Tải dữ liệu cho các ComboBox tìm kiếm
-        /// </summary>
         private void LoadComboBoxes()
         {
             LoadTrangThaiComboBox();
@@ -168,9 +121,6 @@ namespace BagShopManagement.Views.Dev6
             LoadComboBoxNhanVien();
         }
 
-        /// <summary>
-        /// Tải ComboBox Trạng Thái (Tải thủ công)
-        /// </summary>
         private void LoadTrangThaiComboBox()
         {
             var dataSource = new List<object>
@@ -180,26 +130,19 @@ namespace BagShopManagement.Views.Dev6
                 new { Value = (byte?)TrangThaiHoaDonNhap.HoatDong, Display = "Hoạt động" },
                 new { Value = (byte?)TrangThaiHoaDonNhap.DaHuy, Display = "Đã hủy" }
             };
-
             cmbSearchTrangThai.DataSource = dataSource;
             cmbSearchTrangThai.DisplayMember = "Display";
             cmbSearchTrangThai.ValueMember = "Value";
             cmbSearchTrangThai.SelectedIndex = 0;
         }
 
-        /// <summary>
-        /// Tải ComboBox Nhà cung cấp (Tải từ CSDL)
-        /// </summary>
         private void LoadComboBoxNhaCungCap()
         {
-            // Kiểm tra _nhaCungCapRepo đã được khởi tạo chưa
             if (_nhaCungCapRepo == null) return;
-
             try
             {
                 var list = _nhaCungCapRepo.GetAll();
                 list.Insert(0, new NhaCungCap { MaNCC = "", TenNCC = "--- Tất cả NCC ---" });
-
                 cmbSearchNCC.DataSource = list;
                 cmbSearchNCC.DisplayMember = "TenNCC";
                 cmbSearchNCC.ValueMember = "MaNCC";
@@ -207,19 +150,13 @@ namespace BagShopManagement.Views.Dev6
             catch (Exception ex) { MessageBox.Show($"Lỗi tải danh sách NCC: {ex.Message}"); }
         }
 
-        /// <summary>
-        /// Tải ComboBox Nhân viên (Tải từ CSDL)
-        /// </summary>
         private void LoadComboBoxNhanVien()
         {
-            // Kiểm tra _nhanVienRepo đã được khởi tạo chưa
             if (_nhanVienRepo == null) return;
-
             try
             {
                 var list = _nhanVienRepo.GetAll();
                 list.Insert(0, new NhanVien { MaNV = "", HoTen = "--- Tất cả NV ---" });
-
                 cmbSearchNhanVien.DataSource = list;
                 cmbSearchNhanVien.DisplayMember = "HoTen";
                 cmbSearchNhanVien.ValueMember = "MaNV";
@@ -229,16 +166,12 @@ namespace BagShopManagement.Views.Dev6
 
         #endregion === CÁC HÀM TẢI DỮ LIỆU (LOAD) ===
 
-        #region === CÁC HÀM XỬ LÝ SỰ KIỆN (CHỜ IMPLEMENT) ===
+        #region === CÁC HÀM XỬ LÝ SỰ KIỆN ===
 
-        /// <summary>
-        /// Cập nhật trạng thái các nút Duyệt, Hủy, Sửa
-        /// </summary>
         private void UpdateUIState(TrangThaiHoaDonNhap? trangThai)
         {
-            if (btnThem == null || btnXemSua == null || btnDuyet == null || btnHuy == null) return; // An toàn trong DesignMode
-
-            if (trangThai == null) // Không chọn dòng nào
+            if (btnThem == null) return;
+            if (trangThai == null)
             {
                 btnThem.Enabled = true;
                 btnXemSua.Enabled = false;
@@ -248,47 +181,66 @@ namespace BagShopManagement.Views.Dev6
             else if (trangThai == TrangThaiHoaDonNhap.TamLuu)
             {
                 btnThem.Enabled = true;
-                btnXemSua.Enabled = true; // Cho phép Xem/Sửa
-                btnDuyet.Enabled = true; // Cho phép Duyệt
-                btnHuy.Enabled = true; // Cho phép Hủy
+                btnXemSua.Enabled = true;
+                btnDuyet.Enabled = true;
+                btnHuy.Enabled = true;
             }
             else if (trangThai == TrangThaiHoaDonNhap.HoatDong)
             {
                 btnThem.Enabled = true;
-                btnXemSua.Enabled = true; // Chỉ cho Xem (logic khóa ở Form Detail)
-                btnDuyet.Enabled = false; // Đã duyệt rồi
-                btnHuy.Enabled = true; // Cho phép Hủy (nếu an toàn)
+                btnXemSua.Enabled = true;
+                btnDuyet.Enabled = false;
+                btnHuy.Enabled = true;
             }
             else if (trangThai == TrangThaiHoaDonNhap.DaHuy)
             {
                 btnThem.Enabled = true;
-                btnXemSua.Enabled = true; // Chỉ cho Xem
+                btnXemSua.Enabled = true;
                 btnDuyet.Enabled = false;
-                btnHuy.Enabled = false; // Đã hủy rồi
+                btnHuy.Enabled = false;
             }
         }
 
-        /// <summary>
-        /// Sự kiện khi thay đổi dòng chọn trên lưới
-        /// </summary>
         private void dgvDanhSach_SelectionChanged(object sender, EventArgs e)
         {
-            // Đảm bảo dgvDanhSach đã được khởi tạo và có dữ liệu
             if (dgvDanhSach == null || dgvDanhSach.CurrentRow == null || dgvDanhSach.CurrentRow.DataBoundItem == null)
             {
                 UpdateUIState(null);
                 return;
             }
-
-            // Lấy trạng thái của dòng đang chọn
             var trangThai = (TrangThaiHoaDonNhap)dgvDanhSach.CurrentRow.Cells["TrangThai"].Value;
-            // Cập nhật các nút
             UpdateUIState(trangThai);
         }
 
-        // (Bạn cần copy các hàm xử lý nút bấm (btnTimKiem_Click, btnThem_Click, v.v.)
-        // từ các câu trả lời trước vào đây)
+        // === LOGIC NÚT THÊM MỚI (Quan trọng) ===
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Yêu cầu DI Container tạo frmHoaDonNhapDetail
+                // 'using' đảm bảo form được giải phóng (Dispose) sau khi đóng
+                using (var frm = _serviceProvider.GetRequiredService<frmHoaDonNhapDetail>())
+                {
+                    frm.ShowDialog();
+                    // Sau khi form chi tiết đóng, tải lại danh sách
+                    LoadAllInvoices();
+                }
+            }
+            catch (Exception ex)
+            {
+                Utils.ExceptionHandler.Show(ex, "Không thể mở form chi tiết.");
+            }
+        }
 
-        #endregion === CÁC HÀM XỬ LÝ SỰ KIỆN (CHỜ IMPLEMENT) ===
+        private void btnLamMoi_Click(object sender, EventArgs e)
+        {
+            cmbSearchMaHDN.Text = "";
+            cmbSearchNCC.SelectedIndex = 0;
+            cmbSearchNhanVien.SelectedIndex = 0;
+            cmbSearchTrangThai.SelectedIndex = 0;
+            LoadAllInvoices();
+        }
+
+        #endregion === CÁC HÀM XỬ LÝ SỰ KIỆN ===
     }
 }
