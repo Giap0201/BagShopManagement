@@ -177,7 +177,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
             if (string.IsNullOrWhiteSpace(maSP))
             {
-                MessageBox.Show("Vui lòng nhập mã sản phẩm!", "Thiếu thông tin", 
+                MessageBox.Show("Vui lòng nhập mã sản phẩm!", "Thiếu thông tin",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -185,7 +185,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             var sp = _sanPhamRepo.GetByMaSP(maSP);
             if (sp == null)
             {
-                MessageBox.Show("Sản phẩm không tồn tại!", "Lỗi", 
+                MessageBox.Show("Sản phẩm không tồn tại!", "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -195,7 +195,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
             if (sp.SoLuongTon < totalQty)
             {
-                MessageBox.Show($"Không đủ tồn kho. Tồn kho hiện tại: {sp.SoLuongTon}", 
+                MessageBox.Show($"Không đủ tồn kho. Tồn kho hiện tại: {sp.SoLuongTon}",
                     "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -250,7 +250,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             decimal percent = numDiscountPercent.Value;
             if (percent <= 0)
             {
-                MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (> 0).", 
+                MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (> 0).",
                     "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
@@ -267,14 +267,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         {
             if (_cart.Count == 0)
             {
-                MessageBox.Show("Giỏ hàng rỗng!", "Thông báo", 
+                MessageBox.Show("Giỏ hàng rỗng!", "Thông báo",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(txtMaNV.Text))
             {
-                MessageBox.Show("Thiếu mã nhân viên.", "Thiếu thông tin", 
+                MessageBox.Show("Thiếu mã nhân viên.", "Thiếu thông tin",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -284,7 +284,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                 var hoaDon = _hoaDonRepo.GetByMaHDB(_maHDB);
                 if (hoaDon == null)
                 {
-                    MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi", 
+                    MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -343,7 +343,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
                 if (newQty < 1)
                 {
-                    MessageBox.Show("Số lượng phải >= 1", "Lỗi", 
+                    MessageBox.Show("Số lượng phải >= 1", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     newQty = 1;
                 }
@@ -351,7 +351,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                 var sp = _sanPhamRepo.GetByMaSP(maSP ?? "");
                 if (sp != null && sp.SoLuongTon < newQty)
                 {
-                    MessageBox.Show($"Không đủ tồn kho. Tồn kho: {sp.SoLuongTon}", 
+                    MessageBox.Show($"Không đủ tồn kho. Tồn kho: {sp.SoLuongTon}",
                         "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     newQty = Math.Min(newQty, sp.SoLuongTon);
                 }
@@ -377,13 +377,15 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
             try
             {
-                var dt = DataAccessBase.ExecuteQuery(
-                    "SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH",
-                    new SqlParameter("@MaKH", maKH.Trim()));
+                using var conn = DatabaseConfig.CreateConnection();
+                conn.Open();
+                using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
+                cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
 
-                if (dt != null && dt.Rows.Count > 0)
+                var result = cmd.ExecuteScalar();
+                if (result != null)
                 {
-                    int count = Convert.ToInt32(dt.Rows[0][0]);
+                    int count = Convert.ToInt32(result);
                     if (count > 0)
                     {
                         // MaKH tồn tại, trả về giá trị

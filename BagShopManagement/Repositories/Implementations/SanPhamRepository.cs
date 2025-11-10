@@ -8,50 +8,75 @@ using System.Data;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class SanPhamRepository : ISanPhamRepository
+    public class SanPhamRepository : BaseRepository, ISanPhamRepository
     {
         public List<SanPham> GetAll()
         {
-            var list = new List<SanPham>();
-            var dt = DataAccess.DataAccessBase.ExecuteQuery("SELECT * FROM SanPham");
-            foreach (DataRow r in dt.Rows) list.Add(Map(r));
-            return list;
+            string query = "SELECT * FROM SanPham";
+            return ExecuteQuery(query, null, MapFromReader);
         }
 
         public SanPham? GetByMaSP(string maSP)
         {
-            var dt = DataAccess.DataAccessBase.ExecuteQuery(
-                "SELECT * FROM SanPham WHERE MaSP = @MaSP",
-                new SqlParameter("@MaSP", maSP));
-            if (dt.Rows.Count == 0) return null;
-            return Map(dt.Rows[0]);
+            string query = "SELECT * FROM SanPham WHERE MaSP = @MaSP";
+            var parameters = new[] { CreateParameter("@MaSP", maSP) };
+            var results = ExecuteQuery(query, parameters, MapFromReader);
+            return results.Count > 0 ? results[0] : null;
         }
 
         public void Update(SanPham sp)
         {
-            DataAccess.DataAccessBase.ExecuteNonQuery(
-                @"UPDATE SanPham SET TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
+            string query = @"UPDATE SanPham SET TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
                   MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu, MaChatLieu=@MaChatLieu,
                   MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC, TrangThai=@TrangThai, NgayTao=@NgayTao
-                  WHERE MaSP=@MaSP",
-                new SqlParameter("@TenSP", sp.TenSP ?? ""),
-                new SqlParameter("@GiaNhap", sp.GiaNhap),
-                new SqlParameter("@GiaBan", sp.GiaBan),
-                new SqlParameter("@SoLuongTon", sp.SoLuongTon),
-                new SqlParameter("@MoTa", (object?)sp.MoTa ?? DBNull.Value),
-                new SqlParameter("@AnhChinh", (object?)sp.AnhChinh ?? DBNull.Value),
-                new SqlParameter("@MaLoaiTui", (object?)sp.MaLoaiTui ?? DBNull.Value),
-                new SqlParameter("@MaThuongHieu", (object?)sp.MaThuongHieu ?? DBNull.Value),
-                new SqlParameter("@MaChatLieu", (object?)sp.MaChatLieu ?? DBNull.Value),
-                new SqlParameter("@MaMau", (object?)sp.MaMau ?? DBNull.Value),
-                new SqlParameter("@MaKichThuoc", (object?)sp.MaKichThuoc ?? DBNull.Value),
-                new SqlParameter("@MaNCC", (object?)sp.MaNCC ?? DBNull.Value),
-                new SqlParameter("@TrangThai", sp.TrangThai),
-                new SqlParameter("@NgayTao", sp.NgayTao),
-                new SqlParameter("@MaSP", sp.MaSP)
-            );
+                  WHERE MaSP=@MaSP";
+
+            var parameters = new[]
+            {
+                CreateParameter("@TenSP", sp.TenSP ?? ""),
+                CreateParameter("@GiaNhap", sp.GiaNhap),
+                CreateParameter("@GiaBan", sp.GiaBan),
+                CreateParameter("@SoLuongTon", sp.SoLuongTon),
+                CreateParameter("@MoTa", sp.MoTa),
+                CreateParameter("@AnhChinh", sp.AnhChinh),
+                CreateParameter("@MaLoaiTui", sp.MaLoaiTui),
+                CreateParameter("@MaThuongHieu", sp.MaThuongHieu),
+                CreateParameter("@MaChatLieu", sp.MaChatLieu),
+                CreateParameter("@MaMau", sp.MaMau),
+                CreateParameter("@MaKichThuoc", sp.MaKichThuoc),
+                CreateParameter("@MaNCC", sp.MaNCC),
+                CreateParameter("@TrangThai", sp.TrangThai),
+                CreateParameter("@NgayTao", sp.NgayTao),
+                CreateParameter("@MaSP", sp.MaSP)
+            };
+
+            ExecuteNonQuery(query, parameters);
         }
 
+        // Map từ SqlDataReader thay vì DataRow
+        private SanPham MapFromReader(SqlDataReader reader)
+        {
+            return new SanPham
+            {
+                MaSP = GetString(reader, "MaSP"),
+                TenSP = GetString(reader, "TenSP"),
+                GiaNhap = GetDecimal(reader, "GiaNhap"),
+                GiaBan = GetDecimal(reader, "GiaBan"),
+                SoLuongTon = GetInt(reader, "SoLuongTon"),
+                MoTa = GetValue<string>(reader, "MoTa"),
+                AnhChinh = GetValue<string>(reader, "AnhChinh"),
+                MaLoaiTui = GetValue<string>(reader, "MaLoaiTui"),
+                MaThuongHieu = GetValue<string>(reader, "MaThuongHieu"),
+                MaChatLieu = GetValue<string>(reader, "MaChatLieu"),
+                MaMau = GetValue<string>(reader, "MaMau"),
+                MaKichThuoc = GetValue<string>(reader, "MaKichThuoc"),
+                MaNCC = GetValue<string>(reader, "MaNCC"),
+                TrangThai = GetBool(reader, "TrangThai"),
+                NgayTao = GetDateTime(reader, "NgayTao") ?? DateTime.Now
+            };
+        }
+
+        // Giữ lại Map cũ cho backward compatibility (nếu cần)
         private SanPham Map(DataRow r)
         {
             return new SanPham
