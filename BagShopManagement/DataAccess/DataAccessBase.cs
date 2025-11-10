@@ -12,6 +12,12 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.DataAccess
 {
+    /// <summary>
+    /// [DEPRECATED] Sử dụng BaseRepository thay thế
+    /// Class này được giữ lại để backward compatibility với code legacy
+    /// Các repository mới nên kế thừa BaseRepository
+    /// </summary>
+    [Obsolete("Use BaseRepository pattern instead. This class is kept for backward compatibility only.")]
     public static class DataAccessBase
     {
         //chuoi ket noi - uu tien doc tu appsettings.json, fallback ve hardcoded

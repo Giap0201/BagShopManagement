@@ -5,109 +5,110 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class HoaDonBanRepository : IHoaDonBanRepository
+    public class HoaDonBanRepository : BaseRepository, IHoaDonBanRepository
     {
-        // IMPORTANT: Use explicit SqlConnection + SqlTransaction for atomic insert.
-        // If DataAccessBase exposes transaction helpers, adapt accordingly.
+        // Sử dụng BaseRepository ExecuteTransaction
         public void Insert(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
         {
-            // Implement transaction-safe insert using direct SqlConnection/SqlTransaction
-            // so we don't depend on DataAccessBase transaction capability.
-            // NOTE: adjust connection retrieval if DataAccessBase exposes one.
-            var connString = DataAccess.DataAccessBase.GetConnectionString(); // assume exists; else use DataAccessBase internal connection
-            using var conn = new Microsoft.Data.SqlClient.SqlConnection(connString);
-            conn.Open();
-            using var tran = conn.BeginTransaction();
-            try
+            ExecuteTransaction((conn, tran) =>
             {
-                using var cmdHd = conn.CreateCommand();
-                cmdHd.Transaction = tran;
-                cmdHd.CommandText = @"INSERT INTO HoaDonBan(MaHDB, MaKH, MaNV, NgayBan, TongTien, PhuongThucTT, GhiChu, TrangThaiHD)
-                                      VALUES(@MaHDB,@MaKH,@MaNV,@NgayBan,@TongTien,@PhuongThucTT,@GhiChu,@TrangThaiHD)";
-                cmdHd.Parameters.AddWithValue("@MaHDB", hd.MaHDB);
-                cmdHd.Parameters.AddWithValue("@MaKH", (object?)hd.MaKH ?? DBNull.Value);
-                cmdHd.Parameters.AddWithValue("@MaNV", hd.MaNV);
-                cmdHd.Parameters.AddWithValue("@NgayBan", hd.NgayBan);
-                cmdHd.Parameters.AddWithValue("@TongTien", hd.TongTien);
-                cmdHd.Parameters.AddWithValue("@PhuongThucTT", (object?)hd.PhuongThucTT ?? DBNull.Value);
-                cmdHd.Parameters.AddWithValue("@GhiChu", (object?)hd.GhiChu ?? DBNull.Value);
-                cmdHd.Parameters.AddWithValue("@TrangThaiHD", hd.TrangThaiHD);
+                // Insert hóa đơn
+                string queryHD = @"INSERT INTO HoaDonBan(MaHDB, MaKH, MaNV, NgayBan, TongTien, PhuongThucTT, GhiChu, TrangThaiHD)
+                                   VALUES(@MaHDB,@MaKH,@MaNV,@NgayBan,@TongTien,@PhuongThucTT,@GhiChu,@TrangThaiHD)";
+
+                using var cmdHd = new SqlCommand(queryHD, conn, tran);
+                cmdHd.Parameters.AddRange(new[]
+                {
+                    CreateParameter("@MaHDB", hd.MaHDB),
+                    CreateParameter("@MaKH", hd.MaKH),
+                    CreateParameter("@MaNV", hd.MaNV),
+                    CreateParameter("@NgayBan", hd.NgayBan),
+                    CreateParameter("@TongTien", hd.TongTien),
+                    CreateParameter("@PhuongThucTT", hd.PhuongThucTT),
+                    CreateParameter("@GhiChu", hd.GhiChu),
+                    CreateParameter("@TrangThaiHD", hd.TrangThaiHD)
+                });
                 cmdHd.ExecuteNonQuery();
+
+                // Insert chi tiết
+                string queryCT = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
+                                   VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
 
                 foreach (var ct in chiTiet)
                 {
-                    using var cmdCt = conn.CreateCommand();
-                    cmdCt.Transaction = tran;
-                    cmdCt.CommandText = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
-                                          VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
-                    cmdCt.Parameters.AddWithValue("@MaHDB", ct.MaHDB);
-                    cmdCt.Parameters.AddWithValue("@MaSP", ct.MaSP);
-                    cmdCt.Parameters.AddWithValue("@SoLuong", ct.SoLuong);
-                    cmdCt.Parameters.AddWithValue("@DonGia", ct.DonGia);
-                    cmdCt.Parameters.AddWithValue("@GiamGiaSP", ct.GiamGiaSP);
+                    using var cmdCt = new SqlCommand(queryCT, conn, tran);
+                    cmdCt.Parameters.AddRange(new[]
+                    {
+                        CreateParameter("@MaHDB", ct.MaHDB),
+                        CreateParameter("@MaSP", ct.MaSP),
+                        CreateParameter("@SoLuong", ct.SoLuong),
+                        CreateParameter("@DonGia", ct.DonGia),
+                        CreateParameter("@GiamGiaSP", ct.GiamGiaSP)
+                    });
                     cmdCt.ExecuteNonQuery();
                 }
 
-                tran.Commit();
-            }
-            catch
+                return true;
+            });
+        }
+
+        // Map từ SqlDataReader - định nghĩa trước để sử dụng
+        private HoaDonBan MapFromReader(SqlDataReader reader)
+        {
+            return new HoaDonBan
             {
-                try { tran.Rollback(); } catch { /* ignore */ }
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
+                MaHDB = GetString(reader, "MaHDB"),
+                MaKH = GetValue<string>(reader, "MaKH"),
+                MaNV = GetString(reader, "MaNV"),
+                NgayBan = GetDateTime(reader, "NgayBan") ?? DateTime.Now,
+                TongTien = GetDecimal(reader, "TongTien"),
+                PhuongThucTT = GetValue<string>(reader, "PhuongThucTT"),
+                GhiChu = GetValue<string>(reader, "GhiChu"),
+                TrangThaiHD = (byte)GetInt(reader, "TrangThaiHD")
+            };
         }
 
         public List<HoaDonBan> GetAll()
         {
-            var list = new List<HoaDonBan>();
-            var dt = DataAccess.DataAccessBase.ExecuteQuery("SELECT * FROM HoaDonBan ORDER BY NgayBan DESC");
-            foreach (DataRow r in dt.Rows) list.Add(Map(r));
-            return list;
+            string query = "SELECT * FROM HoaDonBan ORDER BY NgayBan DESC";
+            return ExecuteQuery<HoaDonBan>(query, null, MapFromReader);
         }
 
         public HoaDonBan? GetByMaHDB(string maHDB)
         {
-            var dt = DataAccess.DataAccessBase.ExecuteQuery(
-                "SELECT * FROM HoaDonBan WHERE MaHDB=@MaHDB",
-                new SqlParameter("@MaHDB", maHDB));
-            if (dt.Rows.Count == 0) return null;
-            return Map(dt.Rows[0]);
+            string query = "SELECT * FROM HoaDonBan WHERE MaHDB=@MaHDB";
+            var parameters = new[] { CreateParameter("@MaHDB", maHDB) };
+            var results = ExecuteQuery<HoaDonBan>(query, parameters, MapFromReader);
+            return results.Count > 0 ? results[0] : null;
         }
 
         public void UpdateTrangThai(string maHDB, byte trangThai)
         {
-            DataAccess.DataAccessBase.ExecuteNonQuery(
-                "UPDATE HoaDonBan SET TrangThaiHD=@TrangThai WHERE MaHDB=@MaHDB",
-                new SqlParameter("@TrangThai", trangThai),
-                new SqlParameter("@MaHDB", maHDB)
-            );
+            string query = "UPDATE HoaDonBan SET TrangThaiHD=@TrangThai WHERE MaHDB=@MaHDB";
+            var parameters = new[]
+            {
+                CreateParameter("@TrangThai", trangThai),
+                CreateParameter("@MaHDB", maHDB)
+            };
+            ExecuteNonQuery(query, parameters);
         }
 
         public List<ChiTietHoaDonBan> GetChiTietByMaHDB(string maHDB)
         {
-            var list = new List<ChiTietHoaDonBan>();
-            var dt = DataAccess.DataAccessBase.ExecuteQuery(
-                "SELECT * FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB",
-                new SqlParameter("@MaHDB", maHDB));
-            foreach (DataRow r in dt.Rows)
+            string query = "SELECT * FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
+            var parameters = new[] { CreateParameter("@MaHDB", maHDB) };
+            return ExecuteQuery(query, parameters, reader => new ChiTietHoaDonBan
             {
-                list.Add(new ChiTietHoaDonBan
-                {
-                    MaHDB = r["MaHDB"]?.ToString() ?? string.Empty,
-                    MaSP = r["MaSP"]?.ToString() ?? string.Empty,
-                    SoLuong = r.Field<int?>("SoLuong") ?? 0,
-                    DonGia = r.Field<decimal?>("DonGia") ?? 0m,
-                    GiamGiaSP = r.Field<decimal?>("GiamGiaSP") ?? 0m
-                });
-            }
-            return list;
+                MaHDB = GetString(reader, "MaHDB"),
+                MaSP = GetString(reader, "MaSP"),
+                SoLuong = GetInt(reader, "SoLuong"),
+                DonGia = GetDecimal(reader, "DonGia"),
+                GiamGiaSP = GetDecimal(reader, "GiamGiaSP")
+            });
         }
 
         public List<HoaDonBan> Filter(DateTime? fromDate = null, DateTime? toDate = null, string? maNV = null, byte? trangThai = null)
@@ -118,95 +119,87 @@ namespace BagShopManagement.Repositories.Implementations
             if (fromDate.HasValue)
             {
                 conditions.Add("NgayBan >= @FromDate");
-                parameters.Add(new SqlParameter("@FromDate", fromDate.Value.Date));
+                parameters.Add(CreateParameter("@FromDate", fromDate.Value.Date));
             }
 
             if (toDate.HasValue)
             {
                 conditions.Add("NgayBan < @ToDate");
-                parameters.Add(new SqlParameter("@ToDate", toDate.Value.Date.AddDays(1)));
+                parameters.Add(CreateParameter("@ToDate", toDate.Value.Date.AddDays(1)));
             }
 
             if (!string.IsNullOrWhiteSpace(maNV))
             {
                 conditions.Add("MaNV = @MaNV");
-                parameters.Add(new SqlParameter("@MaNV", maNV));
+                parameters.Add(CreateParameter("@MaNV", maNV));
             }
 
             if (trangThai.HasValue)
             {
                 conditions.Add("TrangThaiHD = @TrangThai");
-                parameters.Add(new SqlParameter("@TrangThai", trangThai.Value));
+                parameters.Add(CreateParameter("@TrangThai", trangThai.Value));
             }
 
             var whereClause = conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "";
             var query = $"SELECT * FROM HoaDonBan {whereClause} ORDER BY NgayBan DESC";
 
-            var list = new List<HoaDonBan>();
-            var dt = DataAccess.DataAccessBase.ExecuteQuery(query, parameters.ToArray());
-            foreach (DataRow r in dt.Rows) list.Add(Map(r));
-            return list;
+            return ExecuteQuery<HoaDonBan>(query, parameters.ToArray(), MapFromReader);
         }
 
         public void Update(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
         {
-            var connString = DataAccess.DataAccessBase.GetConnectionString();
-            using var conn = new Microsoft.Data.SqlClient.SqlConnection(connString);
-            conn.Open();
-            using var tran = conn.BeginTransaction();
-            try
+            ExecuteTransaction((conn, tran) =>
             {
                 // Xóa chi tiết cũ
-                using var cmdDelete = conn.CreateCommand();
-                cmdDelete.Transaction = tran;
-                cmdDelete.CommandText = "DELETE FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
-                cmdDelete.Parameters.AddWithValue("@MaHDB", hd.MaHDB);
-                cmdDelete.ExecuteNonQuery();
+                string queryDelete = "DELETE FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
+                using (var cmdDelete = new SqlCommand(queryDelete, conn, tran))
+                {
+                    cmdDelete.Parameters.Add(CreateParameter("@MaHDB", hd.MaHDB));
+                    cmdDelete.ExecuteNonQuery();
+                }
 
                 // Cập nhật hóa đơn
-                using var cmdUpdate = conn.CreateCommand();
-                cmdUpdate.Transaction = tran;
-                cmdUpdate.CommandText = @"UPDATE HoaDonBan SET MaKH=@MaKH, MaNV=@MaNV, NgayBan=@NgayBan, 
-                                         TongTien=@TongTien, PhuongThucTT=@PhuongThucTT, GhiChu=@GhiChu, 
-                                         TrangThaiHD=@TrangThaiHD WHERE MaHDB=@MaHDB";
-                cmdUpdate.Parameters.AddWithValue("@MaHDB", hd.MaHDB);
-                cmdUpdate.Parameters.AddWithValue("@MaKH", (object?)hd.MaKH ?? DBNull.Value);
-                cmdUpdate.Parameters.AddWithValue("@MaNV", hd.MaNV);
-                cmdUpdate.Parameters.AddWithValue("@NgayBan", hd.NgayBan);
-                cmdUpdate.Parameters.AddWithValue("@TongTien", hd.TongTien);
-                cmdUpdate.Parameters.AddWithValue("@PhuongThucTT", (object?)hd.PhuongThucTT ?? DBNull.Value);
-                cmdUpdate.Parameters.AddWithValue("@GhiChu", (object?)hd.GhiChu ?? DBNull.Value);
-                cmdUpdate.Parameters.AddWithValue("@TrangThaiHD", hd.TrangThaiHD);
-                cmdUpdate.ExecuteNonQuery();
+                string queryUpdate = @"UPDATE HoaDonBan SET MaKH=@MaKH, MaNV=@MaNV, NgayBan=@NgayBan, 
+                                       TongTien=@TongTien, PhuongThucTT=@PhuongThucTT, GhiChu=@GhiChu, 
+                                       TrangThaiHD=@TrangThaiHD WHERE MaHDB=@MaHDB";
+                using (var cmdUpdate = new SqlCommand(queryUpdate, conn, tran))
+                {
+                    cmdUpdate.Parameters.AddRange(new[]
+                    {
+                        CreateParameter("@MaHDB", hd.MaHDB),
+                        CreateParameter("@MaKH", hd.MaKH),
+                        CreateParameter("@MaNV", hd.MaNV),
+                        CreateParameter("@NgayBan", hd.NgayBan),
+                        CreateParameter("@TongTien", hd.TongTien),
+                        CreateParameter("@PhuongThucTT", hd.PhuongThucTT),
+                        CreateParameter("@GhiChu", hd.GhiChu),
+                        CreateParameter("@TrangThaiHD", hd.TrangThaiHD)
+                    });
+                    cmdUpdate.ExecuteNonQuery();
+                }
 
                 // Thêm chi tiết mới
+                string queryInsert = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
+                                       VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
                 foreach (var ct in chiTiet)
                 {
-                    using var cmdCt = conn.CreateCommand();
-                    cmdCt.Transaction = tran;
-                    cmdCt.CommandText = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
-                                          VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
-                    cmdCt.Parameters.AddWithValue("@MaHDB", ct.MaHDB);
-                    cmdCt.Parameters.AddWithValue("@MaSP", ct.MaSP);
-                    cmdCt.Parameters.AddWithValue("@SoLuong", ct.SoLuong);
-                    cmdCt.Parameters.AddWithValue("@DonGia", ct.DonGia);
-                    cmdCt.Parameters.AddWithValue("@GiamGiaSP", ct.GiamGiaSP);
+                    using var cmdCt = new SqlCommand(queryInsert, conn, tran);
+                    cmdCt.Parameters.AddRange(new[]
+                    {
+                        CreateParameter("@MaHDB", ct.MaHDB),
+                        CreateParameter("@MaSP", ct.MaSP),
+                        CreateParameter("@SoLuong", ct.SoLuong),
+                        CreateParameter("@DonGia", ct.DonGia),
+                        CreateParameter("@GiamGiaSP", ct.GiamGiaSP)
+                    });
                     cmdCt.ExecuteNonQuery();
                 }
 
-                tran.Commit();
-            }
-            catch
-            {
-                try { tran.Rollback(); } catch { /* ignore */ }
-                throw;
-            }
-            finally
-            {
-                conn.Close();
-            }
+                return true;
+            });
         }
 
+        // Giữ lại Map cũ cho backward compatibility (nếu cần)
         private HoaDonBan Map(DataRow r)
         {
             return new HoaDonBan

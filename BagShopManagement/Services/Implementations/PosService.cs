@@ -166,13 +166,15 @@ namespace BagShopManagement.Services.Implementations
             // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
             try
             {
-                var dt = DataAccessBase.ExecuteQuery(
-                    "SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH",
-                    new SqlParameter("@MaKH", maKH.Trim()));
+                using var conn = DatabaseConfig.CreateConnection();
+                conn.Open();
+                using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
+                cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
 
-                if (dt != null && dt.Rows.Count > 0)
+                var result = cmd.ExecuteScalar();
+                if (result != null)
                 {
-                    int count = Convert.ToInt32(dt.Rows[0][0]);
+                    int count = Convert.ToInt32(result);
                     if (count > 0)
                     {
                         // MaKH tồn tại, trả về giá trị
