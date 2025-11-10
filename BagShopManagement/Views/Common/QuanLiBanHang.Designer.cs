@@ -31,8 +31,9 @@
             components = new System.ComponentModel.Container();
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
-            hoaDonNhapControl2 = new BagShopManagement.Views.Dev6.HoaDonNhapControl();
             errorProvider1 = new ErrorProvider(components);
+            hoaDonNhapControl2 = new BagShopManagement.Views.Dev6.HoaDonNhapControl();
+            panelMain = new Panel();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             SuspendLayout();
             // 
@@ -50,27 +51,37 @@
             sideBarControl1.Dock = DockStyle.Left;
             sideBarControl1.Location = new Point(0, 76);
             sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(336, 620);
+            sideBarControl1.Size = new Size(336, 741);
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
+            // 
+            // errorProvider1
+            // 
+            errorProvider1.ContainerControl = this;
             // 
             // hoaDonNhapControl2
             // 
             hoaDonNhapControl2.Dock = DockStyle.Fill;
             hoaDonNhapControl2.Location = new Point(336, 76);
             hoaDonNhapControl2.Name = "hoaDonNhapControl2";
-            hoaDonNhapControl2.Size = new Size(985, 620);
+            hoaDonNhapControl2.Size = new Size(985, 741);
             hoaDonNhapControl2.TabIndex = 2;
+            hoaDonNhapControl2.Load += hoaDonNhapControl2_Load;
             // 
-            // errorProvider1
+            // panelMain
             // 
-            errorProvider1.ContainerControl = this;
+            panelMain.Dock = DockStyle.Fill;
+            panelMain.Location = new Point(336, 76);
+            panelMain.Name = "panelMain";
+            panelMain.Size = new Size(985, 741);
+            panelMain.TabIndex = 3;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1321, 696);
+            ClientSize = new Size(1321, 817);
+            Controls.Add(panelMain);
             Controls.Add(hoaDonNhapControl2);
             Controls.Add(sideBarControl1);
             Controls.Add(headerControl1);
@@ -87,7 +98,8 @@
         private Controls.HeaderControl headerControl1;
         private Controls.SideBarControl sideBarControl1;
         private Dev6.HoaDonNhapControl hoaDonNhapControl1;
-        private Dev6.HoaDonNhapControl hoaDonNhapControl2;
         private ErrorProvider errorProvider1;
+        private Panel panelMain;
+        private Dev6.HoaDonNhapControl hoaDonNhapControl2;
     }
 }
