@@ -69,5 +69,14 @@ namespace BagShopManagement.Repositories.Implementations
             var dt = ExecuteQuery(q, new SqlParameter("@kw", $"%{keyword}%"));
             return dt.AsEnumerable().Select(Map).ToList();
         }
+
+        // Trả về mã lớn nhất hiện có (vd "LT005"), hoặc null nếu không có bản ghi
+        public string GetMaxCode()
+        {
+            var dt = ExecuteQuery("SELECT MAX(MaLoaiTui) AS MaxCode FROM DanhMucLoaiTui");
+            if (dt.Rows.Count == 0) return null;
+            var obj = dt.Rows[0]["MaxCode"];
+            return obj == DBNull.Value ? null : obj.ToString();
+        }
     }
 }

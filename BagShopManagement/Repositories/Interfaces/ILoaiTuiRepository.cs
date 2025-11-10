@@ -15,5 +15,8 @@ namespace BagShopManagement.Repositories.Interfaces
         bool Update(DanhMucLoaiTui item);
         bool Delete(string ma);
         List<DanhMucLoaiTui> Search(string keyword);
+
+        // mới: trả về mã lớn nhất hiện có (vd "LT005") hoặc null nếu bảng rỗng
+        string GetMaxCode();
     }
 }

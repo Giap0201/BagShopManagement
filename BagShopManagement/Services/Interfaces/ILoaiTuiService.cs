@@ -11,5 +11,8 @@ namespace BagShopManagement.Services.Interfaces
         bool Update(DanhMucLoaiTui item);
         bool Delete(string ma);
         List<DanhMucLoaiTui> Search(string keyword);
+
+        // generate next code e.g. "LT006"
+        string GenerateNextCode();
     }
 }

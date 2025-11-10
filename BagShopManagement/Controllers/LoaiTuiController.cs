@@ -15,5 +15,7 @@ namespace BagShopManagement.Controllers
         public bool Update(DanhMucLoaiTui item) => _service.Update(item);
         public bool Delete(string ma) => _service.Delete(ma);
         public List<DanhMucLoaiTui> Search(string kw) => _service.Search(kw);
+
+        public string GenerateNextCode() => _service.GenerateNextCode();
     }
 }
