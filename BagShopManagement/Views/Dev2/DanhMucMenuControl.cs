@@ -14,7 +14,7 @@ namespace BagShopManagement.Views.Dev2
             btnThuongHieu.Click += BtnThuongHieu_Click;
             btnChatLieu.Click += BtnChatLieu_Click;
             //btnMauSac.Click += BtnMauSac_Click;
-            //btnKichThuoc.Click += BtnKichThuoc_Click;
+            btnKichThuoc.Click += BtnKichThuoc_Click;
             //btnNCC.Click += BtnNCC_Click;
         }
 
@@ -46,10 +46,10 @@ namespace BagShopManagement.Views.Dev2
         //    LoadControl(new MauSacControl());
         //}
 
-        //private void BtnKichThuoc_Click(object sender, EventArgs e)
-        //{
-        //    LoadControl(new KichThuocControl());
-        //}
+        private void BtnKichThuoc_Click(object sender, EventArgs e)
+        {
+            LoadControl(new KichThuocControl());
+        }
 
         //private void BtnNCC_Click(object sender, EventArgs e)
         //{
