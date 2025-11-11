@@ -5,11 +5,6 @@ using BagShopManagement.Services.Interfaces;
 
 namespace BagShopManagement.Controllers
 {
-    /// <summary>
-    /// Lớp Controller (trung gian) xử lý các yêu cầu từ Form
-    /// và gọi Service tương ứng.
-    /// Nó sẽ ném lỗi (Exception) lên Form để Form hiển thị MessageBox.
-    /// </summary>
     public class HoaDonNhapController
     {
         private readonly IHoaDonNhapService _hoaDonNhapService;

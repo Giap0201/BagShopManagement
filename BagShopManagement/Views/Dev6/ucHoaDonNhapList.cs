@@ -32,12 +32,10 @@ namespace BagShopManagement.Views.Dev6
             IServiceProvider serviceProvider)
         {
             InitializeComponent();
-
-            // Gán các dependency
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
-            _nhaCungCapRepo = nhaCungCapRepo ?? throw new ArgumentNullException(nameof(nhaCungCapRepo));
-            _nhanVienRepo = nhanVienRepo ?? throw new ArgumentNullException(nameof(nhanVienRepo));
-            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            _controller = controller;
+            _nhaCungCapRepo = nhaCungCapRepo;
+            _nhanVienRepo = nhanVienRepo;
+            _serviceProvider = serviceProvider;
         }
 
         private void ucHoaDonNhapList_Load(object sender, EventArgs e)
@@ -217,12 +215,9 @@ namespace BagShopManagement.Views.Dev6
         {
             try
             {
-                // Yêu cầu DI Container tạo frmHoaDonNhapDetail
-                // 'using' đảm bảo form được giải phóng (Dispose) sau khi đóng
                 using (var frm = _serviceProvider.GetRequiredService<frmHoaDonNhapDetail>())
                 {
                     frm.ShowDialog();
-                    // Sau khi form chi tiết đóng, tải lại danh sách
                     LoadAllInvoices();
                 }
             }

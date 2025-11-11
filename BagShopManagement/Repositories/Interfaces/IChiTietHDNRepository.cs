@@ -19,22 +19,13 @@ namespace BagShopManagement.Repositories.Interfaces
         // kiem tra xem chi tiet da ton tai trong hoa don nhap chua
         bool DetailExists(string maHDN, string maSP);
 
-        /// <summary>
-        /// [TRANSACTION] Thêm 1 chi tiết vào hóa đơn (khi đang Tạm lưu).
-        /// Phải cập nhật lại TongTien của HoaDonNhap cha.
-        /// </summary>
+        // them mot chi tiet vao hoa don, dung khi tam luu
         bool AddDetailToDraft(ChiTietHoaDonNhap chiTiet);
 
-        /// <summary>
-        /// [TRANSACTION] Cập nhật 1 chi tiết (Số lượng, Đơn giá) (khi đang Tạm lưu).
-        /// Phải cập nhật lại TongTien của HoaDonNhap cha.
-        /// </summary>
+        // cap nhat chi tiet khi dang o trang thai tam luu (da co trong db roi)
         bool UpdateDetailInDraft(ChiTietHoaDonNhap chiTiet);
 
-        /// <summary>
-        /// [TRANSACTION] Xóa 1 chi tiết khỏi hóa đơn (khi đang Tạm lưu).
-        /// Phải cập nhật lại TongTien của HoaDonNhap cha.
-        /// </summary>
+        // xoa chi tiet khi dang o trang thai tam luu
         bool DeleteDetailFromDraft(string maHDN, string maSP);
     }
 }
