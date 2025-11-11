@@ -1,17 +1,27 @@
-﻿// Repositories/Implementations/HoaDonBanRepository.cs
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
+    /// <summary>
+    /// Repository xử lý truy cập dữ liệu cho bảng HoaDonBan và ChiTietHoaDonBan
+    /// Kế thừa từ BaseRepository để sử dụng ExecuteTransaction cho ACID compliance
+    /// </summary>
     public class HoaDonBanRepository : BaseRepository, IHoaDonBanRepository
     {
-        // Sử dụng BaseRepository ExecuteTransaction
+        /// <summary>
+        /// Insert hóa đơn mới và chi tiết trong một transaction
+        /// </summary>
+        /// <param name="hd">Đối tượng HoaDonBan</param>
+        /// <param name="chiTiet">Danh sách ChiTietHoaDonBan</param>
+        /// <remarks>
+        /// Sử dụng transaction để đảm bảo:
+        /// - Insert HoaDonBan thành công → Insert tất cả ChiTietHoaDonBan
+        /// - Nếu có lỗi → Rollback toàn bộ
+        /// </remarks>
         public void Insert(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
         {
             ExecuteTransaction((conn, tran) =>
@@ -56,7 +66,10 @@ namespace BagShopManagement.Repositories.Implementations
             });
         }
 
-        // Map từ SqlDataReader - định nghĩa trước để sử dụng
+        /// <summary>
+        /// Map SqlDataReader → HoaDonBan entity
+        /// Sử dụng helper methods từ BaseRepository
+        /// </summary>
         private HoaDonBan MapFromReader(SqlDataReader reader)
         {
             return new HoaDonBan
@@ -72,12 +85,20 @@ namespace BagShopManagement.Repositories.Implementations
             };
         }
 
+        /// <summary>
+        /// Lấy tất cả hóa đơn, sắp xếp theo NgayBan giảm dần
+        /// </summary>
         public List<HoaDonBan> GetAll()
         {
             string query = "SELECT * FROM HoaDonBan ORDER BY NgayBan DESC";
             return ExecuteQuery<HoaDonBan>(query, null, MapFromReader);
         }
 
+        /// <summary>
+        /// Lấy hóa đơn theo mã hóa đơn
+        /// </summary>
+        /// <param name="maHDB">Mã hóa đơn</param>
+        /// <returns>HoaDonBan nếu tìm thấy, null nếu không tồn tại</returns>
         public HoaDonBan? GetByMaHDB(string maHDB)
         {
             string query = "SELECT * FROM HoaDonBan WHERE MaHDB=@MaHDB";
@@ -86,6 +107,11 @@ namespace BagShopManagement.Repositories.Implementations
             return results.Count > 0 ? results[0] : null;
         }
 
+        /// <summary>
+        /// Cập nhật trạng thái hóa đơn
+        /// </summary>
+        /// <param name="maHDB">Mã hóa đơn</param>
+        /// <param name="trangThai">Trạng thái mới (1=Nháp, 2=Đã thanh toán, 3=Đã hủy)</param>
         public void UpdateTrangThai(string maHDB, byte trangThai)
         {
             string query = "UPDATE HoaDonBan SET TrangThaiHD=@TrangThai WHERE MaHDB=@MaHDB";
@@ -97,6 +123,11 @@ namespace BagShopManagement.Repositories.Implementations
             ExecuteNonQuery(query, parameters);
         }
 
+        /// <summary>
+        /// Lấy danh sách chi tiết hóa đơn theo mã hóa đơn
+        /// </summary>
+        /// <param name="maHDB">Mã hóa đơn</param>
+        /// <returns>Danh sách ChiTietHoaDonBan</returns>
         public List<ChiTietHoaDonBan> GetChiTietByMaHDB(string maHDB)
         {
             string query = "SELECT * FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
@@ -111,6 +142,14 @@ namespace BagShopManagement.Repositories.Implementations
             });
         }
 
+        /// <summary>
+        /// Lọc hóa đơn theo các tiêu chí
+        /// </summary>
+        /// <param name="fromDate">Từ ngày (nullable)</param>
+        /// <param name="toDate">Đến ngày (nullable)</param>
+        /// <param name="maNV">Mã nhân viên (nullable)</param>
+        /// <param name="trangThai">Trạng thái hóa đơn (nullable)</param>
+        /// <returns>Danh sách HoaDonBan thỏa điều kiện</returns>
         public List<HoaDonBan> Filter(DateTime? fromDate = null, DateTime? toDate = null, string? maNV = null, byte? trangThai = null)
         {
             var conditions = new List<string>();
@@ -146,6 +185,18 @@ namespace BagShopManagement.Repositories.Implementations
             return ExecuteQuery<HoaDonBan>(query, parameters.ToArray(), MapFromReader);
         }
 
+        /// <summary>
+        /// Cập nhật hóa đơn và chi tiết trong một transaction
+        /// </summary>
+        /// <param name="hd">Đối tượng HoaDonBan với thông tin mới</param>
+        /// <param name="chiTiet">Danh sách ChiTietHoaDonBan mới</param>
+        /// <remarks>
+        /// Quy trình:
+        /// 1. Xóa toàn bộ ChiTietHoaDonBan cũ
+        /// 2. Cập nhật HoaDonBan
+        /// 3. Insert ChiTietHoaDonBan mới
+        /// Tất cả trong một transaction để đảm bảo tính nhất quán
+        /// </remarks>
         public void Update(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
         {
             ExecuteTransaction((conn, tran) =>
@@ -197,22 +248,6 @@ namespace BagShopManagement.Repositories.Implementations
 
                 return true;
             });
-        }
-
-        // Giữ lại Map cũ cho backward compatibility (nếu cần)
-        private HoaDonBan Map(DataRow r)
-        {
-            return new HoaDonBan
-            {
-                MaHDB = r["MaHDB"]?.ToString() ?? string.Empty,
-                MaKH = r["MaKH"]?.ToString(),
-                MaNV = r["MaNV"]?.ToString() ?? string.Empty,
-                NgayBan = r.Field<DateTime?>("NgayBan") ?? DateTime.Now,
-                TongTien = r.Field<decimal?>("TongTien") ?? 0m,
-                PhuongThucTT = r["PhuongThucTT"]?.ToString(),
-                GhiChu = r["GhiChu"]?.ToString(),
-                TrangThaiHD = r.Field<byte?>("TrangThaiHD") ?? 0
-            };
         }
     }
 }

@@ -9,13 +9,28 @@ using Microsoft.Data.SqlClient;
 namespace BagShopManagement.Repositories
 {
     /// <summary>
-    /// Base repository class cung cấp các phương thức truy cập database chung
-    /// Kế thừa class này để sử dụng các phương thức ExecuteQuery, ExecuteScalar, ExecuteNonQuery
+    /// Abstract base repository cung cấp các phương thức database access chung
     /// </summary>
+    /// <remarks>
+    /// Chức năng chính:
+    /// - ExecuteQuery: SELECT queries với mapping tự động
+    /// - ExecuteScalar: Queries trả về giá trị đơn (COUNT, SUM, MAX...)
+    /// - ExecuteNonQuery: INSERT, UPDATE, DELETE
+    /// - ExecuteTransaction: Thực thi nhiều commands trong transaction
+    /// - Helper methods: GetString, GetInt, GetDecimal, GetDateTime, GetBool
+    /// 
+    /// Cách sử dụng:
+    /// 1. Kế thừa từ BaseRepository
+    /// 2. Implement interface repository của bạn
+    /// 3. Sử dụng protected methods để truy cập database
+    /// </remarks>
     public abstract class BaseRepository
     {
         protected readonly string _connectionString;
 
+        /// <summary>
+        /// Constructor - tự động load connection string từ DatabaseConfig
+        /// </summary>
         protected BaseRepository()
         {
             _connectionString = DatabaseConfig.GetConnectionString();
@@ -24,13 +39,20 @@ namespace BagShopManagement.Repositories
         #region Query Methods (SELECT)
 
         /// <summary>
-        /// Thực thi câu query SELECT và map kết quả về List<T>
+        /// Thực thi câu query SELECT bất đồng bộ và map kết quả về List&lt;T&gt;
         /// </summary>
-        /// <typeparam name="T">Type của đối tượng cần map</typeparam>
-        /// <param name="query">Câu SQL query</param>
-        /// <param name="parameters">SqlParameter[] - tham số cho query</param>
-        /// <param name="mapFunc">Func để map từ SqlDataReader sang đối tượng T</param>
-        /// <returns>List<T></returns>
+        /// <typeparam name="T">Type của entity cần map</typeparam>
+        /// <param name="query">Câu SQL query (hỗ trợ parameterized query)</param>
+        /// <param name="parameters">Mảng SqlParameter cho query (nullable)</param>
+        /// <param name="mapFunc">Function để map SqlDataReader → entity T</param>
+        /// <returns>List&lt;T&gt; chứa kết quả query, empty list nếu có lỗi</returns>
+        /// <example>
+        /// var products = await ExecuteQueryAsync(
+        ///     "SELECT * FROM SanPham WHERE MaLoai = @MaLoai",
+        ///     new[] { CreateParameter("@MaLoai", "LOAI01") },
+        ///     reader => new SanPham { MaSP = GetString(reader, "MaSP"), ... }
+        /// );
+        /// </example>
         protected async Task<List<T>> ExecuteQueryAsync<T>(string query, SqlParameter[]? parameters, Func<SqlDataReader, T> mapFunc)
         {
             try
@@ -68,8 +90,13 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Thực thi câu query SELECT đồng bộ
+        /// Thực thi câu query SELECT đồng bộ và map kết quả về List&lt;T&gt;
         /// </summary>
+        /// <typeparam name="T">Type của entity cần map</typeparam>
+        /// <param name="query">Câu SQL query</param>
+        /// <param name="parameters">Mảng SqlParameter</param>
+        /// <param name="mapFunc">Function để map SqlDataReader → entity T</param>
+        /// <returns>List&lt;T&gt; chứa kết quả, empty list nếu có lỗi</returns>
         protected List<T> ExecuteQuery<T>(string query, SqlParameter[]? parameters, Func<SqlDataReader, T> mapFunc)
         {
             try
@@ -111,8 +138,15 @@ namespace BagShopManagement.Repositories
         #region Scalar Methods (SELECT Single Value)
 
         /// <summary>
-        /// Thực thi query và trả về giá trị đơn (COUNT, MAX, MIN, SUM...)
+        /// Thực thi query bất đồng bộ và trả về giá trị đơn
         /// </summary>
+        /// <param name="query">Câu SQL query (thường dùng với COUNT, MAX, MIN, SUM, AVG...)</param>
+        /// <param name="parameters">Mảng SqlParameter (optional)</param>
+        /// <returns>Object nullable - giá trị scalar từ query, null nếu có lỗi</returns>
+        /// <example>
+        /// var count = await ExecuteScalarAsync("SELECT COUNT(*) FROM SanPham");
+        /// int total = Convert.ToInt32(count);
+        /// </example>
         protected async Task<object?> ExecuteScalarAsync(string query, SqlParameter[]? parameters = null)
         {
             try
@@ -140,8 +174,11 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Thực thi query và trả về giá trị đơn đồng bộ
+        /// Thực thi query đồng bộ và trả về giá trị đơn
         /// </summary>
+        /// <param name="query">Câu SQL query</param>
+        /// <param name="parameters">Mảng SqlParameter (optional)</param>
+        /// <returns>Object nullable - giá trị scalar từ query</returns>
         protected object? ExecuteScalar(string query, SqlParameter[]? parameters = null)
         {
             try
@@ -173,9 +210,11 @@ namespace BagShopManagement.Repositories
         #region NonQuery Methods (INSERT, UPDATE, DELETE)
 
         /// <summary>
-        /// Thực thi câu lệnh INSERT, UPDATE, DELETE (async)
+        /// Thực thi câu lệnh INSERT, UPDATE, DELETE bất đồng bộ
         /// </summary>
-        /// <returns>Số dòng bị ảnh hưởng</returns>
+        /// <param name="query">Câu SQL command (INSERT/UPDATE/DELETE)</param>
+        /// <param name="parameters">Mảng SqlParameter (optional)</param>
+        /// <returns>Số dòng bị ảnh hưởng (affected rows), 0 nếu có lỗi</returns>
         protected async Task<int> ExecuteNonQueryAsync(string query, SqlParameter[]? parameters = null)
         {
             try
@@ -205,6 +244,9 @@ namespace BagShopManagement.Repositories
         /// <summary>
         /// Thực thi câu lệnh INSERT, UPDATE, DELETE đồng bộ
         /// </summary>
+        /// <param name="query">Câu SQL command</param>
+        /// <param name="parameters">Mảng SqlParameter (optional)</param>
+        /// <returns>Số dòng bị ảnh hưởng, 0 nếu có lỗi</returns>
         protected int ExecuteNonQuery(string query, SqlParameter[]? parameters = null)
         {
             try
@@ -236,8 +278,24 @@ namespace BagShopManagement.Repositories
         #region Transaction Methods
 
         /// <summary>
-        /// Thực thi nhiều câu lệnh trong một transaction
+        /// Thực thi nhiều câu lệnh trong một transaction bất đồng bộ
         /// </summary>
+        /// <param name="transactionFunc">Function chứa logic transaction, nhận connection và transaction, trả về bool (success/failure)</param>
+        /// <returns>True nếu transaction commit thành công, False nếu rollback hoặc có lỗi</returns>
+        /// <remarks>
+        /// - Tự động Commit nếu function trả về true
+        /// - Tự động Rollback nếu function trả về false hoặc throw exception
+        /// - Connection và Transaction được dispose tự động
+        /// </remarks>
+        /// <example>
+        /// var success = await ExecuteTransactionAsync(async (conn, trans) => {
+        ///     var cmd1 = new SqlCommand("INSERT INTO ...", conn, trans);
+        ///     await cmd1.ExecuteNonQueryAsync();
+        ///     var cmd2 = new SqlCommand("UPDATE ...", conn, trans);
+        ///     await cmd2.ExecuteNonQueryAsync();
+        ///     return true;
+        /// });
+        /// </example>
         protected async Task<bool> ExecuteTransactionAsync(Func<SqlConnection, SqlTransaction, Task<bool>> transactionFunc)
         {
             SqlConnection? conn = null;
@@ -285,8 +343,10 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Thực thi transaction đồng bộ
+        /// Thực thi nhiều câu lệnh trong một transaction đồng bộ
         /// </summary>
+        /// <param name="transactionFunc">Function chứa logic transaction</param>
+        /// <returns>True nếu commit thành công, False nếu rollback/lỗi</returns>
         protected bool ExecuteTransaction(Func<SqlConnection, SqlTransaction, bool> transactionFunc)
         {
             SqlConnection? conn = null;
@@ -338,24 +398,32 @@ namespace BagShopManagement.Repositories
         #region Helper Methods
 
         /// <summary>
-        /// Kiểm tra kết nối database
+        /// Kiểm tra kết nối database có hoạt động không
         /// </summary>
+        /// <returns>True nếu kết nối thành công</returns>
         protected bool TestConnection()
         {
             return DatabaseConfig.TestConnection();
         }
 
         /// <summary>
-        /// Tạo SqlParameter
+        /// Tạo SqlParameter với automatic type inference
         /// </summary>
+        /// <param name="name">Tên parameter (bắt đầu với @)</param>
+        /// <param name="value">Giá trị parameter (null sẽ convert thành DBNull.Value)</param>
+        /// <returns>SqlParameter instance</returns>
         protected SqlParameter CreateParameter(string name, object? value)
         {
             return new SqlParameter(name, value ?? DBNull.Value);
         }
 
         /// <summary>
-        /// Tạo SqlParameter với SqlDbType cụ thể
+        /// Tạo SqlParameter với SqlDbType explicit
         /// </summary>
+        /// <param name="name">Tên parameter</param>
+        /// <param name="type">SqlDbType cụ thể (VarChar, Int, DateTime...)</param>
+        /// <param name="value">Giá trị parameter</param>
+        /// <returns>SqlParameter instance</returns>
         protected SqlParameter CreateParameter(string name, SqlDbType type, object? value)
         {
             return new SqlParameter
@@ -367,8 +435,12 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Helper để đọc giá trị từ SqlDataReader an toàn
+        /// Đọc giá trị từ SqlDataReader một cách an toàn (null-safe)
         /// </summary>
+        /// <typeparam name="T">Type của giá trị cần đọc</typeparam>
+        /// <param name="reader">SqlDataReader hiện tại</param>
+        /// <param name="columnName">Tên cột trong result set</param>
+        /// <returns>Giá trị của cột, hoặc default(T) nếu null/không tồn tại</returns>
         protected T? GetValue<T>(SqlDataReader reader, string columnName)
         {
             try
@@ -386,7 +458,7 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Helper để đọc string từ SqlDataReader
+        /// Đọc string từ SqlDataReader (trả về empty string nếu null)
         /// </summary>
         protected string GetString(SqlDataReader reader, string columnName)
         {
@@ -394,7 +466,7 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Helper để đọc int từ SqlDataReader
+        /// Đọc int từ SqlDataReader (trả về 0 nếu null)
         /// </summary>
         protected int GetInt(SqlDataReader reader, string columnName)
         {
@@ -402,7 +474,7 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Helper để đọc decimal từ SqlDataReader
+        /// Đọc decimal từ SqlDataReader (trả về 0 nếu null)
         /// </summary>
         protected decimal GetDecimal(SqlDataReader reader, string columnName)
         {
@@ -410,7 +482,7 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Helper để đọc DateTime từ SqlDataReader
+        /// Đọc DateTime từ SqlDataReader (nullable, trả về null nếu DBNull)
         /// </summary>
         protected DateTime? GetDateTime(SqlDataReader reader, string columnName)
         {
@@ -418,7 +490,7 @@ namespace BagShopManagement.Repositories
         }
 
         /// <summary>
-        /// Helper để đọc bool từ SqlDataReader
+        /// Đọc bool từ SqlDataReader (trả về false nếu null)
         /// </summary>
         protected bool GetBool(SqlDataReader reader, string columnName)
         {
