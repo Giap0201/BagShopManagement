@@ -1,4 +1,5 @@
-﻿using BagShopManagement.DTOs.Responses;
+﻿using BagShopManagement.DataAccess;
+using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
@@ -9,17 +10,15 @@ using System.Configuration;
 using System.Data;
 using System.Text;
 
-using BagShopManagement.DataAccess;
-
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class HoaDonNhapImpl : BaseRepository, IHoaDonNhapRepository
+    public class HoaDonNhapRepository : BaseRepository, IHoaDonNhapRepository
     {
         private readonly string _connectionString;
 
-        public HoaDonNhapImpl()
+        public HoaDonNhapRepository()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"]?.ConnectionString ?? "";
+            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
         }
 
         private HoaDonNhap MapToHoaDonNhap(DataRow row)

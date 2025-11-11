@@ -42,10 +42,10 @@ namespace BagShopManagement
             services.AddTransient<IHoaDonBanRepository, HoaDonBanRepository>();
 
             // === Đăng ký Repositories - Dev6 ===
-            services.AddTransient<IHoaDonNhapRepository, HoaDonNhapImpl>();
-            services.AddTransient<IChiTietHDNRepository, ChiTietHDNImpl>();
-            services.AddTransient<INhaCungCapRepository, NhaCungCapImpl>();
-            services.AddTransient<INhanVienRepository, NhanVienImpl>();
+            services.AddTransient<IHoaDonNhapRepository, HoaDonNhapRepository>();
+            services.AddTransient<IChiTietHDNRepository, ChiTietHDNRepository>();
+            services.AddTransient<INhaCungCapRepository, NhaCungCapRepository>();
+            services.AddTransient<INhanVienRepository, NhanVienRepository>();
 
             // === Đăng ký Services - Dev4 ===
             services.AddTransient<IHoaDonBanService, HoaDonBanService>();

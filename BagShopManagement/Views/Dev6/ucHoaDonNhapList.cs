@@ -1,20 +1,9 @@
-using BagShopManagement.Controllers;
+﻿using BagShopManagement.Controllers;
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
-using BagShopManagement.Services.Interfaces;
-using BagShopManagement.Views.Dev6; // Th�m
-using Microsoft.Extensions.DependencyInjection; // Th�m
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection; // Thêm
 
 namespace BagShopManagement.Views.Dev6
 {
@@ -32,12 +21,10 @@ namespace BagShopManagement.Views.Dev6
             IServiceProvider serviceProvider)
         {
             InitializeComponent();
-
-            // G�n c�c dependency
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
-            _nhaCungCapRepo = nhaCungCapRepo ?? throw new ArgumentNullException(nameof(nhaCungCapRepo));
-            _nhanVienRepo = nhanVienRepo ?? throw new ArgumentNullException(nameof(nhanVienRepo));
-            _serviceProvider = serviceProvider ?? throw new ArgumentNullException(nameof(serviceProvider));
+            _controller = controller;
+            _nhaCungCapRepo = nhaCungCapRepo;
+            _nhanVienRepo = nhanVienRepo;
+            _serviceProvider = serviceProvider;
         }
 
         private void ucHoaDonNhapList_Load(object sender, EventArgs e)
@@ -52,12 +39,12 @@ namespace BagShopManagement.Views.Dev6
                 }
                 catch (Exception ex)
                 {
-                    Utils.ExceptionHandler.Handle(ex, "Kh�ng th? t?i danh s�ch h�a don.");
+                    MessageBox.Show($"Không thể tải danh sách hóa đơn {ex.Message}");
                 }
             }
         }
 
-        #region === C�C H�M T?I D? LI?U (LOAD) ===
+        #region === CÁC HÀM TẢI DỮ LIỆU (LOAD) ===
 
         private void LoadAllInvoices()
         {
@@ -71,20 +58,20 @@ namespace BagShopManagement.Views.Dev6
             }
             catch (Exception ex)
             {
-                Utils.ExceptionHandler.Handle(ex, "L?i t?i d? li?u");
+                MessageBox.Show($"Lỗi khi tải dữ liệu {ex.Message}");
             }
         }
 
         private void FormatInvoiceGrid()
         {
             if (dgvDanhSach.DataSource == null) return;
-            dgvDanhSach.Columns["TenTrangThai"].HeaderText = "Tr?ng Th�i";
-            dgvDanhSach.Columns["MaHDN"].HeaderText = "M� H�N";
-            dgvDanhSach.Columns["TenNCC"].HeaderText = "Nh� Cung C?p";
-            dgvDanhSach.Columns["TenNV"].HeaderText = "Nh�n Vi�n L?p";
-            dgvDanhSach.Columns["NgayNhap"].HeaderText = "Ng�y Nh?p";
-            dgvDanhSach.Columns["NgayDuyet"].HeaderText = "Ng�y Duy?t";
-            dgvDanhSach.Columns["TongTien"].HeaderText = "T?ng Ti?n";
+            dgvDanhSach.Columns["TenTrangThai"].HeaderText = "Trạng Thái";
+            dgvDanhSach.Columns["MaHDN"].HeaderText = "Mã HĐN";
+            dgvDanhSach.Columns["TenNCC"].HeaderText = "Nhà Cung Cấp";
+            dgvDanhSach.Columns["TenNV"].HeaderText = "Nhân Viên Lập";
+            dgvDanhSach.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
+            dgvDanhSach.Columns["NgayDuyet"].HeaderText = "Ngày Duyệt";
+            dgvDanhSach.Columns["TongTien"].HeaderText = "Tổng Tiền";
             dgvDanhSach.Columns["TongTien"].DefaultCellStyle.Format = "N0";
             dgvDanhSach.Columns["MaNCC"].Visible = false;
             dgvDanhSach.Columns["MaNV"].Visible = false;
@@ -125,10 +112,10 @@ namespace BagShopManagement.Views.Dev6
         {
             var dataSource = new List<object>
             {
-                new { Value = (byte?)null, Display = "--- T?t c? tr?ng th�i ---" },
-                new { Value = (byte?)TrangThaiHoaDonNhap.TamLuu, Display = "T?m luu" },
-                new { Value = (byte?)TrangThaiHoaDonNhap.HoatDong, Display = "Ho?t d?ng" },
-                new { Value = (byte?)TrangThaiHoaDonNhap.DaHuy, Display = "�� h?y" }
+                new { Value = (byte?)null, Display = "--- Tất cả trạng thái ---" },
+                new { Value = (byte?)TrangThaiHoaDonNhap.TamLuu, Display = "Tạm lưu" },
+                new { Value = (byte?)TrangThaiHoaDonNhap.HoatDong, Display = "Hoạt động" },
+                new { Value = (byte?)TrangThaiHoaDonNhap.DaHuy, Display = "Đã hủy" }
             };
             cmbSearchTrangThai.DataSource = dataSource;
             cmbSearchTrangThai.DisplayMember = "Display";
@@ -142,12 +129,12 @@ namespace BagShopManagement.Views.Dev6
             try
             {
                 var list = _nhaCungCapRepo.GetAll();
-                list.Insert(0, new NhaCungCap { MaNCC = "", TenNCC = "--- T?t c? NCC ---" });
+                list.Insert(0, new NhaCungCap { MaNCC = "", TenNCC = "--- Tất cả NCC ---" });
                 cmbSearchNCC.DataSource = list;
                 cmbSearchNCC.DisplayMember = "TenNCC";
                 cmbSearchNCC.ValueMember = "MaNCC";
             }
-            catch (Exception ex) { MessageBox.Show($"L?i t?i danh s�ch NCC: {ex.Message}"); }
+            catch (Exception ex) { MessageBox.Show($"Lỗi tải danh sách NCC: {ex.Message}"); }
         }
 
         private void LoadComboBoxNhanVien()
@@ -156,17 +143,17 @@ namespace BagShopManagement.Views.Dev6
             try
             {
                 var list = _nhanVienRepo.GetAll();
-                list.Insert(0, new NhanVien { MaNV = "", HoTen = "--- T?t c? NV ---" });
+                list.Insert(0, new NhanVien { MaNV = "", HoTen = "--- Tất cả NV ---" });
                 cmbSearchNhanVien.DataSource = list;
                 cmbSearchNhanVien.DisplayMember = "HoTen";
                 cmbSearchNhanVien.ValueMember = "MaNV";
             }
-            catch (Exception ex) { MessageBox.Show($"L?i t?i danh s�ch NV: {ex.Message}"); }
+            catch (Exception ex) { MessageBox.Show($"Lỗi tải danh sách NV: {ex.Message}"); }
         }
 
-        #endregion === C�C H�M T?I D? LI?U (LOAD) ===
+        #endregion === CÁC HÀM TẢI DỮ LIỆU (LOAD) ===
 
-        #region === C�C H�M X? L� S? KI?N ===
+        #region === CÁC HÀM XỬ LÝ SỰ KIỆN ===
 
         private void UpdateUIState(TrangThaiHoaDonNhap? trangThai)
         {
@@ -212,23 +199,20 @@ namespace BagShopManagement.Views.Dev6
             UpdateUIState(trangThai);
         }
 
-        // === LOGIC N�T TH�M M?I (Quan tr?ng) ===
+        // === LOGIC NÚT THÊM MỚI (Quan trọng) ===
         private void btnThem_Click(object sender, EventArgs e)
         {
             try
             {
-                // Y�u c?u DI Container t?o frmHoaDonNhapDetail
-                // 'using' d?m b?o form du?c gi?i ph�ng (Dispose) sau khi d�ng
                 using (var frm = _serviceProvider.GetRequiredService<frmHoaDonNhapDetail>())
                 {
                     frm.ShowDialog();
-                    // Sau khi form chi ti?t d�ng, t?i l?i danh s�ch
                     LoadAllInvoices();
                 }
             }
             catch (Exception ex)
             {
-                Utils.ExceptionHandler.Handle(ex, "Kh�ng th? m? form chi ti?t.");
+                MessageBox.Show($"Không thể tải danh sách hóa đơn {ex.Message}");
             }
         }
 
@@ -241,6 +225,6 @@ namespace BagShopManagement.Views.Dev6
             LoadAllInvoices();
         }
 
-        #endregion === C�C H�M X? L� S? KI?N ===
+        #endregion === CÁC HÀM XỬ LÝ SỰ KIỆN ===
     }
 }

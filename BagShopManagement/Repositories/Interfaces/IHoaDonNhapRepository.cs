@@ -1,5 +1,4 @@
-﻿// Namespaces của bạn
-using BagShopManagement.DTOs.Responses;
+﻿using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Models.Enums; // Cần thêm Enum
 using System;
