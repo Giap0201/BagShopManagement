@@ -1,5 +1,6 @@
 ﻿using BagShopManagement.Models;
 using BagShopManagement.Services;
+using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ namespace BagShopManagement.Controllers
     {
         private readonly IKhachHangService _service;
 
-        public KhachHangController(IKhachHangService service)
+        public KhachHangController()
         {
-            _service = service;
+            _service = new KhachHangService();
         }
 
         // Lấy danh sách tất cả khách hàng

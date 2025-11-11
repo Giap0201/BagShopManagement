@@ -79,5 +79,11 @@ namespace BagShopManagement.Views.Dev2
             var kw = txtTimKiem.Text.Trim();
             dgvSanPham.DataSource = _sanPhamService.Search(kw);
         }
+
+        private void dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+        }
     }
 }

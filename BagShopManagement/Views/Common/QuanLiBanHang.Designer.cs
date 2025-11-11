@@ -75,6 +75,7 @@
             panelMain.Name = "panelMain";
             panelMain.Size = new Size(985, 741);
             panelMain.TabIndex = 3;
+            panelMain.Paint += panelMain_Paint;
             // 
             // QuanLiBanHang
             // 
