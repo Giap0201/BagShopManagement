@@ -1,9 +1,13 @@
 ﻿using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Configuration;
 using System.Data;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace BagShopManagement.DataAccess
 {
@@ -54,28 +58,8 @@ namespace BagShopManagement.DataAccess
         {
             return ConnectionString;
         }
-
         //phuong thuc tao va mo ket noi voi database
         public static SqlConnection GetConnection()
-        {
-            try
-            {
-                var conn = new SqlConnection(ConnectionString);
-                if (conn.State != ConnectionState.Open)
-                {
-                    conn.Open();
-                }
-                return conn;
-            }
-            catch (Exception ex)
-            {
-                ExceptionHandler.Handle(ex, "Không thể kết nối với DB");
-                return null;
-            }
-        }
-
-        //thuc thi cau truy van select, tra ve datatable co ket qua
-        public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
                 throw new ArgumentException("Câu truy vấn không được để trống.", nameof(query));
@@ -131,7 +115,7 @@ namespace BagShopManagement.DataAccess
         }
 
         // 5. Kiểm tra kết nối
-        public static bool TestConnection()
+        public static void TestConnection()
         {
             try
             {

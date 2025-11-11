@@ -1,96 +1,126 @@
-﻿using BagShopManagement.Models;
+﻿using BagShopManagement.DataAccess;
+using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    /// <summary>
-    /// Repository xử lý truy cập dữ liệu cho bảng SanPham
-    /// Kế thừa từ BaseRepository để sử dụng các methods chung
-    /// </summary>
-    public class SanPhamRepository : BaseRepository_2, ISanPhamRepository
+    public class SanPhamRepository : BaseRepository, ISanPhamRepository
     {
-        /// <summary>
-        /// Lấy tất cả sản phẩm trong database
-        /// </summary>
-        public List<SanPham> GetAll()
-        {
-            string query = "SELECT * FROM SanPham";
-            return ExecuteQuery(query, null, MapFromReader);
-        }
-
-        /// <summary>
-        /// Lấy sản phẩm theo mã sản phẩm
-        /// </summary>
-        /// <param name="maSP">Mã sản phẩm cần tìm</param>
-        /// <returns>SanPham nếu tìm thấy, null nếu không tồn tại</returns>
-        public SanPham? GetByMaSP(string maSP)
-        {
-            string query = "SELECT * FROM SanPham WHERE MaSP = @MaSP";
-            var parameters = new[] { CreateParameter("@MaSP", maSP) };
-            var results = ExecuteQuery(query, parameters, MapFromReader);
-            return results.Count > 0 ? results[0] : null;
-        }
-
-        /// <summary>
-        /// Cập nhật thông tin sản phẩm
-        /// </summary>
-        /// <param name="sp">Đối tượng SanPham chứa thông tin mới</param>
-        public void Update(SanPham sp)
-        {
-            string query = @"UPDATE SanPham SET TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
-                  MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu, MaChatLieu=@MaChatLieu,
-                  MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC, TrangThai=@TrangThai, NgayTao=@NgayTao
-                  WHERE MaSP=@MaSP";
-
-            var parameters = new[]
-            {
-                CreateParameter("@TenSP", sp.TenSP ?? ""),
-                CreateParameter("@GiaNhap", sp.GiaNhap),
-                CreateParameter("@GiaBan", sp.GiaBan),
-                CreateParameter("@SoLuongTon", sp.SoLuongTon),
-                CreateParameter("@MoTa", sp.MoTa),
-                CreateParameter("@AnhChinh", sp.AnhChinh),
-                CreateParameter("@MaLoaiTui", sp.MaLoaiTui),
-                CreateParameter("@MaThuongHieu", sp.MaThuongHieu),
-                CreateParameter("@MaChatLieu", sp.MaChatLieu),
-                CreateParameter("@MaMau", sp.MaMau),
-                CreateParameter("@MaKichThuoc", sp.MaKichThuoc),
-                CreateParameter("@MaNCC", sp.MaNCC),
-                CreateParameter("@TrangThai", sp.TrangThai),
-                CreateParameter("@NgayTao", sp.NgayTao),
-                CreateParameter("@MaSP", sp.MaSP)
-            };
-
-            ExecuteNonQuery(query, parameters);
-        }
-
-        /// <summary>
-        /// Map từ SqlDataReader sang đối tượng SanPham
-        /// Sử dụng helper methods từ BaseRepository (GetString, GetInt, GetDecimal...)
-        /// </summary>
-        private SanPham MapFromReader(SqlDataReader reader)
+        private SanPham MapToSanPham(DataRow row)
         {
             return new SanPham
             {
-                MaSP = GetString(reader, "MaSP"),
-                TenSP = GetString(reader, "TenSP"),
-                GiaNhap = GetDecimal(reader, "GiaNhap"),
-                GiaBan = GetDecimal(reader, "GiaBan"),
-                SoLuongTon = GetInt(reader, "SoLuongTon"),
-                MoTa = GetValue<string>(reader, "MoTa"),
-                AnhChinh = GetValue<string>(reader, "AnhChinh"),
-                MaLoaiTui = GetValue<string>(reader, "MaLoaiTui"),
-                MaThuongHieu = GetValue<string>(reader, "MaThuongHieu"),
-                MaChatLieu = GetValue<string>(reader, "MaChatLieu"),
-                MaMau = GetValue<string>(reader, "MaMau"),
-                MaKichThuoc = GetValue<string>(reader, "MaKichThuoc"),
-                MaNCC = GetValue<string>(reader, "MaNCC"),
-                TrangThai = GetBool(reader, "TrangThai"),
-                NgayTao = GetDateTime(reader, "NgayTao") ?? DateTime.Now
+                MaSP = row["MaSP"].ToString(),
+                TenSP = row["TenSP"].ToString(),
+                GiaNhap = row.Field<decimal>("GiaNhap"),
+                GiaBan = row.Field<decimal>("GiaBan"),
+                SoLuongTon = row.Field<int>("SoLuongTon"),
+                MoTa = row["MoTa"]?.ToString(),
+                AnhChinh = row["AnhChinh"]?.ToString(),
+                MaLoaiTui = row["MaLoaiTui"]?.ToString(),
+                MaThuongHieu = row["MaThuongHieu"]?.ToString(),
+                MaChatLieu = row["MaChatLieu"]?.ToString(),
+                MaMau = row["MaMau"]?.ToString(),
+                MaKichThuoc = row["MaKichThuoc"]?.ToString(),
+                MaNCC = row["MaNCC"]?.ToString(),
+                TrangThai = row.Field<bool>("TrangThai"),
+                NgayTao = row.Field<DateTime>("NgayTao")
             };
+        }
+
+        public List<SanPham> GetAll()
+        {
+            string query = "SELECT * FROM SanPham";
+            var dt = ExecuteQuery(query);
+            var list = new List<SanPham>();
+            foreach (DataRow row in dt.Rows)
+                list.Add(MapToSanPham(row));
+            return list;
+        }
+
+        public SanPham GetById(string maSP)
+        {
+            string query = "SELECT * FROM SanPham WHERE MaSP = @MaSP";
+            var dt = ExecuteQuery(query, new SqlParameter("@MaSP", maSP));
+            if (dt.Rows.Count == 0) return null;
+            return MapToSanPham(dt.Rows[0]);
+        }
+
+        public bool Add(SanPham sp)
+        {
+            string query = @"INSERT INTO SanPham (MaSP, TenSP, GiaNhap, GiaBan, SoLuongTon, MoTa, AnhChinh, 
+                               MaLoaiTui, MaThuongHieu, MaChatLieu, MaMau, MaKichThuoc, MaNCC, TrangThai, NgayTao)
+                             VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh,
+                               @MaLoaiTui, @MaThuongHieu, @MaChatLieu, @MaMau, @MaKichThuoc, @MaNCC, @TrangThai, @NgayTao)";
+
+            var param = new[]
+            {
+                new SqlParameter("@MaSP", sp.MaSP),
+                new SqlParameter("@TenSP", sp.TenSP),
+                new SqlParameter("@GiaNhap", sp.GiaNhap),
+                new SqlParameter("@GiaBan", sp.GiaBan),
+                new SqlParameter("@SoLuongTon", sp.SoLuongTon),
+                new SqlParameter("@MoTa", (object?)sp.MoTa ?? DBNull.Value),
+                new SqlParameter("@AnhChinh", (object?)sp.AnhChinh ?? DBNull.Value),
+                new SqlParameter("@MaLoaiTui", (object?)sp.MaLoaiTui ?? DBNull.Value),
+                new SqlParameter("@MaThuongHieu", (object?)sp.MaThuongHieu ?? DBNull.Value),
+                new SqlParameter("@MaChatLieu", (object?)sp.MaChatLieu ?? DBNull.Value),
+                new SqlParameter("@MaMau", (object?)sp.MaMau ?? DBNull.Value),
+                new SqlParameter("@MaKichThuoc", (object?)sp.MaKichThuoc ?? DBNull.Value),
+                new SqlParameter("@MaNCC", (object?)sp.MaNCC ?? DBNull.Value),
+                new SqlParameter("@TrangThai", sp.TrangThai),
+                new SqlParameter("@NgayTao", sp.NgayTao)
+            };
+
+            return ExecuteNonQuery(query, param) > 0;
+        }
+
+        public bool Update(SanPham sp)
+        {
+            string query = @"UPDATE SanPham SET TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
+                             MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu, 
+                             MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC, TrangThai=@TrangThai
+                             WHERE MaSP=@MaSP";
+
+            var param = new[]
+            {
+                new SqlParameter("@MaSP", sp.MaSP),
+                new SqlParameter("@TenSP", sp.TenSP),
+                new SqlParameter("@GiaNhap", sp.GiaNhap),
+                new SqlParameter("@GiaBan", sp.GiaBan),
+                new SqlParameter("@SoLuongTon", sp.SoLuongTon),
+                new SqlParameter("@MoTa", (object?)sp.MoTa ?? DBNull.Value),
+                new SqlParameter("@AnhChinh", (object?)sp.AnhChinh ?? DBNull.Value),
+                new SqlParameter("@MaLoaiTui", (object?)sp.MaLoaiTui ?? DBNull.Value),
+                new SqlParameter("@MaThuongHieu", (object?)sp.MaThuongHieu ?? DBNull.Value),
+                new SqlParameter("@MaChatLieu", (object?)sp.MaChatLieu ?? DBNull.Value),
+                new SqlParameter("@MaMau", (object?)sp.MaMau ?? DBNull.Value),
+                new SqlParameter("@MaKichThuoc", (object?)sp.MaKichThuoc ?? DBNull.Value),
+                new SqlParameter("@MaNCC", (object?)sp.MaNCC ?? DBNull.Value),
+                new SqlParameter("@TrangThai", sp.TrangThai)
+            };
+
+            return ExecuteNonQuery(query, param) > 0;
+        }
+
+        public bool Delete(string maSP)
+        {
+            string query = "DELETE FROM SanPham WHERE MaSP=@MaSP";
+            return ExecuteNonQuery(query, new SqlParameter("@MaSP", maSP)) > 0;
+        }
+
+        public List<SanPham> Search(string keyword)
+        {
+            string query = "SELECT * FROM SanPham WHERE TenSP LIKE @kw";
+            var dt = ExecuteQuery(query, new SqlParameter("@kw", $"%{keyword}%"));
+            var list = new List<SanPham>();
+            foreach (DataRow row in dt.Rows)
+                list.Add(MapToSanPham(row));
+            return list;
         }
     }
 }

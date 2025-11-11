@@ -5,11 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BagShopManagement.Repositories.Interfaces
+namespace BagShopManagement.Services.Interfaces
 {
-    public interface ISanPhamRepository
+    public interface ISanPhamService
     {
-        SanPham? GetByMaSP(string maSP);
         List<SanPham> GetAll();
         SanPham GetById(string maSP);
         bool Add(SanPham sp);
