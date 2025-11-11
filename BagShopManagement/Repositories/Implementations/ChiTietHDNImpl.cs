@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
@@ -7,16 +6,17 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
+using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class ChiTietHDNImpl : BaseRepository, IChiTietHDNRepository
+    public class ChiTietHDNImpl : DataAccessBase, IChiTietHDNRepository
     {
         private readonly string _connectionString;
 
         public ChiTietHDNImpl()
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
+            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"]?.ConnectionString ?? "";
         }
 
         private ChiTietHoaDonNhap MapToChiTiet(IDataRecord reader)

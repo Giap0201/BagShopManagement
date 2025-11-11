@@ -16,7 +16,7 @@ namespace BagShopManagement.Repositories.Implementations
         public List<SanPham> GetAll()
         {
             string query = "SELECT MaSP, TenSP, GiaBan FROM SanPham ORDER BY TenSP";
-            
+
             return base.ExecuteQuery<SanPham>(query, null, reader => new SanPham
             {
                 MaSP = base.GetString(reader, "MaSP"),
@@ -29,7 +29,7 @@ namespace BagShopManagement.Repositories.Implementations
         {
             string query = "SELECT * FROM SanPham WHERE MaSP = @MaSP";
             var parameters = new[] { base.CreateParameter("@MaSP", maSP) };
-            
+
             var result = base.ExecuteQuery<SanPham>(query, parameters, reader => new SanPham
             {
                 MaSP = base.GetString(reader, "MaSP"),
@@ -50,7 +50,7 @@ namespace BagShopManagement.Repositories.Implementations
                                 GiaNhap = @GiaNhap,
                                 MoTa = @MoTa
                             WHERE MaSP = @MaSP";
-            
+
             var parameters = new[]
             {
                 base.CreateParameter("@MaSP", sanPham.MaSP),

@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,10 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class NhaCungCapImpl : BaseRepository, INhaCungCapRepository
+    public class NhaCungCapImpl : DataAccessBase, INhaCungCapRepository
     {
         public List<NhaCungCap> GetAll()
         {
