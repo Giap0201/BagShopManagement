@@ -19,57 +19,65 @@ namespace BagShopManagement
         {
             ApplicationConfiguration.Initialize();
 
-            // 1. Tạo bộ sưu tập dịch vụ
+            // 1️⃣ Tạo bộ sưu tập dịch vụ (DI container)
             var services = new ServiceCollection();
             ConfigureServices(services);
 
-            // 2. Build ServiceProvider
-            // Chúng ta dùng 'using' để đảm bảo mọi thứ được giải phóng khi app tắt
+            // 2️⃣ Xây dựng provider
             using (var serviceProvider = services.BuildServiceProvider())
             {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
 
-                // 3. Yêu cầu Form chính từ DI container
-                var mainForm = serviceProvider.GetRequiredService<QuanLiBanHang>();
+                // 🔸 CÁCH 1: Chạy Form chính như bình thường
+                // var mainForm = serviceProvider.GetRequiredService<QuanLiBanHang>();
+                // Application.Run(mainForm);
 
-                // 4. Chạy Form chính
-                Application.Run(mainForm);
+                // 🔸 CÁCH 2: Chạy trực tiếp UserControl báo cáo để test nhanh
+                var baoCaoController = serviceProvider.GetRequiredService<BaoCaoController>();
+                var testForm = new Form
+                {
+                    Text = "Báo cáo doanh thu - Test",
+                    Width = 1000,
+                    Height = 800
+                };
+
+                var view = new ucBaoCaoNhapHang(baoCaoController);
+                view.Dock = DockStyle.Fill;
+                testForm.Controls.Add(view);
+
+                Application.Run(testForm);
             }
         }
 
-        // Hàm cấu hình tất cả các Dependency
         private static void ConfigureServices(IServiceCollection services)
         {
-            // === Cung cấp IServiceProvider cho chính nó ===
-            // Điều này cần thiết để Form cha (QuanLiBanHang)
-            // và UC (ucHoaDonNhapList) có thể yêu cầu các dịch vụ khác
-            services.AddSingleton<IServiceProvider>(sp => sp.CreateScope().ServiceProvider);
-
-            // === Đăng ký Repositories ===
+            // ===== Đăng ký Repositories =====
             services.AddTransient<IHoaDonNhapRepository, HoaDonNhapImpl>();
             services.AddTransient<IChiTietHDNRepository, ChiTietHDNImpl>();
             services.AddTransient<INhaCungCapRepository, NhaCungCapImpl>();
             services.AddTransient<INhanVienRepository, NhanVienImpl>();
             services.AddTransient<ISanPhamRepository, SanPhamImpl>();
 
-            // === Đăng ký Services ===
+            // ⚙️ Đăng ký repository cho báo cáo
+            services.AddTransient<IBaoCaoRepository, BaoCaoImpl>();
+
+            // ===== Đăng ký Services =====
             services.AddTransient<IHoaDonNhapService, HoaDonNhapService>();
+            services.AddTransient<IBaoCaoService, BaoCaoService>();
 
-            // === Đăng ký Controllers ===
+            // ===== Đăng ký Controllers =====
             services.AddTransient<HoaDonNhapController>();
+            services.AddTransient<BaoCaoController>();
 
-            // === Đăng ký Utils ===
-            // Đăng ký MaHoaDonGenerator để frmHoaDonNhapDetail có thể nhận
+            // ===== Đăng ký tiện ích (Utils) =====
             services.AddTransient<MaHoaDonGenerator>(sp => new MaHoaDonGenerator("HDN", 3));
 
-            // === Đăng ký Forms và UserControls ===
-            services.AddTransient<QuanLiBanHang>();       // Form chính (Shell)
-            services.AddTransient<frmHoaDonNhapDetail>(); // Form chi tiết (Popup)
+            // ===== Đăng ký Forms & UserControls =====
+            services.AddTransient<QuanLiBanHang>();       // Form chính
+            services.AddTransient<frmHoaDonNhapDetail>(); // Form chi tiết
             services.AddTransient<ucHoaDonNhapList>();    // UC 1
-
-            // (Khi bạn tạo UC mới, ví dụ ucSanPhamList, chỉ cần thêm vào đây)
-            // services.AddTransient<ucSanPhamList>();
+            services.AddTransient<ucBaoCaoDoanhThu>();    // UC Báo cáo doanh thu
         }
     }
 }
