@@ -45,7 +45,28 @@ namespace BagShopManagement.Views.Controls
 
         private void button1_Click(object sender, EventArgs e)
         {
-            // Event handler này sẽ được override bởi SetupMenuEventHandlers
+            MenuItemClicked?.Invoke(this, "Dashboard");
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            MenuItemClicked?.Invoke(this, "BanHang");
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            MenuItemClicked?.Invoke(this, "SanPham");
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            MenuItemClicked?.Invoke(this, "HoaDonNhap");
+            ShowHoaDonNhapClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void SideBarControl_Load(object sender, EventArgs e)
+        {
+            // Event handler for control load
         }
     }
 }
