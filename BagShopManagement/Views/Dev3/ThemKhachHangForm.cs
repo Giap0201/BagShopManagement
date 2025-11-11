@@ -41,7 +41,6 @@ namespace BagShopManagement.Views.Dev3
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Kiểm tra dữ liệu hợp lệ
             if (string.IsNullOrWhiteSpace(txtMaKH.Text))
             {
                 MessageBox.Show("Vui lòng nhập Mã khách hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -49,21 +48,60 @@ namespace BagShopManagement.Views.Dev3
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(txtSoDienThoai.Text))
+
+            if (string.IsNullOrWhiteSpace(txtHoTen.Text))
             {
                 MessageBox.Show("Vui lòng nhập Họ tên khách hàng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtHoTen.Focus();
+                return;
+            }
+
+
+            string soDienThoai = txtSoDienThoai.Text.Trim();
+            if (string.IsNullOrWhiteSpace(soDienThoai))
+            {
+
+                MessageBox.Show("Vui lòng nhập Số điện thoại.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtSoDienThoai.Focus();
                 return;
+            }
+            if (!System.Text.RegularExpressions.Regex.IsMatch(soDienThoai, @"^0\d{9}$"))
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập 10 số bắt đầu bằng 0.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSoDienThoai.Focus();
+                return;
+            }
+
+            string email = txtEmail.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(email) &&
+                !System.Text.RegularExpressions.Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+            {
+                MessageBox.Show("Định dạng Email không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return;
+            }
+
+            int diemTichLuy = 0;
+            string diemText = txtDiemTichLuy.Text.Trim();
+
+            if (!string.IsNullOrEmpty(diemText))
+            {
+                if (!int.TryParse(diemText, out diemTichLuy))
+                {
+                    MessageBox.Show("Điểm tích lũy phải là một con số hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtDiemTichLuy.Focus();
+                    return;
+                }
             }
 
             var kh = new KhachHang
             {
                 MaKH = txtMaKH.Text.Trim(),
-                SoDienThoai = txtSoDienThoai.Text.Trim(),
+                SoDienThoai = soDienThoai,
                 HoTen = txtHoTen.Text.Trim(),
-                Email = txtEmail.Text.Trim(),
+                Email = email,
                 DiaChi = txtDiaChi.Text.Trim(),
-                DiemTichLuy = int.Parse(txtDiemTichLuy.Text.Trim())
+                DiemTichLuy = diemTichLuy 
             };
 
             bool success;
