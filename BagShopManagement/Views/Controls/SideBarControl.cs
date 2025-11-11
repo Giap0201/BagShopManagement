@@ -25,7 +25,6 @@ namespace BagShopManagement.Views.Controls
 
             // Gắn sự kiện click cho nút Sản phẩm
             btnSanPham.Click += btnSanPham_Click;
-            btnImportDanhMuc.Click += btnImportDanhMuc_Click;
             btnDanhMuc.Click += btnDanhMuc_Click;
         }
 
@@ -43,11 +42,7 @@ namespace BagShopManagement.Views.Controls
             SanPhamClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        private void btnImportDanhMuc_Click(object sender, EventArgs e)
-        {
-            // Phát tín hiệu cho form chính
-            ImportDanhMucClicked?.Invoke(this, EventArgs.Empty);
-        }
+        
 
         private void btnDanhMuc_Click(object sender, EventArgs e)
         {
