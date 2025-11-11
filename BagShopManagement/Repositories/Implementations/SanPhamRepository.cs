@@ -10,7 +10,7 @@ namespace BagShopManagement.Repositories.Implementations
     /// Repository xử lý truy cập dữ liệu cho bảng SanPham
     /// Kế thừa từ BaseRepository để sử dụng các methods chung
     /// </summary>
-    public class SanPhamRepository : BaseRepository, ISanPhamRepository
+    public class SanPhamRepository : BaseRepository_2, ISanPhamRepository
     {
         /// <summary>
         /// Lấy tất cả sản phẩm trong database

@@ -7,7 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BaseRepo = BagShopManagement.Repositories.BaseRepository;
+using BaseRepo = BagShopManagement.Repositories.BaseRepository_2;
 
 namespace BagShopManagement.Repositories.Implementations
 {
