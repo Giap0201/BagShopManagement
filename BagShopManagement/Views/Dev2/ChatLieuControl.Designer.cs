@@ -1,6 +1,6 @@
 ﻿namespace BagShopManagement.Views.Dev2
 {
-    partial class LoaiTuiControl
+    partial class ChatLieuControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvLoaiTui = new DataGridView();
+            dgvChatLieu = new DataGridView();
             txtSearch = new TextBox();
             btnAdd = new Button();
             btnEdit = new Button();
@@ -36,17 +36,17 @@
             btnSearch = new Button();
             btnImport = new Button();
             btnExport = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvLoaiTui).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvChatLieu).BeginInit();
             SuspendLayout();
             // 
-            // dgvLoaiTui
+            // dgvChatLieu
             // 
-            dgvLoaiTui.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLoaiTui.Location = new Point(27, 126);
-            dgvLoaiTui.Name = "dgvLoaiTui";
-            dgvLoaiTui.RowHeadersWidth = 51;
-            dgvLoaiTui.Size = new Size(867, 361);
-            dgvLoaiTui.TabIndex = 0;
+            dgvChatLieu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvChatLieu.Location = new Point(27, 126);
+            dgvChatLieu.Name = "dgvChatLieu";
+            dgvChatLieu.RowHeadersWidth = 51;
+            dgvChatLieu.Size = new Size(867, 361);
+            dgvChatLieu.TabIndex = 0;
             // 
             // txtSearch
             // 
@@ -109,9 +109,9 @@
             btnExport.TabIndex = 8;
             btnExport.Text = "Xuất file";
             btnExport.UseVisualStyleBackColor = true;
-            btnExport.Click += btnExport_Click;
+            btnExport.Click += BtnExport_Click;
             // 
-            // LoaiTuiControl
+            // ChatLieuControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -122,17 +122,17 @@
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
             Controls.Add(txtSearch);
-            Controls.Add(dgvLoaiTui);
-            Name = "LoaiTuiControl";
+            Controls.Add(dgvChatLieu);
+            Name = "ChatLieuControl";
             Size = new Size(926, 512);
-            ((System.ComponentModel.ISupportInitialize)dgvLoaiTui).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvChatLieu).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dgvLoaiTui;
+        private DataGridView dgvChatLieu;
         private TextBox txtSearch;
         private Button btnAdd;
         private Button btnEdit;

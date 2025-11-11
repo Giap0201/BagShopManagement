@@ -1,6 +1,6 @@
 ﻿namespace BagShopManagement.Views.Dev2
 {
-    partial class LoaiTuiControl
+    partial class ThuongHieuControl
     {
         /// <summary> 
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvLoaiTui = new DataGridView();
+            dgvThuongHieu = new DataGridView();
             txtSearch = new TextBox();
             btnAdd = new Button();
             btnEdit = new Button();
@@ -36,17 +36,17 @@
             btnSearch = new Button();
             btnImport = new Button();
             btnExport = new Button();
-            ((System.ComponentModel.ISupportInitialize)dgvLoaiTui).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dgvThuongHieu).BeginInit();
             SuspendLayout();
             // 
-            // dgvLoaiTui
+            // dgvThuongHieu
             // 
-            dgvLoaiTui.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvLoaiTui.Location = new Point(27, 126);
-            dgvLoaiTui.Name = "dgvLoaiTui";
-            dgvLoaiTui.RowHeadersWidth = 51;
-            dgvLoaiTui.Size = new Size(867, 361);
-            dgvLoaiTui.TabIndex = 0;
+            dgvThuongHieu.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvThuongHieu.Location = new Point(27, 126);
+            dgvThuongHieu.Name = "dgvThuongHieu";
+            dgvThuongHieu.RowHeadersWidth = 51;
+            dgvThuongHieu.Size = new Size(867, 361);
+            dgvThuongHieu.TabIndex = 0;
             // 
             // txtSearch
             // 
@@ -64,6 +64,7 @@
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -73,6 +74,7 @@
             btnEdit.TabIndex = 3;
             btnEdit.Text = "Sửa";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -82,6 +84,7 @@
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Xoá";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnSearch
             // 
@@ -100,6 +103,7 @@
             btnImport.TabIndex = 7;
             btnImport.Text = "Nhập file";
             btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += BtnImport_Click;
             // 
             // btnExport
             // 
@@ -109,9 +113,9 @@
             btnExport.TabIndex = 8;
             btnExport.Text = "Xuất file";
             btnExport.UseVisualStyleBackColor = true;
-            btnExport.Click += btnExport_Click;
+            btnExport.Click += BtnExport_Click;
             // 
-            // LoaiTuiControl
+            // ThuongHieuControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -122,17 +126,17 @@
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
             Controls.Add(txtSearch);
-            Controls.Add(dgvLoaiTui);
-            Name = "LoaiTuiControl";
+            Controls.Add(dgvThuongHieu);
+            Name = "ThuongHieuControl";
             Size = new Size(926, 512);
-            ((System.ComponentModel.ISupportInitialize)dgvLoaiTui).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dgvThuongHieu).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
 
-        private DataGridView dgvLoaiTui;
+        private DataGridView dgvThuongHieu;
         private TextBox txtSearch;
         private Button btnAdd;
         private Button btnEdit;
