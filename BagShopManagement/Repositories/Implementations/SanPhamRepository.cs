@@ -1,21 +1,31 @@
-﻿// Repositories/Implementations/SanPhamRepository.cs
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
-using System.Data;
 
 namespace BagShopManagement.Repositories.Implementations
 {
+    /// <summary>
+    /// Repository xử lý truy cập dữ liệu cho bảng SanPham
+    /// Kế thừa từ BaseRepository để sử dụng các methods chung
+    /// </summary>
     public class SanPhamRepository : BaseRepository, ISanPhamRepository
     {
+        /// <summary>
+        /// Lấy tất cả sản phẩm trong database
+        /// </summary>
         public List<SanPham> GetAll()
         {
             string query = "SELECT * FROM SanPham";
             return ExecuteQuery(query, null, MapFromReader);
         }
 
+        /// <summary>
+        /// Lấy sản phẩm theo mã sản phẩm
+        /// </summary>
+        /// <param name="maSP">Mã sản phẩm cần tìm</param>
+        /// <returns>SanPham nếu tìm thấy, null nếu không tồn tại</returns>
         public SanPham? GetByMaSP(string maSP)
         {
             string query = "SELECT * FROM SanPham WHERE MaSP = @MaSP";
@@ -24,6 +34,10 @@ namespace BagShopManagement.Repositories.Implementations
             return results.Count > 0 ? results[0] : null;
         }
 
+        /// <summary>
+        /// Cập nhật thông tin sản phẩm
+        /// </summary>
+        /// <param name="sp">Đối tượng SanPham chứa thông tin mới</param>
         public void Update(SanPham sp)
         {
             string query = @"UPDATE SanPham SET TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
@@ -53,7 +67,10 @@ namespace BagShopManagement.Repositories.Implementations
             ExecuteNonQuery(query, parameters);
         }
 
-        // Map từ SqlDataReader thay vì DataRow
+        /// <summary>
+        /// Map từ SqlDataReader sang đối tượng SanPham
+        /// Sử dụng helper methods từ BaseRepository (GetString, GetInt, GetDecimal...)
+        /// </summary>
         private SanPham MapFromReader(SqlDataReader reader)
         {
             return new SanPham
@@ -73,29 +90,6 @@ namespace BagShopManagement.Repositories.Implementations
                 MaNCC = GetValue<string>(reader, "MaNCC"),
                 TrangThai = GetBool(reader, "TrangThai"),
                 NgayTao = GetDateTime(reader, "NgayTao") ?? DateTime.Now
-            };
-        }
-
-        // Giữ lại Map cũ cho backward compatibility (nếu cần)
-        private SanPham Map(DataRow r)
-        {
-            return new SanPham
-            {
-                MaSP = r["MaSP"]?.ToString() ?? string.Empty,
-                TenSP = r["TenSP"]?.ToString() ?? string.Empty,
-                GiaNhap = r.Field<decimal?>("GiaNhap") ?? 0m,
-                GiaBan = r.Field<decimal?>("GiaBan") ?? 0m,
-                SoLuongTon = r.Field<int?>("SoLuongTon") ?? 0,
-                MoTa = r["MoTa"]?.ToString(),
-                AnhChinh = r["AnhChinh"]?.ToString(),
-                MaLoaiTui = r["MaLoaiTui"]?.ToString(),
-                MaThuongHieu = r["MaThuongHieu"]?.ToString(),
-                MaChatLieu = r["MaChatLieu"]?.ToString(),
-                MaMau = r["MaMau"]?.ToString(),
-                MaKichThuoc = r["MaKichThuoc"]?.ToString(),
-                MaNCC = r["MaNCC"]?.ToString(),
-                TrangThai = r.Field<bool?>("TrangThai") ?? true,
-                NgayTao = r.Field<DateTime?>("NgayTao") ?? DateTime.Now
             };
         }
     }

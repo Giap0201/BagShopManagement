@@ -8,8 +8,10 @@ using System.Text.Json;
 namespace BagShopManagement.DataAccess
 {
     /// <summary>
-    /// Quản lý cấu hình database - chỉ chứa connection string logic
-    /// Thay thế cho DataAccessBase (deprecated)
+    /// Quản lý cấu hình database connection
+    /// - Đọc connection string từ appsettings.json
+    /// - Cung cấp fallback nếu file không tồn tại
+    /// - Thay thế cho DataAccessBase (deprecated)
     /// </summary>
     public static class DatabaseConfig
     {
@@ -18,6 +20,12 @@ namespace BagShopManagement.DataAccess
         /// <summary>
         /// Đọc connection string từ appsettings.json với fallback
         /// </summary>
+        /// <returns>Connection string từ config hoặc fallback value</returns>
+        /// <remarks>
+        /// Thứ tự ưu tiên:
+        /// 1. appsettings.json -> ConnectionStrings.Default
+        /// 2. Fallback hardcoded connection string
+        /// </remarks>
         private static string LoadConnectionString()
         {
             try
@@ -54,6 +62,11 @@ namespace BagShopManagement.DataAccess
         /// <summary>
         /// Connection string fallback khi không đọc được từ appsettings.json
         /// </summary>
+        /// <returns>Hardcoded connection string để đảm bảo app vẫn chạy được</returns>
+        /// <remarks>
+        /// ⚠️ Warning: Chứa thông tin nhạy cảm (password hardcoded)
+        /// Chỉ dùng cho development, production nên dùng appsettings.json
+        /// </remarks>
         private static string GetFallbackConnectionString()
         {
             return "Server=DESKTOP-862VN9A;Database=BagShopManagementDB;User Id=sa;Password=Ndtrung@3605;Trusted_Connection=True;TrustServerCertificate=True;";
@@ -62,14 +75,16 @@ namespace BagShopManagement.DataAccess
         /// <summary>
         /// Lấy connection string hiện tại
         /// </summary>
+        /// <returns>Connection string đã được load từ config hoặc fallback</returns>
         public static string GetConnectionString()
         {
             return ConnectionString;
         }
 
         /// <summary>
-        /// Kiểm tra kết nối database
+        /// Kiểm tra kết nối database có thành công không
         /// </summary>
+        /// <returns>True nếu kết nối thành công, False nếu thất bại</returns>
         public static bool TestConnection()
         {
             try
@@ -86,8 +101,14 @@ namespace BagShopManagement.DataAccess
         }
 
         /// <summary>
-        /// Tạo SqlConnection mới (không tự động mở)
+        /// Tạo SqlConnection mới (chưa mở kết nối)
         /// </summary>
+        /// <returns>SqlConnection instance mới với connection string đã config</returns>
+        /// <remarks>
+        /// Caller chịu trách nhiệm:
+        /// - Gọi connection.Open() trước khi sử dụng
+        /// - Dispose connection sau khi dùng xong (using statement)
+        /// </remarks>
         public static SqlConnection CreateConnection()
         {
             return new SqlConnection(ConnectionString);

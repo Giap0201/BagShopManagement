@@ -11,12 +11,18 @@ using System.Linq;
 
 namespace BagShopManagement.Services.Implementations
 {
+    /// <summary>
+    /// Service xử lý logic nghiệp vụ cho Point of Sale (POS)
+    /// Quản lý giỏ hàng và quy trình thanh toán
+    /// </summary>
     public class PosService : IPosService
     {
         private readonly ISanPhamRepository _sanPhamRepo;
         private readonly IHoaDonBanService _hoaDonService;
         private readonly ITonKhoService _tonKhoService;
-        private readonly List<CartItem> _cart = new(); // ✅ dùng CartItem thay vì ChiTietHoaDonBan
+
+        // In-memory cart cho session hiện tại
+        private readonly List<CartItem> _cart = new();
 
         public PosService(ISanPhamRepository spRepo, IHoaDonBanService hdService, ITonKhoService tonKhoService)
         {
@@ -25,6 +31,12 @@ namespace BagShopManagement.Services.Implementations
             _tonKhoService = tonKhoService;
         }
 
+        /// <summary>
+        /// Thêm sản phẩm vào giỏ hàng
+        /// </summary>
+        /// <param name="maSP">Mã sản phẩm cần thêm</param>
+        /// <param name="soLuong">Số lượng cần thêm</param>
+        /// <returns>Tuple (success, message) - thành công và thông báo</returns>
         public (bool ok, string message) AddProductToCart(string maSP, int soLuong)
         {
             if (!InputValidator.IsValidQuantity(soLuong))
@@ -59,6 +71,10 @@ namespace BagShopManagement.Services.Implementations
             return (true, "Đã thêm vào giỏ hàng");
         }
 
+        /// <summary>
+        /// Áp dụng phần trăm giảm giá cho tất cả sản phẩm trong giỏ hàng
+        /// </summary>
+        /// <param name="percent">Phần trăm giảm giá (0-100)</param>
         public void ApplyDiscounts(decimal percent)
         {
             if (percent <= 0) return;
@@ -70,8 +86,10 @@ namespace BagShopManagement.Services.Implementations
         }
 
         /// <summary>
-        /// Áp dụng phần trăm giảm giá cho 1 sản phẩm trong giỏ hàng (theo Mã SP)
+        /// Áp dụng phần trăm giảm giá cho một sản phẩm cụ thể trong giỏ hàng
         /// </summary>
+        /// <param name="maSP">Mã sản phẩm cần giảm giá</param>
+        /// <param name="percent">Phần trăm giảm giá (0-100)</param>
         public void ApplyDiscountToProduct(string maSP, decimal percent)
         {
             if (string.IsNullOrWhiteSpace(maSP) || percent <= 0) return;
@@ -83,8 +101,17 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// Thực hiện thanh toán giỏ hàng và tạo hóa đơn
+        /// </summary>
+        /// <param name="maKH">Mã khách hàng (nullable - null = khách lẻ)</param>
+        /// <param name="maNV">Mã nhân viên bán hàng</param>
+        /// <param name="saveDraft">True = lưu nháp, False = thanh toán ngay</param>
+        /// <param name="phuongThucTT">Phương thức thanh toán (Tiền mặt, Chuyển khoản...)</param>
+        /// <param name="ghiChu">Ghi chú đơn hàng</param>
+        /// <returns>Tuple (success, maHDB) - thành công và mã hóa đơn được tạo</returns>
         public (bool ok, string result) Checkout(string maKH, string maNV, bool saveDraft = false,
-                                                 string phuongThucTT = null, string ghiChu = null)
+                                                 string? phuongThucTT = null, string? ghiChu = null)
         {
             if (_cart.Count == 0)
                 return (false, "Giỏ hàng rỗng");
@@ -143,10 +170,20 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
+        /// <summary>
+        /// Lấy danh sách sản phẩm trong giỏ hàng (copy để tránh modification)
+        /// </summary>
         public List<CartItem> GetCart() => _cart.ToList();
 
+        /// <summary>
+        /// Xóa tất cả sản phẩm khỏi giỏ hàng
+        /// </summary>
         public void ClearCart() => _cart.Clear();
 
+        /// <summary>
+        /// Xóa một sản phẩm khỏi giỏ hàng
+        /// </summary>
+        /// <param name="maSP">Mã sản phẩm cần xóa</param>
         public void RemoveProductFromCart(string maSP)
         {
             var item = _cart.FirstOrDefault(c => c.MaSP == maSP);
@@ -155,8 +192,19 @@ namespace BagShopManagement.Services.Implementations
         }
 
         /// <summary>
-        /// Validate MaKH: nếu không rỗng nhưng không tồn tại trong DB, trả về null (khách lẻ)
+        /// Validate mã khách hàng có tồn tại trong database
         /// </summary>
+        /// <param name="maKH">Mã khách hàng cần validate</param>
+        /// <returns>
+        /// - null: Nếu maKH rỗng hoặc không tồn tại trong DB (xử lý như khách lẻ)
+        /// - string: MaKH trim nếu tồn tại trong DB
+        /// </returns>
+        /// <remarks>
+        /// Logic xử lý:
+        /// 1. Null/empty → trả về null (khách lẻ)
+        /// 2. Không tồn tại trong DB → log warning và trả về null
+        /// 3. Tồn tại → trả về MaKH đã trim
+        /// </remarks>
         private string? ValidateMaKH(string? maKH)
         {
             // Nếu rỗng hoặc null, trả về null (khách lẻ)
