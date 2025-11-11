@@ -3,87 +3,224 @@ using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
+using System.Configuration; // Cần thiết để đọc connection string
+using System.Data; // Cần thiết cho DataTable và DataRow
+
+// Đảm bảo namespace này khớp với BaseRepository của bạn
+using BagShopManagement.DataAccess;
 
 namespace BagShopManagement.Repositories.Implementations
 {
     /// <summary>
-    /// Repository xử lý truy cập dữ liệu cho bảng HoaDonBan và ChiTietHoaDonBan
-    /// Kế thừa từ BaseRepository để sử dụng ExecuteTransaction cho ACID compliance
+    /// Repository xử lý dữ liệu cho HoaDonBan, kế thừa từ BaseRepository (dựa trên DataTable)
     /// </summary>
-    public class HoaDonBanRepository : BaseRepository_2, IHoaDonBanRepository
+    public class HoaDonBanRepository : BaseRepository, IHoaDonBanRepository
     {
+        private readonly string _connectionString;
+
         /// <summary>
-        /// Insert hóa đơn mới và chi tiết trong một transaction
+        /// Khởi tạo repository, gọi hàm base() và đọc lại connection string
+        /// để sử dụng cho các nghiệp vụ transaction
         /// </summary>
-        /// <param name="hd">Đối tượng HoaDonBan</param>
-        /// <param name="chiTiet">Danh sách ChiTietHoaDonBan</param>
-        /// <remarks>
-        /// Sử dụng transaction để đảm bảo:
-        /// - Insert HoaDonBan thành công → Insert tất cả ChiTietHoaDonBan
-        /// - Nếu có lỗi → Rollback toàn bộ
-        /// </remarks>
-        public void Insert(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
+        public HoaDonBanRepository() : base()
         {
-            ExecuteTransaction((conn, tran) =>
+            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"]?.ConnectionString;
+            if (string.IsNullOrEmpty(_connectionString))
             {
-                // Insert hóa đơn
-                string queryHD = @"INSERT INTO HoaDonBan(MaHDB, MaKH, MaNV, NgayBan, TongTien, PhuongThucTT, GhiChu, TrangThaiHD)
-                                   VALUES(@MaHDB,@MaKH,@MaNV,@NgayBan,@TongTien,@PhuongThucTT,@GhiChu,@TrangThaiHD)";
+                throw new ConfigurationErrorsException("Không tìm thấy chuỗi kết nối 'MyConnectionString' trong file App.config.");
+            }
+        }
 
-                using var cmdHd = new SqlCommand(queryHD, conn, tran);
-                cmdHd.Parameters.AddRange(new[]
-                {
-                    CreateParameter("@MaHDB", hd.MaHDB),
-                    CreateParameter("@MaKH", hd.MaKH),
-                    CreateParameter("@MaNV", hd.MaNV),
-                    CreateParameter("@NgayBan", hd.NgayBan),
-                    CreateParameter("@TongTien", hd.TongTien),
-                    CreateParameter("@PhuongThucTT", hd.PhuongThucTT),
-                    CreateParameter("@GhiChu", hd.GhiChu),
-                    CreateParameter("@TrangThaiHD", hd.TrangThaiHD)
-                });
-                cmdHd.ExecuteNonQuery();
+        #region Helpers (Tạo Parameter và Map Data)
 
-                // Insert chi tiết
-                string queryCT = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
-                                   VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
-
-                foreach (var ct in chiTiet)
-                {
-                    using var cmdCt = new SqlCommand(queryCT, conn, tran);
-                    cmdCt.Parameters.AddRange(new[]
-                    {
-                        CreateParameter("@MaHDB", ct.MaHDB),
-                        CreateParameter("@MaSP", ct.MaSP),
-                        CreateParameter("@SoLuong", ct.SoLuong),
-                        CreateParameter("@DonGia", ct.DonGia),
-                        CreateParameter("@GiamGiaSP", ct.GiamGiaSP)
-                    });
-                    cmdCt.ExecuteNonQuery();
-                }
-
-                return true;
-            });
+        /// <summary>
+        /// Helper tạo SqlParameter, xử lý giá trị null
+        /// </summary>
+        private SqlParameter CreateParameter(string name, object value)
+        {
+            return new SqlParameter(name, value ?? DBNull.Value);
         }
 
         /// <summary>
-        /// Map SqlDataReader → HoaDonBan entity
-        /// Sử dụng helper methods từ BaseRepository
+        /// Map DataRow -> HoaDonBan entity
         /// </summary>
-        private HoaDonBan MapFromReader(SqlDataReader reader)
+        private HoaDonBan MapFromDataRow(DataRow row)
         {
             return new HoaDonBan
             {
-                MaHDB = GetString(reader, "MaHDB"),
-                MaKH = GetValue<string>(reader, "MaKH"),
-                MaNV = GetString(reader, "MaNV"),
-                NgayBan = GetDateTime(reader, "NgayBan") ?? DateTime.Now,
-                TongTien = GetDecimal(reader, "TongTien"),
-                PhuongThucTT = GetValue<string>(reader, "PhuongThucTT"),
-                GhiChu = GetValue<string>(reader, "GhiChu"),
-                TrangThaiHD = (byte)GetInt(reader, "TrangThaiHD")
+                MaHDB = row["MaHDB"].ToString(),
+                MaKH = row.IsNull("MaKH") ? null : row["MaKH"].ToString(),
+                MaNV = row["MaNV"].ToString(),
+                NgayBan = Convert.ToDateTime(row["NgayBan"]),
+                TongTien = Convert.ToDecimal(row["TongTien"]),
+                PhuongThucTT = row.IsNull("PhuongThucTT") ? null : row["PhuongThucTT"].ToString(),
+                GhiChu = row.IsNull("GhiChu") ? null : row["GhiChu"].ToString(),
+                TrangThaiHD = Convert.ToByte(row["TrangThaiHD"])
             };
         }
+
+        /// <summary>
+        /// Map DataRow -> ChiTietHoaDonBan entity
+        /// </summary>
+        private ChiTietHoaDonBan MapChiTietFromDataRow(DataRow row)
+        {
+            return new ChiTietHoaDonBan
+            {
+                MaHDB = row["MaHDB"].ToString(),
+                MaSP = row["MaSP"].ToString(),
+                SoLuong = Convert.ToInt32(row["SoLuong"]),
+                DonGia = Convert.ToDecimal(row["DonGia"]),
+                GiamGiaSP = Convert.ToDecimal(row["GiamGiaSP"])
+            };
+        }
+
+        #endregion Helpers (Tạo Parameter và Map Data)
+
+        #region Transaction Methods (Insert & Update)
+
+        /// <summary>
+        /// Insert hóa đơn mới và chi tiết trong một transaction
+        /// </summary>
+        /// <remarks>
+        /// Phải tự triển khai transaction vì BaseRepository không cung cấp.
+        /// </remarks>
+        public void Insert(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Insert hóa đơn
+                        string queryHD = @"INSERT INTO HoaDonBan(MaHDB, MaKH, MaNV, NgayBan, TongTien, PhuongThucTT, GhiChu, TrangThaiHD)
+                                         VALUES(@MaHDB,@MaKH,@MaNV,@NgayBan,@TongTien,@PhuongThucTT,@GhiChu,@TrangThaiHD)";
+
+                        using (var cmdHd = new SqlCommand(queryHD, conn, tran))
+                        {
+                            cmdHd.Parameters.AddRange(new[]
+                            {
+                                CreateParameter("@MaHDB", hd.MaHDB),
+                                CreateParameter("@MaKH", hd.MaKH),
+                                CreateParameter("@MaNV", hd.MaNV),
+                                CreateParameter("@NgayBan", hd.NgayBan),
+                                CreateParameter("@TongTien", hd.TongTien),
+                                CreateParameter("@PhuongThucTT", hd.PhuongThucTT),
+                                CreateParameter("@GhiChu", hd.GhiChu),
+                                CreateParameter("@TrangThaiHD", hd.TrangThaiHD)
+                            });
+                            cmdHd.ExecuteNonQuery();
+                        }
+
+                        // 2. Insert chi tiết
+                        string queryCT = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
+                                         VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
+
+                        foreach (var ct in chiTiet)
+                        {
+                            using (var cmdCt = new SqlCommand(queryCT, conn, tran))
+                            {
+                                cmdCt.Parameters.AddRange(new[]
+                                {
+                                    CreateParameter("@MaHDB", ct.MaHDB),
+                                    CreateParameter("@MaSP", ct.MaSP),
+                                    CreateParameter("@SoLuong", ct.SoLuong),
+                                    CreateParameter("@DonGia", ct.DonGia),
+                                    CreateParameter("@GiamGiaSP", ct.GiamGiaSP)
+                                });
+                                cmdCt.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Thành công
+                        tran.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        // Lỗi -> Rollback
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Cập nhật hóa đơn và chi tiết trong một transaction
+        /// </summary>
+        public void Update(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Xóa chi tiết cũ
+                        string queryDelete = "DELETE FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
+                        using (var cmdDelete = new SqlCommand(queryDelete, conn, tran))
+                        {
+                            cmdDelete.Parameters.Add(CreateParameter("@MaHDB", hd.MaHDB));
+                            cmdDelete.ExecuteNonQuery();
+                        }
+
+                        // 2. Cập nhật hóa đơn
+                        string queryUpdate = @"UPDATE HoaDonBan SET MaKH=@MaKH, MaNV=@MaNV, NgayBan=@NgayBan,
+                                             TongTien=@TongTien, PhuongThucTT=@PhuongThucTT, GhiChu=@GhiChu,
+                                             TrangThaiHD=@TrangThaiHD WHERE MaHDB=@MaHDB";
+                        using (var cmdUpdate = new SqlCommand(queryUpdate, conn, tran))
+                        {
+                            cmdUpdate.Parameters.AddRange(new[]
+                            {
+                                CreateParameter("@MaHDB", hd.MaHDB),
+                                CreateParameter("@MaKH", hd.MaKH),
+                                CreateParameter("@MaNV", hd.MaNV),
+                                CreateParameter("@NgayBan", hd.NgayBan),
+                                CreateParameter("@TongTien", hd.TongTien),
+                                CreateParameter("@PhuongThucTT", hd.PhuongThucTT),
+                                CreateParameter("@GhiChu", hd.GhiChu),
+                                CreateParameter("@TrangThaiHD", hd.TrangThaiHD)
+                            });
+                            cmdUpdate.ExecuteNonQuery();
+                        }
+
+                        // 3. Thêm chi tiết mới
+                        string queryInsert = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
+                                             VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
+                        foreach (var ct in chiTiet)
+                        {
+                            using (var cmdCt = new SqlCommand(queryInsert, conn, tran))
+                            {
+                                cmdCt.Parameters.AddRange(new[]
+                                {
+                                    CreateParameter("@MaHDB", ct.MaHDB),
+                                    CreateParameter("@MaSP", ct.MaSP),
+                                    CreateParameter("@SoLuong", ct.SoLuong),
+                                    CreateParameter("@DonGia", ct.DonGia),
+                                    CreateParameter("@GiamGiaSP", ct.GiamGiaSP)
+                                });
+                                cmdCt.ExecuteNonQuery();
+                            }
+                        }
+
+                        // Thành công
+                        tran.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        // Lỗi -> Rollback
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
+        #endregion Transaction Methods (Insert & Update)
+
+        #region Query & Non-Transaction Methods
 
         /// <summary>
         /// Lấy tất cả hóa đơn, sắp xếp theo NgayBan giảm dần
@@ -91,27 +228,38 @@ namespace BagShopManagement.Repositories.Implementations
         public List<HoaDonBan> GetAll()
         {
             string query = "SELECT * FROM HoaDonBan ORDER BY NgayBan DESC";
-            return ExecuteQuery<HoaDonBan>(query, null, MapFromReader);
+
+            // Sử dụng base.ExecuteQuery trả về DataTable
+            DataTable dt = base.ExecuteQuery(query, null);
+
+            var list = new List<HoaDonBan>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(MapFromDataRow(row));
+            }
+            return list;
         }
 
         /// <summary>
         /// Lấy hóa đơn theo mã hóa đơn
         /// </summary>
-        /// <param name="maHDB">Mã hóa đơn</param>
-        /// <returns>HoaDonBan nếu tìm thấy, null nếu không tồn tại</returns>
         public HoaDonBan? GetByMaHDB(string maHDB)
         {
             string query = "SELECT * FROM HoaDonBan WHERE MaHDB=@MaHDB";
             var parameters = new[] { CreateParameter("@MaHDB", maHDB) };
-            var results = ExecuteQuery<HoaDonBan>(query, parameters, MapFromReader);
-            return results.Count > 0 ? results[0] : null;
+
+            DataTable dt = base.ExecuteQuery(query, parameters);
+
+            if (dt.Rows.Count > 0)
+            {
+                return MapFromDataRow(dt.Rows[0]);
+            }
+            return null;
         }
 
         /// <summary>
         /// Cập nhật trạng thái hóa đơn
         /// </summary>
-        /// <param name="maHDB">Mã hóa đơn</param>
-        /// <param name="trangThai">Trạng thái mới (1=Nháp, 2=Đã thanh toán, 3=Đã hủy)</param>
         public void UpdateTrangThai(string maHDB, byte trangThai)
         {
             string query = "UPDATE HoaDonBan SET TrangThaiHD=@TrangThai WHERE MaHDB=@MaHDB";
@@ -120,36 +268,32 @@ namespace BagShopManagement.Repositories.Implementations
                 CreateParameter("@TrangThai", trangThai),
                 CreateParameter("@MaHDB", maHDB)
             };
-            ExecuteNonQuery(query, parameters);
+
+            // Sử dụng base.ExecuteNonQuery
+            base.ExecuteNonQuery(query, parameters);
         }
 
         /// <summary>
         /// Lấy danh sách chi tiết hóa đơn theo mã hóa đơn
         /// </summary>
-        /// <param name="maHDB">Mã hóa đơn</param>
-        /// <returns>Danh sách ChiTietHoaDonBan</returns>
         public List<ChiTietHoaDonBan> GetChiTietByMaHDB(string maHDB)
         {
             string query = "SELECT * FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
             var parameters = new[] { CreateParameter("@MaHDB", maHDB) };
-            return ExecuteQuery(query, parameters, reader => new ChiTietHoaDonBan
+
+            DataTable dt = base.ExecuteQuery(query, parameters);
+
+            var list = new List<ChiTietHoaDonBan>();
+            foreach (DataRow row in dt.Rows)
             {
-                MaHDB = GetString(reader, "MaHDB"),
-                MaSP = GetString(reader, "MaSP"),
-                SoLuong = GetInt(reader, "SoLuong"),
-                DonGia = GetDecimal(reader, "DonGia"),
-                GiamGiaSP = GetDecimal(reader, "GiamGiaSP")
-            });
+                list.Add(MapChiTietFromDataRow(row));
+            }
+            return list;
         }
 
         /// <summary>
         /// Lọc hóa đơn theo các tiêu chí
         /// </summary>
-        /// <param name="fromDate">Từ ngày (nullable)</param>
-        /// <param name="toDate">Đến ngày (nullable)</param>
-        /// <param name="maNV">Mã nhân viên (nullable)</param>
-        /// <param name="trangThai">Trạng thái hóa đơn (nullable)</param>
-        /// <returns>Danh sách HoaDonBan thỏa điều kiện</returns>
         public List<HoaDonBan> Filter(DateTime? fromDate = null, DateTime? toDate = null, string? maNV = null, byte? trangThai = null)
         {
             var conditions = new List<string>();
@@ -163,6 +307,7 @@ namespace BagShopManagement.Repositories.Implementations
 
             if (toDate.HasValue)
             {
+                // Thêm 1 ngày để bao gồm cả ngày kết thúc (to < date + 1)
                 conditions.Add("NgayBan < @ToDate");
                 parameters.Add(CreateParameter("@ToDate", toDate.Value.Date.AddDays(1)));
             }
@@ -182,72 +327,16 @@ namespace BagShopManagement.Repositories.Implementations
             var whereClause = conditions.Count > 0 ? "WHERE " + string.Join(" AND ", conditions) : "";
             var query = $"SELECT * FROM HoaDonBan {whereClause} ORDER BY NgayBan DESC";
 
-            return ExecuteQuery<HoaDonBan>(query, parameters.ToArray(), MapFromReader);
-        }
+            DataTable dt = base.ExecuteQuery(query, parameters.ToArray());
 
-        /// <summary>
-        /// Cập nhật hóa đơn và chi tiết trong một transaction
-        /// </summary>
-        /// <param name="hd">Đối tượng HoaDonBan với thông tin mới</param>
-        /// <param name="chiTiet">Danh sách ChiTietHoaDonBan mới</param>
-        /// <remarks>
-        /// Quy trình:
-        /// 1. Xóa toàn bộ ChiTietHoaDonBan cũ
-        /// 2. Cập nhật HoaDonBan
-        /// 3. Insert ChiTietHoaDonBan mới
-        /// Tất cả trong một transaction để đảm bảo tính nhất quán
-        /// </remarks>
-        public void Update(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet)
-        {
-            ExecuteTransaction((conn, tran) =>
+            var list = new List<HoaDonBan>();
+            foreach (DataRow row in dt.Rows)
             {
-                // Xóa chi tiết cũ
-                string queryDelete = "DELETE FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
-                using (var cmdDelete = new SqlCommand(queryDelete, conn, tran))
-                {
-                    cmdDelete.Parameters.Add(CreateParameter("@MaHDB", hd.MaHDB));
-                    cmdDelete.ExecuteNonQuery();
-                }
-
-                // Cập nhật hóa đơn
-                string queryUpdate = @"UPDATE HoaDonBan SET MaKH=@MaKH, MaNV=@MaNV, NgayBan=@NgayBan, 
-                                       TongTien=@TongTien, PhuongThucTT=@PhuongThucTT, GhiChu=@GhiChu, 
-                                       TrangThaiHD=@TrangThaiHD WHERE MaHDB=@MaHDB";
-                using (var cmdUpdate = new SqlCommand(queryUpdate, conn, tran))
-                {
-                    cmdUpdate.Parameters.AddRange(new[]
-                    {
-                        CreateParameter("@MaHDB", hd.MaHDB),
-                        CreateParameter("@MaKH", hd.MaKH),
-                        CreateParameter("@MaNV", hd.MaNV),
-                        CreateParameter("@NgayBan", hd.NgayBan),
-                        CreateParameter("@TongTien", hd.TongTien),
-                        CreateParameter("@PhuongThucTT", hd.PhuongThucTT),
-                        CreateParameter("@GhiChu", hd.GhiChu),
-                        CreateParameter("@TrangThaiHD", hd.TrangThaiHD)
-                    });
-                    cmdUpdate.ExecuteNonQuery();
-                }
-
-                // Thêm chi tiết mới
-                string queryInsert = @"INSERT INTO ChiTietHoaDonBan(MaHDB, MaSP, SoLuong, DonGia, GiamGiaSP)
-                                       VALUES(@MaHDB,@MaSP,@SoLuong,@DonGia,@GiamGiaSP)";
-                foreach (var ct in chiTiet)
-                {
-                    using var cmdCt = new SqlCommand(queryInsert, conn, tran);
-                    cmdCt.Parameters.AddRange(new[]
-                    {
-                        CreateParameter("@MaHDB", ct.MaHDB),
-                        CreateParameter("@MaSP", ct.MaSP),
-                        CreateParameter("@SoLuong", ct.SoLuong),
-                        CreateParameter("@DonGia", ct.DonGia),
-                        CreateParameter("@GiamGiaSP", ct.GiamGiaSP)
-                    });
-                    cmdCt.ExecuteNonQuery();
-                }
-
-                return true;
-            });
+                list.Add(MapFromDataRow(row));
+            }
+            return list;
         }
+
+        #endregion Query & Non-Transaction Methods
     }
 }

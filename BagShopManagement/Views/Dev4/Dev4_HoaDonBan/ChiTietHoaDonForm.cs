@@ -49,7 +49,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                 lblNgayBan.Text = $"Ngày bán: {hoaDon.NgayBan:dd/MM/yyyy HH:mm}";
                 lblTongTien.Text = $"Tổng tiền: {hoaDon.TongTien:N0} ₫";
                 lblPTTT.Text = $"Phương thức TT: {hoaDon.PhuongThucTT ?? "N/A"}";
-                
+
                 string trangThai = hoaDon.TrangThaiHD switch
                 {
                     1 => "Tạm",
@@ -77,11 +77,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             try
             {
                 var chiTiets = _controller.GetChiTiet(_maHDB);
-                
+
                 // Lấy thông tin sản phẩm để hiển thị tên
                 var displayList = chiTiets.Select(ct =>
                 {
-                    var sp = _sanPhamRepo.GetByMaSP(ct.MaSP);
+                    var sp = _sanPhamRepo.GetById(ct.MaSP);
                     return new
                     {
                         ct.MaSP,
@@ -178,4 +178,3 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         }
     }
 }
-
