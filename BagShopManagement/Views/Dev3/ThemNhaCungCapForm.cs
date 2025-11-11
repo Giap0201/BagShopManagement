@@ -42,27 +42,45 @@ namespace BagShopManagement.Views.Dev3
         private void btnSave_Click(object sender, EventArgs e)
         {
             // Kiểm tra dữ liệu đầu vào
-            if (string.IsNullOrWhiteSpace(txtMaNCC.Text))
+            string maNCC = txtMaNCC.Text.Trim();
+            if (string.IsNullOrWhiteSpace(maNCC))
             {
                 MessageBox.Show("Vui lòng nhập Mã nhà cung cấp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtMaNCC.Focus();
                 return;
             }
-
-            if (string.IsNullOrWhiteSpace(txtTenNCC.Text))
+            string tenNCC = txtTenNCC.Text.Trim();
+            if (string.IsNullOrWhiteSpace(tenNCC))
             {
                 MessageBox.Show("Vui lòng nhập Tên nhà cung cấp.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtTenNCC.Focus();
                 return;
             }
+            string email = txtEmail.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(email) &&
+                !System.Text.RegularExpressions.Regex.IsMatch(email, @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"))
+            {
+                MessageBox.Show("Định dạng Email không hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtEmail.Focus();
+                return;
+            }
 
+            // 2. Kiểm tra Số điện thoại (nếu có nhập thì phải đúng 10 số VN)
+            string soDienThoai = txtSoDienThoai.Text.Trim();
+            if (!string.IsNullOrWhiteSpace(soDienThoai) &&
+                !System.Text.RegularExpressions.Regex.IsMatch(soDienThoai, @"^0\d{9}$"))
+            {
+                MessageBox.Show("Số điện thoại không hợp lệ. Vui lòng nhập 10 số bắt đầu bằng 0.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtSoDienThoai.Focus();
+                return;
+            }
             var ncc = new NhaCungCap
             {
-                MaNCC = txtMaNCC.Text.Trim(),
-                TenNCC = txtTenNCC.Text.Trim(),
+                MaNCC = maNCC,
+                TenNCC = tenNCC,
                 DiaChi = txtDiaChi.Text.Trim(),
-                SoDienThoai = txtSoDienThoai.Text.Trim(),
-                Email = txtEmail.Text.Trim(),
+                SoDienThoai = soDienThoai,
+                Email = email,
                 NguoiLienHe = txtNguoiLienHe.Text.Trim()
             };
 
