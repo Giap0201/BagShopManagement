@@ -33,10 +33,14 @@ namespace BagShopManagement.Views.Controls
             button4.Click += (s, e) => MenuItemClicked?.Invoke(this, "SanPham");
             button5.Click += (s, e) => MenuItemClicked?.Invoke(this, "HoaDonBan");
             button6.Click += (s, e) => MenuItemClicked?.Invoke(this, "KhachHang");
-            button7.Click += (s, e) =>
+            // button7 is "Nhân viên" in Designer; map accordingly
+            button7.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhanVien");
+            // button11 is the Dev6 "Hoá đơn nhập" button added in Designer
+            // wire it to both the MenuItemClicked and the Dev6 compatibility event
+            button11.Click += (s, e) =>
             {
                 MenuItemClicked?.Invoke(this, "HoaDonNhap");
-                ShowHoaDonNhapClicked?.Invoke(this, EventArgs.Empty); // Dev6 compatibility
+                ShowHoaDonNhapClicked?.Invoke(this, EventArgs.Empty);
             };
             button8.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhaCungCap");
             button9.Click += (s, e) => MenuItemClicked?.Invoke(this, "TaiKhoan");
@@ -60,6 +64,13 @@ namespace BagShopManagement.Views.Controls
 
         private void button7_Click(object sender, EventArgs e)
         {
+            // Designer button7 is "Nhân viên" — raise NhanVien menu event
+            MenuItemClicked?.Invoke(this, "NhanVien");
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            // Handler for the Dev6 "Hoá đơn nhập" sidebar button
             MenuItemClicked?.Invoke(this, "HoaDonNhap");
             ShowHoaDonNhapClicked?.Invoke(this, EventArgs.Empty);
         }

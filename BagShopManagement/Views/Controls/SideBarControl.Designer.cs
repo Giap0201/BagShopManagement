@@ -32,6 +32,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SideBarControl));
             panel1 = new Panel();
             button10 = new Button();
+            button11 = new Button();
             button9 = new Button();
             button8 = new Button();
             button7 = new Button();
@@ -50,6 +51,7 @@
             // 
             panel1.BackColor = SystemColors.Info;
             panel1.Controls.Add(button10);
+            panel1.Controls.Add(button11);
             panel1.Controls.Add(button9);
             panel1.Controls.Add(button8);
             panel1.Controls.Add(button7);
@@ -74,6 +76,16 @@
             button10.TabIndex = 9;
             button10.Text = "Hệ thống";
             button10.UseVisualStyleBackColor = false;
+            // 
+            // button11
+            // 
+            button11.Location = new Point(-2, 640);
+            button11.Name = "button11";
+            button11.Size = new Size(330, 57);
+            button11.TabIndex = 10;
+            button11.Text = "Hoá đơn nhập";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
             // 
             // button9
             // 
@@ -201,6 +213,7 @@
         private Button button1;
         private Button button10;
         private Button button9;
+        private Button button11;
         private ImageList menu;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
