@@ -4,8 +4,10 @@ using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
-using BagShopManagement.Views.Common;
+using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
+using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev6;
+using BagShopManagement.Views.Common;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
@@ -19,57 +21,60 @@ namespace BagShopManagement
         {
             ApplicationConfiguration.Initialize();
 
-            // 1. Tạo bộ sưu tập dịch vụ
+            // === TẠO SERVICE CONTAINER ===
             var services = new ServiceCollection();
             ConfigureServices(services);
 
-            // 2. Build ServiceProvider
-            // Chúng ta dùng 'using' để đảm bảo mọi thứ được giải phóng khi app tắt
-            using (var serviceProvider = services.BuildServiceProvider())
-            {
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+            // === XÂY DỰNG PROVIDER ===
+            var provider = services.BuildServiceProvider();
 
-                // 3. Yêu cầu Form chính từ DI container
-                var mainForm = serviceProvider.GetRequiredService<QuanLiBanHang>();
-
-                // 4. Chạy Form chính
-                Application.Run(mainForm);
-            }
+            // === CHẠY FORM CHÍNH ===
+            var mainForm = provider.GetRequiredService<QuanLiBanHang>();
+            Application.Run(mainForm);
         }
 
         // Hàm cấu hình tất cả các Dependency
         private static void ConfigureServices(IServiceCollection services)
         {
             // === Cung cấp IServiceProvider cho chính nó ===
-            // Điều này cần thiết để Form cha (QuanLiBanHang)
-            // và UC (ucHoaDonNhapList) có thể yêu cầu các dịch vụ khác
             services.AddSingleton<IServiceProvider>(sp => sp.CreateScope().ServiceProvider);
 
-            // === Đăng ký Repositories ===
+            // === Đăng ký Repositories - Dev4 ===
+            services.AddScoped<ISanPhamRepository, SanPhamRepository>();
+            services.AddScoped<IHoaDonBanRepository, HoaDonBanRepository>();
+
+            // === Đăng ký Repositories - Dev6 ===
             services.AddTransient<IHoaDonNhapRepository, HoaDonNhapImpl>();
             services.AddTransient<IChiTietHDNRepository, ChiTietHDNImpl>();
             services.AddTransient<INhaCungCapRepository, NhaCungCapImpl>();
             services.AddTransient<INhanVienRepository, NhanVienImpl>();
-            services.AddTransient<ISanPhamRepository, SanPhamImpl>();
 
-            // === Đăng ký Services ===
+            // === Đăng ký Services - Dev4 ===
+            services.AddScoped<IHoaDonBanService, HoaDonBanService>();
+            services.AddScoped<ITonKhoService, TonKhoService>();
+            services.AddScoped<IPosService, PosService>();
+
+            // === Đăng ký Services - Dev6 ===
             services.AddTransient<IHoaDonNhapService, HoaDonNhapService>();
 
             // === Đăng ký Controllers ===
+            services.AddScoped<POSController>();
+            services.AddScoped<HoaDonBanController>();
             services.AddTransient<HoaDonNhapController>();
 
             // === Đăng ký Utils ===
-            // Đăng ký MaHoaDonGenerator để frmHoaDonNhapDetail có thể nhận
             services.AddTransient<MaHoaDonGenerator>(sp => new MaHoaDonGenerator("HDN", 3));
 
             // === Đăng ký Forms và UserControls ===
             services.AddTransient<QuanLiBanHang>();       // Form chính (Shell)
-            services.AddTransient<frmHoaDonNhapDetail>(); // Form chi tiết (Popup)
-            services.AddTransient<ucHoaDonNhapList>();    // UC 1
 
-            // (Khi bạn tạo UC mới, ví dụ ucSanPhamList, chỉ cần thêm vào đây)
-            // services.AddTransient<ucSanPhamList>();
+            // Dev4 Forms
+            services.AddTransient<POSForm>();
+            services.AddTransient<HoaDonBanForm>();
+
+            // Dev6 Forms
+            services.AddTransient<frmHoaDonNhapDetail>();
+            services.AddTransient<ucHoaDonNhapList>();
         }
     }
 }

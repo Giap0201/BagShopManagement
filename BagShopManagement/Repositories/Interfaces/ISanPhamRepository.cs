@@ -9,6 +9,8 @@ namespace BagShopManagement.Repositories.Interfaces
 {
     public interface ISanPhamRepository
     {
+        SanPham? GetByMaSP(string maSP);
         List<SanPham> GetAll();
+        void Update(SanPham sp);
     }
 }
