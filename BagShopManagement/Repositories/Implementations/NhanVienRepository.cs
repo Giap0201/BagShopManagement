@@ -10,20 +10,20 @@ using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class NhaCungCapImpl : DataAccessBase, INhaCungCapRepository
+    public class NhanVienRepository : DataAccessBase, INhanVienRepository
     {
-        public List<NhaCungCap> GetAll()
+        public List<NhanVien> GetAll()
         {
-            string query = "SELECT MaNCC, TenNCC FROM NhaCungCap ORDER BY TenNCC";
+            string query = "SELECT MaNV, HoTen FROM NhanVien WHERE TrangThai = 1 ORDER BY HoTen";
             DataTable dt = base.ExecuteQuery(query);
 
-            var list = new List<NhaCungCap>();
+            var list = new List<NhanVien>();
             foreach (DataRow row in dt.Rows)
             {
-                list.Add(new NhaCungCap
+                list.Add(new NhanVien
                 {
-                    MaNCC = row["MaNCC"].ToString(),
-                    TenNCC = row["TenNCC"].ToString()
+                    MaNV = row["MaNV"].ToString(),
+                    HoTen = row["HoTen"].ToString()
                 });
             }
             return list;
