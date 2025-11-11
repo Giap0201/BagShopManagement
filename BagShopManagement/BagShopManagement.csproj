@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\AnhSanPham\" />
     <Folder Include="Views\Dev1\" />
-    <Folder Include="Views\Dev2\" />
     <Folder Include="Views\Dev3\" />
     <Folder Include="Views\Dev5\" />
   </ItemGroup>
