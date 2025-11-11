@@ -71,7 +71,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
                 foreach (var ct in chiTiets)
                 {
-                    var sp = _sanPhamRepo.GetByMaSP(ct.MaSP);
+                    var sp = _sanPhamRepo.GetById(ct.MaSP);
                     _cart.Add(new CartItem
                     {
                         MaSP = ct.MaSP,
@@ -182,7 +182,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                 return;
             }
 
-            var sp = _sanPhamRepo.GetByMaSP(maSP);
+            var sp = _sanPhamRepo.GetById(maSP);
             if (sp == null)
             {
                 MessageBox.Show("Sản phẩm không tồn tại!", "Lỗi",
@@ -348,7 +348,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                     newQty = 1;
                 }
 
-                var sp = _sanPhamRepo.GetByMaSP(maSP ?? "");
+                var sp = _sanPhamRepo.GetById(maSP ?? "");
                 if (sp != null && sp.SoLuongTon < newQty)
                 {
                     MessageBox.Show($"Không đủ tồn kho. Tồn kho: {sp.SoLuongTon}",
@@ -374,38 +374,38 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             if (string.IsNullOrWhiteSpace(maKH))
                 return null;
 
-            // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
-            try
-            {
-                using var conn = DatabaseConfig.CreateConnection();
-                conn.Open();
-                using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
-                cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
+            //// Kiểm tra MaKH có tồn tại trong bảng KhachHang không
+            //try
+            //{
+            //    using var conn = DatabaseConfig.CreateConnection();
+            //    conn.Open();
+            //    using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
+            //    cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
 
-                var result = cmd.ExecuteScalar();
-                if (result != null)
-                {
-                    int count = Convert.ToInt32(result);
-                    if (count > 0)
-                    {
-                        // MaKH tồn tại, trả về giá trị
-                        return maKH.Trim();
-                    }
-                }
+            //    var result = cmd.ExecuteScalar();
+            //    if (result != null)
+            //    {
+            //        int count = Convert.ToInt32(result);
+            //        if (count > 0)
+            //        {
+            //            // MaKH tồn tại, trả về giá trị
+            //            return maKH.Trim();
+            //        }
+            //    }
 
-                // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
-                MessageBox.Show($"Mã khách hàng '{maKH}' không tồn tại. Hệ thống sẽ xử lý như khách lẻ.",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return null;
-            }
-            catch (Exception ex)
-            {
-                // Nếu có lỗi khi check, trả về null để tránh lỗi foreign key
-                MessageBox.Show($"Lỗi khi kiểm tra mã khách hàng: {ex.Message}. Hệ thống sẽ xử lý như khách lẻ.",
-                    "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return null;
-            }
+            //    // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
+            //    MessageBox.Show($"Mã khách hàng '{maKH}' không tồn tại. Hệ thống sẽ xử lý như khách lẻ.",
+            //        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    return null;
+            //}
+            //catch (Exception ex)
+            //{
+            //    // Nếu có lỗi khi check, trả về null để tránh lỗi foreign key
+            //    MessageBox.Show($"Lỗi khi kiểm tra mã khách hàng: {ex.Message}. Hệ thống sẽ xử lý như khách lẻ.",
+            //        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return null;
+            //}
+            return null;
         }
     }
 }
-

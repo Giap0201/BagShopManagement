@@ -32,7 +32,7 @@ namespace BagShopManagement.Utils
                 _hoaDon = hoaDonRepo.GetByMaHDB(maHDB);
                 if (_hoaDon == null)
                 {
-                    MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi", 
+                    MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -40,7 +40,7 @@ namespace BagShopManagement.Utils
                 _chiTiets = hoaDonRepo.GetChiTietByMaHDB(maHDB);
                 if (_chiTiets == null || _chiTiets.Count == 0)
                 {
-                    MessageBox.Show("Hóa đơn không có chi tiết.", "Lỗi", 
+                    MessageBox.Show("Hóa đơn không có chi tiết.", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
@@ -49,7 +49,7 @@ namespace BagShopManagement.Utils
                 _sanPhams = new List<SanPham>();
                 foreach (var ct in _chiTiets)
                 {
-                    var sp = sanPhamRepo.GetByMaSP(ct.MaSP);
+                    var sp = sanPhamRepo.GetById(ct.MaSP);
                     if (sp != null) _sanPhams.Add(sp);
                 }
 
@@ -73,7 +73,7 @@ namespace BagShopManagement.Utils
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message, "Lỗi", 
+                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
@@ -90,7 +90,7 @@ namespace BagShopManagement.Utils
             // Title
             string title = "HÓA ĐƠN BÁN HÀNG";
             SizeF titleSize = g.MeasureString(title, _titleFont!);
-            g.DrawString(title, _titleFont!, Brushes.Black, 
+            g.DrawString(title, _titleFont!, Brushes.Black,
                 new PointF((e.PageBounds.Width - titleSize.Width) / 2, _yPos));
             _yPos += (int)titleSize.Height + 20;
 
@@ -99,25 +99,25 @@ namespace BagShopManagement.Utils
             _yPos += 15;
 
             // Thông tin hóa đơn
-            g.DrawString($"Mã HĐ: {_hoaDon.MaHDB}", _normalFont!, Brushes.Black, 
+            g.DrawString($"Mã HĐ: {_hoaDon.MaHDB}", _normalFont!, Brushes.Black,
                 new PointF(_leftMargin, _yPos));
             _yPos += 20;
 
-            g.DrawString($"Ngày bán: {_hoaDon.NgayBan:dd/MM/yyyy HH:mm}", _normalFont!, 
+            g.DrawString($"Ngày bán: {_hoaDon.NgayBan:dd/MM/yyyy HH:mm}", _normalFont!,
                 Brushes.Black, new PointF(_leftMargin, _yPos));
             _yPos += 20;
 
-            g.DrawString($"Mã KH: {(_hoaDon.MaKH ?? "Khách lẻ")}", _normalFont!, 
+            g.DrawString($"Mã KH: {(_hoaDon.MaKH ?? "Khách lẻ")}", _normalFont!,
                 Brushes.Black, new PointF(_leftMargin, _yPos));
             _yPos += 20;
 
-            g.DrawString($"Mã NV: {_hoaDon.MaNV}", _normalFont!, Brushes.Black, 
+            g.DrawString($"Mã NV: {_hoaDon.MaNV}", _normalFont!, Brushes.Black,
                 new PointF(_leftMargin, _yPos));
             _yPos += 20;
 
             if (!string.IsNullOrWhiteSpace(_hoaDon.PhuongThucTT))
             {
-                g.DrawString($"Phương thức TT: {_hoaDon.PhuongThucTT}", _normalFont!, 
+                g.DrawString($"Phương thức TT: {_hoaDon.PhuongThucTT}", _normalFont!,
                     Brushes.Black, new PointF(_leftMargin, _yPos));
                 _yPos += 20;
             }
@@ -163,11 +163,11 @@ namespace BagShopManagement.Utils
 
                 g.DrawString(stt.ToString(), _normalFont!, Brushes.Black, new PointF(col1, _yPos));
                 g.DrawString(ct.MaSP, _normalFont!, Brushes.Black, new PointF(col2, _yPos));
-                
+
                 // Tên SP có thể dài, cắt nếu quá dài
                 if (tenSP.Length > 25) tenSP = tenSP.Substring(0, 22) + "...";
                 g.DrawString(tenSP, _normalFont!, Brushes.Black, new PointF(col3, _yPos));
-                
+
                 g.DrawString(ct.SoLuong.ToString(), _normalFont!, Brushes.Black, new PointF(col4, _yPos));
                 g.DrawString(ct.DonGia.ToString("N0"), _normalFont!, Brushes.Black, new PointF(col5, _yPos));
                 g.DrawString(ct.GiamGiaSP.ToString("N0"), _normalFont!, Brushes.Black, new PointF(col6, _yPos));
@@ -185,7 +185,7 @@ namespace BagShopManagement.Utils
             decimal tongTien = _chiTiets.Sum(ct => (ct.DonGia - ct.GiamGiaSP) * ct.SoLuong);
             string tongTienText = $"TỔNG TIỀN: {tongTien:N0} ₫";
             SizeF tongTienSize = g.MeasureString(tongTienText, _headerFont!);
-            g.DrawString(tongTienText, _headerFont!, Brushes.Black, 
+            g.DrawString(tongTienText, _headerFont!, Brushes.Black,
                 new PointF(_rightMargin - tongTienSize.Width, _yPos));
             _yPos += 30;
 
@@ -202,7 +202,7 @@ namespace BagShopManagement.Utils
             _yPos += 20;
             g.DrawLine(Pens.Black, _leftMargin, _yPos, _rightMargin, _yPos);
             _yPos += 15;
-            g.DrawString("Cảm ơn quý khách!", _normalFont!, Brushes.Black, 
+            g.DrawString("Cảm ơn quý khách!", _normalFont!, Brushes.Black,
                 new PointF((e.PageBounds.Width - g.MeasureString("Cảm ơn quý khách!", _normalFont!).Width) / 2, _yPos));
 
             e.HasMorePages = false;
@@ -217,4 +217,3 @@ namespace BagShopManagement.Utils
         }
     }
 }
-
