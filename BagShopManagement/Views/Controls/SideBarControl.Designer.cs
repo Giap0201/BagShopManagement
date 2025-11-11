@@ -31,136 +31,151 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SideBarControl));
             panel1 = new Panel();
-            button10 = new Button();
-            button11 = new Button();
-            button9 = new Button();
-            button8 = new Button();
-            button7 = new Button();
-            button6 = new Button();
-            button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
+            btnKho = new Button();
+            btnHoaDonNhap = new Button();
+            btnTaiKhoan = new Button();
+            btnNCC = new Button();
+            btnNhanVien = new Button();
+            btnKhachHang = new Button();
+            btnHoaDonBan = new Button();
+            btnSanPham = new Button();
+            btnDanhMuc = new Button();
+            btnBanHang = new Button();
             button1 = new Button();
             menu = new ImageList(components);
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            btnKhuyenMai = new Button();
+            btnBCTK = new Button();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = SystemColors.Info;
-            panel1.Controls.Add(button10);
-            panel1.Controls.Add(button11);
-            panel1.Controls.Add(button9);
-            panel1.Controls.Add(button8);
-            panel1.Controls.Add(button7);
-            panel1.Controls.Add(button6);
-            panel1.Controls.Add(button5);
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
+            panel1.Controls.Add(btnBCTK);
+            panel1.Controls.Add(btnKhuyenMai);
+            panel1.Controls.Add(btnKho);
+            panel1.Controls.Add(btnHoaDonNhap);
+            panel1.Controls.Add(btnTaiKhoan);
+            panel1.Controls.Add(btnNCC);
+            panel1.Controls.Add(btnNhanVien);
+            panel1.Controls.Add(btnKhachHang);
+            panel1.Controls.Add(btnHoaDonBan);
+            panel1.Controls.Add(btnSanPham);
+            panel1.Controls.Add(btnDanhMuc);
+            panel1.Controls.Add(btnBanHang);
             panel1.Controls.Add(button1);
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
+            panel1.Margin = new Padding(6, 6, 6, 6);
             panel1.Name = "panel1";
-            panel1.Size = new Size(330, 788);
+            panel1.Size = new Size(701, 1615);
             panel1.TabIndex = 0;
             // 
-            // button10
+            // btnKho
             // 
-            button10.BackColor = SystemColors.Info;
-            button10.Location = new Point(-2, 578);
-            button10.Name = "button10";
-            button10.Size = new Size(330, 57);
-            button10.TabIndex = 9;
-            button10.Text = "Hệ thống";
-            button10.UseVisualStyleBackColor = false;
+            btnKho.BackColor = SystemColors.Info;
+            btnKho.Location = new Point(-6, 1042);
+            btnKho.Margin = new Padding(6, 6, 6, 6);
+            btnKho.Name = "btnKho";
+            btnKho.Size = new Size(701, 117);
+            btnKho.TabIndex = 9;
+            btnKho.Text = "Kho";
+            btnKho.UseVisualStyleBackColor = false;
             // 
-            // button11
+            // btnHoaDonNhap
             // 
-            button11.Location = new Point(-2, 640);
-            button11.Name = "button11";
-            button11.Size = new Size(330, 57);
-            button11.TabIndex = 10;
-            button11.Text = "Hoá đơn nhập";
-            button11.UseVisualStyleBackColor = true;
-            button11.Click += button11_Click;
+            btnHoaDonNhap.Location = new Point(-6, 1158);
+            btnHoaDonNhap.Margin = new Padding(6, 6, 6, 6);
+            btnHoaDonNhap.Name = "btnHoaDonNhap";
+            btnHoaDonNhap.Size = new Size(701, 117);
+            btnHoaDonNhap.TabIndex = 10;
+            btnHoaDonNhap.Text = "Hoá đơn nhập";
+            btnHoaDonNhap.UseVisualStyleBackColor = true;
+            btnHoaDonNhap.Click += button11_Click;
             // 
-            // button9
+            // btnTaiKhoan
             // 
-            button9.Location = new Point(-2, 521);
-            button9.Name = "button9";
-            button9.Size = new Size(330, 57);
-            button9.TabIndex = 8;
-            button9.Text = "Tài khoản";
-            button9.UseVisualStyleBackColor = true;
+            btnTaiKhoan.Location = new Point(-6, 934);
+            btnTaiKhoan.Margin = new Padding(6, 6, 6, 6);
+            btnTaiKhoan.Name = "btnTaiKhoan";
+            btnTaiKhoan.Size = new Size(701, 117);
+            btnTaiKhoan.TabIndex = 8;
+            btnTaiKhoan.Text = "Tài khoản";
+            btnTaiKhoan.UseVisualStyleBackColor = true;
             // 
-            // button8
+            // btnNCC
             // 
-            button8.Location = new Point(-2, 464);
-            button8.Name = "button8";
-            button8.Size = new Size(330, 57);
-            button8.TabIndex = 7;
-            button8.Text = "Nhà cung cấp";
-            button8.UseVisualStyleBackColor = true;
+            btnNCC.Location = new Point(-4, 836);
+            btnNCC.Margin = new Padding(6, 6, 6, 6);
+            btnNCC.Name = "btnNCC";
+            btnNCC.Size = new Size(701, 117);
+            btnNCC.TabIndex = 7;
+            btnNCC.Text = "Nhà cung cấp";
+            btnNCC.UseVisualStyleBackColor = true;
             // 
-            // button7
+            // btnNhanVien
             // 
-            button7.Location = new Point(-2, 407);
-            button7.Name = "button7";
-            button7.Size = new Size(330, 57);
-            button7.TabIndex = 6;
-            button7.Text = "Nhân viên";
-            button7.UseVisualStyleBackColor = true;
-            button7.Click += button7_Click;
+            btnNhanVien.Location = new Point(0, 732);
+            btnNhanVien.Margin = new Padding(6, 6, 6, 6);
+            btnNhanVien.Name = "btnNhanVien";
+            btnNhanVien.Size = new Size(701, 117);
+            btnNhanVien.TabIndex = 6;
+            btnNhanVien.Text = "Nhân viên";
+            btnNhanVien.UseVisualStyleBackColor = true;
+            btnNhanVien.Click += button7_Click;
             // 
-            // button6
+            // btnKhachHang
             // 
-            button6.Location = new Point(-2, 350);
-            button6.Name = "button6";
-            button6.Size = new Size(330, 57);
-            button6.TabIndex = 5;
-            button6.Text = "Khách hàng";
-            button6.UseVisualStyleBackColor = true;
+            btnKhachHang.Location = new Point(-4, 622);
+            btnKhachHang.Margin = new Padding(6, 6, 6, 6);
+            btnKhachHang.Name = "btnKhachHang";
+            btnKhachHang.Size = new Size(701, 117);
+            btnKhachHang.TabIndex = 5;
+            btnKhachHang.Text = "Khách hàng";
+            btnKhachHang.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnHoaDonBan
             // 
-            button5.Location = new Point(-2, 293);
-            button5.Name = "button5";
-            button5.Size = new Size(330, 57);
-            button5.TabIndex = 4;
-            button5.Text = "Hoá đơn bán";
-            button5.UseVisualStyleBackColor = true;
+            btnHoaDonBan.Location = new Point(-6, 513);
+            btnHoaDonBan.Margin = new Padding(6, 6, 6, 6);
+            btnHoaDonBan.Name = "btnHoaDonBan";
+            btnHoaDonBan.Size = new Size(701, 117);
+            btnHoaDonBan.TabIndex = 4;
+            btnHoaDonBan.Text = "Hoá đơn bán";
+            btnHoaDonBan.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnSanPham
             // 
-            button4.Location = new Point(-2, 236);
-            button4.Name = "button4";
-            button4.Size = new Size(330, 57);
-            button4.TabIndex = 3;
-            button4.Text = "Sản phẩm";
-            button4.UseVisualStyleBackColor = true;
-            button4.Click += button4_Click;
+            btnSanPham.Location = new Point(0, 408);
+            btnSanPham.Margin = new Padding(6, 6, 6, 6);
+            btnSanPham.Name = "btnSanPham";
+            btnSanPham.Size = new Size(701, 117);
+            btnSanPham.TabIndex = 3;
+            btnSanPham.Text = "Sản phẩm";
+            btnSanPham.UseVisualStyleBackColor = true;
+            btnSanPham.Click += button4_Click;
             // 
-            // button3
+            // btnDanhMuc
             // 
-            button3.Location = new Point(-2, 179);
-            button3.Name = "button3";
-            button3.Size = new Size(330, 57);
-            button3.TabIndex = 2;
-            button3.Text = "Danh mục sản phẩm";
-            button3.UseVisualStyleBackColor = true;
+            btnDanhMuc.Location = new Point(0, 294);
+            btnDanhMuc.Margin = new Padding(6, 6, 6, 6);
+            btnDanhMuc.Name = "btnDanhMuc";
+            btnDanhMuc.Size = new Size(701, 117);
+            btnDanhMuc.TabIndex = 2;
+            btnDanhMuc.Text = "Danh mục ";
+            btnDanhMuc.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnBanHang
             // 
-            button2.Location = new Point(-2, 122);
-            button2.Name = "button2";
-            button2.Size = new Size(330, 57);
-            button2.TabIndex = 1;
-            button2.Text = "Bán hàng";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += button2_Click;
+            btnBanHang.Location = new Point(0, 176);
+            btnBanHang.Margin = new Padding(6, 6, 6, 6);
+            btnBanHang.Name = "btnBanHang";
+            btnBanHang.Size = new Size(701, 117);
+            btnBanHang.TabIndex = 1;
+            btnBanHang.Text = "Bán hàng";
+            btnBanHang.UseVisualStyleBackColor = true;
+            btnBanHang.Click += button2_Click;
             // 
             // button1
             // 
@@ -172,8 +187,9 @@
             button1.ImageIndex = 0;
             button1.ImageList = menu;
             button1.Location = new Point(0, 0);
+            button1.Margin = new Padding(6, 6, 6, 6);
             button1.Name = "button1";
-            button1.Size = new Size(330, 80);
+            button1.Size = new Size(701, 164);
             button1.TabIndex = 0;
             button1.Text = "DashBoard";
             button1.TextImageRelation = TextImageRelation.ImageBeforeText;
@@ -188,13 +204,34 @@
             menu.Images.SetKeyName(0, "menu.png");
             menu.Images.SetKeyName(1, "menu.png");
             // 
+            // btnKhuyenMai
+            // 
+            btnKhuyenMai.Location = new Point(0, 1386);
+            btnKhuyenMai.Margin = new Padding(6);
+            btnKhuyenMai.Name = "btnKhuyenMai";
+            btnKhuyenMai.Size = new Size(701, 117);
+            btnKhuyenMai.TabIndex = 11;
+            btnKhuyenMai.Text = "Khuyến Mãi";
+            btnKhuyenMai.UseVisualStyleBackColor = true;
+            // 
+            // btnBCTK
+            // 
+            btnBCTK.Location = new Point(0, 1272);
+            btnBCTK.Margin = new Padding(6);
+            btnBCTK.Name = "btnBCTK";
+            btnBCTK.Size = new Size(701, 117);
+            btnBCTK.TabIndex = 12;
+            btnBCTK.Text = "Báo cáo thống kê";
+            btnBCTK.UseVisualStyleBackColor = true;
+            // 
             // SideBarControl
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
+            Margin = new Padding(6, 6, 6, 6);
             Name = "SideBarControl";
-            Size = new Size(336, 788);
+            Size = new Size(714, 1615);
             Load += SideBarControl_Load;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
@@ -203,18 +240,20 @@
         #endregion
 
         private Panel panel1;
-        private Button button8;
-        private Button button7;
-        private Button button6;
-        private Button button5;
-        private Button button4;
-        private Button button3;
-        private Button button2;
+        private Button btnNCC;
+        private Button btnNhanVien;
+        private Button btnKhachHang;
+        private Button btnHoaDonBan;
+        private Button btnSanPham;
+        private Button btnDanhMuc;
+        private Button btnBanHang;
         private Button button1;
-        private Button button10;
-        private Button button9;
-        private Button button11;
+        private Button btnKho;
+        private Button btnTaiKhoan;
+        private Button btnHoaDonNhap;
         private ImageList menu;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Button btnKhuyenMai;
+        private Button btnBCTK;
     }
 }

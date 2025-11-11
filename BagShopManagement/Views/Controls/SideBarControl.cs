@@ -28,23 +28,23 @@ namespace BagShopManagement.Views.Controls
         {
             // Gán event handlers cho các button có sẵn trong Designer
             button1.Click += (s, e) => MenuItemClicked?.Invoke(this, "Dashboard");
-            button2.Click += (s, e) => MenuItemClicked?.Invoke(this, "BanHang");
-            button3.Click += (s, e) => MenuItemClicked?.Invoke(this, "DanhMucSanPham");
-            button4.Click += (s, e) => MenuItemClicked?.Invoke(this, "SanPham");
-            button5.Click += (s, e) => MenuItemClicked?.Invoke(this, "HoaDonBan");
-            button6.Click += (s, e) => MenuItemClicked?.Invoke(this, "KhachHang");
+            btnBanHang.Click += (s, e) => MenuItemClicked?.Invoke(this, "BanHang");
+            btnDanhMuc.Click += (s, e) => MenuItemClicked?.Invoke(this, "DanhMucSanPham");
+            btnSanPham.Click += (s, e) => MenuItemClicked?.Invoke(this, "SanPham");
+            btnHoaDonBan.Click += (s, e) => MenuItemClicked?.Invoke(this, "HoaDonBan");
+            btnKhachHang.Click += (s, e) => MenuItemClicked?.Invoke(this, "KhachHang");
             // button7 is "Nhân viên" in Designer; map accordingly
-            button7.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhanVien");
+            btnNhanVien.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhanVien");
             // button11 is the Dev6 "Hoá đơn nhập" button added in Designer
             // wire it to both the MenuItemClicked and the Dev6 compatibility event
-            button11.Click += (s, e) =>
+            btnHoaDonNhap.Click += (s, e) =>
             {
                 MenuItemClicked?.Invoke(this, "HoaDonNhap");
                 ShowHoaDonNhapClicked?.Invoke(this, EventArgs.Empty);
             };
-            button8.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhaCungCap");
-            button9.Click += (s, e) => MenuItemClicked?.Invoke(this, "TaiKhoan");
-            button10.Click += (s, e) => MenuItemClicked?.Invoke(this, "HeThong");
+            btnNCC.Click += (s, e) => MenuItemClicked?.Invoke(this, "NhaCungCap");
+            btnTaiKhoan.Click += (s, e) => MenuItemClicked?.Invoke(this, "TaiKhoan");
+            btnKho.Click += (s, e) => MenuItemClicked?.Invoke(this, "HeThong");
         }
 
         private void button1_Click(object sender, EventArgs e)

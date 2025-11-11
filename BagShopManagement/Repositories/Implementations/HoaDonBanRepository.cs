@@ -10,7 +10,7 @@ namespace BagShopManagement.Repositories.Implementations
     /// Repository xử lý truy cập dữ liệu cho bảng HoaDonBan và ChiTietHoaDonBan
     /// Kế thừa từ BaseRepository để sử dụng ExecuteTransaction cho ACID compliance
     /// </summary>
-    public class HoaDonBanRepository : BaseRepository, IHoaDonBanRepository
+    public class HoaDonBanRepository : BaseRepository_2, IHoaDonBanRepository
     {
         /// <summary>
         /// Insert hóa đơn mới và chi tiết trong một transaction

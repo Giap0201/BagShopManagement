@@ -8,11 +8,12 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Text;
-using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
+
+using BagShopManagement.DataAccess;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class HoaDonNhapImpl : DataAccessBase, IHoaDonNhapRepository
+    public class HoaDonNhapImpl : BaseRepository, IHoaDonNhapRepository
     {
         private readonly string _connectionString;
 
