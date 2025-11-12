@@ -41,8 +41,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             dgvCart.AutoGenerateColumns = false;
             dgvCart.Columns.Clear();
 
-            // Cấu hình DataGridView để hiển thị tốt hơn
-            dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            // Cấu hình DataGridView để hiển thị tốt hơn - các cột tự động fill hết không gian
+            dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.AllowUserToResizeColumns = true;
             dgvCart.ColumnHeadersHeight = 45;
             dgvCart.RowTemplate.Height = 40;
@@ -52,16 +52,12 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             dgvCart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             dgvCart.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
-            // Tất cả cột có width bằng nhau (150px)
-            int columnWidth = 150;
-
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Mã SP",
                 DataPropertyName = "MaSP",
                 Name = "MaSP",
-                Width = columnWidth,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+                FillWeight = 15
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
@@ -69,8 +65,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Tên sản phẩm",
                 DataPropertyName = "TenSP",
                 Name = "TenSP",
-                Width = columnWidth,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.None
+                FillWeight = 30
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
@@ -78,8 +73,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Số lượng",
                 DataPropertyName = "SoLuong",
                 Name = "SoLuong",
-                Width = columnWidth,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                FillWeight = 12,
                 DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
@@ -88,8 +82,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Đơn giá",
                 DataPropertyName = "DonGia",
                 Name = "DonGia",
-                Width = columnWidth,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                FillWeight = 15,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "N0",
@@ -102,8 +95,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Giảm giá",
                 DataPropertyName = "GiamGiaSP",
                 Name = "GiamGiaSP",
-                Width = columnWidth,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                FillWeight = 13,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "N0",
@@ -116,8 +108,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Thành tiền",
                 DataPropertyName = "ThanhTien",
                 Name = "ThanhTien",
-                Width = columnWidth,
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                FillWeight = 15,
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Format = "N0",
@@ -128,6 +119,61 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         }
 
         // ========== Các sự kiện giao diện ==========
+
+        /// <summary>
+        /// Xử lý sự kiện click nút "Lọc" để tìm khách hàng theo số điện thoại
+        /// </summary>
+        private void btnLoc_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string sdt = txtSDT.Text.Trim();
+
+                if (string.IsNullOrWhiteSpace(sdt))
+                {
+                    MessageBox.Show("Vui lòng nhập số điện thoại khách hàng!", "Thiếu thông tin",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSDT.Focus();
+                    return;
+                }
+
+                // Tìm khách hàng theo số điện thoại
+                var khRepo = new KhachHangRepository();
+                var khachHang = khRepo.GetBySDT(sdt);
+
+                if (khachHang != null)
+                {
+                    // Khách hàng đã tồn tại - hiển thị thông tin
+                    txtMaKH.Text = khachHang.MaKH;
+                    txtTenKH.Text = khachHang.HoTen;
+                    MessageBox.Show($"Đã tìm thấy khách hàng:\n{khachHang.HoTen}",
+                        "Thông tin khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    // Khách hàng chưa tồn tại - hiển thị form thêm mới
+                    var themKHForm = new ThemKhachHangForm(sdt);
+                    if (themKHForm.ShowDialog() == DialogResult.OK)
+                    {
+                        var khMoi = themKHForm.KhachHangMoi;
+                        if (khMoi != null)
+                        {
+                            txtMaKH.Text = khMoi.MaKH;
+                            txtTenKH.Text = khMoi.HoTen;
+                            MessageBox.Show($"Đã thêm khách hàng mới thành công!\n{khMoi.HoTen}",
+                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"UC_POS.btnLoc_Click Error: {ex.Message}");
+                MessageBox.Show($"Lỗi khi tìm khách hàng: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
             var maSP = txtMaSP.Text.Trim();
@@ -326,13 +372,24 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
+            // Validate phương thức thanh toán (bắt buộc)
+            if (cboPhuongThucTT.SelectedIndex < 0)
+            {
+                MessageBox.Show("Vui lòng chọn phương thức thanh toán!",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                cboPhuongThucTT.Focus();
+                return;
+            }
+
+            string phuongThucTT = cboPhuongThucTT.SelectedItem?.ToString() ?? "";
+
             // Tính tổng tiền
             decimal tongTien = cart.Sum(i => (i.DonGia - i.GiamGiaSP) * i.SoLuong);
 
             // Xác nhận trước khi lưu/thanh toán
             string confirmMsg = saveDraft
-                ? $"Lưu tạm hóa đơn?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nNhân viên: {maNV}"
-                : $"Xác nhận thanh toán?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nKhách hàng: {(string.IsNullOrEmpty(maKH) ? "Khách lẻ" : maKH)}\nNhân viên: {maNV}";
+                ? $"Lưu tạm hóa đơn?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nNhân viên: {maNV}\nPhương thức: {phuongThucTT}"
+                : $"Xác nhận thanh toán?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nKhách hàng: {(string.IsNullOrEmpty(maKH) ? "Khách lẻ" : maKH)}\nNhân viên: {maNV}\nPhương thức: {phuongThucTT}";
 
             var confirm = MessageBox.Show(confirmMsg,
                 saveDraft ? "Xác nhận lưu tạm" : "Xác nhận thanh toán",
@@ -342,8 +399,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             if (confirm != DialogResult.Yes)
                 return;
 
-            // Thực hiện checkout
-            var (ok, res) = _controller.Checkout(maKH, maNV, saveDraft);
+            // Thực hiện checkout với phương thức thanh toán
+            var (ok, res) = _controller.Checkout(maKH, maNV, saveDraft, phuongThucTT);
 
             if (!ok)
             {
@@ -381,9 +438,12 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             _controller.ClearCart();
             RefreshCartGrid();
             txtMaKH.Clear();
+            txtTenKH.Clear();
+            txtSDT.Clear();
             txtMaSP.Clear();
             numQty.Value = 1;
             numDiscountPercent.Value = 0;
+            cboPhuongThucTT.SelectedIndex = -1; // Reset phương thức thanh toán
             txtMaSP.Focus();
         }
 
@@ -471,6 +531,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         }
 
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void txtMaNV_TextChanged(object sender, EventArgs e)
         {
 
         }

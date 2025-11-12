@@ -18,12 +18,19 @@
         private void InitializeComponent()
         {
             pnlTop = new Panel();
+            label1 = new Label();
             txtMaNV = new TextBox();
-            txtMaKH = new TextBox();
             lblNv = new Label();
+            btnLoc = new Button();
+            txtSDT = new TextBox();
+            lblSDT = new Label();
+            txtTenKH = new TextBox();
+            txtMaKH = new TextBox();
             lblKh = new Label();
             pnlLeft = new Panel();
             grpActions = new GroupBox();
+            cboPhuongThucTT = new ComboBox();
+            lblPhuongThucTT = new Label();
             btnPrint = new Button();
             btnCheckout = new Button();
             btnSaveDraft = new Button();
@@ -53,38 +60,91 @@
             // 
             // pnlTop
             // 
+            pnlTop.Controls.Add(label1);
             pnlTop.Controls.Add(txtMaNV);
-            pnlTop.Controls.Add(txtMaKH);
             pnlTop.Controls.Add(lblNv);
+            pnlTop.Controls.Add(btnLoc);
+            pnlTop.Controls.Add(txtSDT);
+            pnlTop.Controls.Add(lblSDT);
+            pnlTop.Controls.Add(txtTenKH);
+            pnlTop.Controls.Add(txtMaKH);
             pnlTop.Controls.Add(lblKh);
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(1578, 100);
+            pnlTop.Size = new Size(1578, 204);
             pnlTop.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(447, 33);
+            label1.Name = "label1";
+            label1.Size = new Size(110, 41);
+            label1.TabIndex = 8;
+            label1.Text = "Tên KH";
             // 
             // txtMaNV
             // 
-            txtMaNV.Location = new Point(1040, 30);
+            txtMaNV.Location = new Point(152, 132);
             txtMaNV.Name = "txtMaNV";
             txtMaNV.Size = new Size(250, 47);
             txtMaNV.TabIndex = 0;
-            // 
-            // txtMaKH
-            // 
-            txtMaKH.Location = new Point(200, 30);
-            txtMaKH.Name = "txtMaKH";
-            txtMaKH.Size = new Size(250, 47);
-            txtMaKH.TabIndex = 1;
+            txtMaNV.TextChanged += txtMaNV_TextChanged;
             // 
             // lblNv
             // 
             lblNv.AutoSize = true;
-            lblNv.Location = new Point(870, 30);
+            lblNv.Location = new Point(30, 132);
             lblNv.Name = "lblNv";
             lblNv.Size = new Size(109, 41);
             lblNv.TabIndex = 2;
             lblNv.Text = "Mã NV";
+            // 
+            // btnLoc
+            // 
+            btnLoc.BackColor = Color.FromArgb(0, 122, 204);
+            btnLoc.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLoc.ForeColor = Color.White;
+            btnLoc.Location = new Point(1417, 24);
+            btnLoc.Name = "btnLoc";
+            btnLoc.Size = new Size(147, 62);
+            btnLoc.TabIndex = 7;
+            btnLoc.Text = "🔍 Lọc";
+            btnLoc.UseVisualStyleBackColor = false;
+            btnLoc.Click += btnLoc_Click;
+            // 
+            // txtSDT
+            // 
+            txtSDT.Location = new Point(1114, 33);
+            txtSDT.Name = "txtSDT";
+            txtSDT.Size = new Size(250, 47);
+            txtSDT.TabIndex = 6;
+            // 
+            // lblSDT
+            // 
+            lblSDT.AutoSize = true;
+            lblSDT.Location = new Point(944, 36);
+            lblSDT.Name = "lblSDT";
+            lblSDT.Size = new Size(117, 41);
+            lblSDT.TabIndex = 5;
+            lblSDT.Text = "SĐT KH";
+            // 
+            // txtTenKH
+            // 
+            txtTenKH.Location = new Point(580, 33);
+            txtTenKH.Name = "txtTenKH";
+            txtTenKH.ReadOnly = true;
+            txtTenKH.Size = new Size(322, 47);
+            txtTenKH.TabIndex = 4;
+            // 
+            // txtMaKH
+            // 
+            txtMaKH.Location = new Point(152, 30);
+            txtMaKH.Name = "txtMaKH";
+            txtMaKH.ReadOnly = true;
+            txtMaKH.Size = new Size(236, 47);
+            txtMaKH.TabIndex = 1;
             // 
             // lblKh
             // 
@@ -100,13 +160,15 @@
             pnlLeft.Controls.Add(grpActions);
             pnlLeft.Controls.Add(grpAdd);
             pnlLeft.Dock = DockStyle.Left;
-            pnlLeft.Location = new Point(0, 100);
+            pnlLeft.Location = new Point(0, 204);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(540, 879);
+            pnlLeft.Size = new Size(516, 775);
             pnlLeft.TabIndex = 1;
             // 
             // grpActions
             // 
+            grpActions.Controls.Add(cboPhuongThucTT);
+            grpActions.Controls.Add(lblPhuongThucTT);
             grpActions.Controls.Add(btnPrint);
             grpActions.Controls.Add(btnCheckout);
             grpActions.Controls.Add(btnSaveDraft);
@@ -148,12 +210,36 @@
             btnSaveDraft.Text = "Lưu tạm";
             btnSaveDraft.Click += btnSaveDraft_Click;
             // 
+            // cboPhuongThucTT
+            // 
+            cboPhuongThucTT.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboPhuongThucTT.Font = new Font("Segoe UI", 10F);
+            cboPhuongThucTT.FormattingEnabled = true;
+            cboPhuongThucTT.Items.AddRange(new object[] {
+            "Tiền mặt",
+            "Chuyển khoản",
+            "Card"});
+            cboPhuongThucTT.Location = new Point(244, 215);
+            cboPhuongThucTT.Name = "cboPhuongThucTT";
+            cboPhuongThucTT.Size = new Size(196, 31);
+            cboPhuongThucTT.TabIndex = 8;
+            // 
+            // lblPhuongThucTT
+            // 
+            lblPhuongThucTT.Font = new Font("Segoe UI", 10F);
+            lblPhuongThucTT.Location = new Point(20, 218);
+            lblPhuongThucTT.Name = "lblPhuongThucTT";
+            lblPhuongThucTT.Size = new Size(218, 28);
+            lblPhuongThucTT.TabIndex = 7;
+            lblPhuongThucTT.Text = "Phương thức TT: *";
+            lblPhuongThucTT.ForeColor = Color.Red;
+            // 
             // lblTotal
             // 
             lblTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblTotal.Location = new Point(20, 209);
+            lblTotal.Location = new Point(20, 165);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(108, 45);
+            lblTotal.Size = new Size(420, 45);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "Tổng: 0 ₫";
             // 
@@ -261,9 +347,9 @@
             // 
             pnlRight.Controls.Add(dgvCart);
             pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(540, 100);
+            pnlRight.Location = new Point(516, 204);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(1038, 879);
+            pnlRight.Size = new Size(1062, 775);
             pnlRight.TabIndex = 0;
             // 
             // dgvCart
@@ -276,7 +362,7 @@
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
             dgvCart.RowHeadersWidth = 51;
-            dgvCart.Size = new Size(1038, 879);
+            dgvCart.Size = new Size(1062, 775);
             dgvCart.TabIndex = 0;
             dgvCart.CellContentClick += dgvCart_CellContentClick;
             // 
@@ -306,8 +392,12 @@
         private Panel pnlTop;
         private Label lblNv;
         private Label lblKh;
+        private Label lblSDT;
         private TextBox txtMaNV;
         private TextBox txtMaKH;
+        private TextBox txtTenKH;
+        private TextBox txtSDT;
+        private Button btnLoc;
         private Panel pnlLeft;
         private GroupBox grpAdd;
         private NumericUpDown numQty;
@@ -315,6 +405,8 @@
         private TextBox txtMaSP;
         private Label lblMaSP;
         private GroupBox grpActions;
+        private ComboBox cboPhuongThucTT;
+        private Label lblPhuongThucTT;
         private Button btnApplyDiscount;
         private NumericUpDown numDiscountPercent;
         private Label lblDiscount;
@@ -327,5 +419,6 @@
         private Panel pnlRight;
         private DataGridView dgvCart;
         private Button btnDelete;
+        private Label label1;
     }
 }
