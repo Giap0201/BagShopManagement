@@ -39,13 +39,19 @@
             numDiscountPercent = new NumericUpDown();
             lblDiscount = new Label();
             grpAdd = new GroupBox();
+            lblGiaSP = new Label();
+            lblTenSP = new Label();
+            lblMaSPValue = new Label();
+            lblMaSPLabel = new Label();
+            lblTenSPLabel = new Label();
+            lblGiaSPLabel = new Label();
+            btnChonSP = new Button();
             btnDelete = new Button();
             btnClear = new Button();
             btnAdd = new Button();
             numQty = new NumericUpDown();
             lblQty = new Label();
-            txtMaSP = new TextBox();
-            lblMaSP = new Label();
+            lblSanPham = new Label();
             pnlRight = new Panel();
             dgvCart = new DataGridView();
             pnlTop.SuspendLayout();
@@ -162,7 +168,7 @@
             pnlLeft.Dock = DockStyle.Left;
             pnlLeft.Location = new Point(0, 204);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(516, 775);
+            pnlLeft.Size = new Size(595, 775);
             pnlLeft.TabIndex = 1;
             // 
             // grpActions
@@ -178,10 +184,31 @@
             grpActions.Controls.Add(lblDiscount);
             grpActions.Location = new Point(10, 426);
             grpActions.Name = "grpActions";
-            grpActions.Size = new Size(482, 429);
+            grpActions.Size = new Size(585, 349);
             grpActions.TabIndex = 0;
             grpActions.TabStop = false;
             grpActions.Text = "Thanh toán và khuyến mãi";
+            // 
+            // cboPhuongThucTT
+            // 
+            cboPhuongThucTT.DropDownStyle = ComboBoxStyle.DropDownList;
+            cboPhuongThucTT.Font = new Font("Segoe UI", 10F);
+            cboPhuongThucTT.FormattingEnabled = true;
+            cboPhuongThucTT.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản", "Card" });
+            cboPhuongThucTT.Location = new Point(313, 215);
+            cboPhuongThucTT.Name = "cboPhuongThucTT";
+            cboPhuongThucTT.Size = new Size(266, 53);
+            cboPhuongThucTT.TabIndex = 8;
+            // 
+            // lblPhuongThucTT
+            // 
+            lblPhuongThucTT.Font = new Font("Segoe UI", 9.900001F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblPhuongThucTT.ForeColor = SystemColors.ActiveCaptionText;
+            lblPhuongThucTT.Location = new Point(20, 218);
+            lblPhuongThucTT.Name = "lblPhuongThucTT";
+            lblPhuongThucTT.Size = new Size(304, 50);
+            lblPhuongThucTT.TabIndex = 7;
+            lblPhuongThucTT.Text = "Phương thức TT:";
             // 
             // btnPrint
             // 
@@ -194,50 +221,26 @@
             // 
             // btnCheckout
             // 
-            btnCheckout.Location = new Point(225, 281);
+            btnCheckout.Location = new Point(297, 281);
             btnCheckout.Name = "btnCheckout";
-            btnCheckout.Size = new Size(196, 50);
+            btnCheckout.Size = new Size(196, 65);
             btnCheckout.TabIndex = 1;
             btnCheckout.Text = "Thanh toán";
             btnCheckout.Click += btnCheckout_Click;
             // 
             // btnSaveDraft
             // 
-            btnSaveDraft.Location = new Point(55, 281);
+            btnSaveDraft.Location = new Point(91, 281);
             btnSaveDraft.Name = "btnSaveDraft";
-            btnSaveDraft.Size = new Size(130, 50);
+            btnSaveDraft.Size = new Size(130, 65);
             btnSaveDraft.TabIndex = 2;
             btnSaveDraft.Text = "Lưu tạm";
             btnSaveDraft.Click += btnSaveDraft_Click;
             // 
-            // cboPhuongThucTT
-            // 
-            cboPhuongThucTT.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboPhuongThucTT.Font = new Font("Segoe UI", 10F);
-            cboPhuongThucTT.FormattingEnabled = true;
-            cboPhuongThucTT.Items.AddRange(new object[] {
-            "Tiền mặt",
-            "Chuyển khoản",
-            "Card"});
-            cboPhuongThucTT.Location = new Point(244, 215);
-            cboPhuongThucTT.Name = "cboPhuongThucTT";
-            cboPhuongThucTT.Size = new Size(196, 31);
-            cboPhuongThucTT.TabIndex = 8;
-            // 
-            // lblPhuongThucTT
-            // 
-            lblPhuongThucTT.Font = new Font("Segoe UI", 10F);
-            lblPhuongThucTT.Location = new Point(20, 218);
-            lblPhuongThucTT.Name = "lblPhuongThucTT";
-            lblPhuongThucTT.Size = new Size(218, 28);
-            lblPhuongThucTT.TabIndex = 7;
-            lblPhuongThucTT.Text = "Phương thức TT: *";
-            lblPhuongThucTT.ForeColor = Color.Red;
-            // 
             // lblTotal
             // 
             lblTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblTotal.Location = new Point(20, 165);
+            lblTotal.Location = new Point(20, 148);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(420, 45);
             lblTotal.TabIndex = 3;
@@ -245,18 +248,18 @@
             // 
             // btnApplyDiscount
             // 
-            btnApplyDiscount.Location = new Point(259, 146);
+            btnApplyDiscount.Location = new Point(382, 63);
             btnApplyDiscount.Name = "btnApplyDiscount";
-            btnApplyDiscount.Size = new Size(181, 49);
+            btnApplyDiscount.Size = new Size(181, 52);
             btnApplyDiscount.TabIndex = 4;
             btnApplyDiscount.Text = "Áp dụng";
             btnApplyDiscount.Click += btnApplyDiscount_Click;
             // 
             // numDiscountPercent
             // 
-            numDiscountPercent.Location = new Point(244, 68);
+            numDiscountPercent.Location = new Point(190, 68);
             numDiscountPercent.Name = "numDiscountPercent";
-            numDiscountPercent.Size = new Size(196, 47);
+            numDiscountPercent.Size = new Size(134, 47);
             numDiscountPercent.TabIndex = 5;
             // 
             // lblDiscount
@@ -269,23 +272,104 @@
             // 
             // grpAdd
             // 
+            grpAdd.Controls.Add(lblGiaSP);
+            grpAdd.Controls.Add(lblTenSP);
+            grpAdd.Controls.Add(lblMaSPValue);
+            grpAdd.Controls.Add(lblMaSPLabel);
+            grpAdd.Controls.Add(lblTenSPLabel);
+            grpAdd.Controls.Add(lblGiaSPLabel);
+            grpAdd.Controls.Add(btnChonSP);
             grpAdd.Controls.Add(btnDelete);
             grpAdd.Controls.Add(btnClear);
             grpAdd.Controls.Add(btnAdd);
             grpAdd.Controls.Add(numQty);
             grpAdd.Controls.Add(lblQty);
-            grpAdd.Controls.Add(txtMaSP);
-            grpAdd.Controls.Add(lblMaSP);
+            grpAdd.Controls.Add(lblSanPham);
             grpAdd.Location = new Point(10, 10);
             grpAdd.Name = "grpAdd";
-            grpAdd.Size = new Size(482, 390);
+            grpAdd.Size = new Size(588, 410);
             grpAdd.TabIndex = 1;
             grpAdd.TabStop = false;
             grpAdd.Text = "Thêm sản phẩm";
             // 
+            // lblGiaSP
+            // 
+            lblGiaSP.BackColor = SystemColors.Control;
+            lblGiaSP.BorderStyle = BorderStyle.Fixed3D;
+            lblGiaSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblGiaSP.ForeColor = Color.Green;
+            lblGiaSP.Location = new Point(190, 225);
+            lblGiaSP.Name = "lblGiaSP";
+            lblGiaSP.Size = new Size(357, 59);
+            lblGiaSP.TabIndex = 10;
+            lblGiaSP.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblTenSP
+            // 
+            lblTenSP.BackColor = SystemColors.Control;
+            lblTenSP.BorderStyle = BorderStyle.Fixed3D;
+            lblTenSP.Font = new Font("Segoe UI", 10F);
+            lblTenSP.Location = new Point(190, 160);
+            lblTenSP.Name = "lblTenSP";
+            lblTenSP.Size = new Size(357, 65);
+            lblTenSP.TabIndex = 9;
+            lblTenSP.TextAlign = ContentAlignment.MiddleLeft;
+            lblTenSP.Click += lblTenSP_Click;
+            // 
+            // lblMaSPValue
+            // 
+            lblMaSPValue.BackColor = SystemColors.Control;
+            lblMaSPValue.BorderStyle = BorderStyle.Fixed3D;
+            lblMaSPValue.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblMaSPValue.Location = new Point(190, 99);
+            lblMaSPValue.Name = "lblMaSPValue";
+            lblMaSPValue.Size = new Size(357, 51);
+            lblMaSPValue.TabIndex = 8;
+            lblMaSPValue.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // lblMaSPLabel
+            // 
+            lblMaSPLabel.Location = new Point(20, 99);
+            lblMaSPLabel.Name = "lblMaSPLabel";
+            lblMaSPLabel.Size = new Size(160, 54);
+            lblMaSPLabel.TabIndex = 11;
+            lblMaSPLabel.Text = "Mã SP:";
+            lblMaSPLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // lblTenSPLabel
+            // 
+            lblTenSPLabel.Location = new Point(20, 160);
+            lblTenSPLabel.Name = "lblTenSPLabel";
+            lblTenSPLabel.Size = new Size(160, 65);
+            lblTenSPLabel.TabIndex = 12;
+            lblTenSPLabel.Text = "Tên SP:";
+            lblTenSPLabel.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // lblGiaSPLabel
+            // 
+            lblGiaSPLabel.Location = new Point(20, 225);
+            lblGiaSPLabel.Name = "lblGiaSPLabel";
+            lblGiaSPLabel.Size = new Size(160, 59);
+            lblGiaSPLabel.TabIndex = 13;
+            lblGiaSPLabel.Text = "Giá:";
+            lblGiaSPLabel.TextAlign = ContentAlignment.MiddleRight;
+            lblGiaSPLabel.Click += lblGiaSPLabel_Click;
+            // 
+            // btnChonSP
+            // 
+            btnChonSP.BackColor = Color.Yellow;
+            btnChonSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnChonSP.Location = new Point(190, 46);
+            btnChonSP.Name = "btnChonSP";
+            btnChonSP.Size = new Size(357, 50);
+            btnChonSP.TabIndex = 7;
+            btnChonSP.Text = "*** Chọn sản phẩm";
+            btnChonSP.UseVisualStyleBackColor = false;
+            btnChonSP.Click += btnChonSP_Click;
+            // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(276, 219);
+            btnDelete.Location = new Point(225, 340);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(130, 50);
             btnDelete.TabIndex = 0;
@@ -294,7 +378,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(142, 303);
+            btnClear.Location = new Point(397, 340);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(150, 50);
             btnClear.TabIndex = 1;
@@ -303,7 +387,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(35, 219);
+            btnAdd.Location = new Point(40, 340);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(150, 50);
             btnAdd.TabIndex = 2;
@@ -312,44 +396,37 @@
             // 
             // numQty
             // 
-            numQty.Location = new Point(190, 138);
+            numQty.Location = new Point(190, 287);
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(250, 47);
+            numQty.Size = new Size(167, 47);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // lblQty
             // 
-            lblQty.Location = new Point(20, 140);
+            lblQty.Location = new Point(34, 287);
             lblQty.Name = "lblQty";
             lblQty.Size = new Size(153, 45);
             lblQty.TabIndex = 4;
             lblQty.Text = "Số lượng:";
             // 
-            // txtMaSP
+            // lblSanPham
             // 
-            txtMaSP.Location = new Point(190, 56);
-            txtMaSP.Name = "txtMaSP";
-            txtMaSP.Size = new Size(250, 47);
-            txtMaSP.TabIndex = 5;
-            // 
-            // lblMaSP
-            // 
-            lblMaSP.Location = new Point(20, 60);
-            lblMaSP.Name = "lblMaSP";
-            lblMaSP.Size = new Size(130, 43);
-            lblMaSP.TabIndex = 6;
-            lblMaSP.Text = "Mã SP:";
+            lblSanPham.Location = new Point(20, 50);
+            lblSanPham.Name = "lblSanPham";
+            lblSanPham.Size = new Size(160, 43);
+            lblSanPham.TabIndex = 6;
+            lblSanPham.Text = "Sản phẩm:";
             // 
             // pnlRight
             // 
             pnlRight.Controls.Add(dgvCart);
             pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(516, 204);
+            pnlRight.Location = new Point(595, 204);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(1062, 775);
+            pnlRight.Size = new Size(983, 775);
             pnlRight.TabIndex = 0;
             // 
             // dgvCart
@@ -362,7 +439,7 @@
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
             dgvCart.RowHeadersWidth = 51;
-            dgvCart.Size = new Size(1062, 775);
+            dgvCart.Size = new Size(983, 775);
             dgvCart.TabIndex = 0;
             dgvCart.CellContentClick += dgvCart_CellContentClick;
             // 
@@ -380,7 +457,6 @@
             grpActions.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numDiscountPercent).EndInit();
             grpAdd.ResumeLayout(false);
-            grpAdd.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)numQty).EndInit();
             pnlRight.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCart).EndInit();
@@ -402,8 +478,14 @@
         private GroupBox grpAdd;
         private NumericUpDown numQty;
         private Label lblQty;
-        private TextBox txtMaSP;
-        private Label lblMaSP;
+        private Label lblSanPham;
+        private Label lblMaSPLabel;
+        private Label lblTenSPLabel;
+        private Label lblGiaSPLabel;
+        private Button btnChonSP;
+        private Label lblMaSPValue;
+        private Label lblTenSP;
+        private Label lblGiaSP;
         private GroupBox grpActions;
         private ComboBox cboPhuongThucTT;
         private Label lblPhuongThucTT;

@@ -174,14 +174,43 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             }
         }
 
+        private void btnChonSP_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var chonSPForm = new ChonSanPhamForm();
+                if (chonSPForm.ShowDialog() == DialogResult.OK && chonSPForm.SelectedProduct != null)
+                {
+                    var sp = chonSPForm.SelectedProduct;
+
+                    // Hiển thị thông tin sản phẩm đã chọn
+                    lblMaSPValue.Text = sp.MaSP;
+                    lblTenSP.Text = $"Tên: {sp.TenSP}";
+                    lblGiaSP.Text = $"Giá: {sp.GiaBan:N0} ₫ | Tồn kho: {sp.SoLuongTon}";
+
+                    // Focus vào số lượng
+                    numQty.Focus();
+                    numQty.Select(0, numQty.Text.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"UC_POS.btnChonSP_Click Error: {ex.Message}");
+                MessageBox.Show($"Lỗi khi chọn sản phẩm: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var maSP = txtMaSP.Text.Trim();
+            var maSP = lblMaSPValue.Text.Trim();
             int qty = (int)numQty.Value;
 
             if (string.IsNullOrWhiteSpace(maSP))
             {
-                MessageBox.Show("Vui lòng nhập mã sản phẩm!", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng chọn sản phẩm trước!", "Thiếu thông tin",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                btnChonSP.Focus();
                 return;
             }
 
@@ -191,22 +220,31 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
             if (sp != null)
             {
+                // Kiểm tra tồn kho hiện tại trong giỏ
+                var cart = _controller.GetCart();
+                var existingItem = cart?.FirstOrDefault(x => x.MaSP == maSP);
+                int currentQtyInCart = existingItem?.SoLuong ?? 0;
+                int totalQty = currentQtyInCart + qty;
+
                 // Hiển thị thông tin tồn kho
-                if (sp.SoLuongTon < qty)
+                if (sp.SoLuongTon < totalQty)
                 {
-                    MessageBox.Show($"Sản phẩm '{sp.TenSP}' chỉ còn {sp.SoLuongTon} trong kho!\nKhông đủ số lượng để thêm vào giỏ.",
+                    MessageBox.Show($"Sản phẩm '{sp.TenSP}' chỉ còn {sp.SoLuongTon} trong kho!\n" +
+                        $"Bạn đã có {currentQtyInCart} trong giỏ.\n" +
+                        $"Không đủ số lượng để thêm {qty} nữa.",
                         "Cảnh báo tồn kho", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
                 else if (sp.SoLuongTon <= 10)
                 {
                     // Cảnh báo sắp hết hàng
-                    var result = MessageBox.Show($"⚠️ Sản phẩm '{sp.TenSP}' sắp hết hàng!\nTồn kho: {sp.SoLuongTon}\n\nBạn có muốn tiếp tục thêm vào giỏ không?",
+                    var result = MessageBox.Show($"⚠️ Sản phẩm '{sp.TenSP}' sắp hết hàng!\n" +
+                        $"Tồn kho: {sp.SoLuongTon}\n\n" +
+                        $"Bạn có muốn tiếp tục thêm vào giỏ không?",
                         "Cảnh báo sắp hết hàng", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (result == DialogResult.No)
                     {
-                        txtMaSP.Clear();
-                        txtMaSP.Focus();
+                        ClearProductSelection();
                         return;
                     }
                 }
@@ -222,14 +260,22 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 if (sp != null)
                 {
                     int tonKhoConLai = sp.SoLuongTon - qty;
-                    MessageBox.Show($"✓ Đã thêm {qty} x '{sp.TenSP}' vào giỏ hàng\nTồn kho còn lại: {tonKhoConLai}",
+                    MessageBox.Show($"✓ Đã thêm {qty} x '{sp.TenSP}' vào giỏ hàng\n" +
+                        $"Tồn kho còn lại: {tonKhoConLai}",
                         "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
 
-            txtMaSP.Clear();
+            ClearProductSelection();
+        }
+
+        private void ClearProductSelection()
+        {
+            lblMaSPValue.Text = "";
+            lblTenSP.Text = "";
+            lblGiaSP.Text = "";
             numQty.Value = 1;
-            txtMaSP.Focus();
+            btnChonSP.Focus();
         }
 
         private void RefreshCartGrid()
@@ -440,11 +486,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             txtMaKH.Clear();
             txtTenKH.Clear();
             txtSDT.Clear();
-            txtMaSP.Clear();
-            numQty.Value = 1;
+            ClearProductSelection();
             numDiscountPercent.Value = 0;
             cboPhuongThucTT.SelectedIndex = -1; // Reset phương thức thanh toán
-            txtMaSP.Focus();
+            btnChonSP.Focus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
@@ -536,6 +581,16 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         }
 
         private void txtMaNV_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblGiaSPLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblTenSP_Click(object sender, EventArgs e)
         {
 
         }
