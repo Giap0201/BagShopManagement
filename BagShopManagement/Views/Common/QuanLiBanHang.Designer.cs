@@ -51,7 +51,7 @@
             sideBarControl1.Size = new Size(336, 773);
             sideBarControl1.TabIndex = 1;
             sideBarControl1.Load += sideBarControl1_Load;
-            sideBarControl1.NavigationButtonClicked += SideBarControl1_NavigationButtonClicked;
+            //sideBarControl1.NavigationButtonClicked += SideBarControl1_NavigationButtonClicked;
             // 
             // pnlMainContent
             // 

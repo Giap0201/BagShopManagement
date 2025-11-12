@@ -1,4 +1,5 @@
-﻿namespace BagShopManagement.Views.Controls
+﻿
+namespace BagShopManagement.Views.Controls
 {
     partial class PromotionControl
     {
@@ -119,7 +120,7 @@
             dgvDanhSachCTGG.RowHeadersWidth = 51;
             dgvDanhSachCTGG.Size = new Size(661, 553);
             dgvDanhSachCTGG.TabIndex = 0;
-            dgvDanhSachCTGG.CellContentClick += dgvDanhSachCTGG_CellContentClick;
+            //dgvDanhSachCTGG.CellContentClick += dgvDanhSachCTGG_CellContentClick;
             // 
             // pnlHeader
             // 
@@ -329,6 +330,7 @@
             PerformLayout();
         }
 
+        
         #endregion
 
         private Label label1;

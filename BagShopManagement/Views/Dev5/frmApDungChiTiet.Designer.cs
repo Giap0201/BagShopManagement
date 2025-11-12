@@ -72,7 +72,7 @@
             pnlTopInfo.Dock = DockStyle.Top;
             pnlTopInfo.Location = new Point(0, 0);
             pnlTopInfo.Name = "pnlTopInfo";
-            pnlTopInfo.Size = new Size(1048, 71);
+            pnlTopInfo.Size = new Size(1549, 71);
             pnlTopInfo.TabIndex = 0;
             // 
             // lblTenChuongTrinh
@@ -89,9 +89,9 @@
             panel1.Controls.Add(btnXacNhanKM);
             panel1.Controls.Add(btnHuỵChonKM);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 619);
+            panel1.Location = new Point(0, 624);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1048, 87);
+            panel1.Size = new Size(1549, 87);
             panel1.TabIndex = 1;
             // 
             // btnXacNhanKM
@@ -126,7 +126,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1048, 548);
+            tableLayoutPanel1.Size = new Size(1549, 553);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // pnlLeft
@@ -137,26 +137,29 @@
             pnlLeft.Dock = DockStyle.Fill;
             pnlLeft.Location = new Point(3, 3);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(390, 542);
+            pnlLeft.Size = new Size(640, 547);
             pnlLeft.TabIndex = 0;
             // 
             // dgvKhoSanPham
             // 
             dgvKhoSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKhoSanPham.Location = new Point(9, 180);
+            dgvKhoSanPham.Dock = DockStyle.Fill;
+            dgvKhoSanPham.Location = new Point(0, 145);
             dgvKhoSanPham.Name = "dgvKhoSanPham";
             dgvKhoSanPham.RowHeadersWidth = 51;
-            dgvKhoSanPham.Size = new Size(368, 347);
+            dgvKhoSanPham.Size = new Size(640, 402);
             dgvKhoSanPham.TabIndex = 2;
+            dgvKhoSanPham.CellContentClick += dgvKhoSanPham_CellContentClick;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(btnTimKiemKho);
             groupBox1.Controls.Add(txtTimKiemKho);
             groupBox1.Controls.Add(label4);
-            groupBox1.Location = new Point(9, 49);
+            groupBox1.Dock = DockStyle.Top;
+            groupBox1.Location = new Point(0, 20);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(368, 125);
+            groupBox1.Size = new Size(640, 125);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Tìm kiếm";
@@ -189,7 +192,8 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(101, 17);
+            label3.Dock = DockStyle.Top;
+            label3.Location = new Point(0, 0);
             label3.Name = "label3";
             label3.Size = new Size(191, 20);
             label3.TabIndex = 0;
@@ -202,9 +206,9 @@
             pnlCenter.Controls.Add(nudPhanTramGiam);
             pnlCenter.Controls.Add(label1);
             pnlCenter.Dock = DockStyle.Fill;
-            pnlCenter.Location = new Point(399, 3);
+            pnlCenter.Location = new Point(649, 3);
             pnlCenter.Name = "pnlCenter";
-            pnlCenter.Size = new Size(250, 542);
+            pnlCenter.Size = new Size(250, 547);
             pnlCenter.TabIndex = 1;
             // 
             // btnXoa
@@ -250,18 +254,19 @@
             pnlRight.Controls.Add(groupBox2);
             pnlRight.Controls.Add(label5);
             pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(655, 3);
+            pnlRight.Location = new Point(905, 3);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(390, 542);
+            pnlRight.Size = new Size(641, 547);
             pnlRight.TabIndex = 2;
             // 
             // dgvSanPhamApDung
             // 
             dgvSanPhamApDung.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvSanPhamApDung.Location = new Point(11, 179);
+            dgvSanPhamApDung.Dock = DockStyle.Fill;
+            dgvSanPhamApDung.Location = new Point(0, 145);
             dgvSanPhamApDung.Name = "dgvSanPhamApDung";
             dgvSanPhamApDung.RowHeadersWidth = 51;
-            dgvSanPhamApDung.Size = new Size(368, 347);
+            dgvSanPhamApDung.Size = new Size(641, 402);
             dgvSanPhamApDung.TabIndex = 5;
             // 
             // groupBox2
@@ -269,9 +274,10 @@
             groupBox2.Controls.Add(btnTimKiemApDung);
             groupBox2.Controls.Add(txtTimKiemApDung);
             groupBox2.Controls.Add(label2);
-            groupBox2.Location = new Point(11, 48);
+            groupBox2.Dock = DockStyle.Top;
+            groupBox2.Location = new Point(0, 20);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(368, 125);
+            groupBox2.Size = new Size(641, 125);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Tìm kiếm";
@@ -304,7 +310,8 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(80, 17);
+            label5.Dock = DockStyle.Top;
+            label5.Location = new Point(0, 0);
             label5.Name = "label5";
             label5.Size = new Size(224, 20);
             label5.TabIndex = 3;
@@ -314,7 +321,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1048, 706);
+            ClientSize = new Size(1549, 711);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
             Controls.Add(pnlTopInfo);

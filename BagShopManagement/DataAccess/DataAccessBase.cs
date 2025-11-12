@@ -1,4 +1,5 @@
-﻿using BagShopManagement.Utils;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using Microsoft.Identity.Client;
 using System;
@@ -69,7 +70,7 @@ namespace BagShopManagement.DataAccess
             }
         }
 
-        //thuc thi cau lenh select, update, delete, tra ve so dong bi anh huong
+        //thuc thi cau lenh select, update, delete, tra ve so dong bi anh huoc
         public static int ExecuteNonQuery(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
@@ -139,6 +140,20 @@ namespace BagShopManagement.DataAccess
             {
                 return conn != null && conn.State != ConnectionState.Open;
             }
+        }
+        public static void InsertChuongTrinhGiamGia(ChuongTrinhGiamGia ctgg)
+        {
+            string query = "INSERT INTO ChuongTrinhGiamGia (MaCTGG, TenChuongTrinh, NgayBatDau, NgayKetThuc, MoTa, TrangThai) VALUES (@MaCTGG, @Ten, @NgayBD, @NgayKT, @MoTa, @TrangThai)";
+            SqlParameter[] parameters = {
+                new SqlParameter("@MaCTGG", ctgg.MaCTGG),
+                new SqlParameter("@Ten", ctgg.TenChuongTrinh),
+                new SqlParameter("@NgayBD", ctgg.NgayBatDau),
+                new SqlParameter("@NgayKT", ctgg.NgayKetThuc),
+                new SqlParameter("@MoTa", ctgg.MoTa),
+                new SqlParameter("@TrangThai", ctgg.TrangThai)
+            };
+
+            ExecuteNonQuery(query, parameters);
         }
     }
 }
