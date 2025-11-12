@@ -1,4 +1,4 @@
-﻿using BagShopManagement.Views.Dev2;
+﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
 
@@ -6,54 +6,49 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class DanhMucMenuControl : UserControl
     {
-        public DanhMucMenuControl()
+        private readonly IServiceProvider _serviceProvider;
+
+        public event EventHandler ShowLoaiTuiClicked;
+        public event EventHandler ShowThuongHieuClicked;
+        public event EventHandler ShowMauSacClicked;
+        public event EventHandler ShowChatLieuClicked;
+        public event EventHandler ShowKichThuocClicked;
+
+        public DanhMucMenuControl(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _serviceProvider = serviceProvider;
 
             btnLoaiTui.Click += BtnLoaiTui_Click;
             btnThuongHieu.Click += BtnThuongHieu_Click;
             btnChatLieu.Click += BtnChatLieu_Click;
             btnMauSac.Click += BtnMauSac_Click;
             btnKichThuoc.Click += BtnKichThuoc_Click;
-            //btnNCC.Click += BtnNCC_Click;
-        }
-
-        private void LoadControl(UserControl uc)
-        {
-            var parent = this.Parent as Panel;
-            parent.Controls.Clear();
-            uc.Dock = DockStyle.Fill;
-            parent.Controls.Add(uc);
         }
 
         private void BtnLoaiTui_Click(object sender, EventArgs e)
         {
-            LoadControl(new LoaiTuiControl());
+            ShowLoaiTuiClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void BtnThuongHieu_Click(object sender, EventArgs e)
         {
-            LoadControl(new ThuongHieuControl());
+            ShowThuongHieuClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void BtnChatLieu_Click(object sender, EventArgs e)
         {
-            LoadControl(new ChatLieuControl());
+            ShowChatLieuClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void BtnMauSac_Click(object sender, EventArgs e)
         {
-            LoadControl(new MauSacControl());
+            ShowMauSacClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void BtnKichThuoc_Click(object sender, EventArgs e)
         {
-            LoadControl(new KichThuocControl());
+            ShowKichThuocClicked?.Invoke(this, EventArgs.Empty);
         }
-
-        //private void BtnNCC_Click(object sender, EventArgs e)
-        //{
-        //    LoadControl(new NhaCungCapControl());
-        //}
     }
 }

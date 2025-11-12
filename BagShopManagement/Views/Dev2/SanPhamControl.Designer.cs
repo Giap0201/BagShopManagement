@@ -270,6 +270,7 @@
             // 
             // cboTrangThai
             // 
+            cboTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             cboTrangThai.FormattingEnabled = true;
             cboTrangThai.Location = new Point(158, 279);
             cboTrangThai.Name = "cboTrangThai";
@@ -278,6 +279,7 @@
             // 
             // cboNCC
             // 
+            cboNCC.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNCC.FormattingEnabled = true;
             cboNCC.Location = new Point(158, 245);
             cboNCC.Name = "cboNCC";
@@ -286,6 +288,7 @@
             // 
             // cboKichThuoc
             // 
+            cboKichThuoc.DropDownStyle = ComboBoxStyle.DropDownList;
             cboKichThuoc.FormattingEnabled = true;
             cboKichThuoc.Location = new Point(158, 211);
             cboKichThuoc.Name = "cboKichThuoc";
@@ -294,6 +297,7 @@
             // 
             // cboMau
             // 
+            cboMau.DropDownStyle = ComboBoxStyle.DropDownList;
             cboMau.FormattingEnabled = true;
             cboMau.Location = new Point(158, 177);
             cboMau.Name = "cboMau";
@@ -302,6 +306,7 @@
             // 
             // cboChatLieu
             // 
+            cboChatLieu.DropDownStyle = ComboBoxStyle.DropDownList;
             cboChatLieu.FormattingEnabled = true;
             cboChatLieu.Location = new Point(158, 143);
             cboChatLieu.Name = "cboChatLieu";
@@ -310,6 +315,7 @@
             // 
             // cboThuongHieu
             // 
+            cboThuongHieu.DropDownStyle = ComboBoxStyle.DropDownList;
             cboThuongHieu.FormattingEnabled = true;
             cboThuongHieu.Location = new Point(158, 109);
             cboThuongHieu.Name = "cboThuongHieu";
@@ -318,6 +324,7 @@
             // 
             // cboLoaiTui
             // 
+            cboLoaiTui.DropDownStyle = ComboBoxStyle.DropDownList;
             cboLoaiTui.FormattingEnabled = true;
             cboLoaiTui.Location = new Point(158, 75);
             cboLoaiTui.Name = "cboLoaiTui";
@@ -326,6 +333,7 @@
             // 
             // cboGiaBan
             // 
+            cboGiaBan.DropDownStyle = ComboBoxStyle.DropDownList;
             cboGiaBan.FormattingEnabled = true;
             cboGiaBan.Location = new Point(158, 41);
             cboGiaBan.Name = "cboGiaBan";

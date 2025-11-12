@@ -1,4 +1,5 @@
 ﻿using BagShopManagement.Views.Controls;
+using BagShopManagement.Views.Dev2;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
@@ -91,6 +92,25 @@ namespace BagShopManagement.Views.Common
             sideBarControl.ShowBaoCaoThongKeClicked += (s, ev) => ShowUserControl<ucBaoCaoThongKe>();
 
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
+            sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
+
+            sideBarControl.DanhMucClicked += (s, e) =>
+            {
+                // Show danh mục chính
+                ShowUserControl<DanhMucMenuControl>();
+
+                // Lấy danh mục vừa show
+                if (_currentControl is DanhMucMenuControl danhMucCtrl)
+                {
+                    // Đăng ký các event để show các control con
+                    danhMucCtrl.ShowLoaiTuiClicked += (s2, e2) => ShowUserControl<LoaiTuiControl>();
+                    danhMucCtrl.ShowThuongHieuClicked += (s2, e2) => ShowUserControl<ThuongHieuControl>();
+                    danhMucCtrl.ShowMauSacClicked += (s2, e2) => ShowUserControl<MauSacControl>();
+                    danhMucCtrl.ShowChatLieuClicked += (s2, e2) => ShowUserControl<ChatLieuControl>();
+                    danhMucCtrl.ShowKichThuocClicked += (s2, e2) => ShowUserControl<KichThuocControl>();
+                }
+            };
+
 
             // Không hiển thị gì ban đầu
             // ShowUserControl<ucHoaDonNhapList>();

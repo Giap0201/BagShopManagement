@@ -39,14 +39,15 @@
             ((System.ComponentModel.ISupportInitialize)dgvMauSac).BeginInit();
             SuspendLayout();
             // 
-            // dgvChatLieu
+            // dgvMauSac
             // 
             dgvMauSac.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvMauSac.Location = new Point(27, 126);
-            dgvMauSac.Name = "dgvChatLieu";
+            dgvMauSac.Name = "dgvMauSac";
             dgvMauSac.RowHeadersWidth = 51;
             dgvMauSac.Size = new Size(867, 361);
             dgvMauSac.TabIndex = 0;
+            dgvMauSac.CellDoubleClick += dgvMauSac_CellDoubleClick;
             // 
             // txtSearch
             // 
@@ -55,6 +56,7 @@
             txtSearch.PlaceholderText = "Tìm kiếm";
             txtSearch.Size = new Size(260, 27);
             txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnAdd
             // 
@@ -64,6 +66,7 @@
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -73,6 +76,7 @@
             btnEdit.TabIndex = 3;
             btnEdit.Text = "Sửa";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -82,6 +86,7 @@
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Xoá";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnSearch
             // 
@@ -100,6 +105,7 @@
             btnImport.TabIndex = 7;
             btnImport.Text = "Nhập file";
             btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += BtnImport_Click;
             // 
             // btnExport
             // 
@@ -109,9 +115,9 @@
             btnExport.TabIndex = 8;
             btnExport.Text = "Xuất file";
             btnExport.UseVisualStyleBackColor = true;
-            //btnExport.Click += BtnExport_Click;
+            btnExport.Click += BtnExport_Click;
             // 
-            // ChatLieuControl
+            // MauSacControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -123,7 +129,7 @@
             Controls.Add(btnAdd);
             Controls.Add(txtSearch);
             Controls.Add(dgvMauSac);
-            Name = "ChatLieuControl";
+            Name = "MauSacControl";
             Size = new Size(926, 512);
             ((System.ComponentModel.ISupportInitialize)dgvMauSac).EndInit();
             ResumeLayout(false);

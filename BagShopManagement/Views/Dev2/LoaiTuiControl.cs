@@ -1,50 +1,32 @@
 ﻿using BagShopManagement.Controllers;
 using BagShopManagement.Models;
-using BagShopManagement.Repositories.Implementations;
-using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
-using System;
-using System.Windows.Forms;
-using System.IO;
 using OfficeOpenXml;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev2
 {
     public partial class LoaiTuiControl : UserControl
     {
         private readonly LoaiTuiController _controller;
-        private readonly ILoaiTuiService _service;
 
-        public LoaiTuiControl()
+        // Inject Controller (đã có sẵn Service bên trong)
+        public LoaiTuiControl(ILoaiTuiService service)
         {
             InitializeComponent();
 
-            _service = new LoaiTuiService(new LoaiTuiRepository());
-            _controller = new LoaiTuiController(_service);
+            _controller = new LoaiTuiController(service);
 
-            // wire events (safe even if designer wired them)
+            // Wire events an toàn
             this.Load += LoaiTuiControl_Load;
-            txtSearch.TextChanged -= txtSearch_TextChanged;
-            txtSearch.TextChanged += txtSearch_TextChanged;
-            btnAdd.Click -= btnAdd_Click;
-            btnAdd.Click += btnAdd_Click;
-            btnEdit.Click -= btnEdit_Click;
-            btnEdit.Click += btnEdit_Click;
-            btnDelete.Click -= btnDelete_Click;
-            btnDelete.Click += btnDelete_Click;
-            //btnRefresh.Click -= btnRefresh_Click;
-            //btnRefresh.Click += btnRefresh_Click;
-            dgvLoaiTui.CellDoubleClick -= dgvLoaiTui_CellDoubleClick;
-            dgvLoaiTui.CellDoubleClick += dgvLoaiTui_CellDoubleClick;
-            btnImport.Click -= BtnImport_Click;
-            btnImport.Click += BtnImport_Click;
-            btnExport.Click -= btnExport_Click;
-            btnExport.Click += btnExport_Click;
         }
 
         private void LoaiTuiControl_Load(object sender, EventArgs e)
         {
-            // ensure columns if not created in designer
             if (dgvLoaiTui.Columns.Count == 0)
             {
                 dgvLoaiTui.AutoGenerateColumns = false;
@@ -73,6 +55,7 @@ namespace BagShopManagement.Views.Dev2
             }
 
             LoadData();
+            try { txtSearch.PlaceholderText = "Tìm kiếm"; } catch { }
         }
 
         private void LoadData()
@@ -107,12 +90,6 @@ namespace BagShopManagement.Views.Dev2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            // open edit form in Add mode — use controller to get next code
-            //var model = new DanhMucLoaiTui
-            //{
-            //    MaLoaiTui = _controller.GenerateNextCode()
-            //};
-
             using (var f = new LoaiTuiEditForm(_controller))
             {
                 if (f.ShowDialog() == DialogResult.OK)
@@ -128,7 +105,8 @@ namespace BagShopManagement.Views.Dev2
 
             using (var f = new LoaiTuiEditForm(_controller, model))
             {
-                if (f.ShowDialog() == DialogResult.OK) LoadData();
+                if (f.ShowDialog() == DialogResult.OK)
+                    LoadData();
             }
         }
 
@@ -153,11 +131,6 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        //private void btnRefresh_Click(object sender, EventArgs e)
-        //{
-        //    LoadData();
-        //}
-
         private void dgvLoaiTui_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0) return;
@@ -170,7 +143,7 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        // === handler ===
+        // ========== IMPORT ==========
         private void BtnImport_Click(object sender, EventArgs e)
         {
             try
@@ -182,9 +155,8 @@ namespace BagShopManagement.Views.Dev2
                     if (ofd.ShowDialog() != DialogResult.OK) return;
 
                     if (MessageBox.Show("Bạn có chắc chắn muốn import file này không?\nSau khi import sẽ cập nhật dữ liệu danh mục.",
-                    "Xác nhận Import",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) != DialogResult.Yes) return;
+                        "Xác nhận Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                        return;
 
                     var file = ofd.FileName;
                     if (!File.Exists(file))
@@ -194,7 +166,7 @@ namespace BagShopManagement.Views.Dev2
                     }
 
                     int inserted = 0, updated = 0, skipped = 0;
-                    // ensure license context in Program.cs (ExcelPackage.LicenseContext = ...)
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
                     using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                     using (var package = new ExcelPackage(stream))
@@ -206,12 +178,10 @@ namespace BagShopManagement.Views.Dev2
                             return;
                         }
 
-                        // find header positions (case-insensitive)
                         int startRow = 1;
                         int lastCol = ws.Dimension.End.Column;
                         int lastRow = ws.Dimension.End.Row;
 
-                        // map header names to columns
                         int colTen = -1, colMoTa = -1;
                         for (int c = 1; c <= lastCol; c++)
                         {
@@ -226,65 +196,50 @@ namespace BagShopManagement.Views.Dev2
                             return;
                         }
 
-                        // load existing items once for duplicate detection
-                        var existingList = _controller.GetAll() ?? new System.Collections.Generic.List<DanhMucLoaiTui>();
+                        var existingList = _controller.GetAll() ?? new List<DanhMucLoaiTui>();
 
                         for (int r = startRow + 1; r <= lastRow; r++)
                         {
                             var ten = (ws.Cells[r, colTen].Text ?? "").Trim();
-                            // skip empty row (no Ten)
                             if (string.IsNullOrEmpty(ten))
                             {
                                 skipped++;
                                 continue;
                             }
 
-                            var motaCell = colMoTa != -1 ? (ws.Cells[r, colMoTa].Text ?? "").Trim() : null;
-
-                            // find existing by Ten (case-insensitive exact)
+                            var mota = colMoTa != -1 ? (ws.Cells[r, colMoTa].Text ?? "").Trim() : null;
                             var existing = existingList.Find(x => string.Equals(x.TenLoaiTui?.Trim(), ten, StringComparison.OrdinalIgnoreCase));
 
                             if (existing != null)
                             {
-                                // update: update Ten (though same) and update MoTa only if excel provided (rule C)
-                                if (!string.IsNullOrWhiteSpace(motaCell))
-                                {
-                                    existing.MoTa = motaCell;
-                                }
-                                // else keep existing.MoTa as is
-                                // call controller.Update
+                                if (!string.IsNullOrWhiteSpace(mota))
+                                    existing.MoTa = mota;
+
                                 bool ok = _controller.Update(existing);
-                                if (ok) updated++;
-                                else skipped++;
+                                if (ok) updated++; else skipped++;
                             }
                             else
                             {
-                                // insert new: generate next code from controller
                                 string nextCode = _controller.GenerateNextCode();
-
                                 var newItem = new DanhMucLoaiTui
                                 {
                                     MaLoaiTui = nextCode,
                                     TenLoaiTui = ten,
-                                    MoTa = string.IsNullOrWhiteSpace(motaCell) ? null : motaCell
+                                    MoTa = string.IsNullOrWhiteSpace(mota) ? null : mota
                                 };
-
                                 bool ok = _controller.Add(newItem);
                                 if (ok)
                                 {
                                     inserted++;
-                                    // update local cache so subsequent rows see newly added names
                                     existingList.Add(newItem);
                                 }
                                 else skipped++;
                             }
-                        } // end rows
-                    } // end package
+                        }
+                    }
 
-                    // reload grid
                     LoadData();
-
-                    MessageBox.Show($"Import hoàn tất. Thêm: {inserted}, Cập nhật: {updated}, Bỏ qua: {skipped}", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show($"Import hoàn tất.\nThêm: {inserted}, Cập nhật: {updated}, Bỏ qua: {skipped}", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception ex)
@@ -293,68 +248,70 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        private void btnExport_Click(object sender, EventArgs e)
+        // ========== EXPORT ==========
+        private void BtnExport_Click(object sender, EventArgs e)
         {
-            using (SaveFileDialog s = new SaveFileDialog())
+            try
             {
-                s.Filter = "Excel File|*.xlsx";
-                s.FileName = $"LoaiTui_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
-
-                if (s.ShowDialog() != DialogResult.OK) return;
-
-                var list = dgvLoaiTui.DataSource as List<DanhMucLoaiTui>;
-                if (list == null || list.Count == 0)
+                using (var s = new SaveFileDialog())
                 {
-                    MessageBox.Show("Không có dữ liệu để xuất.");
-                    return;
+                    s.Filter = "Excel File|*.xlsx";
+                    s.FileName = $"LoaiTui_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
+                    if (s.ShowDialog() != DialogResult.OK) return;
+
+                    var list = (dgvLoaiTui.DataSource as List<DanhMucLoaiTui>) ?? _controller.GetAll();
+                    if (list == null || list.Count == 0)
+                    {
+                        MessageBox.Show("Không có dữ liệu để xuất.");
+                        return;
+                    }
+
+                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                    using (var p = new ExcelPackage())
+                    {
+                        var ws = p.Workbook.Worksheets.Add("LoaiTui");
+
+                        ws.Cells["A1"].Value = "MaLoaiTui";
+                        ws.Cells["B1"].Value = "TenLoaiTui";
+                        ws.Cells["C1"].Value = "MoTa";
+
+                        using (var r = ws.Cells["A1:C1"])
+                        {
+                            r.Style.Font.Bold = true;
+                            r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                            r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                            r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                            r.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                        }
+
+                        int row = 2;
+                        foreach (var x in list)
+                        {
+                            ws.Cells[row, 1].Value = x.MaLoaiTui;
+                            ws.Cells[row, 2].Value = x.TenLoaiTui;
+                            ws.Cells[row, 3].Value = x.MoTa;
+                            row++;
+                        }
+
+                        using (var r = ws.Cells[1, 1, row - 1, 3])
+                        {
+                            r.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            r.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            r.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                            r.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
+                        }
+
+                        ws.Cells.AutoFitColumns();
+                        p.SaveAs(new FileInfo(s.FileName));
+                    }
+
+                    MessageBox.Show("Xuất file thành công");
                 }
-
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (ExcelPackage p = new ExcelPackage())
-                {
-                    var ws = p.Workbook.Worksheets.Add("LoaiTui");
-
-                    // header
-                    ws.Cells["A1"].Value = "Mã Loại Túi";
-                    ws.Cells["B1"].Value = "Tên Loại Túi";
-                    ws.Cells["C1"].Value = "Mô Tả";
-
-                    using (var r = ws.Cells["A1:C1"])
-                    {
-                        r.Style.Font.Bold = true;
-                        r.Style.WrapText = true;
-                        r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                        r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                        r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                        r.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
-                    }
-
-                    int row = 2;
-                    foreach (var x in list)
-                    {
-                        ws.Cells[row, 1].Value = x.MaLoaiTui;
-                        ws.Cells[row, 2].Value = x.TenLoaiTui;
-                        ws.Cells[row, 3].Value = x.MoTa;
-                        row++;
-                    }
-
-                    // border all
-                    using (var r = ws.Cells[1, 1, row - 1, 3])
-                    {
-                        r.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        r.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        r.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                        r.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    }
-
-                    ws.Cells.AutoFitColumns();
-
-                    p.SaveAs(new FileInfo(s.FileName));
-                }
-
-                MessageBox.Show("Xuất file thành công");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi xuất: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
     }
 }
