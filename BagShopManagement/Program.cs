@@ -46,6 +46,7 @@ namespace BagShopManagement
             services.AddTransient<IChiTietHDNRepository, ChiTietHDNRepository>();
             services.AddTransient<INhaCungCapRepository, NhaCungCapRepository>();
             services.AddTransient<INhanVienRepository, NhanVienRepository>();
+            services.AddTransient<IBaoCaoRepository, BaoCaoRepository>();
 
             // === Đăng ký Services - Dev4 ===
             services.AddTransient<IHoaDonBanService, HoaDonBanService>();
@@ -54,11 +55,13 @@ namespace BagShopManagement
 
             // === Đăng ký Services - Dev6 ===
             services.AddTransient<IHoaDonNhapService, HoaDonNhapService>();
+            services.AddTransient<IBaoCaoService, BaoCaoService>();
 
             // === Đăng ký Controllers ===
             services.AddTransient<POSController>();
             services.AddTransient<HoaDonBanController>();
             services.AddTransient<HoaDonNhapController>();
+            services.AddTransient<BaoCaoController>();
 
             // === Đăng ký Utils ===
             services.AddTransient(sp => new MaHoaDonGenerator("HDN", 3));
@@ -75,7 +78,7 @@ namespace BagShopManagement
             // Dev6 Forms
             services.AddTransient<frmHoaDonNhapDetail>();
             services.AddTransient<ucHoaDonNhapList>();
-            services.AddTransient<TEST>();
+            services.AddTransient<ucBaoCaoThongKe>();
         }
     }
 }
