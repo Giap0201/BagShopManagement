@@ -105,18 +105,21 @@ CREATE TABLE NhanVien (
 -- 4. HÓA ĐƠN NHẬP & BÁN
 -- =========================
 CREATE TABLE HoaDonNhap (
-    MaHDN VARCHAR(10) PRIMARY KEY, -- HDN001
+    MaHDN VARCHAR(20) PRIMARY KEY, -- HDN001
     MaNCC VARCHAR(10) NOT NULL,
     MaNV VARCHAR(10) NOT NULL,
     NgayNhap DATETIME DEFAULT GETDATE(),
     TongTien DECIMAL(18,2) DEFAULT 0,
     GhiChu NVARCHAR(500),
+    NgayDuyet DATETIME ,
+    NgayHuy DATETIME ,
+    TrangThai TINYINT,
     FOREIGN KEY (MaNCC) REFERENCES NhaCungCap(MaNCC),
     FOREIGN KEY (MaNV) REFERENCES NhanVien(MaNV)
 );
 
 CREATE TABLE ChiTietHoaDonNhap (
-    MaHDN VARCHAR(10),
+    MaHDN VARCHAR(20),
     MaSP VARCHAR(10),
     SoLuong INT NOT NULL,
     DonGia DECIMAL(18,2) NOT NULL,
