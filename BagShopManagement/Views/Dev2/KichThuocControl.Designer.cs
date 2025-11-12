@@ -47,6 +47,7 @@
             dgvKichThuoc.RowHeadersWidth = 51;
             dgvKichThuoc.Size = new Size(867, 361);
             dgvKichThuoc.TabIndex = 0;
+            dgvKichThuoc.CellDoubleClick += dgvKichThuoc_CellDoubleClick;
             // 
             // txtSearch
             // 
@@ -55,6 +56,7 @@
             txtSearch.PlaceholderText = "Tìm kiếm";
             txtSearch.Size = new Size(260, 27);
             txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnAdd
             // 

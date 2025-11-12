@@ -1,6 +1,5 @@
 ﻿using BagShopManagement.Controllers;
 using BagShopManagement.Models;
-using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using OfficeOpenXml;
 using System;
@@ -15,17 +14,20 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class SanPhamControl : UserControl
     {
-        private readonly SanPhamController _controller = new SanPhamController();
-        private readonly IDanhMucService _danhMucService = new DanhMucService(new Repositories.Implementations.DanhMucRepository());
+        private readonly SanPhamController _controller;
+        private readonly IDanhMucService _danhMucService;
         private List<SanPham> _list;
 
-        public SanPhamControl()
+        // ✅ Inject controller & service qua constructor (phù hợp DI)
+        public SanPhamControl(SanPhamController controller, IDanhMucService danhMucService)
         {
             InitializeComponent();
+            _controller = controller;
+            _danhMucService = danhMucService;
+
             this.Load += SanPhamControl_Load;
             dgvSanPham.SelectionChanged += dgvSanPham_SelectionChanged;
 
-            // Gắn sự kiện lọc
             btnLoc.Click += BtnLoc_Click;
             btnRefresh.Click += BtnRefresh_Click;
         }
@@ -153,48 +155,28 @@ namespace BagShopManagement.Views.Dev2
 
             var filtered = _list.AsEnumerable();
 
-            // Giá bán
             if (cboGiaBan.SelectedIndex >= 0)
             {
                 switch (cboGiaBan.SelectedItem.ToString())
                 {
-                    case "<500k":
-                        filtered = filtered.Where(x => x.GiaBan < 500000);
-                        break;
-                    case "500k–1000k":
-                        filtered = filtered.Where(x => x.GiaBan >= 500000 && x.GiaBan <= 1000000);
-                        break;
-                    case ">1000k":
-                        filtered = filtered.Where(x => x.GiaBan > 1000000);
-                        break;
+                    case "<500k": filtered = filtered.Where(x => x.GiaBan < 500000); break;
+                    case "500k–1000k": filtered = filtered.Where(x => x.GiaBan >= 500000 && x.GiaBan <= 1000000); break;
+                    case ">1000k": filtered = filtered.Where(x => x.GiaBan > 1000000); break;
                 }
             }
 
-            // Loại túi
             if (cboLoaiTui.SelectedIndex >= 0)
                 filtered = filtered.Where(x => x.MaLoaiTui == cboLoaiTui.SelectedValue?.ToString());
-
-            // Thương hiệu
             if (cboThuongHieu.SelectedIndex >= 0)
                 filtered = filtered.Where(x => x.MaThuongHieu == cboThuongHieu.SelectedValue?.ToString());
-
-            // Chất liệu
             if (cboChatLieu.SelectedIndex >= 0)
                 filtered = filtered.Where(x => x.MaChatLieu == cboChatLieu.SelectedValue?.ToString());
-
-            // Màu sắc
             if (cboMau.SelectedIndex >= 0)
                 filtered = filtered.Where(x => x.MaMau == cboMau.SelectedValue?.ToString());
-
-            // Kích thước
             if (cboKichThuoc.SelectedIndex >= 0)
                 filtered = filtered.Where(x => x.MaKichThuoc == cboKichThuoc.SelectedValue?.ToString());
-
-            // Nhà cung cấp
             if (cboNCC.SelectedIndex >= 0)
                 filtered = filtered.Where(x => x.MaNCC == cboNCC.SelectedValue?.ToString());
-
-            // Trạng thái
             if (cboTrangThai.SelectedIndex > 0)
             {
                 bool trangThai = cboTrangThai.SelectedIndex == 1;
@@ -206,7 +188,6 @@ namespace BagShopManagement.Views.Dev2
 
         private void BtnRefresh_Click(object sender, EventArgs e)
         {
-            // Reset tất cả filter
             cboGiaBan.SelectedIndex = -1;
             cboLoaiTui.SelectedIndex = -1;
             cboThuongHieu.SelectedIndex = -1;
@@ -216,11 +197,10 @@ namespace BagShopManagement.Views.Dev2
             cboNCC.SelectedIndex = -1;
             cboTrangThai.SelectedIndex = 0;
             txtSearch.Clear();
-
             dgvSanPham.DataSource = _list;
         }
 
-        // ================= PHẦN HIỆN CÓ =================
+        // ================= CRUD & IMPORT/EXPORT giữ nguyên =================
         private void btnAdd_Click(object sender, EventArgs e)
         {
             using (var f = new SanPhamEditForm(_controller))
@@ -273,7 +253,6 @@ namespace BagShopManagement.Views.Dev2
                 f.ShowDialog();
         }
 
-        // ================= HIỂN THỊ ẢNH =================
         private void dgvSanPham_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvSanPham.CurrentRow == null)
@@ -313,7 +292,6 @@ namespace BagShopManagement.Views.Dev2
                 picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
-
 
         // ================= IMPORT =================
         private void BtnImport_Click(object sender, EventArgs e)

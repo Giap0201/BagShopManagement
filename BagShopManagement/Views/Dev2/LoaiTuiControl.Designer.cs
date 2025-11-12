@@ -47,6 +47,7 @@
             dgvLoaiTui.RowHeadersWidth = 51;
             dgvLoaiTui.Size = new Size(867, 361);
             dgvLoaiTui.TabIndex = 0;
+            dgvLoaiTui.CellDoubleClick += dgvLoaiTui_CellDoubleClick;
             // 
             // txtSearch
             // 
@@ -55,6 +56,7 @@
             txtSearch.PlaceholderText = "Tìm kiếm";
             txtSearch.Size = new Size(260, 27);
             txtSearch.TabIndex = 1;
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnAdd
             // 
@@ -64,6 +66,7 @@
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Thêm";
             btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
@@ -73,6 +76,7 @@
             btnEdit.TabIndex = 3;
             btnEdit.Text = "Sửa";
             btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
@@ -82,6 +86,7 @@
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Xoá";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnSearch
             // 
@@ -100,6 +105,7 @@
             btnImport.TabIndex = 7;
             btnImport.Text = "Nhập file";
             btnImport.UseVisualStyleBackColor = true;
+            btnImport.Click += BtnImport_Click;
             // 
             // btnExport
             // 
@@ -109,7 +115,7 @@
             btnExport.TabIndex = 8;
             btnExport.Text = "Xuất file";
             btnExport.UseVisualStyleBackColor = true;
-            btnExport.Click += btnExport_Click;
+            btnExport.Click += BtnExport_Click;
             // 
             // LoaiTuiControl
             // 
