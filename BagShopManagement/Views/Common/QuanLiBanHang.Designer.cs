@@ -61,6 +61,7 @@
             hoaDonNhapControl2.Name = "hoaDonNhapControl2";
             hoaDonNhapControl2.Size = new Size(985, 620);
             hoaDonNhapControl2.TabIndex = 2;
+            hoaDonNhapControl2.Load += hoaDonNhapControl2_Load;
             // 
             // errorProvider1
             // 
