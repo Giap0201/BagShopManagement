@@ -6,11 +6,11 @@ namespace BagShopManagement.Views.Controls
 {
     public partial class SideBarControl : UserControl
     {
-        public event EventHandler ShowTestClicked;
-
         public event EventHandler ShowHoaDonNhapClicked;
 
         public event EventHandler ShowBanHangClicked;
+
+        public event EventHandler ShowBaoCaoThongKeClicked;
 
         public SideBarControl()
         {
@@ -29,7 +29,7 @@ namespace BagShopManagement.Views.Controls
 
         private void btnBCTK_Click(object sender, EventArgs e)
         {
-            ShowTestClicked?.Invoke(this, EventArgs.Empty);
+            ShowBaoCaoThongKeClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

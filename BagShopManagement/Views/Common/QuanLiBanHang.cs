@@ -45,50 +45,50 @@ namespace BagShopManagement.Views.Common
             }
         }
 
-        private void ShowFormAsControl<T>() where T : Form
-        {
-            //MessageBox.Show("POS clicked!");
+        //private void ShowFormAsControl<T>() where T : Form
+        //{
+        //    //MessageBox.Show("POS clicked!");
 
-            try
-            {
-                if (_currentChildForm != null && _currentChildForm.GetType() == typeof(T))
-                    return;
+        //    try
+        //    {
+        //        if (_currentChildForm != null && _currentChildForm.GetType() == typeof(T))
+        //            return;
 
-                // Đóng form cũ nếu có
-                if (_currentChildForm != null)
-                {
-                    mainPanel.Controls.Remove(_currentChildForm);
-                    _currentChildForm.Dispose();
-                    _currentChildForm = null;
-                }
+        //        // Đóng form cũ nếu có
+        //        if (_currentChildForm != null)
+        //        {
+        //            mainPanel.Controls.Remove(_currentChildForm);
+        //            _currentChildForm.Dispose();
+        //            _currentChildForm = null;
+        //        }
 
-                // Lấy form mới từ DI
-                var form = _serviceProvider.GetRequiredService<T>();
+        //        // Lấy form mới từ DI
+        //        var form = _serviceProvider.GetRequiredService<T>();
 
-                // ⚙️ Cấu hình để "coi như UserControl"
-                form.TopLevel = false;
-                form.FormBorderStyle = FormBorderStyle.None;
-                form.Dock = DockStyle.Fill;
+        //        // ⚙️ Cấu hình để "coi như UserControl"
+        //        form.TopLevel = false;
+        //        form.FormBorderStyle = FormBorderStyle.None;
+        //        form.Dock = DockStyle.Fill;
 
-                // Thêm vào panel
-                mainPanel.Controls.Add(form);
-                _currentChildForm = form;
+        //        // Thêm vào panel
+        //        mainPanel.Controls.Add(form);
+        //        _currentChildForm = form;
 
-                form.Show(); // 👈 BẮT BUỘC: Form mới vẽ được
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi hiển thị module: {ex.Message}",
-                                "Lỗi nghiêm trọng", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
+        //        form.Show(); // 👈 BẮT BUỘC: Form mới vẽ được
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Lỗi khi hiển thị module: {ex.Message}",
+        //                        "Lỗi nghiêm trọng", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
+        //}
 
         private void QuanLiBanHang_Load(object sender, EventArgs e)
         {
             if (this.DesignMode) return;
 
             sideBarControl.ShowHoaDonNhapClicked += (s, ev) => ShowUserControl<ucHoaDonNhapList>();
-            sideBarControl.ShowTestClicked += (s, ev) => ShowUserControl<TEST>();
+            sideBarControl.ShowBaoCaoThongKeClicked += (s, ev) => ShowUserControl<ucBaoCaoThongKe>();
 
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
 

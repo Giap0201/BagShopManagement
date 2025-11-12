@@ -9,6 +9,16 @@ namespace BagShopManagement.Repositories.Interfaces
 {
     public interface INhaCungCapRepository
     {
-        List<NhaCungCap> GetAll();
+        public List<NhaCungCap> GetAll();
+
+        public NhaCungCap? GetById(string maNCC);
+
+        public int Add(NhaCungCap NCC);
+
+        public int Update(NhaCungCap NCC);
+
+        public int Delete(string maNCC);
+
+        public List<NhaCungCap> Search(string ten, string sdt, string email);
     }
 }
