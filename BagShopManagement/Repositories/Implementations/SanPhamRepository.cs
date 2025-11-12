@@ -5,6 +5,8 @@ using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
+using System.Linq;
 
 namespace BagShopManagement.Repositories.Implementations
 {
@@ -29,7 +31,7 @@ namespace BagShopManagement.Repositories.Implementations
                 MaNCC = row["MaNCC"]?.ToString(),
                 TrangThai = row.Field<bool>("TrangThai"),
                 NgayTao = row.Field<DateTime>("NgayTao")
-            };
+        };
         }
 
         public List<SanPham> GetAll()
@@ -82,7 +84,7 @@ namespace BagShopManagement.Repositories.Implementations
         public bool Update(SanPham sp)
         {
             string query = @"UPDATE SanPham SET TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
-                             MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu,
+MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu, 
                              MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC, TrangThai=@TrangThai
                              WHERE MaSP=@MaSP";
 

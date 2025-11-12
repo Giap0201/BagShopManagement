@@ -15,6 +15,10 @@ namespace BagShopManagement.Views.Controls
         public SideBarControl()
         {
             InitializeComponent();
+
+            // Gắn sự kiện click cho nút Sản phẩm
+            btnSanPham.Click += btnSanPham_Click;
+            btnDanhMuc.Click += btnDanhMuc_Click;
         }
 
         private void btnHoaDonNhap_Click(object sender, EventArgs e)
