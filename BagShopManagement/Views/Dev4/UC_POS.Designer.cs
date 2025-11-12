@@ -67,14 +67,14 @@
             // 
             txtMaNV.Location = new Point(1040, 30);
             txtMaNV.Name = "txtMaNV";
-            txtMaNV.Size = new Size(250, 27);
+            txtMaNV.Size = new Size(250, 47);
             txtMaNV.TabIndex = 0;
             // 
             // txtMaKH
             // 
             txtMaKH.Location = new Point(200, 30);
             txtMaKH.Name = "txtMaKH";
-            txtMaKH.Size = new Size(250, 27);
+            txtMaKH.Size = new Size(250, 47);
             txtMaKH.TabIndex = 1;
             // 
             // lblNv
@@ -82,7 +82,7 @@
             lblNv.AutoSize = true;
             lblNv.Location = new Point(870, 30);
             lblNv.Name = "lblNv";
-            lblNv.Size = new Size(54, 20);
+            lblNv.Size = new Size(109, 41);
             lblNv.TabIndex = 2;
             lblNv.Text = "Mã NV";
             // 
@@ -91,7 +91,7 @@
             lblKh.AutoSize = true;
             lblKh.Location = new Point(30, 30);
             lblKh.Name = "lblKh";
-            lblKh.Size = new Size(54, 20);
+            lblKh.Size = new Size(106, 41);
             lblKh.TabIndex = 3;
             lblKh.Text = "Mã KH";
             // 
@@ -114,34 +114,34 @@
             grpActions.Controls.Add(btnApplyDiscount);
             grpActions.Controls.Add(numDiscountPercent);
             grpActions.Controls.Add(lblDiscount);
-            grpActions.Location = new Point(10, 450);
+            grpActions.Location = new Point(10, 426);
             grpActions.Name = "grpActions";
-            grpActions.Size = new Size(406, 400);
+            grpActions.Size = new Size(482, 429);
             grpActions.TabIndex = 0;
             grpActions.TabStop = false;
             grpActions.Text = "Thanh toán và khuyến mãi";
             // 
             // btnPrint
             // 
-            btnPrint.Location = new Point(190, 150);
+            btnPrint.Location = new Point(136, 355);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(150, 50);
+            btnPrint.Size = new Size(191, 52);
             btnPrint.TabIndex = 0;
             btnPrint.Text = "In hóa đơn";
             btnPrint.Click += btnPrint_Click;
             // 
             // btnCheckout
             // 
-            btnCheckout.Location = new Point(170, 250);
+            btnCheckout.Location = new Point(225, 281);
             btnCheckout.Name = "btnCheckout";
-            btnCheckout.Size = new Size(150, 50);
+            btnCheckout.Size = new Size(196, 50);
             btnCheckout.TabIndex = 1;
             btnCheckout.Text = "Thanh toán";
             btnCheckout.Click += btnCheckout_Click;
             // 
             // btnSaveDraft
             // 
-            btnSaveDraft.Location = new Point(20, 250);
+            btnSaveDraft.Location = new Point(55, 281);
             btnSaveDraft.Name = "btnSaveDraft";
             btnSaveDraft.Size = new Size(130, 50);
             btnSaveDraft.TabIndex = 2;
@@ -151,33 +151,33 @@
             // lblTotal
             // 
             lblTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblTotal.Location = new Point(20, 150);
+            lblTotal.Location = new Point(20, 209);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(100, 23);
+            lblTotal.Size = new Size(108, 45);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "Tổng: 0 ₫";
             // 
             // btnApplyDiscount
             // 
-            btnApplyDiscount.Location = new Point(126, 104);
+            btnApplyDiscount.Location = new Point(259, 146);
             btnApplyDiscount.Name = "btnApplyDiscount";
-            btnApplyDiscount.Size = new Size(140, 40);
+            btnApplyDiscount.Size = new Size(181, 49);
             btnApplyDiscount.TabIndex = 4;
             btnApplyDiscount.Text = "Áp dụng";
             btnApplyDiscount.Click += btnApplyDiscount_Click;
             // 
             // numDiscountPercent
             // 
-            numDiscountPercent.Location = new Point(180, 65);
+            numDiscountPercent.Location = new Point(244, 68);
             numDiscountPercent.Name = "numDiscountPercent";
-            numDiscountPercent.Size = new Size(130, 27);
+            numDiscountPercent.Size = new Size(196, 47);
             numDiscountPercent.TabIndex = 5;
             // 
             // lblDiscount
             // 
             lblDiscount.Location = new Point(20, 70);
             lblDiscount.Name = "lblDiscount";
-            lblDiscount.Size = new Size(100, 23);
+            lblDiscount.Size = new Size(165, 45);
             lblDiscount.TabIndex = 6;
             lblDiscount.Text = "Giảm (%):";
             // 
@@ -192,14 +192,14 @@
             grpAdd.Controls.Add(lblMaSP);
             grpAdd.Location = new Point(10, 10);
             grpAdd.Name = "grpAdd";
-            grpAdd.Size = new Size(406, 400);
+            grpAdd.Size = new Size(482, 390);
             grpAdd.TabIndex = 1;
             grpAdd.TabStop = false;
             grpAdd.Text = "Thêm sản phẩm";
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(210, 219);
+            btnDelete.Location = new Point(276, 219);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(130, 50);
             btnDelete.TabIndex = 0;
@@ -208,7 +208,7 @@
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(73, 275);
+            btnClear.Location = new Point(142, 303);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(150, 50);
             btnClear.TabIndex = 1;
@@ -226,11 +226,11 @@
             // 
             // numQty
             // 
-            numQty.Location = new Point(126, 138);
+            numQty.Location = new Point(190, 138);
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(250, 27);
+            numQty.Size = new Size(250, 47);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -238,22 +238,22 @@
             // 
             lblQty.Location = new Point(20, 140);
             lblQty.Name = "lblQty";
-            lblQty.Size = new Size(100, 23);
+            lblQty.Size = new Size(153, 45);
             lblQty.TabIndex = 4;
             lblQty.Text = "Số lượng:";
             // 
             // txtMaSP
             // 
-            txtMaSP.Location = new Point(126, 56);
+            txtMaSP.Location = new Point(190, 56);
             txtMaSP.Name = "txtMaSP";
-            txtMaSP.Size = new Size(250, 27);
+            txtMaSP.Size = new Size(250, 47);
             txtMaSP.TabIndex = 5;
             // 
             // lblMaSP
             // 
             lblMaSP.Location = new Point(20, 60);
             lblMaSP.Name = "lblMaSP";
-            lblMaSP.Size = new Size(100, 23);
+            lblMaSP.Size = new Size(130, 43);
             lblMaSP.TabIndex = 6;
             lblMaSP.Text = "Mã SP:";
             // 
@@ -278,6 +278,7 @@
             dgvCart.RowHeadersWidth = 51;
             dgvCart.Size = new Size(1038, 879);
             dgvCart.TabIndex = 0;
+            dgvCart.CellContentClick += dgvCart_CellContentClick;
             // 
             // UC_POS
             // 

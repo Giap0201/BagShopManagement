@@ -6,6 +6,7 @@ using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
 using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev4.Dev4_POS;
+using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev6;
 using BagShopManagement.Views.Common;
 using BagShopManagement.Views.Controls;
@@ -67,10 +68,11 @@ namespace BagShopManagement
             services.AddTransient<QuanLiBanHang>();  // Form chính
             services.AddTransient<SideBarControl>(); // Thanh bên
 
-            // Dev4 Forms
+            // Dev4 Forms & UserControls
             services.AddTransient<POSForm>();
             services.AddTransient<HoaDonBanForm>();
             services.AddTransient<UC_POS>();
+            services.AddTransient<UC_HoaDonBan>();
 
             // Dev6 Forms
             services.AddTransient<frmHoaDonNhapDetail>();
