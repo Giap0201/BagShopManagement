@@ -154,6 +154,7 @@
             btnHoaDonBan.TabIndex = 4;
             btnHoaDonBan.Text = "Hoá đơn bán";
             btnHoaDonBan.UseVisualStyleBackColor = true;
+            btnHoaDonBan.Click += btnHoaDonBan_Click;
             // 
             // btnSanPham
             // 

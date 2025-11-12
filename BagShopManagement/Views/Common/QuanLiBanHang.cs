@@ -1,4 +1,6 @@
 ﻿using BagShopManagement.Views.Controls;
+using BagShopManagement.Views.Dev4;
+using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
@@ -91,6 +93,7 @@ namespace BagShopManagement.Views.Common
             sideBarControl.ShowTestClicked += (s, ev) => ShowUserControl<TEST>();
 
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
+            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
 
             // Không hiển thị gì ban đầu
             // ShowUserControl<ucHoaDonNhapList>();

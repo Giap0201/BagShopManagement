@@ -11,9 +11,9 @@ namespace BagShopManagement.Services.Interfaces
     {
         (bool ok, string message) AddProductToCart(string maSP, int soLuong);
         void ApplyDiscounts(decimal percent);
-    // Apply discount percent to a single product in the cart
-    void ApplyDiscountToProduct(string maSP, decimal percent);
-        (bool ok, string result) Checkout(string maKH, string maNV, bool saveDraft = false, string phuongThucTT = null, string ghiChu = null);
+        // Apply discount percent to a single product in the cart
+        void ApplyDiscountToProduct(string maSP, decimal percent);
+        (bool ok, string result) Checkout(string maKH, string maNV, bool saveDraft = false, string? phuongThucTT = null, string? ghiChu = null);
         List<CartItem> GetCart();
         void ClearCart();
         void RemoveProductFromCart(string maSP);

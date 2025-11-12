@@ -41,12 +41,27 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             dgvCart.AutoGenerateColumns = false;
             dgvCart.Columns.Clear();
 
+            // Cấu hình DataGridView để hiển thị tốt hơn
+            dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvCart.AllowUserToResizeColumns = true;
+            dgvCart.ColumnHeadersHeight = 45;
+            dgvCart.RowTemplate.Height = 40;
+
+            // Tăng font size cho dễ đọc
+            dgvCart.DefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F);
+            dgvCart.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            dgvCart.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Tất cả cột có width bằng nhau (150px)
+            int columnWidth = 150;
+
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Mã SP",
                 DataPropertyName = "MaSP",
                 Name = "MaSP",
-                Width = 120
+                Width = columnWidth,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
@@ -54,7 +69,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Tên sản phẩm",
                 DataPropertyName = "TenSP",
                 Name = "TenSP",
-                Width = 220
+                Width = columnWidth,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
@@ -62,7 +78,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Số lượng",
                 DataPropertyName = "SoLuong",
                 Name = "SoLuong",
-                Width = 100
+                Width = columnWidth,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                DefaultCellStyle = new DataGridViewCellStyle { Alignment = DataGridViewContentAlignment.MiddleCenter }
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
@@ -70,17 +88,27 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Đơn giá",
                 DataPropertyName = "DonGia",
                 Name = "DonGia",
-                Width = 120,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+                Width = columnWidth,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N0",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
             {
-                HeaderText = "Giảm/SP",
+                HeaderText = "Giảm giá",
                 DataPropertyName = "GiamGiaSP",
                 Name = "GiamGiaSP",
-                Width = 120,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+                Width = columnWidth,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N0",
+                    Alignment = DataGridViewContentAlignment.MiddleRight
+                }
             });
 
             dgvCart.Columns.Add(new DataGridViewTextBoxColumn
@@ -88,8 +116,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 HeaderText = "Thành tiền",
                 DataPropertyName = "ThanhTien",
                 Name = "ThanhTien",
-                Width = 150,
-                DefaultCellStyle = new DataGridViewCellStyle { Format = "N0" }
+                Width = columnWidth,
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.None,
+                DefaultCellStyle = new DataGridViewCellStyle
+                {
+                    Format = "N0",
+                    Alignment = DataGridViewContentAlignment.MiddleRight,
+                    Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold)
+                }
             });
         }
 
@@ -105,11 +139,47 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
+            // Kiểm tra tồn kho trước khi thêm
+            var sanPhamRepo = new SanPhamRepository();
+            var sp = sanPhamRepo.GetById(maSP);
+
+            if (sp != null)
+            {
+                // Hiển thị thông tin tồn kho
+                if (sp.SoLuongTon < qty)
+                {
+                    MessageBox.Show($"Sản phẩm '{sp.TenSP}' chỉ còn {sp.SoLuongTon} trong kho!\nKhông đủ số lượng để thêm vào giỏ.",
+                        "Cảnh báo tồn kho", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                else if (sp.SoLuongTon <= 10)
+                {
+                    // Cảnh báo sắp hết hàng
+                    var result = MessageBox.Show($"⚠️ Sản phẩm '{sp.TenSP}' sắp hết hàng!\nTồn kho: {sp.SoLuongTon}\n\nBạn có muốn tiếp tục thêm vào giỏ không?",
+                        "Cảnh báo sắp hết hàng", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (result == DialogResult.No)
+                    {
+                        txtMaSP.Clear();
+                        txtMaSP.Focus();
+                        return;
+                    }
+                }
+            }
+
             var (ok, msg) = _controller.AddProduct(maSP, qty);
             if (!ok)
                 MessageBox.Show(msg, "Không thể thêm sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             else
+            {
                 RefreshCartGrid();
+                // Hiển thị thông báo thành công với tồn kho còn lại
+                if (sp != null)
+                {
+                    int tonKhoConLai = sp.SoLuongTon - qty;
+                    MessageBox.Show($"✓ Đã thêm {qty} x '{sp.TenSP}' vào giỏ hàng\nTồn kho còn lại: {tonKhoConLai}",
+                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
 
             txtMaSP.Clear();
             numQty.Value = 1;
@@ -158,29 +228,69 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         private void btnApplyDiscount_Click(object sender, EventArgs e)
         {
             decimal percent = numDiscountPercent.Value;
-            if (percent <= 0)
+            if (percent <= 0 || percent > 100)
             {
-                MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (> 0).", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (0 < % ≤ 100).",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            if (dgvCart.SelectedRows.Count == 0)
+            var cart = _controller.GetCart();
+            if (cart == null || cart.Count == 0)
             {
-                MessageBox.Show("Vui lòng chọn một sản phẩm để áp dụng giảm giá.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Giỏ hàng trống! Vui lòng thêm sản phẩm trước.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            var selectedRow = dgvCart.SelectedRows[0];
-            string? maSP = selectedRow.Cells["MaSP"]?.Value?.ToString();
+            // Hỏi người dùng muốn áp dụng cho 1 sản phẩm hay tất cả
+            var result = MessageBox.Show(
+                $"Áp dụng giảm giá {percent}% cho:\n\n" +
+                $"YES = Tất cả sản phẩm trong giỏ\n" +
+                $"NO = Chỉ sản phẩm đang chọn\n" +
+                $"CANCEL = Hủy bỏ",
+                "Chọn phạm vi áp dụng",
+                MessageBoxButtons.YesNoCancel,
+                MessageBoxIcon.Question);
 
-            if (string.IsNullOrEmpty(maSP))
-            {
-                MessageBox.Show("Không thể xác định mã sản phẩm được chọn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (result == DialogResult.Cancel)
                 return;
+
+            if (result == DialogResult.Yes)
+            {
+                // Áp dụng cho tất cả
+                _controller.ApplyDiscount(percent);
+                MessageBox.Show($"✓ Đã áp dụng giảm giá {percent}% cho {cart.Count} sản phẩm",
+                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else if (result == DialogResult.No)
+            {
+                // Áp dụng cho sản phẩm được chọn
+                if (dgvCart.SelectedRows.Count == 0)
+                {
+                    MessageBox.Show("Vui lòng chọn một sản phẩm trong giỏ hàng.",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
+
+                var selectedRow = dgvCart.SelectedRows[0];
+                string? maSP = selectedRow.Cells["MaSP"]?.Value?.ToString();
+                string? tenSP = selectedRow.Cells["TenSP"]?.Value?.ToString();
+
+                if (string.IsNullOrEmpty(maSP))
+                {
+                    MessageBox.Show("Không thể xác định mã sản phẩm được chọn.",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                _controller.ApplyDiscountToProduct(maSP, percent);
+                MessageBox.Show($"✓ Đã áp dụng giảm giá {percent}% cho '{tenSP}'",
+                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
 
-            _controller.ApplyDiscountToProduct(maSP, percent);
             RefreshCartGrid();
+            numDiscountPercent.Value = 0; // Reset sau khi áp dụng
         }
 
         private void btnSaveDraft_Click(object sender, EventArgs e)
@@ -195,52 +305,133 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
         private void SaveOrCheckout(bool saveDraft)
         {
+            // Kiểm tra giỏ hàng
+            var cart = _controller.GetCart();
+            if (cart == null || cart.Count == 0)
+            {
+                MessageBox.Show("Giỏ hàng trống! Vui lòng thêm sản phẩm trước khi thanh toán.",
+                    "Giỏ hàng trống", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Validate thông tin
             string maKH = txtMaKH.Text.Trim();
             string maNV = txtMaNV.Text.Trim();
 
             if (string.IsNullOrEmpty(maNV))
             {
-                MessageBox.Show("Thiếu mã nhân viên.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng nhập mã nhân viên!",
+                    "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtMaNV.Focus();
                 return;
             }
 
+            // Tính tổng tiền
+            decimal tongTien = cart.Sum(i => (i.DonGia - i.GiamGiaSP) * i.SoLuong);
+
+            // Xác nhận trước khi lưu/thanh toán
+            string confirmMsg = saveDraft
+                ? $"Lưu tạm hóa đơn?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nNhân viên: {maNV}"
+                : $"Xác nhận thanh toán?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nKhách hàng: {(string.IsNullOrEmpty(maKH) ? "Khách lẻ" : maKH)}\nNhân viên: {maNV}";
+
+            var confirm = MessageBox.Show(confirmMsg,
+                saveDraft ? "Xác nhận lưu tạm" : "Xác nhận thanh toán",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirm != DialogResult.Yes)
+                return;
+
+            // Thực hiện checkout
             var (ok, res) = _controller.Checkout(maKH, maNV, saveDraft);
 
             if (!ok)
             {
-                MessageBox.Show(res, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"❌ {res}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 
+            // Lưu mã hóa đơn để in sau
             _lastSavedInvoiceId = res;
-            MessageBox.Show(
-                saveDraft ? $"Hóa đơn tạm đã lưu (Mã: {res})" : $"Thanh toán thành công! Mã HĐ: {res}",
-                "Thành công",
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information
-            );
 
+            // Thông báo thành công với chi tiết
+            string successMsg = saveDraft
+                ? $"✓ Hóa đơn tạm đã lưu!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nBạn có thể chỉnh sửa hóa đơn này sau."
+                : $"✓ Thanh toán thành công!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nBạn có muốn in hóa đơn ngay không?";
+
+            var result = MessageBox.Show(successMsg, "Thành công",
+                saveDraft ? MessageBoxButtons.OK : MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information);
+
+            // Nếu thanh toán thành công và muốn in ngay
+            if (!saveDraft && result == DialogResult.Yes)
+            {
+                btnPrint_Click(this, EventArgs.Empty);
+            }
+
+            // Reset form sau khi hoàn tất
+            ResetForm();
+        }
+
+        /// <summary>
+        /// Reset form về trạng thái ban đầu
+        /// </summary>
+        private void ResetForm()
+        {
+            _controller.ClearCart();
             RefreshCartGrid();
+            txtMaKH.Clear();
+            txtMaSP.Clear();
+            numQty.Value = 1;
+            numDiscountPercent.Value = 0;
+            txtMaSP.Focus();
         }
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(_lastSavedInvoiceId))
             {
-                MessageBox.Show("Chưa có hóa đơn nào để in.", "Thông báo",
+                MessageBox.Show("Chưa có hóa đơn nào để in.\n\nVui lòng thanh toán hoặc lưu tạm hóa đơn trước.",
+                    "Không có hóa đơn",
                     MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             try
             {
+                // Xác nhận trước khi in
+                var confirm = MessageBox.Show(
+                    $"In hóa đơn {_lastSavedInvoiceId}?",
+                    "Xác nhận in",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (confirm != DialogResult.Yes)
+                    return;
+
                 var printService = new InvoicePrintService();
                 printService.PrintInvoice(_lastSavedInvoiceId);
+
+                // Thông báo sau khi in xong (nếu không có lỗi)
+                MessageBox.Show(
+                    $"✓ Đã gửi hóa đơn {_lastSavedInvoiceId} đến máy in!",
+                    "In thành công",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+
+                // Dispose printService
+                printService.Dispose();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message, "Lỗi",
-                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(
+                    $"❌ Lỗi khi in hóa đơn:\n\n{ex.Message}\n\nVui lòng kiểm tra:\n" +
+                    $"- Máy in đã được kết nối?\n" +
+                    $"- Driver máy in đã được cài đặt?\n" +
+                    $"- Có giấy trong máy in?",
+                    "Lỗi in hóa đơn",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Error);
             }
         }
 
@@ -277,6 +468,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 RefreshCartGrid();
                 dgvCart.Focus();
             }
+        }
+
+        private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }
