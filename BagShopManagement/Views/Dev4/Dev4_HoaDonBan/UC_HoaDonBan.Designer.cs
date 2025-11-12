@@ -34,6 +34,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlMain = new Panel();
             dgvHoaDon = new DataGridView();
             pnlBottom = new Panel();
+            btnDelete = new Button();
             btnCancel = new Button();
             btnEdit = new Button();
             btnViewDetails = new Button();
@@ -205,6 +206,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             // pnlBottom
             // 
+            pnlBottom.Controls.Add(btnDelete);
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnEdit);
             pnlBottom.Controls.Add(btnViewDetails);
@@ -214,6 +216,16 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(2090, 79);
             pnlBottom.TabIndex = 2;
+            // 
+            // btnDelete
+            // 
+            btnDelete.Location = new Point(1993, 0);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(200, 79);
+            btnDelete.TabIndex = 4;
+            btnDelete.Text = "Xóa hóa đơn";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnCancel
             // 
@@ -294,5 +306,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private Button btnViewDetails;
         private Button btnEdit;
         private Button btnCancel;
+        private Button btnDelete;
     }
 }

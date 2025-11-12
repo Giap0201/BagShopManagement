@@ -139,6 +139,25 @@ namespace BagShopManagement.Services.Implementations
         }
 
         /// <summary>
+        /// Xóa hóa đơn hoàn toàn khỏi database
+        /// </summary>
+        /// <param name="maHDB">Mã hóa đơn cần xóa</param>
+        /// <remarks>Chỉ nên xóa hóa đơn đã hủy (TrangThaiHD = 3)</remarks>
+        public void DeleteHoaDon(string maHDB)
+        {
+            try
+            {
+                _repo.Delete(maHDB);
+                Logger.Log($"HoaDon deleted permanently: {maHDB}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"DeleteHoaDon error: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
         /// Tạo mã hóa đơn tự động theo format: HDB + số thứ tự 6 chữ số (HDB000001, HDB000002...)
         /// </summary>
         /// <returns>Mã hóa đơn unique với độ dài tối đa 9 ký tự</returns>

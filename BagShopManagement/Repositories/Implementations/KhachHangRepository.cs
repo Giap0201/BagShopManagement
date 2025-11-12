@@ -105,6 +105,23 @@ namespace BagShopManagement.Repositories.Implementations
             return ExecuteNonQuery(query, new SqlParameter("@MaKH", maKH));
         }
 
+        /// <summary>
+        /// Tìm khách hàng theo số điện thoại
+        /// </summary>
+        public KhachHang? GetBySDT(string sdt)
+        {
+            if (string.IsNullOrWhiteSpace(sdt))
+                return null;
+
+            string query = "SELECT * FROM KhachHang WHERE SoDienThoai = @SoDienThoai";
+            DataTable dt = ExecuteQuery(query, new SqlParameter("@SoDienThoai", sdt));
+
+            if (dt.Rows.Count > 0)
+                return MapKhachHang(dt.Rows[0]);
+
+            return null;
+        }
+
         public List<KhachHang> Search(string ten, string sdt, string email)
         {
             string query = @"SELECT * FROM KhachHang

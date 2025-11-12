@@ -304,6 +304,58 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             }
         }
 
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvHoaDon.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một hóa đơn để xóa.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var selectedRow = dgvHoaDon.SelectedRows[0];
+            var maHDB = selectedRow.Cells["MaHDB"].Value?.ToString();
+            var trangThai = Convert.ToByte(selectedRow.Cells["TrangThaiHD"].Value);
+
+            if (string.IsNullOrEmpty(maHDB))
+            {
+                MessageBox.Show("Không thể xác định mã hóa đơn.",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Chỉ cho phép xóa hóa đơn đã hủy (TrangThaiHD = 3)
+            if (trangThai != 3)
+            {
+                MessageBox.Show("Chỉ có thể xóa hóa đơn đã hủy.\nVui lòng hủy hóa đơn trước khi xóa.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var result = MessageBox.Show(
+                $"Bạn có chắc muốn XÓA VĨNH VIỄN hóa đơn {maHDB}?\n" +
+                "Hành động này không thể hoàn tác!",
+                "Xác nhận xóa hóa đơn",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    _controller.Delete(maHDB);
+                    MessageBox.Show("Xóa hóa đơn thành công!",
+                        "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadHoaDonBanList();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi khi xóa hóa đơn: " + ex.Message,
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
         private void lblToDate_Click(object sender, EventArgs e)
         {
 

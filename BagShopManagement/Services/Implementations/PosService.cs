@@ -211,36 +211,9 @@ namespace BagShopManagement.Services.Implementations
             if (string.IsNullOrWhiteSpace(maKH))
                 return null;
 
-            // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
-            //try
-            //{
-            //    using var conn = DatabaseConfig.CreateConnection();
-            //    conn.Open();
-            //    using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
-            //    cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
-
-            //    var result = cmd.ExecuteScalar();
-            //    if (result != null)
-            //    {
-            //        int count = Convert.ToInt32(result);
-            //        if (count > 0)
-            //        {
-            //            // MaKH tồn tại, trả về giá trị
-            //            return maKH.Trim();
-            //        }
-            //    }
-
-            //    // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
-            //    Logger.Log($"MaKH '{maKH}' không tồn tại trong database, xử lý như khách lẻ");
-            //    return null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Nếu có lỗi khi check, log và trả về null để tránh lỗi foreign key
-            //    Logger.Log($"Lỗi khi validate MaKH '{maKH}': {ex.Message}. Xử lý như khách lẻ.");
-            //    return null;
-            //}
-            return null;
+            // Trả về mã khách hàng đã trim
+            // Note: Giả định mã KH đã được validate trước đó (ví dụ: qua form tìm kiếm)
+            return maKH.Trim();
         }
     }
 }

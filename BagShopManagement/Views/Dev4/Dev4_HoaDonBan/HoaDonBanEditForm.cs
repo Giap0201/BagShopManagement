@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using static BagShopManagement.DataAccess.DataAccessBase;
 
 namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 {
@@ -49,21 +50,28 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                     return;
                 }
 
-                // Kiểm tra trạng thái - chỉ cho phép sửa hóa đơn tạm
-                if (hoaDon.TrangThaiHD != 1)
-                {
-                    MessageBox.Show("Chỉ có thể sửa hóa đơn tạm (chưa thanh toán).",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    this.DialogResult = DialogResult.Cancel;
-                    this.Close();
-                    return;
-                }
-
                 // Load thông tin hóa đơn
                 txtMaKH.Text = hoaDon.MaKH ?? "";
                 txtMaNV.Text = hoaDon.MaNV;
                 txtGhiChu.Text = hoaDon.GhiChu ?? "";
                 txtPhuongThucTT.Text = hoaDon.PhuongThucTT ?? "";
+
+                // Load trạng thái
+                switch (hoaDon.TrangThaiHD)
+                {
+                    case 1:
+                        cboTrangThai.SelectedIndex = 0; // Nháp
+                        break;
+                    case 2:
+                        cboTrangThai.SelectedIndex = 1; // Đã thanh toán
+                        break;
+                    case 3:
+                        cboTrangThai.SelectedIndex = 2; // Đã hủy
+                        break;
+                    default:
+                        cboTrangThai.SelectedIndex = 0;
+                        break;
+                }
 
                 // Load chi tiết vào giỏ hàng
                 var chiTiets = _controller.GetChiTiet(_maHDB);
@@ -289,12 +297,24 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                     return;
                 }
 
+                // Validate trạng thái
+                if (cboTrangThai.SelectedIndex < 0)
+                {
+                    MessageBox.Show("Vui lòng chọn trạng thái hóa đơn!", "Thiếu thông tin",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    cboTrangThai.Focus();
+                    return;
+                }
+
                 // Cập nhật thông tin hóa đơn - Validate MaKH
                 hoaDon.MaKH = ValidateMaKH(txtMaKH.Text.Trim());
                 hoaDon.MaNV = txtMaNV.Text.Trim();
                 hoaDon.GhiChu = string.IsNullOrWhiteSpace(txtGhiChu.Text) ? null : txtGhiChu.Text.Trim();
                 hoaDon.PhuongThucTT = string.IsNullOrWhiteSpace(txtPhuongThucTT.Text) ? null : txtPhuongThucTT.Text.Trim();
                 hoaDon.TongTien = _cart.Sum(i => i.ThanhTien);
+
+                // Cập nhật trạng thái
+                hoaDon.TrangThaiHD = (byte)(cboTrangThai.SelectedIndex + 1); // 1: Nháp, 2: Đã thanh toán, 3: Đã hủy
 
                 // Chuyển đổi CartItem sang ChiTietHoaDonBan
                 var chiTiets = _cart.Select(i => new ChiTietHoaDonBan
@@ -374,38 +394,37 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             if (string.IsNullOrWhiteSpace(maKH))
                 return null;
 
-            //// Kiểm tra MaKH có tồn tại trong bảng KhachHang không
-            //try
-            //{
-            //    using var conn = DatabaseConfig.CreateConnection();
-            //    conn.Open();
-            //    using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
-            //    cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
+            // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
+            try
+            {
+                using var conn = new SqlConnection(DataAccessBase.GetConnectionString());
+                conn.Open();
+                using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
+                cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
 
-            //    var result = cmd.ExecuteScalar();
-            //    if (result != null)
-            //    {
-            //        int count = Convert.ToInt32(result);
-            //        if (count > 0)
-            //        {
-            //            // MaKH tồn tại, trả về giá trị
-            //            return maKH.Trim();
-            //        }
-            //    }
+                var result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    int count = Convert.ToInt32(result);
+                    if (count > 0)
+                    {
+                        // MaKH tồn tại, trả về giá trị
+                        return maKH.Trim();
+                    }
+                }
 
-            //    // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
-            //    MessageBox.Show($"Mã khách hàng '{maKH}' không tồn tại. Hệ thống sẽ xử lý như khách lẻ.",
-            //        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //    return null;
-            //}
-            //catch (Exception ex)
-            //{
-            //    // Nếu có lỗi khi check, trả về null để tránh lỗi foreign key
-            //    MessageBox.Show($"Lỗi khi kiểm tra mã khách hàng: {ex.Message}. Hệ thống sẽ xử lý như khách lẻ.",
-            //        "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //    return null;
-            //}
-            return null;
+                // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
+                MessageBox.Show($"Mã khách hàng '{maKH}' không tồn tại. Hệ thống sẽ xử lý như khách lẻ.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return null;
+            }
+            catch (Exception ex)
+            {
+                // Nếu có lỗi khi check, trả về null để tránh lỗi foreign key
+                MessageBox.Show($"Lỗi khi kiểm tra mã khách hàng: {ex.Message}. Hệ thống sẽ xử lý như khách lẻ.",
+                    "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
         }
     }
 }
