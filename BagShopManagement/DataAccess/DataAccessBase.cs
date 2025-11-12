@@ -1,16 +1,80 @@
 ﻿using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using System;
-using System.Configuration;
 using System.Data;
+using System.IO;
+using System.Text.Json;
 
 namespace BagShopManagement.DataAccess
 {
+    /// <summary>
+    /// [DEPRECATED] Sử dụng BaseRepository thay thế
+    /// Class này được giữ lại để backward compatibility với code legacy
+    /// Các repository mới nên kế thừa BaseRepository
+    /// </summary>
+    [Obsolete("Use BaseRepository pattern instead. This class is kept for backward compatibility only.")]
     public static class DataAccessBase
     {
-        private static readonly string ConnectionString = "Data Source=MCCOMPUTER\\SQLEXPRESS; DataBase = BagStoreDB;Integrated Security=True;TrustServerCertificate=True";
+        //chuoi ket noi - uu tien doc tu appsettings.json, fallback ve hardcoded
+        private static readonly string ConnectionString = LoadConnectionString();
 
-        // 2. Thực thi truy vấn SELECT, trả về DataTable
+        private static string LoadConnectionString()
+        {
+            try
+            {
+                string appSettingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+                if (File.Exists(appSettingsPath))
+                {
+                    string json = File.ReadAllText(appSettingsPath);
+                    using (JsonDocument doc = JsonDocument.Parse(json))
+                    {
+                        if (doc.RootElement.TryGetProperty("ConnectionStrings", out JsonElement connStrings))
+                        {
+                            if (connStrings.TryGetProperty("Default", out JsonElement defaultConn))
+                            {
+                                return defaultConn.GetString() ?? GetFallbackConnectionString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Failed to load connection string from appsettings.json: {ex.Message}. Using fallback.");
+            }
+            return GetFallbackConnectionString();
+        }
+
+        private static string GetFallbackConnectionString()
+        {
+            return "Server=DESKTOP-862VN9A;Database=BagShopManagementDB;User Id=sa;Password=Ndtrung@3605;Trusted_Connection=True;TrustServerCertificate=True;";
+        }
+
+        public static string GetConnectionString()
+        {
+            return ConnectionString;
+        }
+
+        //phuong thuc tao va mo ket noi voi database
+        public static SqlConnection GetConnection()
+        {
+            try
+            {
+                var conn = new SqlConnection(ConnectionString);
+                if (conn.State != ConnectionState.Open)
+                {
+                    conn.Open();
+                }
+                return conn;
+            }
+            catch (Exception ex)
+            {
+                ExceptionHandler.Handle(ex, "Không thể kết nối với DB");
+                return null;
+            }
+        }
+
+        //thuc thi cau truy van select, tra ve datatable co ket qua
         public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
@@ -67,11 +131,18 @@ namespace BagShopManagement.DataAccess
         }
 
         // 5. Kiểm tra kết nối
-        public static void TestConnection()
+        public static bool TestConnection()
         {
-            using (var conn = new SqlConnection(ConnectionString))
+            try
             {
-                conn.Open(); // ném exception nếu thất bại
+                using (SqlConnection conn = GetConnection())
+                {
+                    return conn != null && conn.State == ConnectionState.Open;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
     }

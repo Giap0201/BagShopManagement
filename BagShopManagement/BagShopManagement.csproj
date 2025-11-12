@@ -11,13 +11,15 @@
   <ItemGroup>
     <Folder Include="Views\Dev2\" />
     <Folder Include="Views\Dev3\" />
-    <Folder Include="Views\Dev4\" />
     <Folder Include="Views\Dev5\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.10" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="7.0.0-preview2.25289.6" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
+    <PackageReference Include="NuGet.Packaging" Version="6.14.0" />
+    <PackageReference Include="QuestPDF" Version="2025.12.0-alpha4" />
   </ItemGroup>
 
   <ItemGroup>

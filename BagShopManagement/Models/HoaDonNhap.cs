@@ -14,5 +14,8 @@ namespace BagShopManagement.Models
         public DateTime NgayNhap { get; set; }
         public decimal TongTien { get; set; }
         public string? GhiChu { get; set; }
+        public byte TrangThai { get; set; }
+        public DateTime? NgayDuyet { get; set; }
+        public DateTime? NgayHuy { get; set; }
     }
 }

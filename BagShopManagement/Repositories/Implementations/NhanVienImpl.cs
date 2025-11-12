@@ -10,6 +10,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
@@ -27,9 +28,9 @@ namespace BagShopManagement.Repositories.Implementations
         }
 
         private NhanVien MapToNhanVien(IDataRecord reader)
-        {
-            return new NhanVien
             {
+            return new NhanVien
+                {
                 MaNV = reader["MaNV"].ToString(),
                 HoTen = reader["HoTen"].ToString(),
                 ChucVu = reader["ChucVu"] != DBNull.Value ? reader["ChucVu"].ToString() : null,
@@ -38,7 +39,7 @@ namespace BagShopManagement.Repositories.Implementations
                 NgayVaoLam = Convert.ToDateTime(reader["NgayVaoLam"]),
                 TrangThai = Convert.ToBoolean(reader["TrangThai"])
             };
-        }
+            }
 
         // Helper Map cho DTO
         private NhanVienResponse MapToNhanVienResponse(IDataRecord reader)
@@ -199,6 +200,23 @@ namespace BagShopManagement.Repositories.Implementations
             cmd.Parameters.AddWithValue("@MaNV", nhanVien.MaNV);
 
             cmd.ExecuteNonQuery();
+        }
+
+        public List<NhanVien> GetAll()
+        {
+            string query = "SELECT MaNV, HoTen FROM NhanVien WHERE TrangThai = 1 ORDER BY HoTen";
+            DataTable dt = base.ExecuteQuery(query);
+
+            var list = new List<NhanVien>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(new NhanVien
+                {
+                    MaNV = row["MaNV"].ToString(),
+                    HoTen = row["HoTen"].ToString()
+                });
+            }
+            return list;
         }
     }
 }

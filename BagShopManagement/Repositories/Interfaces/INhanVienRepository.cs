@@ -30,5 +30,7 @@ namespace BagShopManagement.Repositories.Interfaces
         // --- PHIÊN BẢN TRANSACTION ---
         void Add(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran);
         void Update(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran);
+
+        List<NhanVien> GetAll();
     }
 }
