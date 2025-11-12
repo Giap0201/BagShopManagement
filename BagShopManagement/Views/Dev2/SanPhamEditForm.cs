@@ -4,14 +4,7 @@ using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev2
@@ -22,7 +15,7 @@ namespace BagShopManagement.Views.Dev2
         private readonly SanPham _sanPham;
         private readonly bool _isEdit;
         private readonly IDanhMucService _danhMucService = new DanhMucService(new DanhMucRepository());
-        private string _selectedImagePath; // path ảnh gốc
+        private string _selectedImagePath;
 
         public SanPhamEditForm(SanPhamController controller, SanPham sp = null)
         {
@@ -30,15 +23,17 @@ namespace BagShopManagement.Views.Dev2
             _controller = controller;
             _sanPham = sp;
             _isEdit = sp != null;
-
-            this.Load += SanPhamEditForm_Load;
+            Load += SanPhamEditForm_Load;
         }
+
         private void SanPhamEditForm_Load(object sender, EventArgs e)
         {
             LoadAllDanhMuc();
 
             if (_isEdit)
                 LoadSanPhamToForm(_sanPham);
+            else
+                txtMaSP.Text = _controller.GenerateNextCode();
         }
 
         private void LoadAllDanhMuc()
@@ -67,7 +62,6 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-
         private void LoadSanPhamToForm(SanPham sp)
         {
             txtMaSP.Text = sp.MaSP;
@@ -77,17 +71,28 @@ namespace BagShopManagement.Views.Dev2
             numSoLuong.Value = sp.SoLuongTon;
             txtMoTa.Text = sp.MoTa;
             chkTrangThai.Checked = sp.TrangThai;
-            if (!string.IsNullOrEmpty(sp.MaLoaiTui)) cboLoaiTui.SelectedValue = sp.MaLoaiTui;
-            if (!string.IsNullOrEmpty(sp.MaThuongHieu)) cboThuongHieu.SelectedValue = sp.MaThuongHieu;
-            if (!string.IsNullOrEmpty(sp.MaChatLieu)) cboChatLieu.SelectedValue = sp.MaChatLieu;
-            if (!string.IsNullOrEmpty(sp.MaMau)) cboMau.SelectedValue = sp.MaMau;
-            if (!string.IsNullOrEmpty(sp.MaKichThuoc)) cboKichThuoc.SelectedValue = sp.MaKichThuoc;
-            if (!string.IsNullOrEmpty(sp.MaNCC)) cboNCC.SelectedValue = sp.MaNCC;
 
+            cboLoaiTui.SelectedValue = sp.MaLoaiTui;
+            cboThuongHieu.SelectedValue = sp.MaThuongHieu;
+            cboChatLieu.SelectedValue = sp.MaChatLieu;
+            cboMau.SelectedValue = sp.MaMau;
+            cboKichThuoc.SelectedValue = sp.MaKichThuoc;
+            cboNCC.SelectedValue = sp.MaNCC;
+
+            if (!string.IsNullOrEmpty(sp.AnhChinh))
+            {
+                txtAnhChinh.Text = sp.AnhChinh;
+                string path = Path.Combine(Application.StartupPath, "Resources", "AnhSanPham", sp.AnhChinh);
+                if (File.Exists(path))
+                    picAnhChinh.ImageLocation = path;
+            }
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
+            if (MessageBox.Show("Xác nhận lưu sản phẩm?", "Xác nhận", MessageBoxButtons.YesNo) != DialogResult.Yes)
+                return;
+
             var sp = new SanPham
             {
                 MaSP = txtMaSP.Text.Trim(),
@@ -106,65 +111,44 @@ namespace BagShopManagement.Views.Dev2
                 MaNCC = cboNCC.SelectedValue?.ToString()
             };
 
-            // ====== Xử lý ảnh ======
             if (!string.IsNullOrEmpty(_selectedImagePath) && File.Exists(_selectedImagePath))
             {
                 string ext = Path.GetExtension(_selectedImagePath);
                 string newFileName = sp.MaSP + "_" + DateTime.Now.ToString("yyyyMMddHHmmss") + ext;
-
                 string destFolder = Path.Combine(Application.StartupPath, "Resources", "AnhSanPham");
-                if (!Directory.Exists(destFolder))
-                    Directory.CreateDirectory(destFolder);
-
+                if (!Directory.Exists(destFolder)) Directory.CreateDirectory(destFolder);
                 string destPath = Path.Combine(destFolder, newFileName);
                 File.Copy(_selectedImagePath, destPath, true);
-
-                sp.AnhChinh = newFileName; // save DB filename
+                sp.AnhChinh = newFileName;
             }
             else
             {
                 sp.AnhChinh = txtAnhChinh.Text.Trim();
             }
-            // ========================
 
             bool success = _isEdit ? _controller.Update(sp) : _controller.Add(sp);
 
             if (success)
             {
                 MessageBox.Show("Lưu sản phẩm thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                this.DialogResult = DialogResult.OK;
-                this.Close();
+                DialogResult = DialogResult.OK;
+                Close();
             }
             else
-            {
                 MessageBox.Show("Không thể lưu sản phẩm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
-
-        private void btnCancel_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
-        
+        private void btnCancel_Click(object sender, EventArgs e) => Close();
 
         private void btnChonAnh_Click(object sender, EventArgs e)
         {
-            using (OpenFileDialog ofd = new OpenFileDialog())
+            using (OpenFileDialog ofd = new OpenFileDialog() { Filter = "Image|*.jpg;*.png;*.bmp;*.gif" })
             {
-                ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.bmp";
-
-                if (ofd.ShowDialog() == DialogResult.OK)
-                {
-                    _selectedImagePath = ofd.FileName;
-                    txtAnhChinh.Text = Path.GetFileName(ofd.FileName); // tạm placeholder
-                    //picAnh.ImageLocation = ofd.FileName;
-                }
+                if (ofd.ShowDialog() != DialogResult.OK) return;
+                _selectedImagePath = ofd.FileName;
+                txtAnhChinh.Text = Path.GetFileName(ofd.FileName);
+                picAnhChinh.ImageLocation = ofd.FileName;
             }
         }
-
-
-
     }
 }

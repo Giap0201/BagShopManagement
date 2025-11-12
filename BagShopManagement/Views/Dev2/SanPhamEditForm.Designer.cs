@@ -57,9 +57,11 @@
             label1 = new Label();
             btnChonAnh = new Button();
             txtAnhChinh = new TextBox();
+            picAnhChinh = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)numGiaNhap).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numGiaBan).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuong).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)picAnhChinh).BeginInit();
             SuspendLayout();
             // 
             // lblMaSP
@@ -307,11 +309,20 @@
             txtAnhChinh.Size = new Size(250, 27);
             txtAnhChinh.TabIndex = 29;
             // 
+            // picAnhChinh
+            // 
+            picAnhChinh.Location = new Point(487, 329);
+            picAnhChinh.Name = "picAnhChinh";
+            picAnhChinh.Size = new Size(308, 76);
+            picAnhChinh.TabIndex = 30;
+            picAnhChinh.TabStop = false;
+            // 
             // SanPhamEditForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(845, 430);
+            Controls.Add(picAnhChinh);
             Controls.Add(txtAnhChinh);
             Controls.Add(btnChonAnh);
             Controls.Add(label1);
@@ -350,6 +361,7 @@
             ((System.ComponentModel.ISupportInitialize)numGiaNhap).EndInit();
             ((System.ComponentModel.ISupportInitialize)numGiaBan).EndInit();
             ((System.ComponentModel.ISupportInitialize)numSoLuong).EndInit();
+            ((System.ComponentModel.ISupportInitialize)picAnhChinh).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -386,5 +398,6 @@
         private Label label1;
         private Button btnChonAnh;
         private TextBox txtAnhChinh;
+        private PictureBox picAnhChinh;
     }
 }
