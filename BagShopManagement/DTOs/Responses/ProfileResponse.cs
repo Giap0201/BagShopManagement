@@ -4,16 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BagShopManagement.Models
+namespace BagShopManagement.DTOs.Responses
 {
-    public class NhanVien
+    public class ProfileResponse
     {
-        public string MaNV { get; set; }
-        public string HoTen { get; set; }
+        public required string HoTen { get; set; }
         public string? ChucVu { get; set; }
         public string? SoDienThoai { get; set; }
         public string? Email { get; set; }
-        public DateTime NgayVaoLam { get; set; }
-        public bool TrangThai { get; set; }//1 or 0
+        public required string TenDangNhap { get; set; }
+        public required string TenVaiTro { get; set; }
     }
 }
