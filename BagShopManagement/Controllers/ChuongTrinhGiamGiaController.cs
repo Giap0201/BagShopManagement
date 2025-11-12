@@ -12,9 +12,9 @@ namespace BagShopManagement.Controllers
     public class ChuongTrinhGiamGiaController
     {
         private readonly IChuongTrinhGiamGiaService _promotionService;
-        public ChuongTrinhGiamGiaController()
+        public ChuongTrinhGiamGiaController(IChuongTrinhGiamGiaService chuongTrinhGiamGia)
         {
-            _promotionService = new ChuongTrinhGiamGiaService();
+            _promotionService = chuongTrinhGiamGia;
         }
 
         public List<ChuongTrinhGiamGiaDto> GetPromotions()

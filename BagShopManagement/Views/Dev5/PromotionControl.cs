@@ -1,14 +1,10 @@
 ﻿using BagShopManagement.Controllers;
 using BagShopManagement.DTOs;
+using BagShopManagement.Repositories.Implementations;
+using BagShopManagement.Services.Implementations;
 using BagShopManagement.Utils;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Controls
@@ -16,37 +12,24 @@ namespace BagShopManagement.Views.Controls
     public partial class PromotionControl : UserControl
     {
         private readonly ChuongTrinhGiamGiaController _promotionController;
+        private readonly ChiTietGiamGiaController _chiTietGiamGiaController;
 
-        public PromotionControl()
+        public PromotionControl(ChuongTrinhGiamGiaController promotionController, ChiTietGiamGiaController chiTietGiamGiaController)
         {
             InitializeComponent();
-            _promotionController = new ChuongTrinhGiamGiaController();
+
+            // Chỉ cần gán các controller đã được tiêm vào
+            _promotionController = promotionController;
+            _chiTietGiamGiaController = chiTietGiamGiaController;
+
             SetupStatusComboBox();
-
-        }
-
-        private void SetupStatusComboBox()
-        {
-            // 1. Tạo danh sách các lựa chọn trạng thái
-            var statusOptions = new List<StatusOption>
-        {
-            new StatusOption { Value = true, DisplayText = "Hoạt động" },
-            new StatusOption { Value = false, DisplayText = "Không hoạt động" }
-        };
-
-            // 2. Gán danh sách này làm nguồn dữ liệu cho ComboBox
-            cmbTrangThai.DataSource = statusOptions;
-
-            // 3. Chỉ định thuộc tính nào để HIỂN THỊ cho người dùng
-            cmbTrangThai.DisplayMember = "DisplayText";
-
-            // 4. Chỉ định thuộc tính nào là GIÁ TRỊ THỰC TẾ ẩn đằng sau
-            cmbTrangThai.ValueMember = "Value";
         }
 
         private void PromotionControl_Load(object sender, EventArgs e)
         {
             LoadDataGrid();
+            // Cải tiến: Gán sự kiện SelectionChanged thay vì CellContentClick
+            dgvDanhSachCTGG.SelectionChanged += DgvDanhSachCTGG_SelectionChanged;
         }
 
         private void LoadDataGrid()
@@ -54,8 +37,15 @@ namespace BagShopManagement.Views.Controls
             try
             {
                 var promotions = _promotionController.GetPromotions();
-                dgvDanhSachCTGG.DataSource = null; // Xóa datasource cũ
+                // Tắt sự kiện SelectionChanged tạm thời để tránh lỗi khi nạp lại dữ liệu
+                dgvDanhSachCTGG.SelectionChanged -= DgvDanhSachCTGG_SelectionChanged;
+
+                dgvDanhSachCTGG.DataSource = null;
                 dgvDanhSachCTGG.DataSource = promotions;
+
+                // Bật lại sự kiện
+                dgvDanhSachCTGG.SelectionChanged += DgvDanhSachCTGG_SelectionChanged;
+
                 ClearInputs();
             }
             catch (Exception ex)
@@ -64,23 +54,22 @@ namespace BagShopManagement.Views.Controls
             }
         }
 
-        private void dgvDanhSachCTGG_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void DgvDanhSachCTGG_SelectionChanged(object sender, EventArgs e)
         {
-            if (e.RowIndex >= 0)
+            if (dgvDanhSachCTGG.CurrentRow != null && dgvDanhSachCTGG.CurrentRow.DataBoundItem is ChuongTrinhGiamGiaDto dto)
             {
-                DataGridViewRow row = dgvDanhSachCTGG.Rows[e.RowIndex];
-                txtMaCTGG.Text = row.Cells["MaCTGG"].Value.ToString();
-                txtTenCT.Text = row.Cells["TenChuongTrinh"].Value.ToString();
-                txtMoTa.Text = row.Cells["MoTa"].Value.ToString();
-                dateTimePicker1.Value = Convert.ToDateTime(row.Cells["NgayBatDau"].Value);
-                dateTimePicker2.Value = Convert.ToDateTime(row.Cells["NgayKetThuc"].Value);
-                bool trangThai = Convert.ToBoolean(row.Cells["TrangThai"].Value);
-                cmbTrangThai.SelectedValue = trangThai;
+                txtMaCTGG.Text = dto.MaCTGG;
+                txtTenCT.Text = dto.TenChuongTrinh;
+                txtMoTa.Text = dto.MoTa;
+                dateTimePicker1.Value = dto.NgayBatDau;
+                dateTimePicker2.Value = dto.NgayKetThuc;
+                cmbTrangThai.SelectedValue = dto.TrangThai;
 
                 txtMaCTGG.Enabled = false;
             }
         }
 
+        // Các hàm khác không thay đổi nhiều...
         private void btnThemCTGG_Click(object sender, EventArgs e)
         {
             ClearInputs();
@@ -93,15 +82,18 @@ namespace BagShopManagement.Views.Controls
             txtMoTa.Text = "";
             dateTimePicker1.Value = DateTime.Now;
             dateTimePicker2.Value = DateTime.Now.AddDays(7);
+            cmbTrangThai.SelectedIndex = 0;
             txtMaCTGG.Enabled = true;
             txtMaCTGG.Focus();
+            dgvDanhSachCTGG.ClearSelection();
         }
 
         private void btnLuuCTGG_Click(object sender, EventArgs e)
         {
+            // Các kiểm tra dữ liệu đầu vào
             if (string.IsNullOrWhiteSpace(txtMaCTGG.Text))
             {
-                MessageBox.Show("Mã chương trình không được để trống.", "Cảnh báo");
+                MessageBox.Show("Mã chương trình không được để trống.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 txtMaCTGG.Focus();
                 return;
             }
@@ -130,7 +122,7 @@ namespace BagShopManagement.Views.Controls
             try
             {
                 _promotionController.SavePromotion(promotionDto);
-                MessageBox.Show("Lưu thành công!", "Thông báo");
+                MessageBox.Show("Lưu thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LoadDataGrid();
             }
             catch (Exception ex)
@@ -141,40 +133,53 @@ namespace BagShopManagement.Views.Controls
 
         private void btnXoaCTGG_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaCTGG.Text) || txtMaCTGG.Enabled)
+            if (dgvDanhSachCTGG.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn một chương trình đã có để xóa.", "Thông báo");
+                MessageBox.Show("Vui lòng chọn một chương trình để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
             string maCanXoa = txtMaCTGG.Text;
             string tenCanXoa = txtTenCT.Text;
 
-            if (MessageBox.Show($"Bạn chắc chắn muốn xóa chương trình '{tenCanXoa}'?", "Xác nhận", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show($"Bạn chắc chắn muốn xóa chương trình '{tenCanXoa}' và tất cả sản phẩm khuyến mãi liên quan?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 try
                 {
                     _promotionController.DeletePromotion(maCanXoa);
-                    MessageBox.Show("Xóa thành công!", "Thông báo");
+                    MessageBox.Show("Xóa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadDataGrid();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Xóa thất bại: {ex.Message}", "Lỗi");
+                    MessageBox.Show($"Xóa thất bại: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
 
         private void btnChonSanPham_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(txtMaCTGG.Text) || txtMaCTGG.Enabled)
+            if (dgvDanhSachCTGG.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn một chương trình đã có để áp dụng sản phẩm.", "Thông báo");
+                MessageBox.Show("Vui lòng chọn một chương trình để áp dụng sản phẩm.", "Thông báo");
                 return;
             }
-            frmApDungChiTiet formApDung = new frmApDungChiTiet(txtMaCTGG.Text, txtTenCT.Text);
+
+            // Logic vẫn như cũ, vì _chiTietGiamGiaController đã được khởi tạo bởi DI
+            frmApDungChiTiet formApDung = new frmApDungChiTiet(txtMaCTGG.Text, txtTenCT.Text, _chiTietGiamGiaController);
             formApDung.ShowDialog();
         }
 
+        private void SetupStatusComboBox()
+        {
+            var statusOptions = new List<StatusOption>
+            {
+                new StatusOption{ Value = true, DisplayText = "Hoạt động" },
+                new StatusOption{ Value = false, DisplayText = "Không hoạt động" }
+            };
+            cmbTrangThai.DataSource = statusOptions;
+            cmbTrangThai.DisplayMember = "DisplayText";
+            cmbTrangThai.ValueMember = "Value";
+        }
     }
 }

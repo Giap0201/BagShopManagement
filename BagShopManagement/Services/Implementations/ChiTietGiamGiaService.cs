@@ -1,6 +1,5 @@
 ﻿using BagShopManagement.DTOs;
 using BagShopManagement.Models;
-using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
 using System;
@@ -13,10 +12,10 @@ namespace BagShopManagement.Services.Implementations
         private readonly ISanPhamRepository _sanPhamRepo;
         private readonly IChiTietGiamGiaRepository _chiTietGiamGiaRepo;
 
-        public ChiTietGiamGiaService()
+        public ChiTietGiamGiaService(ISanPhamRepository sanPhamRepository, IChiTietGiamGiaRepository ctietGiamGiaRepository)
         {
-            _sanPhamRepo = new SanPhamRepository();
-            _chiTietGiamGiaRepo = new ChiTietGiamGiaRepository();
+            _sanPhamRepo = sanPhamRepository;
+            _chiTietGiamGiaRepo = ctietGiamGiaRepository;
         }
 
         public List<SanPham> GetAvailableProducts(string maCTGG)
@@ -31,7 +30,6 @@ namespace BagShopManagement.Services.Implementations
 
         public void AddProductToPromotion(string maCTGG, string maSP, int phanTramGiam)
         {
-            // Logic nghiệp vụ
             if (phanTramGiam <= 0 || phanTramGiam > 100)
             {
                 throw new Exception("Phần trăm giảm giá phải nằm trong khoảng (0, 100].");

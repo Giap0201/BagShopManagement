@@ -14,9 +14,9 @@ namespace BagShopManagement.Controllers
     {
         private readonly IChiTietGiamGiaService _chiTietService;
 
-        public ChiTietGiamGiaController()
+        public ChiTietGiamGiaController(IChiTietGiamGiaService chiTietGiamGiaService)
         {
-            _chiTietService = new ChiTietGiamGiaService();
+            _chiTietService = chiTietGiamGiaService;
         }
 
         public List<SanPham> GetAvailableProductsForPromotion(string maCTGG)
