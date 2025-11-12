@@ -168,7 +168,7 @@
             pnlLeft.Dock = DockStyle.Left;
             pnlLeft.Location = new Point(0, 204);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(595, 775);
+            pnlLeft.Size = new Size(595, 1072);
             pnlLeft.TabIndex = 1;
             // 
             // grpActions
@@ -182,9 +182,9 @@
             grpActions.Controls.Add(btnApplyDiscount);
             grpActions.Controls.Add(numDiscountPercent);
             grpActions.Controls.Add(lblDiscount);
-            grpActions.Location = new Point(10, 426);
+            grpActions.Location = new Point(0, 600);
             grpActions.Name = "grpActions";
-            grpActions.Size = new Size(585, 349);
+            grpActions.Size = new Size(598, 472);
             grpActions.TabIndex = 0;
             grpActions.TabStop = false;
             grpActions.Text = "Thanh toán và khuyến mãi";
@@ -195,7 +195,7 @@
             cboPhuongThucTT.Font = new Font("Segoe UI", 10F);
             cboPhuongThucTT.FormattingEnabled = true;
             cboPhuongThucTT.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản", "Card" });
-            cboPhuongThucTT.Location = new Point(313, 215);
+            cboPhuongThucTT.Location = new Point(310, 256);
             cboPhuongThucTT.Name = "cboPhuongThucTT";
             cboPhuongThucTT.Size = new Size(266, 53);
             cboPhuongThucTT.TabIndex = 8;
@@ -204,24 +204,24 @@
             // 
             lblPhuongThucTT.Font = new Font("Segoe UI", 9.900001F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPhuongThucTT.ForeColor = SystemColors.ActiveCaptionText;
-            lblPhuongThucTT.Location = new Point(20, 218);
+            lblPhuongThucTT.Location = new Point(17, 259);
             lblPhuongThucTT.Name = "lblPhuongThucTT";
-            lblPhuongThucTT.Size = new Size(304, 50);
+            lblPhuongThucTT.Size = new Size(291, 50);
             lblPhuongThucTT.TabIndex = 7;
             lblPhuongThucTT.Text = "Phương thức TT:";
             // 
             // btnPrint
             // 
-            btnPrint.Location = new Point(136, 355);
+            btnPrint.Location = new Point(395, 395);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(191, 52);
+            btnPrint.Size = new Size(182, 65);
             btnPrint.TabIndex = 0;
             btnPrint.Text = "In hóa đơn";
             btnPrint.Click += btnPrint_Click;
             // 
             // btnCheckout
             // 
-            btnCheckout.Location = new Point(297, 281);
+            btnCheckout.Location = new Point(176, 395);
             btnCheckout.Name = "btnCheckout";
             btnCheckout.Size = new Size(196, 65);
             btnCheckout.TabIndex = 1;
@@ -230,9 +230,9 @@
             // 
             // btnSaveDraft
             // 
-            btnSaveDraft.Location = new Point(91, 281);
+            btnSaveDraft.Location = new Point(30, 395);
             btnSaveDraft.Name = "btnSaveDraft";
-            btnSaveDraft.Size = new Size(130, 65);
+            btnSaveDraft.Size = new Size(114, 65);
             btnSaveDraft.TabIndex = 2;
             btnSaveDraft.Text = "Lưu tạm";
             btnSaveDraft.Click += btnSaveDraft_Click;
@@ -240,9 +240,9 @@
             // lblTotal
             // 
             lblTotal.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblTotal.Location = new Point(20, 148);
+            lblTotal.Location = new Point(20, 167);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(420, 45);
+            lblTotal.Size = new Size(537, 45);
             lblTotal.TabIndex = 3;
             lblTotal.Text = "Tổng: 0 ₫";
             // 
@@ -285,9 +285,9 @@
             grpAdd.Controls.Add(numQty);
             grpAdd.Controls.Add(lblQty);
             grpAdd.Controls.Add(lblSanPham);
-            grpAdd.Location = new Point(10, 10);
+            grpAdd.Location = new Point(0, 10);
             grpAdd.Name = "grpAdd";
-            grpAdd.Size = new Size(588, 410);
+            grpAdd.Size = new Size(595, 584);
             grpAdd.TabIndex = 1;
             grpAdd.TabStop = false;
             grpAdd.Text = "Thêm sản phẩm";
@@ -298,9 +298,9 @@
             lblGiaSP.BorderStyle = BorderStyle.Fixed3D;
             lblGiaSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblGiaSP.ForeColor = Color.Green;
-            lblGiaSP.Location = new Point(190, 225);
+            lblGiaSP.Location = new Point(219, 330);
             lblGiaSP.Name = "lblGiaSP";
-            lblGiaSP.Size = new Size(357, 59);
+            lblGiaSP.Size = new Size(326, 59);
             lblGiaSP.TabIndex = 10;
             lblGiaSP.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -309,9 +309,9 @@
             lblTenSP.BackColor = SystemColors.Control;
             lblTenSP.BorderStyle = BorderStyle.Fixed3D;
             lblTenSP.Font = new Font("Segoe UI", 10F);
-            lblTenSP.Location = new Point(190, 160);
+            lblTenSP.Location = new Point(219, 217);
             lblTenSP.Name = "lblTenSP";
-            lblTenSP.Size = new Size(357, 65);
+            lblTenSP.Size = new Size(326, 65);
             lblTenSP.TabIndex = 9;
             lblTenSP.TextAlign = ContentAlignment.MiddleLeft;
             lblTenSP.Click += lblTenSP_Click;
@@ -321,15 +321,15 @@
             lblMaSPValue.BackColor = SystemColors.Control;
             lblMaSPValue.BorderStyle = BorderStyle.Fixed3D;
             lblMaSPValue.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblMaSPValue.Location = new Point(190, 99);
+            lblMaSPValue.Location = new Point(221, 99);
             lblMaSPValue.Name = "lblMaSPValue";
-            lblMaSPValue.Size = new Size(357, 51);
+            lblMaSPValue.Size = new Size(326, 66);
             lblMaSPValue.TabIndex = 8;
             lblMaSPValue.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblMaSPLabel
             // 
-            lblMaSPLabel.Location = new Point(20, 99);
+            lblMaSPLabel.Location = new Point(20, 114);
             lblMaSPLabel.Name = "lblMaSPLabel";
             lblMaSPLabel.Size = new Size(160, 54);
             lblMaSPLabel.TabIndex = 11;
@@ -338,7 +338,7 @@
             // 
             // lblTenSPLabel
             // 
-            lblTenSPLabel.Location = new Point(20, 160);
+            lblTenSPLabel.Location = new Point(18, 217);
             lblTenSPLabel.Name = "lblTenSPLabel";
             lblTenSPLabel.Size = new Size(160, 65);
             lblTenSPLabel.TabIndex = 12;
@@ -347,7 +347,7 @@
             // 
             // lblGiaSPLabel
             // 
-            lblGiaSPLabel.Location = new Point(20, 225);
+            lblGiaSPLabel.Location = new Point(18, 330);
             lblGiaSPLabel.Name = "lblGiaSPLabel";
             lblGiaSPLabel.Size = new Size(160, 59);
             lblGiaSPLabel.TabIndex = 13;
@@ -369,34 +369,34 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(225, 340);
+            btnDelete.Location = new Point(223, 499);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(130, 50);
+            btnDelete.Size = new Size(130, 61);
             btnDelete.TabIndex = 0;
             btnDelete.Text = "Xóa";
             btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(397, 340);
+            btnClear.Location = new Point(395, 499);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(150, 50);
+            btnClear.Size = new Size(150, 61);
             btnClear.TabIndex = 1;
             btnClear.Text = "Xóa giỏ";
             btnClear.Click += btnClear_Click;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(40, 340);
+            btnAdd.Location = new Point(38, 499);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(150, 50);
+            btnAdd.Size = new Size(150, 61);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Thêm vào giỏ";
             btnAdd.Click += btnAdd_Click;
             // 
             // numQty
             // 
-            numQty.Location = new Point(190, 287);
+            numQty.Location = new Point(219, 430);
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
@@ -406,7 +406,7 @@
             // 
             // lblQty
             // 
-            lblQty.Location = new Point(34, 287);
+            lblQty.Location = new Point(32, 430);
             lblQty.Name = "lblQty";
             lblQty.Size = new Size(153, 45);
             lblQty.TabIndex = 4;
@@ -426,7 +426,7 @@
             pnlRight.Dock = DockStyle.Fill;
             pnlRight.Location = new Point(595, 204);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(983, 775);
+            pnlRight.Size = new Size(976, 1072);
             pnlRight.TabIndex = 0;
             // 
             // dgvCart
@@ -439,7 +439,7 @@
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
             dgvCart.RowHeadersWidth = 51;
-            dgvCart.Size = new Size(983, 775);
+            dgvCart.Size = new Size(976, 1072);
             dgvCart.TabIndex = 0;
             dgvCart.CellContentClick += dgvCart_CellContentClick;
             // 
@@ -449,7 +449,7 @@
             Controls.Add(pnlLeft);
             Controls.Add(pnlTop);
             Name = "UC_POS";
-            Size = new Size(1578, 979);
+            Size = new Size(1571, 1276);
             Load += UC_POS_Load;
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();
