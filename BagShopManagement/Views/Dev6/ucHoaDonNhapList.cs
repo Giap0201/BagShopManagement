@@ -205,11 +205,36 @@ namespace BagShopManagement.Views.Dev6
         private void UpdateButtonState(TrangThaiHoaDonNhap? t)
         {
             btnThem.Enabled = true;
-            btnXem.Enabled = t != null;
-
-            btnDuyet.Enabled = t == TrangThaiHoaDonNhap.TamLuu;
-            btnHuy.Enabled = t == TrangThaiHoaDonNhap.TamLuu ||
-                              t == TrangThaiHoaDonNhap.HoatDong;
+            if (t != null)
+            {
+                btnXem.Enabled = true;
+                TrangThaiHoaDonNhap trangThai = t.Value;
+                if (trangThai == TrangThaiHoaDonNhap.TamLuu)
+                {
+                    btnDuyet.Enabled = true;
+                    btnSua.Enabled = true;
+                }
+                else
+                {
+                    btnDuyet.Enabled = false;
+                    btnSua.Enabled = false;
+                }
+                if (trangThai == TrangThaiHoaDonNhap.TamLuu || trangThai == TrangThaiHoaDonNhap.HoatDong)
+                {
+                    btnHuy.Enabled = true;
+                }
+                else
+                {
+                    btnHuy.Enabled = false;
+                }
+            }
+            else
+            {
+                btnXem.Enabled = false;
+                btnDuyet.Enabled = false;
+                btnHuy.Enabled = false;
+                btnSua.Enabled = false;
+            }
         }
 
         private void SettingUI()
@@ -232,7 +257,7 @@ namespace BagShopManagement.Views.Dev6
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            cmbSearchMaHDN.Text = "";
+            cmbSearchMaHDN.SelectedIndex = 0;
             cmbSearchNCC.SelectedIndex = 0;
             cmbSearchNhanVien.SelectedIndex = 0;
             cmbSearchTrangThai.SelectedIndex = 0;
@@ -269,10 +294,17 @@ namespace BagShopManagement.Views.Dev6
         private void btnHuy_Click(object sender, EventArgs e)
         {
             if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item)
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn cần hủy.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
 
-            if (MessageBox.Show($"Bạn có chắc muốn hủy hóa đơn [{item.MaHDN}]?", "Xác nhận hủy",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Warning) != DialogResult.Yes) return;
+            DialogResult confirm = MessageBox.Show(
+                $"Bạn có chắc chắn muốn hủy hóa đơn [{item.MaHDN}] này không? Thao tác này không thể hoàn tác.",
+                "Xác nhận hủy hóa đơn",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+            if (confirm != DialogResult.Yes) return;
 
             try
             {
@@ -293,24 +325,34 @@ namespace BagShopManagement.Views.Dev6
         private void btnDuyet_Click(object sender, EventArgs e)
         {
             if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item)
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn cần duyệt.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
+            }
+            DialogResult confirm = MessageBox.Show(
+                $"Bạn có chắc chắn muốn duyệt hóa đơn [{item.MaHDN}]?\nHành động này sẽ cập nhật tồn kho.",
+                "Xác nhận duyệt hóa đơn",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
 
-            if (MessageBox.Show($"Bạn có chắc muốn duyệt hóa đơn [{item.MaHDN}]?\nHành động này sẽ cập nhật tồn kho.", "Xác nhận duyệt",
-                MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
-
+            if (confirm != DialogResult.Yes) return;
             try
             {
                 _controller.DuyetHoaDon(item.MaHDN);
-                MessageBox.Show($"Đã duyệt hóa đơn {item.MaHDN} và cập nhật tồn kho.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(
+                    $"Đã duyệt hóa đơn {item.MaHDN} thành công và cập nhật tồn kho.",
+                    "Thành công",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
                 LoadData();
             }
             catch (InvalidOperationException ioex)
             {
-                MessageBox.Show(ioex.Message, "Lỗi nghiệp vụ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(ioex.Message, "Lỗi Nghiệp vụ", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi duyệt: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Lỗi hệ thống khi duyệt hóa đơn: {ex.Message}", "Lỗi Hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

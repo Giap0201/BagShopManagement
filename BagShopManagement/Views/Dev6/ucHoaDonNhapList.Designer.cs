@@ -44,14 +44,14 @@
             label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            btnSua = new Button();
+            btnXuatExel = new Button();
             btnHuy = new Button();
             btnDuyet = new Button();
             btnXem = new Button();
             btnThem = new Button();
             dgvDanhSach = new DataGridView();
             label7 = new Label();
-            btnXuatExel = new Button();
-            btnSua = new Button();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvDanhSach).BeginInit();
@@ -217,6 +217,24 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Chức năng";
             // 
+            // btnSua
+            // 
+            btnSua.Location = new Point(34, 272);
+            btnSua.Name = "btnSua";
+            btnSua.Size = new Size(164, 29);
+            btnSua.TabIndex = 7;
+            btnSua.Text = "SỬA HOÁ ĐƠN";
+            btnSua.UseVisualStyleBackColor = true;
+            // 
+            // btnXuatExel
+            // 
+            btnXuatExel.Location = new Point(34, 216);
+            btnXuatExel.Name = "btnXuatExel";
+            btnXuatExel.Size = new Size(164, 29);
+            btnXuatExel.TabIndex = 6;
+            btnXuatExel.Text = "XUẤT FILE";
+            btnXuatExel.UseVisualStyleBackColor = true;
+            // 
             // btnHuy
             // 
             btnHuy.Location = new Point(34, 170);
@@ -235,6 +253,7 @@
             btnDuyet.TabIndex = 4;
             btnDuyet.Text = "Duyệt hoá đơn";
             btnDuyet.UseVisualStyleBackColor = true;
+            btnDuyet.Click += btnDuyet_Click;
             // 
             // btnXem
             // 
@@ -281,24 +300,6 @@
             label7.Size = new Size(362, 38);
             label7.TabIndex = 9;
             label7.Text = "QUẢN LÍ HOÁ ĐƠN NHẬP";
-            // 
-            // btnXuatExel
-            // 
-            btnXuatExel.Location = new Point(34, 216);
-            btnXuatExel.Name = "btnXuatExel";
-            btnXuatExel.Size = new Size(164, 29);
-            btnXuatExel.TabIndex = 6;
-            btnXuatExel.Text = "XUẤT FILE";
-            btnXuatExel.UseVisualStyleBackColor = true;
-            // 
-            // btnSua
-            // 
-            btnSua.Location = new Point(34, 272);
-            btnSua.Name = "btnSua";
-            btnSua.Size = new Size(164, 29);
-            btnSua.TabIndex = 7;
-            btnSua.Text = "SỬA HOÁ ĐƠN";
-            btnSua.UseVisualStyleBackColor = true;
             // 
             // ucHoaDonNhapList
             // 
