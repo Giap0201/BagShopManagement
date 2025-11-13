@@ -31,6 +31,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         private void UC_POS_Load(object sender, EventArgs e)
         {
             SetupCartColumns();
+
+            // Tự động điền mã nhân viên từ UserContext sau khi đăng nhập
+            if (!string.IsNullOrEmpty(UserContext.MaNV))
+            {
+                txtMaNV.Text = UserContext.MaNV;
+                txtMaNV.ReadOnly = true; // Không cho sửa mã NV
+            }
         }
 
         /// <summary>
