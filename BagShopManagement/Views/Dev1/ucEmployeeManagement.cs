@@ -66,10 +66,10 @@ namespace BagShopManagement.Views.Dev1
                 DataPropertyName = "TenVaiTro",
                 HeaderText = "Vai trò"
             });
-            dgvNhanVien.Columns.Add(new DataGridViewCheckBoxColumn // Dùng CheckBox cho True/False
+            dgvNhanVien.Columns.Add(new DataGridViewTextBoxColumn // Dùng CheckBox cho True/False
             {
                 Name = "TrangThai",
-                DataPropertyName = "TrangThai",
+                DataPropertyName = "TrangThaiTK",
                 HeaderText = "Hoạt động"
             });
             dgvNhanVien.Columns.Add(new DataGridViewTextBoxColumn
@@ -216,20 +216,29 @@ namespace BagShopManagement.Views.Dev1
         // (Tùy chọn) Định dạng cột Trạng Thái (CheckBox) thành chữ
         private void dgvNhanVien_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
-            // Kiểm tra cột TrangThai (Boolean)
+            // === THÊM LẠI ĐOẠN CODE NÀY ===
+
+            // 1. Kiểm tra xem có phải cột "TrangThai" không
             if (dgvNhanVien.Columns[e.ColumnIndex].Name == "TrangThai" && e.Value != null)
             {
-                bool trangThai = (bool)e.Value;
-                e.Value = trangThai ? "Hoạt động" : "Đã khóa";
-                e.FormattingApplied = true;
+                try
+                {
+                    // 2. Lấy giá trị bool (true/false)
+                    bool trangThai = (bool)e.Value;
 
-                // (Tùy chọn) Tô màu
-                // if (!trangThai)
-                // {
-                //    e.CellStyle.BackColor = System.Drawing.Color.LightGray;
-                //    e.CellStyle.ForeColor = System.Drawing.Color.DarkGray;
-                // }
+                    // 3. Đổi nó thành chữ
+                    e.Value = trangThai ? "Hoạt động" : "Đã khóa";
+
+                    // 4. Báo cho DataGridView biết là chúng ta đã xử lý xong
+                    e.FormattingApplied = true;
+                }
+                catch (Exception)
+                {
+                    //throw new Exception();
+                }
             }
+
+            // (Bạn có thể thêm các định dạng cho các cột khác ở đây)
         }
     }
 }

@@ -292,7 +292,7 @@
             Controls.Add(grpThongTin);
             Controls.Add(lblTitle);
             Name = "ucProfile";
-            Size = new Size(985, 620);
+            Size = new Size(988, 620);
             Load += ucProfile_Load;
             grpThongTin.ResumeLayout(false);
             grpThongTin.PerformLayout();

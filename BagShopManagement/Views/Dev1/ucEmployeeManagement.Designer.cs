@@ -91,7 +91,7 @@
             btnKhoaMo.TabIndex = 3;
             btnKhoaMo.Text = "Khóa / Mở khóa";
             btnKhoaMo.UseVisualStyleBackColor = true;
-            btnKhoaMo.ClientSizeChanged += btnKhoaMo_Click;
+            btnKhoaMo.Click += btnKhoaMo_Click;
             // 
             // btnSua
             // 
