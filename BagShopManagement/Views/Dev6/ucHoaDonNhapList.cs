@@ -249,7 +249,7 @@ namespace BagShopManagement.Views.Dev6
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            var uc = _provider.GetRequiredService<ucChiTietHDN>();
+            var uc = _provider.GetRequiredService<ucThemHDN>();
             this.Controls.Clear();
             uc.Dock = DockStyle.Fill;
             this.Controls.Add(uc);
@@ -288,6 +288,36 @@ namespace BagShopManagement.Views.Dev6
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi xem: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item)
+                return;
+
+            try
+            {
+                var full = _controller.LayChiTietHoaDon(item.MaHDN);
+                if (full == null)
+                {
+                    MessageBox.Show("Không tìm thấy hoá đơn.", "Lỗi",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    LoadData();
+                    return;
+                }
+
+                var uc = _provider.GetRequiredService<UcSuaHoaDonNhap>();
+                uc.LoadData(full);
+                this.Controls.Clear();
+                uc.Dock = DockStyle.Fill;
+                this.Controls.Add(uc);
+                uc.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sửa: {ex.Message}", "Lỗi",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

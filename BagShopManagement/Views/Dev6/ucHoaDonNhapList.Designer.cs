@@ -225,6 +225,7 @@
             btnSua.TabIndex = 7;
             btnSua.Text = "SỬA HOÁ ĐƠN";
             btnSua.UseVisualStyleBackColor = true;
+            btnSua.Click += btnSua_Click;
             // 
             // btnXuatExel
             // 

@@ -20,7 +20,7 @@ using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace BagShopManagement.Views.Dev6
 {
-    public partial class ucChiTietHDN : UserControl
+    public partial class ucThemHDN : UserControl
     {
         private MaHoaDonGenerator _maHoaDonGenerator;
         private HoaDonNhapController _controller;
@@ -30,7 +30,7 @@ namespace BagShopManagement.Views.Dev6
         private List<ChiTietHDNResponse> _listChiTiets;
         private readonly IServiceProvider _serviceProvider;
 
-        public ucChiTietHDN(HoaDonNhapController controller, INhaCungCapRepository nhaCungCapRepo,
+        public ucThemHDN(HoaDonNhapController controller, INhaCungCapRepository nhaCungCapRepo,
             INhanVienRepository nhanVienRepo, ISanPhamRepository sanPhamRepo, IServiceProvider serviceProvider)
         {
             InitializeComponent();
