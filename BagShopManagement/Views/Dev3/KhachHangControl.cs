@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BagShopManagement.Views.Dev4
+namespace BagShopManagement.Views.Dev3
 {
     public partial class KhachHangControl : UserControl
     {
@@ -72,7 +72,7 @@ namespace BagShopManagement.Views.Dev4
 
         private void btnThemMoi_Click(object sender, EventArgs e)
         {
-            using (var frm = new ThemKhachHangForm(_controller))
+            using (var frm = new ThemKhachHangForm2(_controller))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -84,7 +84,7 @@ namespace BagShopManagement.Views.Dev4
         {
 
             var kh = (KhachHang)dgvKhachHang.CurrentRow.DataBoundItem;
-            using (var frm = new ThemKhachHangForm(_controller, kh))
+            using (var frm = new ThemKhachHangForm2(_controller, kh))
             {
                 if (frm.ShowDialog() == DialogResult.OK)
                 {
@@ -120,37 +120,37 @@ namespace BagShopManagement.Views.Dev4
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
-           
-           
-                DataGridViewRow selectedRow = dgvKhachHang.SelectedRows[0];
 
-                string maKH = selectedRow.Cells["MaKH"].Value.ToString();
 
-                string message = $"Bạn có chắc chắn muốn xóa khách hàng có mã '{maKH}' không?";
-                string title = "Xác nhận xóa";
-                MessageBoxButtons buttons = MessageBoxButtons.YesNo;
-                DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Warning);
+            DataGridViewRow selectedRow = dgvKhachHang.SelectedRows[0];
 
-                // 5. Kiểm tra kết quả người dùng bấm
-                if (result == DialogResult.Yes)
+            string maKH = selectedRow.Cells["MaKH"].Value.ToString();
+
+            string message = $"Bạn có chắc chắn muốn xóa khách hàng có mã '{maKH}' không?";
+            string title = "Xác nhận xóa";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(message, title, buttons, MessageBoxIcon.Warning);
+
+            // 5. Kiểm tra kết quả người dùng bấm
+            if (result == DialogResult.Yes)
+            {
+
+                if (_controller.Delete(maKH))
                 {
-                   
-                   if( _controller.Delete(maKH))
-                    {
                     dgvKhachHang.DataSource = _controller.GetAll();
                     MessageBox.Show($"Đã xóa khách hàng '{maKH}' thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Xóa khách hàng '{maKH}' không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-
-   
                 }
-               
+                else
+                {
+                    MessageBox.Show($"Xóa khách hàng '{maKH}' không thành công.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+
+
             }
-           
-        
-    
+
+        }
+
+
+
     }
 }

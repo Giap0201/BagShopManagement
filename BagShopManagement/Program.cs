@@ -15,6 +15,7 @@ using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
+using BagShopManagement.Views.Dev3;
 
 namespace BagShopManagement
 {
@@ -48,6 +49,9 @@ namespace BagShopManagement
             services.AddTransient<IMauSacRepository, MauSacRepository>();
             services.AddTransient<IThuongHieuRepository, ThuongHieuRepository>();
 
+            // === Đăng ký Repositories - Dev3 ===
+            services.AddTransient<IKhachHangRepository, KhachHangRepository>();
+
             // === Đăng ký Repositories - Dev4 ===
             services.AddTransient<ISanPhamRepository, SanPhamRepository>();
             services.AddTransient<IHoaDonBanRepository, HoaDonBanRepository>();
@@ -69,6 +73,10 @@ namespace BagShopManagement
             services.AddTransient<ISanPhamService, SanPhamService>();
             services.AddTransient<INhaCungCapService, NhaCungCapService>();
 
+            // === Đăng ký Services - Dev3 ===
+            services.AddTransient<IKhachHangService, KhachHangService>();
+
+
             // === Đăng ký Services - Dev4 ===
             services.AddTransient<IHoaDonBanService, HoaDonBanService>();
             services.AddTransient<ITonKhoService, TonKhoService>();
@@ -79,6 +87,8 @@ namespace BagShopManagement
             services.AddTransient<IBaoCaoService, BaoCaoService>();
 
             // === Đăng ký Controllers ===
+            services.AddTransient<KhachHangController>();
+            services.AddTransient<NhaCungCapController>();
             services.AddTransient<POSController>();
             services.AddTransient<HoaDonBanController>();
             services.AddTransient<HoaDonNhapController>();
@@ -112,6 +122,13 @@ namespace BagShopManagement
             services.AddTransient<SanPhamEditForm>();
             services.AddTransient<ThuongHieuControl>();
             services.AddTransient<ThuongHieuEditForm>();
+
+            // Dev3 Forms
+            services.AddTransient<KhachHangControl>();
+            services.AddTransient<NhaCungCapControl>();
+            services.AddTransient<Views.Dev3.ThemKhachHangForm2>();
+            services.AddTransient<ThemNhaCungCapForm>();
+
 
             // Dev4 Forms
             services.AddTransient<POSForm>();
