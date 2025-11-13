@@ -1,6 +1,6 @@
 ﻿namespace BagShopManagement.Views.Dev6
 {
-    partial class ucChiTietHDN
+    partial class ucThemHDN
     {
         private System.ComponentModel.IContainer components = null;
 
