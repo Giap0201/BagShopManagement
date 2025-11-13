@@ -9,8 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Resources\AnhSanPham\" />
     <Folder Include="Views\Dev1\" />
-    <Folder Include="Views\Dev2\" />
     <Folder Include="Views\Dev3\" />
     <Folder Include="Views\Dev5\" />
   </ItemGroup>
@@ -21,6 +21,7 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.10" />
     <PackageReference Include="NuGet.Packaging" Version="6.14.0" />
     <PackageReference Include="QuestPDF" Version="2025.12.0-alpha4" />
+    <PackageReference Include="WinForms.DataVisualization" Version="1.10.0" />
   </ItemGroup>
 
   <ItemGroup>

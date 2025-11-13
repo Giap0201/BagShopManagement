@@ -6,17 +6,23 @@ namespace BagShopManagement.Views.Controls
 {
     public partial class SideBarControl : UserControl
     {
-        public event EventHandler ShowTestClicked;
-
         public event EventHandler ShowHoaDonNhapClicked;
 
         public event EventHandler ShowBanHangClicked;
 
-        public event EventHandler ShowQuanLyHoaDonClicked;
+        public event EventHandler ShowBaoCaoThongKeClicked;
+
+        public event EventHandler SanPhamClicked;
+
+        public event EventHandler DanhMucClicked;
 
         public SideBarControl()
         {
             InitializeComponent();
+
+            // Gắn sự kiện click cho nút Sản phẩm
+            //btnSanPham.Click += btnSanPham_Click;
+            //btnDanhMuc.Click += btnDanhMuc_Click;
         }
 
         private void btnHoaDonNhap_Click(object sender, EventArgs e)
@@ -36,7 +42,19 @@ namespace BagShopManagement.Views.Controls
 
         private void btnBCTK_Click(object sender, EventArgs e)
         {
-            ShowTestClicked?.Invoke(this, EventArgs.Empty);
+            ShowBaoCaoThongKeClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnSanPham_Click(object sender, EventArgs e)
+        {
+            // Phát tín hiệu cho form chính
+            SanPhamClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnDanhMuc_Click(object sender, EventArgs e)
+        {
+            //btnDanhMuc.Click += (s, e) => DanhMucClicked?.Invoke(this, EventArgs.Empty);
+            DanhMucClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
