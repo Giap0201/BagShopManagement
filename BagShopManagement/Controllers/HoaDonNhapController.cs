@@ -1,5 +1,6 @@
 ﻿using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
+using BagShopManagement.Models;
 using BagShopManagement.Models.Enums; // Thêm
 using BagShopManagement.Services.Interfaces;
 
@@ -14,7 +15,7 @@ namespace BagShopManagement.Controllers
             _hoaDonNhapService = hoaDonNhapService;
         }
 
-        #region === TRUY VẤN (READ) ===
+        #region TRUY VAN
 
         public List<HoaDonNhapResponse> LayDanhSachHoaDon()
         {
@@ -23,21 +24,22 @@ namespace BagShopManagement.Controllers
 
         public HoaDonNhapResponse LayChiTietHoaDon(string maHDN)
         {
-            // Validation cơ bản
             if (string.IsNullOrWhiteSpace(maHDN))
                 throw new ArgumentException("Mã hóa đơn không được rỗng.");
-
-            // Sửa: Gọi đúng tên hàm trong interface BLL mới
             return _hoaDonNhapService.GetHoaDonNhapDetail(maHDN);
         }
 
-        public List<HoaDonNhapResponse> TimKiemHoaDon(string maHDN, DateTime? tuNgay, DateTime? denNgay, string maNCC, string maNV, TrangThaiHoaDonNhap? trangThai)
+        public List<HoaDonNhapResponse> TimKiemHoaDon(string maHDN, DateTime? tuNgay, DateTime? denNgay, string? maNCC, string? maNV, TrangThaiHoaDonNhap? trangThai)
         {
-            // Sửa: Thêm tham số trangThai
             return _hoaDonNhapService.Search(maHDN, tuNgay, denNgay, maNCC, maNV, trangThai);
         }
 
-        #endregion === TRUY VẤN (READ) ===
+        public List<HoaDonNhap> GetAll()
+        {
+            return _hoaDonNhapService.GetAll();
+        }
+
+        #endregion TRUY VAN
 
         #region === NGHIỆP VỤ CHÍNH (WRITE) ===
 
@@ -58,15 +60,11 @@ namespace BagShopManagement.Controllers
             _hoaDonNhapService.ApproveHoaDonNhap(maHDN);
         }
 
-        /// <summary>
-        /// Yêu cầu Hủy HĐN (Kiểm tra nghiệp vụ an toàn kho)
-        /// </summary>
-        public void HuyHoaDon(string maHDN) // Sửa: void (BLL ném lỗi, không trả về bool)
+        // Yeu cau huy hoa don
+        public void HuyHoaDon(string maHDN)
         {
             if (string.IsNullOrWhiteSpace(maHDN))
                 throw new ArgumentException("Mã hóa đơn không được rỗng.");
-
-            // Sửa: Gọi đúng tên hàm BLL (CancelHoaDonNhap)
             _hoaDonNhapService.CancelHoaDonNhap(maHDN);
         }
 

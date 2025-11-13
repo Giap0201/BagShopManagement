@@ -5,13 +5,6 @@ using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
 
-// using BagShopManagement.Utils; // (Nếu có)
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace BagShopManagement.Services.Implementations
 {
     public class HoaDonNhapService : IHoaDonNhapService
@@ -36,9 +29,9 @@ namespace BagShopManagement.Services.Implementations
             _sanPhamRepo = sanPhamRepo;
         }
 
-        #region === NGHIỆP VỤ CHÍNH (CREATE/APPROVE/CANCEL) ===
+        #region === NGHIỆP VỤ CHÍNH ===
 
-        /// Tạo mới một Hóa đơn Nhập ở trạng thái "Tạm lưu".
+        // Tao moi hoa don nhap dang o trang thai tam luu
         public string CreateDraftHoaDonNhap(HoaDonNhapRequest request)
         {
             ValidateHoaDonNhapRequest(request);
@@ -101,34 +94,25 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        /// <summary>
-        /// Hủy một Hóa đơn Nhập (logic phức tạp).
-        /// </summary>
+        // Huy mot hoa don nhap
         public void CancelHoaDonNhap(string maHDN)
         {
-            // 1. Kiểm tra nghiệp vụ
             HoaDonNhap hoadon = GetHoaDonHoacNemLoi(maHDN);
 
             if (hoadon.TrangThai == (byte)TrangThaiHoaDonNhap.DaHuy)
             {
-                // Không cần làm gì nếu đã hủy
                 return;
             }
 
             try
             {
-                // 2. Phân luồng nghiệp vụ
                 if (hoadon.TrangThai == (byte)TrangThaiHoaDonNhap.TamLuu)
                 {
-                    // Hủy phiếu nháp -> Dễ, chỉ cần đổi trạng thái
                     _hoaDonNhapRepo.UpdateTrangThai(maHDN, TrangThaiHoaDonNhap.DaHuy);
                 }
                 else if (hoadon.TrangThai == (byte)TrangThaiHoaDonNhap.HoatDong)
                 {
-                    // Hủy phiếu "Hoạt động" -> Phải kiểm tra an toàn kho
                     var chiTiets = _chiTietRepo.GetByHoaDonNhapId(maHDN);
-
-                    // 3. KIỂM TRA AN TOÀN (LOGIC CỐT LÕI CỦA BẠN)
                     if (!KiemTraAnToanTonKhoKhiHuy(chiTiets))
                     {
                         throw new InvalidOperationException(
@@ -136,7 +120,6 @@ namespace BagShopManagement.Services.Implementations
                             "Việc hủy sẽ gây ra [ÂM KHO].");
                     }
 
-                    // 4. Gọi DAL (Hàm này có Transaction để TRỪ kho VÀ đổi trạng thái)
                     _hoaDonNhapRepo.CancelActiveHoaDonNhap(maHDN, DateTime.Now, chiTiets);
                 }
             }
@@ -146,20 +129,15 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        #endregion === NGHIỆP VỤ CHÍNH (CREATE/APPROVE/CANCEL) ===
+        #endregion === NGHIỆP VỤ CHÍNH ===
 
         #region === NGHIỆP VỤ CẬP NHẬT (KHI TẠM LƯU) ===
 
-        /// <summary>
-        /// Cập nhật thông tin Header (NCC, NV, Ghi chú...)
-        /// </summary>
+        // cap nhat thong tin khong quan trong , khong lien quan den ton kho
         public void UpdateDraftInfo(string maHDN, HoaDonNhapInfoUpdateRequest request)
         {
-            // 1. Validation
             if (request == null)
                 throw new ArgumentNullException(nameof(request), "Dữ liệu cập nhật rỗng.");
-
-            // 2. Kiểm tra nghiệp vụ
             HoaDonNhap hoadon = GetHoaDonHoacNemLoi(maHDN);
             if (hoadon.TrangThai != (byte)TrangThaiHoaDonNhap.TamLuu)
             {
@@ -188,15 +166,10 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        /// <summary>
-        /// Thêm một sản phẩm mới vào HĐN đang "Tạm lưu".
-        /// </summary>
+        // Them mot san pham vao hoa don khi dang o trang thai tam luu
         public void AddDetailToDraft(string maHDN, ChiTietHDNRequest detailRequest)
         {
-            // 1. Validation
             ValidateChiTietRequest(detailRequest);
-
-            // 2. Kiểm tra nghiệp vụ
             HoaDonNhap hoadon = GetHoaDonHoacNemLoi(maHDN);
             if (hoadon.TrangThai != (byte)TrangThaiHoaDonNhap.TamLuu)
             {
@@ -219,7 +192,6 @@ namespace BagShopManagement.Services.Implementations
                 ThanhTien = detailRequest.SoLuong * detailRequest.DonGia
             };
 
-            // 5. Gọi DAL (Hàm này có Transaction để thêm CT VÀ cập nhật TongTien HĐN cha)
             try
             {
                 _chiTietRepo.AddDetailToDraft(chiTiet);
@@ -230,9 +202,7 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        /// <summary>
-        /// Cập nhật (Số lượng/Đơn giá) của một sản phẩm trong HĐN "Tạm lưu".
-        /// </summary>
+        // Cap nhat so luong don gia khi dang o trang thai tam luu
         public void UpdateDetailInDraft(string maHDN, string maSP, ChiTietHDNRequest detailRequest)
         {
             // 1. Validation
@@ -273,12 +243,9 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        /// <summary>
-        /// Xóa một sản phẩm khỏi HĐN đang "Tạm lưu".
-        /// </summary>
+        // Xoa san pham khoi hoa don nhap khi dang tam luu
         public void DeleteDetailFromDraft(string maHDN, string maSP)
         {
-            // 1. Kiểm tra nghiệp vụ
             HoaDonNhap hoadon = GetHoaDonHoacNemLoi(maHDN);
             if (hoadon.TrangThai != (byte)TrangThaiHoaDonNhap.TamLuu)
             {
@@ -286,8 +253,6 @@ namespace BagShopManagement.Services.Implementations
             }
             if (!_chiTietRepo.DetailExists(maHDN, maSP))
                 throw new InvalidOperationException($"Sản phẩm '{maSP}' không có trong hóa đơn để xóa.");
-
-            // 2. Gọi DAL (Hàm này có Transaction để xóa CT VÀ cập nhật TongTien HĐN cha)
             try
             {
                 _chiTietRepo.DeleteDetailFromDraft(maHDN, maSP);
@@ -300,7 +265,7 @@ namespace BagShopManagement.Services.Implementations
 
         #endregion === NGHIỆP VỤ CẬP NHẬT (KHI TẠM LƯU) ===
 
-        #region === TRUY VẤN (READ) - (Tương tự code cũ của bạn) ===
+        #region === TRUY VẤN ===
 
         public List<HoaDonNhapResponse> GetAllHoaDonNhap()
         {
@@ -336,7 +301,6 @@ namespace BagShopManagement.Services.Implementations
         {
             try
             {
-                // Chuyển enum sang byte? để truyền xuống DAL
                 byte? trangThaiByte = trangThai.HasValue ? (byte?)trangThai.Value : null;
                 return _hoaDonNhapRepo.Search(maHDN, tuNgay, denNgay, maNCC, maNV, trangThaiByte);
             }
@@ -346,13 +310,11 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        #endregion === TRUY VẤN (READ) - (Tương tự code cũ của bạn) ===
+        #endregion === TRUY VẤN ===
 
         #region === PRIVATE HELPERS ===
 
-        /// <summary>
-        /// Lấy hóa đơn, nếu không thấy thì ném lỗi (Dùng nội bộ)
-        /// </summary>
+        // Lay hoa don nhap
         private HoaDonNhap GetHoaDonHoacNemLoi(string maHDN)
         {
             if (string.IsNullOrWhiteSpace(maHDN))
@@ -365,30 +327,21 @@ namespace BagShopManagement.Services.Implementations
             return hoadon;
         }
 
-        /// <summary>
-        /// Kiểm tra an toàn tồn kho (logic cốt lõi của bạn)
-        /// </summary>
+        // Kiem tra xem con hang khong du huy hoa don nhap
         private bool KiemTraAnToanTonKhoKhiHuy(List<ChiTietHoaDonNhap> chiTietList)
         {
             foreach (var ct in chiTietList)
             {
-                // Giả sử ISanPhamRepository có hàm GetTonKho
-                //int tonKhoHienTai = _sanPhamRepo.GetTonKho(ct.MaSP);
-
-                // Nếu tồn kho hiện tại < số lượng đã nhập trong phiếu này
-                // -> Tức là hàng đã bị bán bớt
-                // -> Nếu trừ đi (hủy phiếu nhập) sẽ bị âm.
-                //if (tonKhoHienTai < ct.SoLuong)
-                //{
-                //    return false; // Không an toàn!
-                //}
+                int tonKhoHienTai = _sanPhamRepo.GetTonKho(ct.MaSP);
+                if (tonKhoHienTai < ct.SoLuong)
+                {
+                    return false;
+                }
             }
-            return true; // An toàn
+            return true;
         }
 
-        /// <summary>
-        /// Xác thực DTO khi tạo mới
-        /// </summary>
+        // validate hoa don nhap request
         private void ValidateHoaDonNhapRequest(HoaDonNhapRequest request)
         {
             if (request == null)
@@ -417,7 +370,7 @@ namespace BagShopManagement.Services.Implementations
             var productSet = new HashSet<string>();
             foreach (var ct in request.ChiTiet)
             {
-                ValidateChiTietRequest(ct); // Gọi helper con
+                ValidateChiTietRequest(ct);
 
                 //if (!_sanPhamRepo.Exists(ct.MaSP))
                 //    throw new InvalidOperationException($"Sản phẩm '{ct.MaSP}' không tồn tại trong hệ thống.");
@@ -426,9 +379,7 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        /// <summary>
-        /// Xác thực DTO chi tiết
-        /// </summary>
+        // validate chi tiet hoa don nhap request
         private void ValidateChiTietRequest(ChiTietHDNRequest ct)
         {
             if (ct == null)
@@ -439,6 +390,11 @@ namespace BagShopManagement.Services.Implementations
                 throw new ArgumentException($"Số lượng của sản phẩm {ct.MaSP} phải lớn hơn 0.");
             if (ct.DonGia < 0) // Cho phép đơn giá = 0 (hàng tặng)
                 throw new ArgumentException($"Đơn giá của sản phẩm {ct.MaSP} không hợp lệ.");
+        }
+
+        public List<HoaDonNhap> GetAll()
+        {
+            return _hoaDonNhapRepo.GetAll();
         }
 
         #endregion === PRIVATE HELPERS ===
