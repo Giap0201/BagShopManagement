@@ -128,6 +128,7 @@
             btnNCC.TabIndex = 7;
             btnNCC.Text = "Nhà cung cấp";
             btnNCC.UseVisualStyleBackColor = true;
+            btnNCC.Click += btnNCC_Click;
             // 
             // btnNhanVien
             // 
@@ -147,6 +148,7 @@
             btnKhachHang.TabIndex = 5;
             btnKhachHang.Text = "Khách hàng";
             btnKhachHang.UseVisualStyleBackColor = true;
+            btnKhachHang.Click += btnKhachHang_Click;
             // 
             // btnHoaDonBan
             // 
@@ -156,6 +158,7 @@
             btnHoaDonBan.TabIndex = 4;
             btnHoaDonBan.Text = "Hoá đơn bán";
             btnHoaDonBan.UseVisualStyleBackColor = true;
+            btnHoaDonBan.Click += btnHoaDonBan_Click;
             // 
             // btnSanPham
             // 
@@ -165,6 +168,7 @@
             btnSanPham.TabIndex = 3;
             btnSanPham.Text = "Sản phẩm";
             btnSanPham.UseVisualStyleBackColor = true;
+            btnSanPham.Click += btnSanPham_Click;
             // 
             // btnDanhMuc
             // 
@@ -174,6 +178,7 @@
             btnDanhMuc.TabIndex = 2;
             btnDanhMuc.Text = "Danh mục ";
             btnDanhMuc.UseVisualStyleBackColor = true;
+            btnDanhMuc.Click += btnDanhMuc_Click;
             // 
             // btnBanHang
             // 

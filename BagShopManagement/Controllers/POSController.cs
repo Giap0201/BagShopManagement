@@ -27,7 +27,7 @@ namespace BagShopManagement.Controllers
 
         // 🧾 Thanh toán hoặc lưu tạm hóa đơn
         public (bool ok, string res) Checkout(string maKH, string maNV,
-            bool saveDraft = false, string phuongThucTT = null, string ghiChu = null)
+            bool saveDraft = false, string? phuongThucTT = null, string? ghiChu = null)
             => _pos.Checkout(maKH, maNV, saveDraft, phuongThucTT, ghiChu);
 
         // 📋 Lấy danh sách sản phẩm trong giỏ
