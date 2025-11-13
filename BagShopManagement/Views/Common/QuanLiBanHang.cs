@@ -1,5 +1,6 @@
 ﻿using BagShopManagement.Views.Controls;
 using BagShopManagement.Views.Dev2;
+using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
@@ -93,6 +94,7 @@ namespace BagShopManagement.Views.Common
 
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
             sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
+            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
 
             sideBarControl.DanhMucClicked += (s, e) =>
             {
@@ -111,7 +113,6 @@ namespace BagShopManagement.Views.Common
                 }
             };
 
-
             // Không hiển thị gì ban đầu
             // ShowUserControl<ucHoaDonNhapList>();
         }
@@ -122,7 +123,6 @@ namespace BagShopManagement.Views.Common
 
         private void hoaDonNhapControl2_Load(object sender, EventArgs e)
         {
-
         }
     }
 }
