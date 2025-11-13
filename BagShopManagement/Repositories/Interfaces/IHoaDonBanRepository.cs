@@ -24,5 +24,8 @@ namespace BagShopManagement.Repositories.Interfaces
 
         /// <summary>Cập nhật hóa đơn và chi tiết.</summary>
         void Update(HoaDonBan hd, List<ChiTietHoaDonBan> chiTiet);
+
+        /// <summary>Xóa hóa đơn và chi tiết hoàn toàn khỏi database.</summary>
+        void Delete(string maHDB);
     }
 }

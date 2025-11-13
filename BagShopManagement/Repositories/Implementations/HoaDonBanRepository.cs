@@ -337,6 +337,47 @@ namespace BagShopManagement.Repositories.Implementations
             return list;
         }
 
+        /// <summary>
+        /// Xóa hóa đơn và chi tiết hoàn toàn khỏi database
+        /// </summary>
+        public void Delete(string maHDB)
+        {
+            using (var conn = new SqlConnection(_connectionString))
+            {
+                conn.Open();
+                using (var tran = conn.BeginTransaction())
+                {
+                    try
+                    {
+                        // 1. Xóa chi tiết trước (foreign key constraint)
+                        string queryDeleteDetails = "DELETE FROM ChiTietHoaDonBan WHERE MaHDB=@MaHDB";
+                        using (var cmdDeleteDetails = new SqlCommand(queryDeleteDetails, conn, tran))
+                        {
+                            cmdDeleteDetails.Parameters.Add(CreateParameter("@MaHDB", maHDB));
+                            cmdDeleteDetails.ExecuteNonQuery();
+                        }
+
+                        // 2. Xóa hóa đơn
+                        string queryDeleteInvoice = "DELETE FROM HoaDonBan WHERE MaHDB=@MaHDB";
+                        using (var cmdDeleteInvoice = new SqlCommand(queryDeleteInvoice, conn, tran))
+                        {
+                            cmdDeleteInvoice.Parameters.Add(CreateParameter("@MaHDB", maHDB));
+                            cmdDeleteInvoice.ExecuteNonQuery();
+                        }
+
+                        // Thành công
+                        tran.Commit();
+                    }
+                    catch (Exception)
+                    {
+                        // Lỗi -> Rollback
+                        tran.Rollback();
+                        throw;
+                    }
+                }
+            }
+        }
+
         #endregion Query & Non-Transaction Methods
     }
 }

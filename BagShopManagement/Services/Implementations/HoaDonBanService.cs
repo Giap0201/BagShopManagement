@@ -139,9 +139,65 @@ namespace BagShopManagement.Services.Implementations
         }
 
         /// <summary>
-        /// Tạo mã hóa đơn tự động theo format: HDByyyyMMddHHmmss
+        /// Xóa hóa đơn hoàn toàn khỏi database
         /// </summary>
-        /// <returns>Mã hóa đơn unique</returns>
-        private string GenerateMaHDB() => "HDB" + DateTime.Now.ToString("yyyyMMddHHmmss");
+        /// <param name="maHDB">Mã hóa đơn cần xóa</param>
+        /// <remarks>Chỉ nên xóa hóa đơn đã hủy (TrangThaiHD = 3)</remarks>
+        public void DeleteHoaDon(string maHDB)
+        {
+            try
+            {
+                _repo.Delete(maHDB);
+                Logger.Log($"HoaDon deleted permanently: {maHDB}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"DeleteHoaDon error: {ex.Message}");
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Tạo mã hóa đơn tự động theo format: HDB + số thứ tự 6 chữ số (HDB000001, HDB000002...)
+        /// </summary>
+        /// <returns>Mã hóa đơn unique với độ dài tối đa 9 ký tự</returns>
+        private string GenerateMaHDB()
+        {
+            try
+            {
+                // Lấy mã hóa đơn lớn nhất hiện tại
+                var allInvoices = _repo.GetAll();
+
+                if (allInvoices == null || allInvoices.Count == 0)
+                {
+                    return "HDB000001";
+                }
+
+                // Tìm số thứ tự lớn nhất
+                int maxNumber = 0;
+                foreach (var invoice in allInvoices)
+                {
+                    if (!string.IsNullOrEmpty(invoice.MaHDB) && invoice.MaHDB.StartsWith("HDB"))
+                    {
+                        string numberPart = invoice.MaHDB.Substring(3); // Bỏ "HDB"
+                        if (int.TryParse(numberPart, out int num))
+                        {
+                            if (num > maxNumber)
+                                maxNumber = num;
+                        }
+                    }
+                }
+
+                // Tăng số thứ tự và format
+                int newNumber = maxNumber + 1;
+                return $"HDB{newNumber:D6}"; // D6 = 6 chữ số với leading zeros
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"[ERROR] GenerateMaHDB failed: {ex.Message}");
+                // Fallback: dùng timestamp ngắn hơn
+                return "HDB" + DateTime.Now.ToString("yyMMdd"); // HDB251111 (9 ký tự)
+            }
+        }
     }
 }

@@ -20,5 +20,6 @@ namespace BagShopManagement.Repositories.Interfaces
         bool Delete(string maSP);
 
         List<SanPham> Search(string keyword);
+        string GetMaxCode();
     }
 }

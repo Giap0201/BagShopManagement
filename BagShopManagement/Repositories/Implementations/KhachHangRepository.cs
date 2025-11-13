@@ -3,7 +3,11 @@ using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
@@ -34,7 +38,7 @@ namespace BagShopManagement.Repositories.Implementations
                 object result = base.ExecuteScalar(query, parameters);
 
                 if (result != null && result != DBNull.Value)
-                {
+    {
                     return Convert.ToInt32(result) > 0;
                 }
                 return false;
@@ -46,7 +50,7 @@ namespace BagShopManagement.Repositories.Implementations
             }
         }
 
-        public List<KhachHang> GetAll()
+         public List<KhachHang> GetAll()
         {
             string query = "SELECT * FROM KhachHang";
             DataTable dt = ExecuteQuery(query);
@@ -85,8 +89,8 @@ namespace BagShopManagement.Repositories.Implementations
 
         public int Update(KhachHang kh)
         {
-            string query = @"UPDATE KhachHang
-                             SET HoTen=@HoTen, SoDienThoai=@SoDienThoai, Email=@Email,
+            string query = @"UPDATE KhachHang 
+                             SET HoTen=@HoTen, SoDienThoai=@SoDienThoai, Email=@Email, 
                                  DiaChi=@DiaChi, DiemTichLuy=@DiemTichLuy
                              WHERE MaKH=@MaKH";
             return ExecuteNonQuery(query,
@@ -105,9 +109,26 @@ namespace BagShopManagement.Repositories.Implementations
             return ExecuteNonQuery(query, new SqlParameter("@MaKH", maKH));
         }
 
+        /// <summary>
+        /// Tìm khách hàng theo số điện thoại
+        /// </summary>
+        public KhachHang? GetBySDT(string sdt)
+        {
+            if (string.IsNullOrWhiteSpace(sdt))
+                return null;
+
+            string query = "SELECT * FROM KhachHang WHERE SoDienThoai = @SoDienThoai";
+            DataTable dt = ExecuteQuery(query, new SqlParameter("@SoDienThoai", sdt));
+
+            if (dt.Rows.Count > 0)
+                return MapKhachHang(dt.Rows[0]);
+
+            return null;
+        }
+
         public List<KhachHang> Search(string ten, string sdt, string email)
         {
-            string query = @"SELECT * FROM KhachHang
+            string query = @"SELECT * FROM KhachHang 
                              WHERE (@HoTen IS NULL OR HoTen LIKE '%' + @HoTen + '%')
                                AND (@SoDienThoai IS NULL OR SoDienThoai LIKE '%' + @SoDienThoai + '%')
                                AND (@Email IS NULL OR Email LIKE '%' + @Email + '%')";
@@ -139,3 +160,4 @@ namespace BagShopManagement.Repositories.Implementations
         }
     }
 }
+
