@@ -45,6 +45,20 @@ namespace BagShopManagement.Views.Common
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void Sidebar_KhachHangClicked(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            var khControl = new KhachHangControl();
+            khControl.Dock = DockStyle.Fill;
+            panelMain.Controls.Add(khControl);
+        }
+        private void Sidebar_NhaCungCapClicked(object sender, EventArgs e)
+        {
+            panelMain.Controls.Clear();
+            var nccControl = new NhaCungCapControl();
+            nccControl.Dock = DockStyle.Fill;
+            panelMain.Controls.Add(nccControl);
+        }
 
         //private void ShowFormAsControl<T>() where T : Form
         //{
@@ -121,6 +135,11 @@ namespace BagShopManagement.Views.Common
         }
 
         private void hoaDonNhapControl2_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panelMain_Paint(object sender, PaintEventArgs e)
         {
 
         }

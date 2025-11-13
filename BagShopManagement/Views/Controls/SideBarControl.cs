@@ -17,6 +17,13 @@ namespace BagShopManagement.Views.Controls
         public event EventHandler DanhMucClicked;
         public event EventHandler ShowQuanLyHoaDonClicked;
 
+        public event EventHandler KhachHangClicked;
+
+        public event EventHandler NhaCungCapClicked;
+
+
+
+
         public SideBarControl()
         {
             InitializeComponent();
@@ -56,6 +63,21 @@ namespace BagShopManagement.Views.Controls
         {
             //btnDanhMuc.Click += (s, e) => DanhMucClicked?.Invoke(this, EventArgs.Empty);
             DanhMucClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void SideBarControl_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            KhachHangClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnNCC_Click(object sender, EventArgs e)
+        {
+            NhaCungCapClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
