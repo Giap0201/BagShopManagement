@@ -164,6 +164,7 @@
             btnSanPham.TabIndex = 3;
             btnSanPham.Text = "Sản phẩm";
             btnSanPham.UseVisualStyleBackColor = true;
+            btnSanPham.Click += btnSanPham_Click;
             // 
             // btnDanhMuc
             // 
@@ -173,6 +174,7 @@
             btnDanhMuc.TabIndex = 2;
             btnDanhMuc.Text = "Danh mục ";
             btnDanhMuc.UseVisualStyleBackColor = true;
+            btnDanhMuc.Click += btnDanhMuc_Click;
             // 
             // btnBanHang
             // 
