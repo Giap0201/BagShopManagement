@@ -15,11 +15,11 @@ namespace BagShopManagement.Views.Dev2
         private readonly LoaiTuiController _controller;
 
         // Inject Controller (đã có sẵn Service bên trong)
-        public LoaiTuiControl(ILoaiTuiService service)
+        public LoaiTuiControl(LoaiTuiController controller)
         {
             InitializeComponent();
 
-            _controller = new LoaiTuiController(service);
+            _controller = controller;
 
             // Wire events an toàn
             this.Load += LoaiTuiControl_Load;

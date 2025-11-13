@@ -14,10 +14,10 @@ namespace BagShopManagement.Views.Dev2
     {
         private readonly ThuongHieuController _controller;
 
-        public ThuongHieuControl(IThuongHieuService service)
+        public ThuongHieuControl(ThuongHieuController controller)
         {
             InitializeComponent();
-            _controller = new ThuongHieuController(service);
+            _controller = controller;
 
             // Wire events
             this.Load += ThuongHieuControl_Load;
