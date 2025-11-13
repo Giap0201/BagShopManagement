@@ -15,6 +15,7 @@ namespace BagShopManagement.Views.Controls
         public event EventHandler SanPhamClicked;
 
         public event EventHandler DanhMucClicked;
+        public event EventHandler ShowQuanLyHoaDonClicked;
 
         public SideBarControl()
         {
