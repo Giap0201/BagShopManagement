@@ -1,5 +1,7 @@
 ﻿using BagShopManagement.Views.Controls;
 using BagShopManagement.Views.Dev2;
+using BagShopManagement.Views.Dev3;
+using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
@@ -45,20 +47,20 @@ namespace BagShopManagement.Views.Common
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-        private void Sidebar_KhachHangClicked(object sender, EventArgs e)
-        {
-            panelMain.Controls.Clear();
-            var khControl = new KhachHangControl();
-            khControl.Dock = DockStyle.Fill;
-            panelMain.Controls.Add(khControl);
-        }
-        private void Sidebar_NhaCungCapClicked(object sender, EventArgs e)
-        {
-            panelMain.Controls.Clear();
-            var nccControl = new NhaCungCapControl();
-            nccControl.Dock = DockStyle.Fill;
-            panelMain.Controls.Add(nccControl);
-        }
+        //private void Sidebar_KhachHangClicked(object sender, EventArgs e)
+        //{
+        //    mainPanel.Controls.Clear();
+        //    var khControl = new KhachHangControl();
+        //    khControl.Dock = DockStyle.Fill;
+        //    mainPanel.Controls.Add(khControl);
+        //}
+        //private void Sidebar_NhaCungCapClicked(object sender, EventArgs e)
+        //{
+        //    mainPanel.Controls.Clear();
+        //    var nccControl = new NhaCungCapControl();
+        //    nccControl.Dock = DockStyle.Fill;
+        //    mainPanel.Controls.Add(nccControl);
+        //}
 
         //private void ShowFormAsControl<T>() where T : Form
         //{
@@ -107,6 +109,9 @@ namespace BagShopManagement.Views.Common
 
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
             sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
+            sideBarControl.NhaCungCapClicked += (s, ev) => ShowUserControl<NhaCungCapControl>();
+            sideBarControl.KhachHangClicked += (s, ev) => ShowUserControl<KhachHangControl>();
+          
 
             sideBarControl.DanhMucClicked += (s, e) =>
             {

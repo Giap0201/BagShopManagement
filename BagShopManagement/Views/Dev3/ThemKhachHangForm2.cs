@@ -5,13 +5,13 @@ using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev3
 {
-    public partial class ThemKhachHangForm : Form
+    public partial class ThemKhachHangForm2 : Form
     {
         private readonly KhachHangController _controller;
         private readonly KhachHang _khachHang;
         private readonly bool _isEdit;
 
-        public ThemKhachHangForm(KhachHangController controller, KhachHang kh = null)
+        public ThemKhachHangForm2(KhachHangController controller, KhachHang kh = null)
         {
             InitializeComponent();
             _controller = controller;

@@ -1,4 +1,4 @@
-﻿namespace BagShopManagement.Views.Dev4
+﻿namespace BagShopManagement.Views.Dev3
 {
     partial class KhachHangControl
     {

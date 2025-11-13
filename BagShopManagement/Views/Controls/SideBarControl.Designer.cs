@@ -127,6 +127,7 @@
             btnNCC.TabIndex = 7;
             btnNCC.Text = "Nhà cung cấp";
             btnNCC.UseVisualStyleBackColor = true;
+            btnNCC.Click += btnNCC_Click;
             // 
             // btnNhanVien
             // 
@@ -145,6 +146,7 @@
             btnKhachHang.TabIndex = 5;
             btnKhachHang.Text = "Khách hàng";
             btnKhachHang.UseVisualStyleBackColor = true;
+            btnKhachHang.Click += btnKhachHang_Click;
             // 
             // btnHoaDonBan
             // 
