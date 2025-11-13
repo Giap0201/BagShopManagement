@@ -123,6 +123,8 @@ namespace BagShopManagement
             services.AddTransient<frmHoaDonNhapDetail>();
             services.AddTransient<ucHoaDonNhapList>();
             services.AddTransient<ucBaoCaoThongKe>();
+            services.AddTransient<ucChiTietHDN>();
+            services.AddTransient<frmViewHoaDonNhapDetails>();
         }
     }
 }

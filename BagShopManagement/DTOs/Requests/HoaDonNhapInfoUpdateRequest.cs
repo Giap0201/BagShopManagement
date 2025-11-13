@@ -9,10 +9,8 @@ namespace BagShopManagement.DTOs.Requests
 {
     public class HoaDonNhapInfoUpdateRequest
     {
-        [Required(ErrorMessage = "Mã nhà cung cấp là bắt buộc.")]
         public string MaNCC { get; set; }
 
-        [Required(ErrorMessage = "Mã nhân viên là bắt buộc.")]
         public string MaNV { get; set; }
 
         public DateTime NgayNhap { get; set; } = DateTime.Now;

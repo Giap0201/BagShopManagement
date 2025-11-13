@@ -51,7 +51,7 @@ namespace BagShopManagement.Repositories.Implementations
 
         public bool Add(SanPham sp)
         {
-            string q = @"INSERT INTO SanPham 
+            string q = @"INSERT INTO SanPham
 (MaSP, TenSP, GiaNhap, GiaBan, SoLuongTon, MoTa, AnhChinh, MaLoaiTui, MaThuongHieu, MaChatLieu, MaMau, MaKichThuoc, MaNCC, TrangThai, NgayTao)
 VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh, @MaLoaiTui, @MaThuongHieu, @MaChatLieu, @MaMau, @MaKichThuoc, @MaNCC, @TrangThai, @NgayTao)";
             var p = new[]
@@ -77,10 +77,10 @@ VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh, @MaLoai
 
         public bool Update(SanPham sp)
         {
-            string q = @"UPDATE SanPham SET 
+            string q = @"UPDATE SanPham SET
 TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
-MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu, 
-MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC, 
+MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu,
+MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC,
 TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
             var p = new[]
             {
@@ -122,6 +122,26 @@ TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
             if (dt.Rows.Count == 0 || dt.Rows[0]["MaxCode"] == DBNull.Value)
                 return null;
             return dt.Rows[0]["MaxCode"].ToString();
+        }
+
+        public int GetTonKho(string maSP)
+        {
+            if (string.IsNullOrWhiteSpace(maSP))
+                return 0;
+
+            try
+            {
+                string query = "select SoLuongTon from SanPham where MaSP = @MaSP";
+                var dt = ExecuteQuery(query, new SqlParameter("@MaSP", maSP));
+                if (dt.Rows.Count == 0) return 0;
+                object value = dt.Rows[0]["SoLuongTon"];
+                if (value == null || value == DBNull.Value) return 0;
+                return Convert.ToInt32(value);
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }
