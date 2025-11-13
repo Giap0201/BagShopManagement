@@ -79,5 +79,6 @@ namespace BagShopManagement.Views.Controls
         {
             NhaCungCapClicked?.Invoke(this, EventArgs.Empty);
         }
+
     }
 }

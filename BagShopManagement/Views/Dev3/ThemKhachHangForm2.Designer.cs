@@ -1,6 +1,6 @@
 ﻿namespace BagShopManagement.Views.Dev3
 {
-    partial class ThemKhachHangForm
+    partial class ThemKhachHangForm2
     {
         /// <summary>
         /// Required designer variable.
