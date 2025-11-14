@@ -51,7 +51,7 @@ namespace BagShopManagement.Views.Dev6
 
         #region === LOAD DATA ===
 
-        private void LoadData()
+        public void LoadData()
         {
             try
             {
@@ -307,7 +307,7 @@ namespace BagShopManagement.Views.Dev6
                     return;
                 }
 
-                var uc = _provider.GetRequiredService<UcSuaHoaDonNhap>();
+                var uc = _provider.GetRequiredService<ucSuaHoaDonNhap>();
                 uc.LoadData(full);
                 this.Controls.Clear();
                 uc.Dock = DockStyle.Fill;

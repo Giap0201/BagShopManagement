@@ -1,23 +1,36 @@
 ﻿namespace BagShopManagement.Views.Dev6
 {
-    partial class UcSuaHoaDonNhap
+    partial class ucSuaHoaDonNhap
     {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && components != null)
+            if (disposing && (components != null))
+            {
                 components.Dispose();
-
+            }
             base.Dispose(disposing);
         }
 
         #region Component Designer generated code
 
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
             groupBox1 = new GroupBox();
+            btnCapNhatHDN = new Button();
             cboTrangThai = new ComboBox();
             label3 = new Label();
             txtGhiChu = new TextBox();
@@ -48,8 +61,6 @@
             dgvChiTiet = new DataGridView();
             btnThoat = new Button();
             btnInHDN = new Button();
-            btnDuyetHDN = new Button();
-            btnTamLuuHDN = new Button();
             errorProvider1 = new ErrorProvider(components);
             label7 = new Label();
             panel1 = new Panel();
@@ -62,6 +73,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnCapNhatHDN);
             groupBox1.Controls.Add(cboTrangThai);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(txtGhiChu);
@@ -81,9 +93,18 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Thông tin chung";
             // 
+            // btnCapNhatHDN
+            // 
+            btnCapNhatHDN.Location = new Point(981, 33);
+            btnCapNhatHDN.Name = "btnCapNhatHDN";
+            btnCapNhatHDN.Size = new Size(150, 29);
+            btnCapNhatHDN.TabIndex = 2;
+            btnCapNhatHDN.Text = "CẬP NHẬT HD";
+            btnCapNhatHDN.Click += btnCapNhatHDN_Click;
+            // 
             // cboTrangThai
             // 
-            cboTrangThai.Location = new Point(693, 123);
+            cboTrangThai.Location = new Point(693, 126);
             cboTrangThai.Name = "cboTrangThai";
             cboTrangThai.Size = new Size(151, 28);
             cboTrangThai.TabIndex = 4;
@@ -99,7 +120,7 @@
             // 
             // txtGhiChu
             // 
-            txtGhiChu.Location = new Point(692, 72);
+            txtGhiChu.Location = new Point(693, 76);
             txtGhiChu.Name = "txtGhiChu";
             txtGhiChu.Size = new Size(152, 27);
             txtGhiChu.TabIndex = 6;
@@ -224,6 +245,7 @@
             txtDonGia.Name = "txtDonGia";
             txtDonGia.Size = new Size(151, 27);
             txtDonGia.TabIndex = 2;
+            txtDonGia.TextChanged += txtDonGia_TextChanged;
             // 
             // txtSoLuong
             // 
@@ -231,6 +253,7 @@
             txtSoLuong.Name = "txtSoLuong";
             txtSoLuong.Size = new Size(151, 27);
             txtSoLuong.TabIndex = 3;
+            txtSoLuong.TextChanged += txtSoLuong_TextChanged;
             // 
             // cboSanPham
             // 
@@ -246,6 +269,7 @@
             btnLuuChiTietHDN.Size = new Size(94, 29);
             btnLuuChiTietHDN.TabIndex = 5;
             btnLuuChiTietHDN.Text = "LƯU";
+            btnLuuChiTietHDN.Click += btnLuuChiTietHDN_Click;
             // 
             // label14
             // 
@@ -263,6 +287,7 @@
             btnXoaChiTietHDN.Size = new Size(94, 29);
             btnXoaChiTietHDN.TabIndex = 7;
             btnXoaChiTietHDN.Text = "XOÁ";
+            btnXoaChiTietHDN.Click += btnXoaChiTietHDN_Click;
             // 
             // btnSuaChiTietHDN
             // 
@@ -271,6 +296,7 @@
             btnSuaChiTietHDN.Size = new Size(94, 29);
             btnSuaChiTietHDN.TabIndex = 8;
             btnSuaChiTietHDN.Text = "SỬA";
+            btnSuaChiTietHDN.Click += btnSuaChiTietHDN_Click;
             // 
             // label13
             // 
@@ -306,6 +332,7 @@
             btnThemChiTietHDN.Size = new Size(109, 29);
             btnThemChiTietHDN.TabIndex = 12;
             btnThemChiTietHDN.Text = "THÊM";
+            btnThemChiTietHDN.Click += btnThemChiTietHDN_Click;
             // 
             // label10
             // 
@@ -318,44 +345,33 @@
             // 
             // dgvChiTiet
             // 
-            dgvChiTiet.ColumnHeadersHeight = 29;
+            dgvChiTiet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvChiTiet.Location = new Point(37, 26);
+            dgvChiTiet.MultiSelect = false;
             dgvChiTiet.Name = "dgvChiTiet";
+            dgvChiTiet.ReadOnly = true;
             dgvChiTiet.RowHeadersWidth = 51;
+            dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvChiTiet.Size = new Size(695, 325);
             dgvChiTiet.TabIndex = 14;
+            dgvChiTiet.CellClick += dgvChiTiet_CellClick;
             // 
             // btnThoat
             // 
-            btnThoat.Location = new Point(905, 13);
+            btnThoat.Location = new Point(750, 16);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(94, 29);
             btnThoat.TabIndex = 7;
             btnThoat.Text = "QUAY LẠI";
+            btnThoat.Click += btnThoat_Click;
             // 
             // btnInHDN
             // 
-            btnInHDN.Location = new Point(713, 13);
+            btnInHDN.Location = new Point(420, 16);
             btnInHDN.Name = "btnInHDN";
             btnInHDN.Size = new Size(131, 29);
             btnInHDN.TabIndex = 4;
             btnInHDN.Text = "IN HOÁ ĐƠN";
-            // 
-            // btnDuyetHDN
-            // 
-            btnDuyetHDN.Location = new Point(443, 13);
-            btnDuyetHDN.Name = "btnDuyetHDN";
-            btnDuyetHDN.Size = new Size(131, 29);
-            btnDuyetHDN.TabIndex = 6;
-            btnDuyetHDN.Text = "DUYỆT";
-            // 
-            // btnTamLuuHDN
-            // 
-            btnTamLuuHDN.Location = new Point(277, 13);
-            btnTamLuuHDN.Name = "btnTamLuuHDN";
-            btnTamLuuHDN.Size = new Size(94, 29);
-            btnTamLuuHDN.TabIndex = 5;
-            btnTamLuuHDN.Text = "TẠM LƯU";
             // 
             // errorProvider1
             // 
@@ -366,29 +382,29 @@
             label7.AutoSize = true;
             label7.Location = new Point(680, 46);
             label7.Name = "label7";
-            label7.Size = new Size(111, 20);
+            label7.Size = new Size(155, 20);
             label7.TabIndex = 17;
-            label7.Text = "SỬA HOÁ ĐƠN";
+            label7.Text = "SỬA HOÁ ĐƠN NHẬP";
             // 
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(btnInHDN);
             panel1.Controls.Add(btnThoat);
-            panel1.Controls.Add(btnDuyetHDN);
-            panel1.Controls.Add(btnTamLuuHDN);
             panel1.Location = new Point(65, 788);
             panel1.Name = "panel1";
             panel1.Size = new Size(1401, 50);
             panel1.TabIndex = 15;
             // 
-            // UcSuaHoaDonNhap
+            // ucSuaHoaDonNhap
             // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
             Controls.Add(label7);
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
-            Name = "UcSuaHoaDonNhap";
+            Name = "ucSuaHoaDonNhap";
             Size = new Size(1591, 876);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -399,47 +415,48 @@
             panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
+
         }
 
         #endregion
 
-        private GroupBox groupBox1;
-        private TextBox txtMaHDN;
-        private Label label1;
-        private ComboBox cboNhaCungCap;
-        private ComboBox cboNhanVien;
-        private DateTimePicker dtpNgayNhap;
-        private TextBox txtGhiChu;
-        private ComboBox cboTrangThai;
-        private Label label3;
-        private Label label4;
-        private Label label5;
-        private Label label6;
-        private Label label2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.TextBox txtMaHDN;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cboNhaCungCap;
+        private System.Windows.Forms.ComboBox cboNhanVien;
+        private System.Windows.Forms.DateTimePicker dtpNgayNhap;
+        private System.Windows.Forms.TextBox txtGhiChu;
+        private System.Windows.Forms.ComboBox cboTrangThai;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label2;
 
-        private GroupBox groupBox2;
-        private DataGridView dgvChiTiet;
-        private ComboBox cboSanPham;
-        private TextBox txtSoLuong;
-        private TextBox txtDonGia;
-        private TextBox txtThanhTien;
-        private Button btnThemChiTietHDN;
-        private Button btnSuaChiTietHDN;
-        private Button btnXoaChiTietHDN;
-        private Button btnLuuChiTietHDN;
-        private Label label10;
-        private Label label11;
-        private Label label12;
-        private Label label13;
-        private Label label14;
-        private Label lblTongTien;
-        private Button btnThoat;
-        private Button btnInHDN;
-        private Button btnDuyetHDN;
-        private Button btnTamLuuHDN;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dgvChiTiet;
+        private System.Windows.Forms.ComboBox cboSanPham;
+        private System.Windows.Forms.TextBox txtSoLuong;
+        private System.Windows.Forms.TextBox txtDonGia;
+        private System.Windows.Forms.TextBox txtThanhTien;
+        private System.Windows.Forms.Button btnThemChiTietHDN;
+        private System.Windows.Forms.Button btnSuaChiTietHDN;
+        private System.Windows.Forms.Button btnXoaChiTietHDN;
+        private System.Windows.Forms.Button btnLuuChiTietHDN;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label lblTongTien;
 
-        private ErrorProvider errorProvider1;
-        private Panel panel1;
-        private Label label7;
+        private System.Windows.Forms.Button btnCapNhatHDN;
+        private System.Windows.Forms.Button btnThoat;
+        private System.Windows.Forms.Button btnInHDN;
+
+        private System.Windows.Forms.ErrorProvider errorProvider1;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label label7;
     }
 }

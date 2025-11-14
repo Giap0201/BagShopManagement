@@ -43,7 +43,7 @@ namespace BagShopManagement.Controllers
 
         #region === NGHIỆP VỤ CHÍNH (WRITE) ===
 
-        /// Yêu cầu tạo mới HĐN ở trạng thái Tạm lưu
+        // Tao hoa don moi o trang thai tam luu
         public string TaoMoiHoaDon(HoaDonNhapRequest request)
         {
             if (request == null)
@@ -68,18 +68,13 @@ namespace BagShopManagement.Controllers
             _hoaDonNhapService.CancelHoaDonNhap(maHDN);
         }
 
-        /// <summary>
-        /// Yêu cầu cập nhật thông tin Header (NCC, NV, Ghi chú) khi Tạm lưu
-        /// </summary>
-        // Sửa: Đổi DTO và kiểu trả về void
+        // cap nhap thong tin chung cua hoa don
         public void CapNhatThongTinHoaDon(string maHDN, HoaDonNhapInfoUpdateRequest request)
         {
             if (string.IsNullOrWhiteSpace(maHDN))
                 throw new ArgumentException("Mã hóa đơn không được rỗng.");
             if (request == null)
                 throw new ArgumentNullException(nameof(request), "Dữ liệu cập nhật rỗng.");
-
-            // Sửa: Gọi đúng tên hàm BLL (UpdateDraftInfo)
             _hoaDonNhapService.UpdateDraftInfo(maHDN, request);
         }
 
@@ -87,9 +82,6 @@ namespace BagShopManagement.Controllers
 
         #region === NGHIỆP VỤ SỬA CHI TIẾT (KHI TẠM LƯU) ===
 
-        /// <summary>
-        /// (MỚI) Yêu cầu thêm SP vào HĐN (khi Tạm lưu)
-        /// </summary>
         public void ThemChiTiet(string maHDN, ChiTietHDNRequest chiTietRequest)
         {
             if (string.IsNullOrWhiteSpace(maHDN))
@@ -100,9 +92,7 @@ namespace BagShopManagement.Controllers
             _hoaDonNhapService.AddDetailToDraft(maHDN, chiTietRequest);
         }
 
-        /// <summary>
-        /// (MỚI) Yêu cầu sửa (Số lượng/Đơn giá) SP trong HĐN (khi Tạm lưu)
-        /// </summary>
+        // sua so luong, don gia khi tam luu
         public void SuaChiTiet(string maHDN, string maSP, ChiTietHDNRequest chiTietRequest)
         {
             if (string.IsNullOrWhiteSpace(maHDN) || string.IsNullOrWhiteSpace(maSP))
@@ -113,9 +103,7 @@ namespace BagShopManagement.Controllers
             _hoaDonNhapService.UpdateDetailInDraft(maHDN, maSP, chiTietRequest);
         }
 
-        /// <summary>
-        /// (MỚI) Yêu cầu xóa SP khỏi HĐN (khi Tạm lưu)
-        /// </summary>
+        // Xoa san pham khoi chi tiet hoa don khi tam luu
         public void XoaChiTiet(string maHDN, string maSP)
         {
             if (string.IsNullOrWhiteSpace(maHDN) || string.IsNullOrWhiteSpace(maSP))

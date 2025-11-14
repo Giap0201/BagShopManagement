@@ -125,7 +125,7 @@ namespace BagShopManagement
             services.AddTransient<ucBaoCaoThongKe>();
             services.AddTransient<ucThemHDN>();
             services.AddTransient<frmViewHoaDonNhapDetails>();
-            services.AddTransient<UcSuaHoaDonNhap>();
+            services.AddTransient<ucSuaHoaDonNhap>();
         }
     }
 }

@@ -181,8 +181,6 @@ namespace BagShopManagement.Services.Implementations
             //    throw new InvalidOperationException($"Sản phẩm '{detailRequest.MaSP}' không tồn tại.");
             if (_chiTietRepo.DetailExists(maHDN, detailRequest.MaSP))
                 throw new InvalidOperationException($"Sản phẩm '{detailRequest.MaSP}' đã có trong hóa đơn.");
-
-            // 4. Map và Tính toán
             var chiTiet = new ChiTietHoaDonNhap
             {
                 MaHDN = maHDN,
