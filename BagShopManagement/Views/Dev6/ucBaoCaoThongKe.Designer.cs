@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             pnlMenu = new Panel();
             btnDoanhThu = new Button();
             btnNhapHang = new Button();
@@ -194,7 +194,7 @@
             // dtpTuNgay
             // 
             dtpTuNgay.Format = DateTimePickerFormat.Short;
-            dtpTuNgay.Location = new Point(112, 55);
+            dtpTuNgay.Location = new Point(156, 55);
             dtpTuNgay.Name = "dtpTuNgay";
             dtpTuNgay.Size = new Size(120, 30);
             dtpTuNgay.TabIndex = 2;
@@ -267,18 +267,18 @@
             // 
             // chartDoanhThu
             // 
-            chartArea2.Name = "ChartArea1";
-            chartDoanhThu.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            chartDoanhThu.Legends.Add(legend2);
+            chartArea1.Name = "ChartArea1";
+            chartDoanhThu.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            chartDoanhThu.Legends.Add(legend1);
             chartDoanhThu.Location = new Point(77, 267);
             chartDoanhThu.Name = "chartDoanhThu";
             chartDoanhThu.Palette = System.Windows.Forms.DataVisualization.Charting.ChartColorPalette.EarthTones;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            chartDoanhThu.Series.Add(series2);
-            chartDoanhThu.Size = new Size(1091, 303);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            chartDoanhThu.Series.Add(series1);
+            chartDoanhThu.Size = new Size(1174, 303);
             chartDoanhThu.TabIndex = 1;
             chartDoanhThu.Text = "chart1";
             // 

@@ -679,12 +679,20 @@ namespace BagShopManagement.Views.Dev6
 
         private void btnThoat_Click(object sender, EventArgs e)
         {
-            var listUC = _serviceProvider.GetRequiredService<ucHoaDonNhapList>();
-            var parent = this.Parent;
-            parent.Controls.Clear();
-            listUC.Dock = DockStyle.Fill;
-            parent.Controls.Add(listUC);
-            listUC.BringToFront();
+            try
+            {
+                var parent = this.Parent;
+                var listUC = _serviceProvider.GetRequiredService<ucHoaDonNhapList>();
+                listUC.LoadData();
+                parent.Controls.Clear();
+                listUC.Dock = DockStyle.Fill;
+                parent.Controls.Add(listUC);
+                listUC.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi quay lại danh sách hóa đơn: " + ex.Message);
+            }
         }
 
         //private void btnInHDN_Click(object sender, EventArgs e)
