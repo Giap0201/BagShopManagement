@@ -5,15 +5,19 @@ using BagShopManagement.Services;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Views.Dev3;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+
 
 namespace BagShopManagement.Views.Dev3
 {
@@ -150,7 +154,60 @@ namespace BagShopManagement.Views.Dev3
 
         }
 
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            ExportExcel_EPPlus(dgvKhachHang);
+
+        }
 
 
+private void ExportExcel_EPPlus(DataGridView dgv)
+    {
+        if (dgv.Rows.Count == 0)
+        {
+            MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo");
+            return;
+        }
+
+        SaveFileDialog sfd = new SaveFileDialog();
+        sfd.Filter = "Excel file|*.xlsx";
+        sfd.FileName = "KhachHang.xlsx";
+
+        if (sfd.ShowDialog() != DialogResult.OK)
+            return;
+
+        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+        using (ExcelPackage pkg = new ExcelPackage())
+        {
+            var ws = pkg.Workbook.Worksheets.Add("KhachHang");
+
+            // HEADER
+            for (int i = 0; i < dgv.Columns.Count; i++)
+            {
+                ws.Cells[1, i + 1].Value = dgv.Columns[i].HeaderText;
+                ws.Cells[1, i + 1].Style.Font.Bold = true;
+                ws.Cells[1, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                ws.Cells[1, i + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+            }
+
+            // DATA
+            for (int i = 0; i < dgv.Rows.Count; i++)
+            {
+                for (int j = 0; j < dgv.Columns.Count; j++)
+                {
+                    ws.Cells[i + 2, j + 1].Value = dgv.Rows[i].Cells[j].Value?.ToString();
+                }
+            }
+
+            ws.Cells.AutoFitColumns();
+
+            // Lưu file
+            pkg.SaveAs(new FileInfo(sfd.FileName));
+        }
+
+        MessageBox.Show("Xuất Excel thành công!", "Thành công");
     }
+
+}
 }
