@@ -133,11 +133,13 @@ namespace BagShopManagement.Views.Controls
 
         private void btnXoaCTGG_Click(object sender, EventArgs e)
         {
-            if (dgvDanhSachCTGG.CurrentRow == null)
+            if (dgvDanhSachCTGG.CurrentRow == null || string.IsNullOrWhiteSpace(txtMaCTGG.Text))
             {
                 MessageBox.Show("Vui lòng chọn một chương trình để xóa.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
+
+           
 
             string maCanXoa = txtMaCTGG.Text;
             string tenCanXoa = txtTenCT.Text;
@@ -159,7 +161,7 @@ namespace BagShopManagement.Views.Controls
 
         private void btnChonSanPham_Click(object sender, EventArgs e)
         {
-            if (dgvDanhSachCTGG.CurrentRow == null)
+            if (dgvDanhSachCTGG.CurrentRow == null || string.IsNullOrWhiteSpace(txtMaCTGG.Text))
             {
                 MessageBox.Show("Vui lòng chọn một chương trình để áp dụng sản phẩm.", "Thông báo");
                 return;

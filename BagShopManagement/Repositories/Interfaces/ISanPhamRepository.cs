@@ -10,5 +10,8 @@ namespace BagShopManagement.Repositories.Interfaces
     public interface ISanPhamRepository
     {
         List<SanPham> GetAvailableProducts(string maCTGG);
+        List<SanPham> GetAll();
+        SanPham GetById(string maSP);
+        void UpdateSoLuong(string maSP, int soLuongMoi);
     }
 }

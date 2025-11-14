@@ -5,9 +5,11 @@ using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Views.Common;
 using BagShopManagement.Views.Controls; // Giả sử QuanLiBanHang nằm ở đây
+using BagShopManagement.Views.Dev5;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
+using OfficeOpenXml;
 
 namespace BagShopManagement
 {
@@ -18,6 +20,8 @@ namespace BagShopManagement
         [STAThread]
         private static void Main()
         {
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -42,7 +46,10 @@ namespace BagShopManagement
 
             // 2. Đăng ký Services
             services.AddTransient<IChuongTrinhGiamGiaService, ChuongTrinhGiamGiaService>();
-            services.AddTransient<IChiTietGiamGiaService, ChiTietGiamGiaService>(); // <-- BỔ SUNG
+            services.AddTransient<IChiTietGiamGiaService, ChiTietGiamGiaService>();
+            //services.AddTransient<ILichSuTonKhoRepository, LichSuTonKhoRepository>(); // <-- BỔ SUNG MỚI
+            services.AddTransient<ITonKhoService, TonKhoService>(); // <-- BỔ SUNG MỚI
+            services.AddTransient<TonKhoController>(); // <
 
             // 3. Đăng ký Controllers
             services.AddTransient<ChuongTrinhGiamGiaController>();
@@ -51,6 +58,7 @@ namespace BagShopManagement
             // 4. Đăng ký Forms và UserControls (Luôn là Transient)
             services.AddTransient<QuanLiBanHang>(); // Form chính của bạn
             services.AddTransient<PromotionControl>();
+            services.AddTransient<TonKhoControl>();
         }
     }
 }
