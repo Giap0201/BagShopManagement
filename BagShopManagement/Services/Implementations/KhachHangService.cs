@@ -2,6 +2,7 @@
 using BagShopManagement.Repositories.Implementations;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -90,6 +91,24 @@ namespace BagShopManagement.Services.Implementations
             {
                 throw new ApplicationException("Lỗi khi tìm kiếm khách hàng: " + ex.Message, ex);
             }
+        }
+        public string GenerateNextCustomerCode()
+        {
+            var maxCode = _repository.GetMaxCode();
+            if (string.IsNullOrWhiteSpace(maxCode))
+            {
+                return "KH001";
+            }
+
+            string numericPart = maxCode.StartsWith("KH", StringComparison.OrdinalIgnoreCase)
+                ? maxCode.Substring(2)
+                : maxCode;
+
+            if (!int.TryParse(numericPart, out int current))
+                current = 0;
+
+            int next = current + 1;
+            return "KH" + next.ToString("000", CultureInfo.InvariantCulture);
         }
     }
 }
