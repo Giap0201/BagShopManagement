@@ -15,10 +15,10 @@ namespace BagShopManagement.Views.Dev2
         private readonly MauSacController _controller;
 
         // Inject service từ bên ngoài
-        public MauSacControl(IMauSacService service)
+        public MauSacControl(MauSacController controller)
         {
             InitializeComponent();
-            _controller = new MauSacController(service);
+            _controller = controller;
 
             // Wire events an toàn
             this.Load += MauSacControl_Load;
