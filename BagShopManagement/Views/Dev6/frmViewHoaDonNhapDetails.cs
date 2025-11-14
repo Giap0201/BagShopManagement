@@ -1,12 +1,7 @@
 ﻿using BagShopManagement.DTOs.Responses;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev6
@@ -18,30 +13,34 @@ namespace BagShopManagement.Views.Dev6
             InitializeComponent();
         }
 
-        private void frmViewHoaDonNhapDetails_Load(object sender, EventArgs e)
-        {
-        }
-
         public void LoadData(HoaDonNhapResponse data)
         {
-            if (data == null)
+            if (data == null) return;
+
+            lblMaHDN.Text = data.MaHDN ?? "";
+            lblNgayNhap.Text = data.NgayNhap?.ToString("dd/MM/yyyy HH:mm") ?? "";
+            lblNhaCungCap.Text = data.TenNCC ?? "Không có";
+            lblNhanVien.Text = data.TenNV ?? "Không xác định";
+            lblGhiChu.Text = string.IsNullOrWhiteSpace(data.GhiChu) ? "Không có ghi chú" : data.GhiChu;
+            lblTrangThai.Text = data.TenTrangThai;
+            dgvChiTiet.Rows.Clear();
+            if (data.ChiTiet != null)
             {
-                MessageBox.Show("Dữ liệu hóa đơn trống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
+                int stt = 1;
+                foreach (var ct in data.ChiTiet)
+                {
+                    dgvChiTiet.Rows.Add(stt++, ct.MaSP, ct.TenSP, ct.SoLuong,
+                        ct.DonGia.ToString("N0"), ct.ThanhTien.ToString("N0"));
+                }
             }
 
-            valMaHDN.Text = data.MaHDN;
-            valNCC.Text = data.TenNCC;
-            valNV.Text = data.TenNV;
-            valNgayNhap.Text = data.NgayNhap?.ToString("dd/MM/yyyy");
-            valGhiChu.Text = data.GhiChu;
-            valTrangThai.Text = data.TenTrangThai;
-            valNgayDuyet.Text = data.NgayDuyet?.ToString("dd/MM/yyyy") ?? "";
-            valNgayHuy.Text = data.NgayHuy?.ToString("dd/MM/yyyy") ?? "";
+            var tong = data.ChiTiet?.Sum(x => x.ThanhTien) ?? 0;
+            lblTongTien.Text = tong > 0 ? tong.ToString("N0") + " ₫" : "0 ₫";
+        }
 
-            dgvChiTiet.DataSource = data.ChiTiet;
-
-            valTongTien.Text = data.TongTien.ToString("N0");
+        private void btnDong_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
