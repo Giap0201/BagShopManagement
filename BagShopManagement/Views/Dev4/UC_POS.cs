@@ -2,6 +2,7 @@
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Utils;
+using BagShopManagement.Views.Dev3; // Thêm để sử dụng ThemKhachHangForm2
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -158,11 +159,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 }
                 else
                 {
-                    // Khách hàng chưa tồn tại - hiển thị form thêm mới
-                    var themKHForm = new ThemKhachHangForm(sdt);
+                    // Khách hàng chưa tồn tại - hiển thị form thêm mới (Dev3)
+                    var khController = new KhachHangController();
+                    var themKHForm = new ThemKhachHangForm2(khController);
+
                     if (themKHForm.ShowDialog() == DialogResult.OK)
                     {
-                        var khMoi = themKHForm.KhachHangMoi;
+                        // Sau khi thêm thành công, tìm lại khách hàng theo SĐT
+                        var khMoi = khRepo.GetBySDT(sdt);
                         if (khMoi != null)
                         {
                             txtMaKH.Text = khMoi.MaKH;

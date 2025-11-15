@@ -182,6 +182,8 @@ namespace BagShopManagement.Views.Common
             // (Bạn cần đặt các nút trong SideBarControl là 'public'
             // bằng cách chọn nút -> Properties -> Modifiers -> Public)
 
+            // TẠM THỜI COMMENT ĐỂ TEST
+            /*
             if (UserContext.MaQuyenList != null)
             {
                 // (Giả sử tên nút là btnNhanVien và btnTaiKhoan)
@@ -197,6 +199,7 @@ namespace BagShopManagement.Views.Common
                 // sideBarControl.btnSanPham.Enabled = UserContext.MaQuyenList.Contains("Q001");
                 // ...
             }
+            */
         }
 
         // --- (Các hàm load trống của nhóm bạn, giữ nguyên) ---
