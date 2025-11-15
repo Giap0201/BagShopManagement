@@ -105,6 +105,7 @@
             // 
             // txtMaKH
             // 
+            txtMaKH.Enabled = false;
             txtMaKH.Location = new Point(129, 52);
             txtMaKH.Name = "txtMaKH";
             txtMaKH.Size = new Size(180, 27);
@@ -160,7 +161,7 @@
             txtEmail.Size = new Size(246, 27);
             txtEmail.TabIndex = 15;
             // 
-            // ThemKhachHangForm
+            // ThemKhachHangForm2
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -179,7 +180,7 @@
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Name = "ThemKhachHangForm";
+            Name = "ThemKhachHangForm2";
             Text = "ThemKhachHangForm";
             ResumeLayout(false);
             PerformLayout();

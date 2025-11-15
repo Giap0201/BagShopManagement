@@ -26,6 +26,7 @@ namespace BagShopManagement.Views.Dev3
             else
             {
                 this.Text = "Thêm nhà cung cấp mới";
+                txtMaNCC.Text = _controller.GenerateNextCode();
             }
         }
 
