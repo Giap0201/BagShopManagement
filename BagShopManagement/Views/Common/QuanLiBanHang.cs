@@ -118,7 +118,7 @@ namespace BagShopManagement.Views.Common
             if (this.DesignMode) return;
 
             // === BƯỚC 1: XỬ LÝ ĐĂNG NHẬP (BỔ SUNG TỪ DEV1) ===
-            // (Giữ nguyên logic "Login-First" của bạn: 
+            // (Giữ nguyên logic "Login-First" của bạn:
             // Program.cs chạy LoginForm trước, sau đó MainForm này mới được load)
             if (!UserContext.IsLoggedIn)
             {
@@ -130,7 +130,6 @@ namespace BagShopManagement.Views.Common
             // === BƯỚC 2: CẬP NHẬT GIAO DIỆN (BỔ SUNG TỪ DEV1) ===
             // (Giả sử bạn có 1 ToolStripStatusLabel tên là 'tsslUserInfo')
             // tsslUserInfo.Text = $"Người dùng: {UserContext.HoTen} ({UserContext.MaVaiTro})";
-
 
             // === BƯỚC 3: GÁN SỰ KIỆN CHO SIDEBAR (HỢP NHẤT) ===
 
@@ -148,6 +147,7 @@ namespace BagShopManagement.Views.Common
 
             // Dev2 Events (Đã có)
             sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
+            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
 
             // Dev3 Events (Đã có)
             sideBarControl.NhaCungCapClicked += (s, ev) => ShowUserControl<NhaCungCapControl>();
@@ -176,7 +176,6 @@ namespace BagShopManagement.Views.Common
 
             // Gắn sự kiện "Nhân viên" (Employee Management)
             sideBarControl.ShowEmployeeManagementClicked += (s, ev) => ShowUserControl<ucEmployeeManagement>();
-
 
             // === BƯỚC 4: XỬ LÝ PHÂN QUYỀN (BỔ SUNG TỪ DEV1) ===
             // (Bạn cần đặt các nút trong SideBarControl là 'public'
@@ -209,12 +208,10 @@ namespace BagShopManagement.Views.Common
 
         private void hoaDonNhapControl2_Load(object sender, EventArgs e)
         {
-
         }
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }

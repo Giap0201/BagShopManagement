@@ -26,5 +26,10 @@ namespace BagShopManagement.Repositories.Interfaces
         public List<KhachHang> Search(string ten, string sdt, string email);
 
         bool Exists(string maKH);
+
+        string GetMaxCode();
+        
+          
+
     }
 }

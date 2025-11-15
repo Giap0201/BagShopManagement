@@ -71,10 +71,7 @@ namespace BagShopManagement.Repositories.Implementations
             return Convert.ToInt32(result) > 0;
         }
 
-        /// <summary>
-        /// [TRANSACTION] Thêm 1 chi tiết vào hóa đơn (khi đang Tạm lưu).
-        /// Cập nhật lại TongTien của HoaDonNhap cha.
-        /// </summary>
+        // Them chi tiet hoa don khi dang tam luu
         public bool AddDetailToDraft(ChiTietHoaDonNhap chiTiet)
         {
             using var conn = new SqlConnection(_connectionString);
@@ -82,7 +79,6 @@ namespace BagShopManagement.Repositories.Implementations
             using var tran = conn.BeginTransaction();
             try
             {
-                // 1. Thêm chi tiết
                 string sqlInsert = @"
                     INSERT INTO ChiTietHoaDonNhap (MaHDN, MaSP, SoLuong, DonGia, ThanhTien)
                     VALUES (@MaHDN, @MaSP, @SoLuong, @DonGia, @ThanhTien)";
@@ -95,8 +91,6 @@ namespace BagShopManagement.Repositories.Implementations
                     cmd.Parameters.AddWithValue("@ThanhTien", chiTiet.ThanhTien);
                     cmd.ExecuteNonQuery();
                 }
-
-                // 2. Cập nhật Tổng tiền của hóa đơn cha
                 string sqlUpdateHD = @"
                     UPDATE HoaDonNhap
                     SET TongTien = TongTien + @ThanhTien
@@ -182,10 +176,7 @@ namespace BagShopManagement.Repositories.Implementations
             }
         }
 
-        /// <summary>
-        /// [TRANSACTION] Xóa 1 chi tiết khỏi hóa đơn (khi đang Tạm lưu).
-        /// Cập nhật lại TongTien của HoaDonNhap cha.
-        /// </summary>
+        // Xoa chi tiet, cap nhat lai tong tien cua hoa don cha
         public bool DeleteDetailFromDraft(string maHDN, string maSP)
         {
             using var conn = new SqlConnection(_connectionString);

@@ -33,7 +33,9 @@
             dtpTuNgay = new DateTimePicker();
             cmbSearchNhanVien = new ComboBox();
             cmbSearchTrangThai = new ComboBox();
+            btnLamMoi = new Button();
             cmbSearchNCC = new ComboBox();
+            btnTimKiem = new Button();
             cmbSearchMaHDN = new ComboBox();
             label6 = new Label();
             label5 = new Label();
@@ -42,12 +44,13 @@
             label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            btnInHoaDon = new Button();
+            btnSua = new Button();
+            btnXuatExel = new Button();
             btnHuy = new Button();
             btnDuyet = new Button();
-            btnXemSua = new Button();
+            btnXem = new Button();
             btnThem = new Button();
-            btnLamMoi = new Button();
-            btnTimKiem = new Button();
             dgvDanhSach = new DataGridView();
             label7 = new Label();
             groupBox1.SuspendLayout();
@@ -61,7 +64,9 @@
             groupBox1.Controls.Add(dtpTuNgay);
             groupBox1.Controls.Add(cmbSearchNhanVien);
             groupBox1.Controls.Add(cmbSearchTrangThai);
+            groupBox1.Controls.Add(btnLamMoi);
             groupBox1.Controls.Add(cmbSearchNCC);
+            groupBox1.Controls.Add(btnTimKiem);
             groupBox1.Controls.Add(cmbSearchMaHDN);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label5);
@@ -71,7 +76,7 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Location = new Point(106, 105);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(882, 323);
+            groupBox1.Size = new Size(608, 323);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Tìm kiếm";
@@ -108,6 +113,16 @@
             cmbSearchTrangThai.Size = new Size(195, 28);
             cmbSearchTrangThai.TabIndex = 8;
             // 
+            // btnLamMoi
+            // 
+            btnLamMoi.Location = new Point(438, 107);
+            btnLamMoi.Name = "btnLamMoi";
+            btnLamMoi.Size = new Size(164, 29);
+            btnLamMoi.TabIndex = 1;
+            btnLamMoi.Text = "Làm mới";
+            btnLamMoi.UseVisualStyleBackColor = true;
+            btnLamMoi.Click += btnLamMoi_Click;
+            // 
             // cmbSearchNCC
             // 
             cmbSearchNCC.FormattingEnabled = true;
@@ -115,6 +130,16 @@
             cmbSearchNCC.Name = "cmbSearchNCC";
             cmbSearchNCC.Size = new Size(195, 28);
             cmbSearchNCC.TabIndex = 7;
+            // 
+            // btnTimKiem
+            // 
+            btnTimKiem.Location = new Point(438, 47);
+            btnTimKiem.Name = "btnTimKiem";
+            btnTimKiem.Size = new Size(164, 29);
+            btnTimKiem.TabIndex = 0;
+            btnTimKiem.Text = "Tìm kiếm";
+            btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.Click += btnTimKiem_Click;
             // 
             // cmbSearchMaHDN
             // 
@@ -180,73 +205,89 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(btnInHoaDon);
+            groupBox2.Controls.Add(btnSua);
+            groupBox2.Controls.Add(btnXuatExel);
             groupBox2.Controls.Add(btnHuy);
             groupBox2.Controls.Add(btnDuyet);
-            groupBox2.Controls.Add(btnXemSua);
+            groupBox2.Controls.Add(btnXem);
             groupBox2.Controls.Add(btnThem);
-            groupBox2.Controls.Add(btnLamMoi);
-            groupBox2.Controls.Add(btnTimKiem);
-            groupBox2.Location = new Point(1136, 105);
+            groupBox2.Location = new Point(884, 105);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(297, 325);
+            groupBox2.Size = new Size(297, 343);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Chức năng";
             // 
+            // btnInHoaDon
+            // 
+            btnInHoaDon.Location = new Point(34, 282);
+            btnInHoaDon.Name = "btnInHoaDon";
+            btnInHoaDon.Size = new Size(164, 29);
+            btnInHoaDon.TabIndex = 8;
+            btnInHoaDon.Text = "In hoa don";
+            btnInHoaDon.UseVisualStyleBackColor = true;
+            btnInHoaDon.Click += btnInHoaDon_Click;
+            // 
+            // btnSua
+            // 
+            btnSua.Location = new Point(34, 237);
+            btnSua.Name = "btnSua";
+            btnSua.Size = new Size(164, 29);
+            btnSua.TabIndex = 7;
+            btnSua.Text = "SỬA HOÁ ĐƠN";
+            btnSua.UseVisualStyleBackColor = true;
+            btnSua.Click += btnSua_Click;
+            // 
+            // btnXuatExel
+            // 
+            btnXuatExel.Location = new Point(34, 190);
+            btnXuatExel.Name = "btnXuatExel";
+            btnXuatExel.Size = new Size(164, 29);
+            btnXuatExel.TabIndex = 6;
+            btnXuatExel.Text = "XUẤT FILE";
+            btnXuatExel.UseVisualStyleBackColor = true;
+            btnXuatExel.Click += btnXuatExel_Click;
+            // 
             // btnHuy
             // 
-            btnHuy.Location = new Point(34, 253);
+            btnHuy.Location = new Point(34, 140);
             btnHuy.Name = "btnHuy";
             btnHuy.Size = new Size(164, 29);
             btnHuy.TabIndex = 5;
             btnHuy.Text = "Huỷ Hoá Đơn";
             btnHuy.UseVisualStyleBackColor = true;
+            btnHuy.Click += btnHuy_Click;
             // 
             // btnDuyet
             // 
-            btnDuyet.Location = new Point(34, 206);
+            btnDuyet.Location = new Point(34, 105);
             btnDuyet.Name = "btnDuyet";
             btnDuyet.Size = new Size(164, 29);
             btnDuyet.TabIndex = 4;
             btnDuyet.Text = "Duyệt hoá đơn";
             btnDuyet.UseVisualStyleBackColor = true;
+            btnDuyet.Click += btnDuyet_Click;
             // 
-            // btnXemSua
+            // btnXem
             // 
-            btnXemSua.Location = new Point(34, 162);
-            btnXemSua.Name = "btnXemSua";
-            btnXemSua.Size = new Size(164, 29);
-            btnXemSua.TabIndex = 3;
-            btnXemSua.Text = "Xem chi tiết";
-            btnXemSua.UseVisualStyleBackColor = true;
+            btnXem.Location = new Point(34, 70);
+            btnXem.Name = "btnXem";
+            btnXem.Size = new Size(164, 29);
+            btnXem.TabIndex = 3;
+            btnXem.Text = "Xem chi tiết";
+            btnXem.UseVisualStyleBackColor = true;
+            btnXem.Click += btnXem_Click;
             // 
             // btnThem
             // 
-            btnThem.Location = new Point(34, 118);
+            btnThem.Location = new Point(34, 29);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(164, 29);
             btnThem.TabIndex = 2;
             btnThem.Text = "Thêm mới";
             btnThem.UseVisualStyleBackColor = true;
             btnThem.Click += btnThem_Click;
-            // 
-            // btnLamMoi
-            // 
-            btnLamMoi.Location = new Point(34, 74);
-            btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new Size(164, 29);
-            btnLamMoi.TabIndex = 1;
-            btnLamMoi.Text = "Làm mới";
-            btnLamMoi.UseVisualStyleBackColor = true;
-            // 
-            // btnTimKiem
-            // 
-            btnTimKiem.Location = new Point(34, 39);
-            btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(164, 29);
-            btnTimKiem.TabIndex = 0;
-            btnTimKiem.Text = "Tìm kiếm";
-            btnTimKiem.UseVisualStyleBackColor = true;
             // 
             // dgvDanhSach
             // 
@@ -261,6 +302,8 @@
             dgvDanhSach.RowHeadersWidth = 51;
             dgvDanhSach.Size = new Size(1327, 375);
             dgvDanhSach.TabIndex = 8;
+            dgvDanhSach.CellClick += dgvDanhSach_CellClick;
+            dgvDanhSach.SelectionChanged += dgvDanhSach_SelectionChanged;
             // 
             // label7
             // 
@@ -308,12 +351,15 @@
         private GroupBox groupBox2;
         private Button btnHuy;
         private Button btnDuyet;
-        private Button btnXemSua;
+        private Button btnXem;
         private Button btnThem;
         private Button btnLamMoi;
         private Button btnTimKiem;
         private DataGridView dgvDanhSach;
         private Label label7;
         private ComboBox cmbSearchMaHDN;
+        private Button btnXuatExel;
+        private Button btnSua;
+        private Button btnInHoaDon;
     }
 }

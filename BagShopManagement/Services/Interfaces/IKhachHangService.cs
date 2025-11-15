@@ -11,5 +11,6 @@ namespace BagShopManagement.Services
         bool Update(KhachHang kh);
         bool Delete(string maKH);
         List<KhachHang> Search(string ten, string sdt, string email);
+        string GenerateNextCustomerCode();
     }
 }
