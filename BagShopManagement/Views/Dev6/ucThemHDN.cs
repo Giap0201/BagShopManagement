@@ -550,130 +550,54 @@ namespace BagShopManagement.Views.Dev6
         {
             if (string.IsNullOrWhiteSpace(txtMaHDN.Text))
             {
-                MessageBox.Show("Vui lòng chọn hoặc tạo hoá đơn trước khi xuất.",
+                MessageBox.Show("Vui lòng tạo hoặc chọn hóa đơn trước khi xuất!",
                     "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             if (_listChiTiets == null || !_listChiTiets.Any())
             {
-                MessageBox.Show("Hóa đơn chưa có chi tiết để xuất.",
+                MessageBox.Show("Chưa có chi tiết sản phẩm để xuất!",
                     "Thiếu dữ liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
-            using var sfd = new SaveFileDialog
+            using (var sfd = new SaveFileDialog())
             {
-                Title = "Lưu hóa đơn nhập",
-                Filter = "Excel file (*.xlsx)|*.xlsx",
-                FileName = $"HoaDonNhap_{txtMaHDN.Text}.xlsx"
-            };
+                sfd.Filter = "Excel Workbook (*.xlsx)|*.xlsx";
+                sfd.FileName = $"PhieuNhap_{txtMaHDN.Text}_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+                sfd.Title = "Xuất phiếu nhập hàng";
 
-            if (sfd.ShowDialog() != DialogResult.OK)
-                return;
-
-            string filePath = sfd.FileName;
-
-            try
-            {
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-                // ======= LẤY DỮ LIỆU CƠ BẢN =======
-                string maHDN = txtMaHDN.Text.Trim();
-                string ncc = cboNhaCungCap.Text;
-                string nv = cboNhanVien.Text;
-                string ngay = dtpNgayNhap.Value.ToString("dd/MM/yyyy");
-                string ghiChu = txtGhiChu.Text.Trim();
-                decimal tongTien = _listChiTiets.Sum(ct => ct.ThanhTien);
-
-                using (var package = new ExcelPackage())
+                if (sfd.ShowDialog() == DialogResult.OK)
                 {
-                    var ws = package.Workbook.Worksheets.Add("Hóa đơn nhập");
-
-                    int row = 1;
-
-                    // ======= TIÊU ĐỀ =======
-                    ws.Cells[row, 1].Value = "PHIẾU NHẬP HÀNG";
-                    ws.Cells[row, 1, row, 5].Merge = true;
-                    ws.Cells[row, 1].Style.Font.Bold = true;
-                    ws.Cells[row, 1].Style.Font.Size = 18;
-                    ws.Cells[row, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    row += 2;
-
-                    // ======= THÔNG TIN CHUNG =======
-                    ws.Cells[row++, 1].Value = $"Mã hóa đơn: {maHDN}";
-                    ws.Cells[row++, 1].Value = $"Nhà cung cấp: {ncc}";
-                    ws.Cells[row++, 1].Value = $"Nhân viên lập: {nv}";
-                    ws.Cells[row++, 1].Value = $"Ngày nhập: {ngay}";
-                    if (!string.IsNullOrEmpty(ghiChu))
-                        ws.Cells[row++, 1].Value = $"Ghi chú: {ghiChu}";
-                    row++;
-
-                    // ======= HEADER BẢNG =======
-                    ws.Cells[row, 1].Value = "Tên sản phẩm";
-                    ws.Cells[row, 2].Value = "Số lượng";
-                    ws.Cells[row, 3].Value = "Đơn giá (VNĐ)";
-                    ws.Cells[row, 4].Value = "Thành tiền (VNĐ)";
-
-                    using (var range = ws.Cells[row, 1, row, 4])
+                    try
                     {
-                        range.Style.Font.Bold = true;
-                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
-                        range.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
-                        range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                        range.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                        var hoaDon = new HoaDonNhapResponse
+                        {
+                            MaHDN = txtMaHDN.Text.Trim(),
+                            NgayNhap = dtpNgayNhap.Value,
+                            TenNCC = cboNhaCungCap.Text,
+                            TenNV = cboNhanVien.Text,
+                            GhiChu = txtGhiChu.Text.Trim(),
+                            ChiTiet = _listChiTiets
+                        };
+
+                        ExcelHelper.XuatPhieuNhapHang(sfd.FileName, hoaDon);
+                        MessageBox.Show($"Xuất phiếu nhập hàng thành công!\nĐã lưu tại:\n{sfd.FileName}",
+                            "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = sfd.FileName,
+                            UseShellExecute = true
+                        });
                     }
-
-                    row++;
-
-                    // ======= NỘI DUNG CHI TIẾT =======
-                    foreach (var item in _listChiTiets)
+                    catch (Exception ex)
                     {
-                        ws.Cells[row, 1].Value = item.TenSP;
-                        ws.Cells[row, 2].Value = item.SoLuong;
-                        ws.Cells[row, 3].Value = item.DonGia;
-                        ws.Cells[row, 4].Value = item.ThanhTien;
-
-                        ws.Cells[row, 3, row, 4].Style.Numberformat.Format = "#,##0";
-                        row++;
+                        MessageBox.Show($"Lỗi khi xuất Excel:\n{ex.Message}",
+                            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
-
-                    // ======= TỔNG CỘNG =======
-                    ws.Cells[row, 3].Value = "Tổng cộng:";
-                    ws.Cells[row, 4].Value = tongTien;
-                    ws.Cells[row, 3, row, 4].Style.Font.Bold = true;
-                    ws.Cells[row, 4].Style.Numberformat.Format = "#,##0";
-                    row += 2;
-
-                    // ======= KÝ TÊN =======
-                    ws.Cells[row, 2].Value = "Người lập phiếu";
-                    ws.Cells[row, 4].Value = "Nhà cung cấp";
-                    ws.Cells[row, 2, row, 2].Style.Font.Italic = true;
-                    ws.Cells[row, 4, row, 4].Style.Font.Italic = true;
-                    ws.Cells[row, 2].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-                    ws.Cells[row, 4].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
-
-                    // ======= ĐỊNH DẠNG CHUNG =======
-                    ws.Cells.AutoFitColumns();
-                    ws.Cells[1, 1, row, 4].Style.Border.BorderAround(ExcelBorderStyle.None);
-
-                    // ======= LƯU FILE =======
-                    File.WriteAllBytes(filePath, package.GetAsByteArray());
                 }
-
-                MessageBox.Show($"Xuất file Excel thành công!\nĐã lưu tại: {filePath}",
-                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
-                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
-                {
-                    FileName = filePath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi xuất Excel: {ex.Message}",
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
