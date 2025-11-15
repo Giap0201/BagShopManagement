@@ -109,5 +109,13 @@ namespace BagShopManagement.Repositories.Implementations
                 NguoiLienHe = row["NguoiLienHe"]?.ToString()
             };
         }
+        public string GetMaxCode()
+        {
+            var dt = ExecuteQuery("SELECT MAX(MaNCC) AS MaxCode FROM NhaCungCap");
+            if (dt.Rows.Count == 0) return null;
+
+            var obj = dt.Rows[0]["MaxCode"];
+            return obj == DBNull.Value ? null : obj.ToString();
+        }
     }
 }

@@ -34,6 +34,7 @@
             btnThemMoi = new Button();
             btnSua = new Button();
             btnXoa = new Button();
+            btnXuatExcel = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvKhachHang).BeginInit();
             SuspendLayout();
             // 
@@ -71,7 +72,7 @@
             // 
             // btnThemMoi
             // 
-            btnThemMoi.Location = new Point(406, 29);
+            btnThemMoi.Location = new Point(394, 29);
             btnThemMoi.Name = "btnThemMoi";
             btnThemMoi.Size = new Size(125, 38);
             btnThemMoi.TabIndex = 3;
@@ -81,7 +82,7 @@
             // 
             // btnSua
             // 
-            btnSua.Location = new Point(588, 29);
+            btnSua.Location = new Point(864, 29);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(125, 38);
             btnSua.TabIndex = 4;
@@ -92,7 +93,7 @@
             // 
             // btnXoa
             // 
-            btnXoa.Location = new Point(778, 29);
+            btnXoa.Location = new Point(708, 29);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(125, 38);
             btnXoa.TabIndex = 5;
@@ -101,10 +102,21 @@
             btnXoa.Visible = false;
             btnXoa.Click += btnXoa_Click;
             // 
+            // btnXuatExcel
+            // 
+            btnXuatExcel.Location = new Point(548, 29);
+            btnXuatExcel.Name = "btnXuatExcel";
+            btnXuatExcel.Size = new Size(125, 38);
+            btnXuatExcel.TabIndex = 6;
+            btnXuatExcel.Text = "Xuất excel";
+            btnXuatExcel.UseVisualStyleBackColor = true;
+            btnXuatExcel.Click += btnXuatExcel_Click;
+            // 
             // KhachHangControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(btnXuatExcel);
             Controls.Add(btnXoa);
             Controls.Add(btnSua);
             Controls.Add(btnThemMoi);
@@ -128,5 +140,6 @@
         private Button btnThemMoi;
         private Button btnSua;
         private Button btnXoa;
+        private Button btnXuatExcel;
     }
 }
