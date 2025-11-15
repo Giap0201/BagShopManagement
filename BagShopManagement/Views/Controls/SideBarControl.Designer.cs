@@ -118,6 +118,7 @@
             btnTaiKhoan.TabIndex = 8;
             btnTaiKhoan.Text = "Tài khoản";
             btnTaiKhoan.UseVisualStyleBackColor = true;
+            btnTaiKhoan.Click += btnTaiKhoan_Click;
             // 
             // btnNCC
             // 
@@ -127,6 +128,7 @@
             btnNCC.TabIndex = 7;
             btnNCC.Text = "Nhà cung cấp";
             btnNCC.UseVisualStyleBackColor = true;
+            btnNCC.Click += btnNCC_Click;
             // 
             // btnNhanVien
             // 
@@ -136,6 +138,7 @@
             btnNhanVien.TabIndex = 6;
             btnNhanVien.Text = "Nhân viên";
             btnNhanVien.UseVisualStyleBackColor = true;
+            btnNhanVien.Click += btnNhanVien_Click;
             // 
             // btnKhachHang
             // 
@@ -145,6 +148,7 @@
             btnKhachHang.TabIndex = 5;
             btnKhachHang.Text = "Khách hàng";
             btnKhachHang.UseVisualStyleBackColor = true;
+            btnKhachHang.Click += btnKhachHang_Click;
             // 
             // btnHoaDonBan
             // 
@@ -225,20 +229,20 @@
         #endregion
 
         private Panel panel1;
-        private Button btnNCC;
-        private Button btnNhanVien;
-        private Button btnKhachHang;
-        private Button btnHoaDonBan;
-        private Button btnSanPham;
-        private Button btnDanhMuc;
-        private Button btnBanHang;
         private Button button1;
-        private Button btnKho;
-        private Button btnTaiKhoan;
-        private Button btnHoaDonNhap;
         private ImageList menu;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Button btnKhuyenMai;
-        private Button btnBCTK;
+        public Button btnNCC;
+        public Button btnNhanVien;
+        public Button btnKhachHang;
+        public Button btnHoaDonBan;
+        public Button btnSanPham;
+        public Button btnDanhMuc;
+        public Button btnBanHang;
+        public Button btnKho;
+        public Button btnTaiKhoan;
+        public Button btnHoaDonNhap;
+        public Button btnKhuyenMai;
+        public Button btnBCTK;
     }
 }
