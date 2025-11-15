@@ -9,7 +9,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace BagShopManagement.Views.Dev6
 {
