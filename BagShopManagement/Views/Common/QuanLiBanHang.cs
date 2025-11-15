@@ -143,7 +143,7 @@ namespace BagShopManagement.Views.Common
 
             // Dev2 Events (Đã có)
             sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
-            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
+            //sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<U>();
 
             // Dev3 Events (Đã có)
             sideBarControl.NhaCungCapClicked += (s, ev) => ShowUserControl<NhaCungCapControl>();
