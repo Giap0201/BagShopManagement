@@ -46,4 +46,11 @@
 		</EmbeddedResource>
 	</ItemGroup>
 
+	<!-- Copy Resources/Images to output directory -->
+	<ItemGroup>
+		<Content Include="Resources\Images\**\*.*">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
+	</ItemGroup>
+
 </Project>

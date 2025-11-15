@@ -197,7 +197,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     // Hiển thị thông tin sản phẩm đã chọn
                     lblMaSPValue.Text = sp.MaSP;
                     lblTenSP.Text = $"Tên: {sp.TenSP}";
-                    lblGiaSP.Text = $"Giá: {sp.GiaBan:N0} ₫ | Tồn kho: {sp.SoLuongTon}";
+                    lblGiaSP.Text = $"{sp.GiaBan:N0} ₫";
+
+                    // Hiển thị ảnh sản phẩm
+                    LoadProductImage(sp.AnhChinh);
 
                     // Focus vào số lượng
                     numQty.Focus();
@@ -286,7 +289,88 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             lblTenSP.Text = "";
             lblGiaSP.Text = "";
             numQty.Value = 1;
+            picSanPham.Image = null;
             btnChonSP.Focus();
+        }
+
+        /// <summary>
+        /// Load và hiển thị ảnh sản phẩm từ URL hoặc đường dẫn
+        /// </summary>
+        private async void LoadProductImage(string? imageUrl)
+        {
+            try
+            {
+                // Xóa ảnh cũ
+                if (picSanPham.Image != null)
+                {
+                    picSanPham.Image.Dispose();
+                    picSanPham.Image = null;
+                }
+
+                // Nếu không có URL thì bỏ qua
+                if (string.IsNullOrWhiteSpace(imageUrl))
+                {
+                    return;
+                }
+
+                // Kiểm tra nếu là URL (http/https)
+                if (imageUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                    imageUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Load ảnh từ URL bằng HttpClient
+                    using (var httpClient = new System.Net.Http.HttpClient())
+                    {
+                        httpClient.Timeout = TimeSpan.FromSeconds(10);
+                        byte[] imageBytes = await httpClient.GetByteArrayAsync(imageUrl);
+                        using (var ms = new System.IO.MemoryStream(imageBytes))
+                        {
+                            // Tạo copy của image để tránh lỗi khi stream bị dispose
+                            var tempImage = System.Drawing.Image.FromStream(ms);
+                            picSanPham.Image = new System.Drawing.Bitmap(tempImage);
+                            tempImage.Dispose();
+                        }
+                    }
+                }
+                else
+                {
+                    // Load ảnh từ file local
+                    string imagePath;
+                    if (System.IO.Path.IsPathRooted(imageUrl))
+                    {
+                        // Đường dẫn tuyệt đối
+                        imagePath = imageUrl;
+                    }
+                    else
+                    {
+                        // Đường dẫn tương đối - tìm từ thư mục Resources/Images
+                        imagePath = System.IO.Path.Combine(
+                            AppDomain.CurrentDomain.BaseDirectory,
+                            "Resources", "Images", imageUrl);
+                    }
+
+                    if (System.IO.File.Exists(imagePath))
+                    {
+                        // Load ảnh từ file và copy vào memory để không lock file
+                        using (var fileStream = new System.IO.FileStream(imagePath, System.IO.FileMode.Open, System.IO.FileAccess.Read))
+                        {
+                            var tempImage = System.Drawing.Image.FromStream(fileStream);
+                            picSanPham.Image = new System.Drawing.Bitmap(tempImage);
+                            tempImage.Dispose();
+                        }
+                    }
+                    else
+                    {
+                        // Log nếu file không tồn tại để debug
+                        Logger.Log($"UC_POS.LoadProductImage: File not found - {imagePath}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Không hiển thị lỗi cho user, chỉ log
+                Logger.Log($"UC_POS.LoadProductImage Error: {ex.Message} - URL: {imageUrl}");
+                // PictureBox sẽ để trống nếu không load được ảnh
+            }
         }
 
         private void RefreshCartGrid()
