@@ -100,6 +100,7 @@
             // 
             // txtMaNCC
             // 
+            txtMaNCC.Enabled = false;
             txtMaNCC.Location = new Point(142, 34);
             txtMaNCC.Name = "txtMaNCC";
             txtMaNCC.Size = new Size(201, 27);
