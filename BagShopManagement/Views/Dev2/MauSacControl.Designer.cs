@@ -33,7 +33,6 @@
             btnAdd = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
-            btnSearch = new Button();
             btnImport = new Button();
             btnExport = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvMauSac).BeginInit();
@@ -60,7 +59,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(432, 55);
+            btnAdd.Location = new Point(319, 55);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(94, 29);
             btnAdd.TabIndex = 2;
@@ -70,7 +69,7 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(553, 55);
+            btnEdit.Location = new Point(447, 55);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(94, 29);
             btnEdit.TabIndex = 3;
@@ -80,7 +79,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(679, 55);
+            btnDelete.Location = new Point(570, 55);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 4;
@@ -88,18 +87,9 @@
             btnDelete.UseVisualStyleBackColor = true;
             btnDelete.Click += btnDelete_Click;
             // 
-            // btnSearch
-            // 
-            btnSearch.Location = new Point(318, 55);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(94, 29);
-            btnSearch.TabIndex = 6;
-            btnSearch.Text = "Tìm";
-            btnSearch.UseVisualStyleBackColor = true;
-            // 
             // btnImport
             // 
-            btnImport.Location = new Point(800, 55);
+            btnImport.Location = new Point(679, 55);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(94, 29);
             btnImport.TabIndex = 7;
@@ -109,7 +99,7 @@
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(800, 90);
+            btnExport.Location = new Point(800, 55);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(94, 29);
             btnExport.TabIndex = 8;
@@ -123,7 +113,6 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(btnExport);
             Controls.Add(btnImport);
-            Controls.Add(btnSearch);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
             Controls.Add(btnAdd);
@@ -143,7 +132,6 @@
         private Button btnAdd;
         private Button btnEdit;
         private Button btnDelete;
-        private Button btnSearch;
         private Button btnImport;
         private Button btnExport;
     }

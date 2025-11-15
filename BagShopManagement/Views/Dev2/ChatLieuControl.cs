@@ -30,7 +30,7 @@ namespace BagShopManagement.Views.Dev2
                 dgvChatLieu.AutoGenerateColumns = false;
                 dgvChatLieu.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Mã",
+                    HeaderText = "Mã chất liệu",
                     DataPropertyName = "MaChatLieu",
                     Name = "MaChatLieu",
                     ReadOnly = true,
@@ -156,17 +156,21 @@ namespace BagShopManagement.Views.Dev2
                 using var ofd = new OpenFileDialog
                 {
                     Filter = "Excel files (*.xlsx)|*.xlsx",
-                    Title = "Chọn file Excel để import (TenChatLieu, MoTa)"
+                    Title = "Chọn file Excel để import"
                 };
 
                 if (ofd.ShowDialog() != DialogResult.OK) return;
-                if (MessageBox.Show("Bạn có chắc chắn muốn import file này không?\nDữ liệu sẽ được cập nhật.",
-                    "Xác nhận Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+
+                if (MessageBox.Show(
+                        "Bạn có chắc chắn muốn import file này không?\nDữ liệu sẽ được cập nhật.",
+                        "Xác nhận Import",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
                 int inserted = 0, updated = 0, skipped = 0;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 using var package = new ExcelPackage(new FileInfo(ofd.FileName));
                 var ws = package.Workbook.Worksheets.FirstOrDefault();
                 if (ws == null)
@@ -175,48 +179,97 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                int colTen = -1, colMoTa = -1;
+                // Nếu tiêu đề lớn ở dòng 1 → bỏ qua
+                int headerRow = 1;
+                if (ws.Cells[1, 1].Text.Trim().ToLower().Contains("danh mục"))
+                    headerRow = 2;
+
+                // =======================
+                // Tìm vị trí các cột header
+                // =======================
+                int colMa = -1, colTen = -1, colMoTa = -1;
                 int lastCol = ws.Dimension.End.Column;
+
                 for (int c = 1; c <= lastCol; c++)
                 {
-                    var h = ws.Cells[1, c].Text?.Trim();
-                    if (string.Equals(h, "TenChatLieu", StringComparison.OrdinalIgnoreCase)) colTen = c;
-                    if (string.Equals(h, "MoTa", StringComparison.OrdinalIgnoreCase)) colMoTa = c;
+                    var h = ws.Cells[headerRow, c].Text?.Trim().ToLower();
+
+                    switch (h)
+                    {
+                        case "mã chất liệu":
+                        case "machatlieu":
+                            colMa = c;
+                            break;
+
+                        case "tên chất liệu":
+                        case "tenchatlieu":
+                            colTen = c;
+                            break;
+
+                        case "mô tả":
+                        case "mota":
+                            colMoTa = c;
+                            break;
+                    }
                 }
 
                 if (colTen == -1)
                 {
-                    MessageBox.Show("Không tìm thấy cột 'TenChatLieu' trong file.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy cột 'Tên chất liệu' trong file.",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
                 var existingList = _controller.GetAll() ?? new List<ChatLieu>();
                 int lastRow = ws.Dimension.End.Row;
 
-                for (int r = 2; r <= lastRow; r++)
+                // =======================
+                // Đọc dữ liệu từ dòng kế tiếp header
+                // =======================
+                for (int r = headerRow + 1; r <= lastRow; r++)
                 {
                     var ten = ws.Cells[r, colTen].Text?.Trim();
                     if (string.IsNullOrEmpty(ten)) { skipped++; continue; }
 
                     var mota = colMoTa != -1 ? ws.Cells[r, colMoTa].Text?.Trim() : null;
-                    var existing = existingList.FirstOrDefault(x =>
-                        string.Equals(x.TenChatLieu?.Trim(), ten, StringComparison.OrdinalIgnoreCase));
 
+                    ChatLieu existing = null;
+
+                    // Có cột mã → ưu tiên cập nhật theo mã
+                    if (colMa != -1)
+                    {
+                        var ma = ws.Cells[r, colMa].Text?.Trim();
+                        if (!string.IsNullOrEmpty(ma))
+                            existing = existingList.FirstOrDefault(x =>
+                                string.Equals(x.MaChatLieu, ma, StringComparison.OrdinalIgnoreCase));
+                    }
+
+                    // Không tìm thấy theo mã → tìm theo tên
+                    if (existing == null)
+                    {
+                        existing = existingList.FirstOrDefault(x =>
+                            string.Equals(x.TenChatLieu?.Trim(), ten, StringComparison.OrdinalIgnoreCase));
+                    }
+
+                    // Cập nhật
                     if (existing != null)
                     {
-                        if (!string.IsNullOrWhiteSpace(mota))
-                            existing.MoTa = mota;
+                        existing.TenChatLieu = ten;
+                        existing.MoTa = mota;
 
-                        if (_controller.Update(existing)) updated++; else skipped++;
+                        if (_controller.Update(existing)) updated++;
+                        else skipped++;
                     }
                     else
                     {
+                        // Thêm mới
                         var newItem = new ChatLieu
                         {
                             MaChatLieu = _controller.GenerateNextCode(),
                             TenChatLieu = ten,
                             MoTa = mota
                         };
+
                         if (_controller.Add(newItem))
                         {
                             inserted++;
@@ -227,14 +280,19 @@ namespace BagShopManagement.Views.Dev2
                 }
 
                 LoadData();
-                MessageBox.Show($"Import hoàn tất.\nThêm: {inserted}\nCập nhật: {updated}\nBỏ qua: {skipped}",
-                    "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                MessageBox.Show(
+                    $"Import hoàn tất.\n\nThêm mới: {inserted}\nCập nhật: {updated}\nBỏ qua: {skipped}",
+                    "Kết quả",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi import: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
 
         // ====== Export ra Excel ======
         private void BtnExport_Click(object sender, EventArgs e)
@@ -259,11 +317,23 @@ namespace BagShopManagement.Views.Dev2
                 using var p = new ExcelPackage();
                 var ws = p.Workbook.Worksheets.Add("ChatLieu");
 
-                ws.Cells["A1"].Value = "MaChatLieu";
-                ws.Cells["B1"].Value = "TenChatLieu";
-                ws.Cells["C1"].Value = "MoTa";
+                // ===========================
+                // 1️⃣ TIÊU ĐỀ LỚN
+                // ===========================
+                ws.Cells["A1"].Value = "DANH MỤC CHẤT LIỆU";
+                ws.Cells["A1:C1"].Merge = true;
+                ws.Cells["A1"].Style.Font.Size = 18;
+                ws.Cells["A1"].Style.Font.Bold = true;
+                ws.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                using (var r = ws.Cells["A1:C1"])
+                // ===========================
+                // 2️⃣ TIÊU ĐỀ CỘT (tiếng Việt)
+                // ===========================
+                ws.Cells["A2"].Value = "Mã chất liệu";
+                ws.Cells["B2"].Value = "Tên chất liệu";
+                ws.Cells["C2"].Value = "Mô tả";
+
+                using (var r = ws.Cells["A2:C2"])
                 {
                     r.Style.Font.Bold = true;
                     r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
@@ -272,7 +342,10 @@ namespace BagShopManagement.Views.Dev2
                     r.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
                 }
 
-                int row = 2;
+                // ===========================
+                // 3️⃣ GHI DỮ LIỆU
+                // ===========================
+                int row = 3;
                 foreach (var x in list)
                 {
                     ws.Cells[row, 1].Value = x.MaChatLieu;
@@ -291,5 +364,6 @@ namespace BagShopManagement.Views.Dev2
                 MessageBox.Show("Lỗi xuất: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
