@@ -117,7 +117,7 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        // ========== IMPORT ==========
+        // ===== Import từ Excel =====
         private void BtnImport_Click(object sender, EventArgs e)
         {
             try
@@ -125,55 +125,99 @@ namespace BagShopManagement.Views.Dev2
                 using var ofd = new OpenFileDialog
                 {
                     Filter = "Excel files (*.xlsx)|*.xlsx",
-                    Title = "Chọn file Excel để import (TenMau)"
+                    Title = "Chọn file Excel để import màu sắc"
                 };
                 if (ofd.ShowDialog() != DialogResult.OK) return;
 
-                if (MessageBox.Show("Bạn có chắc chắn muốn import file này không?\nSau khi import sẽ thêm màu mới (bỏ qua trùng).",
-                    "Xác nhận Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                if (MessageBox.Show("Bạn có chắc chắn muốn import file này không?\nDữ liệu sẽ được cập nhật.",
+                    "Xác nhận Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
 
-                var file = ofd.FileName;
-                if (!File.Exists(file))
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                using var package = new ExcelPackage(new FileInfo(ofd.FileName));
+                var ws = package.Workbook.Worksheets.FirstOrDefault();
+                if (ws == null)
                 {
-                    MessageBox.Show("File không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("File Excel không có sheet.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                int inserted = 0, skipped = 0;
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+                // ===== XÁC ĐỊNH DÒNG HEADER =====
+                int headerRow = 1;
+                if (ws.Cells[1, 1].Text.Trim().ToLower().Contains("màu"))
+                    headerRow = 2;
 
-                using var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                using var package = new ExcelPackage(stream);
-                var ws = package.Workbook.Worksheets.FirstOrDefault();
-                if (ws == null) { MessageBox.Show("File Excel không có sheet.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+                int lastCol = ws.Dimension.End.Column;
+                int lastRow = ws.Dimension.End.Row;
 
-                int colTen = -1, startRow = 1;
-                for (int c = 1; c <= ws.Dimension.End.Column; c++)
+                int colMa = -1, colTen = -1;
+                for (int c = 1; c <= lastCol; c++)
                 {
-                    if (string.Equals((ws.Cells[startRow, c].Text ?? "").Trim(), "TenMau", StringComparison.OrdinalIgnoreCase))
-                        colTen = c;
+                    var h = ws.Cells[headerRow, c].Text?.Trim().ToLower();
+                    switch (h)
+                    {
+                        case "mã màu":
+                        case "mamau":
+                            colMa = c;
+                            break;
+                        case "tên màu":
+                        case "tenmau":
+                            colTen = c;
+                            break;
+                    }
                 }
-                if (colTen == -1) { MessageBox.Show("Không tìm thấy cột 'TenMau'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error); return; }
+
+                if (colTen == -1)
+                {
+                    MessageBox.Show("Không tìm thấy cột 'Tên màu'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
 
                 var existingList = _controller.GetAll() ?? new List<MauSac>();
-                for (int r = startRow + 1; r <= ws.Dimension.End.Row; r++)
+                int inserted = 0, skipped = 0;
+
+                for (int r = headerRow + 1; r <= lastRow; r++)
                 {
-                    var ten = (ws.Cells[r, colTen].Text ?? "").Trim();
+                    string ten = ws.Cells[r, colTen].Text?.Trim();
                     if (string.IsNullOrEmpty(ten)) { skipped++; continue; }
 
-                    if (existingList.Any(x => string.Equals(x.TenMau?.Trim(), ten, StringComparison.OrdinalIgnoreCase))) { skipped++; continue; }
+                    MauSac existing = null;
 
-                    var newItem = new MauSac { MaMau = _controller.GenerateNextCode(), TenMau = ten };
-                    if (_controller.Add(newItem))
+                    // Ưu tiên tìm theo mã
+                    if (colMa != -1)
                     {
-                        inserted++;
-                        existingList.Add(newItem);
+                        string ma = ws.Cells[r, colMa].Text?.Trim();
+                        if (!string.IsNullOrEmpty(ma))
+                            existing = existingList.FirstOrDefault(x => string.Equals(x.MaMau, ma, StringComparison.OrdinalIgnoreCase));
                     }
-                    else skipped++;
+
+                    // Nếu không có mã → tìm theo tên
+                    if (existing == null)
+                        existing = existingList.FirstOrDefault(x => string.Equals(x.TenMau?.Trim(), ten, StringComparison.OrdinalIgnoreCase));
+
+                    if (existing != null)
+                    {
+                        existing.TenMau = ten;
+                        if (_controller.Update(existing)) { inserted++; } else { skipped++; }
+                    }
+                    else
+                    {
+                        var newItem = new MauSac
+                        {
+                            MaMau = _controller.GenerateNextCode(),
+                            TenMau = ten
+                        };
+                        if (_controller.Add(newItem))
+                        {
+                            inserted++;
+                            existingList.Add(newItem);
+                        }
+                        else skipped++;
+                    }
                 }
 
                 LoadData();
-                MessageBox.Show($"Import hoàn tất. Thêm: {inserted}, Bỏ qua: {skipped}", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Import hoàn tất.\nThêm mới: {inserted}\nBỏ qua: {skipped}", "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -181,34 +225,50 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        // ========== EXPORT ==========
+        // ===== Export ra Excel =====
         private void BtnExport_Click(object sender, EventArgs e)
         {
             try
             {
-                using var s = new SaveFileDialog { Filter = "Excel File|*.xlsx", FileName = $"MauSac_{DateTime.Now:yyyyMMdd_HHmm}.xlsx" };
-                if (s.ShowDialog() != DialogResult.OK) return;
+                using var sfd = new SaveFileDialog
+                {
+                    Filter = "Excel File|*.xlsx",
+                    FileName = $"MauSac_{DateTime.Now:yyyyMMdd_HHmm}.xlsx"
+                };
+                if (sfd.ShowDialog() != DialogResult.OK) return;
 
                 var list = (dgvMauSac.DataSource as List<MauSac>) ?? _controller.GetAll();
-                if (list == null || list.Count == 0) { MessageBox.Show("Không có dữ liệu để xuất."); return; }
+                if (list == null || list.Count == 0)
+                {
+                    MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return;
+                }
 
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 using var p = new ExcelPackage();
-                var ws = p.Workbook.Worksheets.Add("MauSac");
+                var ws = p.Workbook.Worksheets.Add("Màu sắc");
 
-                ws.Cells["A1"].Value = "MaMau";
-                ws.Cells["B1"].Value = "TenMau";
+                // ====== TIÊU ĐỀ LỚN ======
+                ws.Cells["A1"].Value = "DANH MỤC MÀU SẮC";
+                ws.Cells["A1"].Style.Font.Size = 18;
+                ws.Cells["A1"].Style.Font.Bold = true;
+                ws.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                using (var r = ws.Cells["A1:B1"])
+                // ====== HEADER ======
+                ws.Cells["A2"].Value = "Mã màu";
+                ws.Cells["B2"].Value = "Tên màu";
+
+                using (var r = ws.Cells["A2:B2"])
                 {
                     r.Style.Font.Bold = true;
                     r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
                     r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                    r.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
                     r.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
                 }
 
-                int row = 2;
+                // ====== GHI DỮ LIỆU ======
+                int row = 3;
                 foreach (var x in list)
                 {
                     ws.Cells[row, 1].Value = x.MaMau;
@@ -216,22 +276,19 @@ namespace BagShopManagement.Views.Dev2
                     row++;
                 }
 
-                using (var r = ws.Cells[1, 1, row - 1, 2])
-                {
-                    r.Style.Border.Top.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    r.Style.Border.Left.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    r.Style.Border.Right.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                    r.Style.Border.Bottom.Style = OfficeOpenXml.Style.ExcelBorderStyle.Thin;
-                }
+                
+                ws.Cells[1, 1, row - 1, 2].AutoFitColumns();
+                ws.Cells["A1:B1"].Merge = true;
+                ws.View.FreezePanes(3, 1);
 
-                ws.Cells.AutoFitColumns();
-                p.SaveAs(new FileInfo(s.FileName));
-                MessageBox.Show("Xuất file thành công");
+                p.SaveAs(new FileInfo(sfd.FileName));
+                MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi xuất: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
