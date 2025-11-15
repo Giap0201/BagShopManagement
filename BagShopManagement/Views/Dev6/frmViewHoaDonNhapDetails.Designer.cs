@@ -339,6 +339,7 @@
             btnIn.TabIndex = 3;
             btnIn.Text = "In phiếu";
             btnIn.UseVisualStyleBackColor = true;
+            btnIn.Click += btnIn_Click;
             // 
             // btnDong
             // 

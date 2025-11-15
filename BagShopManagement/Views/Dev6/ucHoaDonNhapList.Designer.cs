@@ -44,6 +44,7 @@
             label2 = new Label();
             label1 = new Label();
             groupBox2 = new GroupBox();
+            btnInHoaDon = new Button();
             btnSua = new Button();
             btnXuatExel = new Button();
             btnHuy = new Button();
@@ -204,6 +205,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(btnInHoaDon);
             groupBox2.Controls.Add(btnSua);
             groupBox2.Controls.Add(btnXuatExel);
             groupBox2.Controls.Add(btnHuy);
@@ -217,9 +219,19 @@
             groupBox2.TabStop = false;
             groupBox2.Text = "Chức năng";
             // 
+            // btnInHoaDon
+            // 
+            btnInHoaDon.Location = new Point(34, 282);
+            btnInHoaDon.Name = "btnInHoaDon";
+            btnInHoaDon.Size = new Size(164, 29);
+            btnInHoaDon.TabIndex = 8;
+            btnInHoaDon.Text = "In hoa don";
+            btnInHoaDon.UseVisualStyleBackColor = true;
+            btnInHoaDon.Click += btnInHoaDon_Click;
+            // 
             // btnSua
             // 
-            btnSua.Location = new Point(34, 272);
+            btnSua.Location = new Point(34, 237);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(164, 29);
             btnSua.TabIndex = 7;
@@ -229,16 +241,17 @@
             // 
             // btnXuatExel
             // 
-            btnXuatExel.Location = new Point(34, 216);
+            btnXuatExel.Location = new Point(34, 190);
             btnXuatExel.Name = "btnXuatExel";
             btnXuatExel.Size = new Size(164, 29);
             btnXuatExel.TabIndex = 6;
             btnXuatExel.Text = "XUẤT FILE";
             btnXuatExel.UseVisualStyleBackColor = true;
+            btnXuatExel.Click += btnXuatExel_Click;
             // 
             // btnHuy
             // 
-            btnHuy.Location = new Point(34, 170);
+            btnHuy.Location = new Point(34, 140);
             btnHuy.Name = "btnHuy";
             btnHuy.Size = new Size(164, 29);
             btnHuy.TabIndex = 5;
@@ -248,7 +261,7 @@
             // 
             // btnDuyet
             // 
-            btnDuyet.Location = new Point(34, 118);
+            btnDuyet.Location = new Point(34, 105);
             btnDuyet.Name = "btnDuyet";
             btnDuyet.Size = new Size(164, 29);
             btnDuyet.TabIndex = 4;
@@ -347,5 +360,6 @@
         private ComboBox cmbSearchMaHDN;
         private Button btnXuatExel;
         private Button btnSua;
+        private Button btnInHoaDon;
     }
 }
