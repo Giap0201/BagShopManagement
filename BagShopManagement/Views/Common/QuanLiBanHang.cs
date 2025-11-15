@@ -4,6 +4,7 @@ using BagShopManagement.Views.Dev2;
 using BagShopManagement.Views.Dev3;
 using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev4.Dev4_POS;
+using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -140,6 +141,9 @@ namespace BagShopManagement.Views.Common
 
             // Dev4 Events (Đã có)
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
+
+            // Dev4 - Hóa đơn bán (Quản lý hóa đơn)
+            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
 
             // Dev2 Events (Đã có)
             sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
