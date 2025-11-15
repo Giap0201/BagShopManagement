@@ -31,6 +31,8 @@ namespace BagShopManagement.Controllers
         // Xóa nhà cung cấp theo mã
         public bool Delete(string maNCC) => _service.Delete(maNCC);
 
+        public string GenerateNextCode() => _service.GenerateNextCode();
+
         // Tìm kiếm nhà cung cấp theo tên, SDT, email
         //public List<NhaCungCap> Search(string ten, string sdt, string email) => _service.Search(ten, sdt, email);
     }
