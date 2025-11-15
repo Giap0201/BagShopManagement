@@ -158,6 +158,16 @@ namespace BagShopManagement.Repositories.Implementations
                 DiemTichLuy = row["DiemTichLuy"] == DBNull.Value ? 0 : Convert.ToInt32(row["DiemTichLuy"])
             };
         }
+
+        public string GetMaxCode()
+        {
+            var dt = ExecuteQuery("SELECT MAX(MaKH) AS MaxCode FROM KhachHang");
+            if (dt.Rows.Count == 0) return null;
+
+            var obj = dt.Rows[0]["MaxCode"];
+            return obj == DBNull.Value ? null : obj.ToString();
+        }
+
     }
 }
 

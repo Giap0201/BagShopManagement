@@ -15,5 +15,6 @@ namespace BagShopManagement.Services.Interfaces
         bool Update(NhaCungCap NCC);
         bool Delete(string maNCC);
         List<NhaCungCap> Search(string ten, string sdt, string email);
+        string GenerateNextCode();
     }
 }

@@ -190,6 +190,9 @@ namespace BagShopManagement
             services.AddTransient<EmployeeEditForm>();
             services.AddTransient<ucProfile>();
             services.AddTransient<ucEmployeeManagement>();
+            services.AddTransient<ucThemHDN>();
+            services.AddTransient<frmViewHoaDonNhapDetails>();
+            services.AddTransient<ucSuaHoaDonNhap>();
         }
     }
 }

@@ -26,6 +26,7 @@ namespace BagShopManagement.Views.Dev3
             else
             {
                 this.Text = "Thêm khách hàng mới";
+                txtMaKH.Text = _controller.GenerateNextCode();
             }
         }
 
@@ -96,7 +97,7 @@ namespace BagShopManagement.Views.Dev3
 
             var kh = new KhachHang
             {
-                MaKH = txtMaKH.Text.Trim(),
+                MaKH = _controller.GenerateNextCode(),
                 SoDienThoai = soDienThoai,
                 HoTen = txtHoTen.Text.Trim(),
                 Email = email,

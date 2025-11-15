@@ -44,5 +44,7 @@ namespace BagShopManagement.Repositories.Interfaces
 
         // cap nhat trang thai don gian khong anh huong den ton kho
         bool UpdateTrangThai(string maHDN, TrangThaiHoaDonNhap trangThai);
+
+        List<HoaDonNhap> GetAll();
     }
 }
