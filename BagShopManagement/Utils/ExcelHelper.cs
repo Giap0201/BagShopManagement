@@ -3,6 +3,7 @@ using OfficeOpenXml;
 using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -241,6 +242,36 @@ namespace BagShopManagement.Utils
             ws.Column(6).Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
 
             // Lưu file
+            package.SaveAs(new FileInfo(filePath));
+        }
+
+        public static void XuatBaoCaoChung(string filePath, DataTable data, string tieuDe)
+        {
+            using var package = new ExcelPackage();
+            var ws = package.Workbook.Worksheets.Add("Báo cáo");
+
+            ws.Cells[1, 1].Value = tieuDe;
+            ws.Cells[1, 1, 1, data.Columns.Count].Merge = true;
+            ws.Cells[1, 1].Style.Font.Size = 16;
+            ws.Cells[1, 1].Style.Font.Bold = true;
+            ws.Cells[1, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+            ws.Cells[2, 1].Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm}";
+            ws.Cells[2, 1, 2, data.Columns.Count].Merge = true;
+
+            // Header
+            for (int i = 0; i < data.Columns.Count; i++)
+            {
+                ws.Cells[4, i + 1].Value = data.Columns[i].ColumnName;
+                ws.Cells[4, i + 1].Style.Font.Bold = true;
+                ws.Cells[4, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                ws.Cells[4, i + 1].Style.Fill.BackgroundColor.SetColor(Color.LightBlue);
+            }
+
+            // Data
+            ws.Cells[5, 1].LoadFromDataTable(data, false);
+
+            ws.Cells[1, 1, 4 + data.Rows.Count, data.Columns.Count].AutoFitColumns();
             package.SaveAs(new FileInfo(filePath));
         }
     }
