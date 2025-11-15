@@ -1,4 +1,5 @@
-﻿using BagShopManagement.Controllers;
+﻿// --- Các using của Dev2, 3, 4, 6 (Từ file cơ sở) ---
+using BagShopManagement.Controllers;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services;
@@ -15,32 +16,51 @@ using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
+using BagShopManagement.Views.Dev3;
+
+// --- Using Bổ sung cho Dev1 (từ Snippet 2) ---
+using BagShopManagement.Views; // Cần cho LoginForm
+using BagShopManagement.Views.Dev1; // Cần cho Forms/UCs của Dev1
 
 namespace BagShopManagement
 {
     internal static class Program
     {
         [STAThread]
+        // === HÀM MAIN() ĐÃ CẬP NHẬT THEO DEV1 (Login-First) ===
         private static void Main()
         {
             ApplicationConfiguration.Initialize();
 
-            // === TẠO SERVICE CONTAINER ===
             var services = new ServiceCollection();
             ConfigureServices(services);
 
-            // === XÂY DỰNG PROVIDER ===
-            var provider = services.BuildServiceProvider();
+            // Dùng 'using' và 'try-catch' để quản lý lỗi
+            using (var provider = services.BuildServiceProvider())
+            {
+                try
+                {
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
 
-            // === CHẠY FORM CHÍNH ===
-            var mainForm = provider.GetRequiredService<QuanLiBanHang>();
-            Application.Run(mainForm);
+                    // === CHẠY LOGINFORM ĐẦU TIÊN ===
+                    var loginForm = provider.GetRequiredService<LoginForm>();
+                    Application.Run(loginForm);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khởi động ứng dụng: {ex.Message}\n\nChi tiết: {ex.InnerException?.Message}", "Lỗi nghiêm trọng", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
 
-        // === CẤU HÌNH TOÀN BỘ DEPENDENCY ===
+        // === HÀM CONFIGURESERVICES ĐÃ HỢP NHẤT ===
         private static void ConfigureServices(IServiceCollection services)
         {
-            // === Đăng ký Repositories - Dev2 ===
+            // === Cung cấp IServiceProvider (Bổ sung từ Dev1) ===
+            services.AddSingleton<IServiceProvider>(sp => sp.CreateScope().ServiceProvider);
+
+            // === Đăng ký Repositories - Dev2 (Giữ nguyên) ===
             services.AddTransient<ILoaiTuiRepository, LoaiTuiRepository>();
             services.AddTransient<IChatLieuRepository, ChatLieuRepository>();
             services.AddTransient<IDanhMucRepository, DanhMucRepository>();
@@ -48,18 +68,26 @@ namespace BagShopManagement
             services.AddTransient<IMauSacRepository, MauSacRepository>();
             services.AddTransient<IThuongHieuRepository, ThuongHieuRepository>();
 
-            // === Đăng ký Repositories - Dev4 ===
+            // === Đăng ký Repositories - Dev3 (Giữ nguyên) ===
+            services.AddTransient<IKhachHangRepository, KhachHangRepository>();
+
+            // === Đăng ký Repositories - Dev4 (Giữ nguyên) ===
             services.AddTransient<ISanPhamRepository, SanPhamRepository>();
             services.AddTransient<IHoaDonBanRepository, HoaDonBanRepository>();
 
-            // === Đăng ký Repositories - Dev6 ===
+            // === Đăng ký Repositories - Dev6 (Giữ nguyên) ===
             services.AddTransient<IHoaDonNhapRepository, HoaDonNhapRepository>();
             services.AddTransient<IChiTietHDNRepository, ChiTietHDNRepository>();
             services.AddTransient<INhaCungCapRepository, NhaCungCapRepository>();
-            services.AddTransient<INhanVienRepository, NhanVienRepository>();
             services.AddTransient<IBaoCaoRepository, BaoCaoRepository>();
 
-            // === Đăng ký Services - Dev2 ===
+            // === Đăng ký Repositories - Dev1 (Bổ sung và Thay thế) ===
+            services.AddTransient<INhanVienRepository, NhanVienImpl>(); // <-- Thay thế NhanVienRepository bằng NhanVienImpl
+            services.AddTransient<ITaiKhoanRepository, TaiKhoanImpl>();
+            services.AddTransient<IQuyenRepository, QuyenImpl>();
+            services.AddTransient<IVaiTroRepository, VaiTroImpl>();
+
+            // === Đăng ký Services - Dev2 (Giữ nguyên) ===
             services.AddTransient<ILoaiTuiService, LoaiTuiService>();
             services.AddTransient<IChatLieuService, ChatLieuService>();
             services.AddTransient<IDanhMucService, DanhMucService>();
@@ -69,16 +97,27 @@ namespace BagShopManagement
             services.AddTransient<ISanPhamService, SanPhamService>();
             services.AddTransient<INhaCungCapService, NhaCungCapService>();
 
-            // === Đăng ký Services - Dev4 ===
+            // === Đăng ký Services - Dev3 (Giữ nguyên) ===
+            services.AddTransient<IKhachHangService, KhachHangService>();
+
+            // === Đăng ký Services - Dev4 (Giữ nguyên) ===
             services.AddTransient<IHoaDonBanService, HoaDonBanService>();
             services.AddTransient<ITonKhoService, TonKhoService>();
             services.AddTransient<IPosService, PosService>();
 
-            // === Đăng ký Services - Dev6 ===
+            // === Đăng ký Services - Dev6 (Giữ nguyên) ===
             services.AddTransient<IHoaDonNhapService, HoaDonNhapService>();
             services.AddTransient<IBaoCaoService, BaoCaoService>();
 
-            // === Đăng ký Controllers ===
+            // === Đăng ký Services - Dev1 (Bổ sung) ===
+            services.AddTransient<IAuthService, AuthService>();
+            services.AddTransient<IUserService, UserService>();
+            services.AddTransient<INhanVienService, NhanVienService>();
+            services.AddTransient<IEmailService, FakeEmailService>(); // Dùng FakeEmailService
+
+            // === Đăng ký Controllers (Giữ nguyên Dev2, 3, 4, 6) ===
+            services.AddTransient<KhachHangController>();
+            services.AddTransient<NhaCungCapController>();
             services.AddTransient<POSController>();
             services.AddTransient<HoaDonBanController>();
             services.AddTransient<HoaDonNhapController>();
@@ -90,14 +129,36 @@ namespace BagShopManagement
             services.AddTransient<SanPhamController>();
             services.AddTransient<ThuongHieuController>();
 
-            // === Đăng ký Utils ===
+            // === Đăng ký Controllers - Dev1 (Bổ sung) ===
+            services.AddTransient<LoginController>();
+            services.AddTransient<NhanVienController>();
+            services.AddTransient<ProfileController>();
+
+            // === Đăng ký Utils (Giữ nguyên) ===
             services.AddTransient(sp => new MaHoaDonGenerator("HDN", 3));
 
             // === Đăng ký Forms và UserControls ===
-            services.AddTransient<QuanLiBanHang>();  // Form chính
-            services.AddTransient<SideBarControl>(); // Thanh bên
 
-            // Dev2 Forms
+            // (Thay thế 'AddTransient<QuanLiBanHang>()' bằng Factory của Dev1)
+            services.AddTransient<QuanLiBanHang>(provider =>
+            {
+                return new QuanLiBanHang(
+                    provider.GetRequiredService<IServiceProvider>()
+                );
+            });
+
+            // (Bổ sung Factory cho LoginForm của Dev1)
+            services.AddTransient<LoginForm>(provider =>
+            {
+                return new LoginForm(
+                    provider.GetRequiredService<LoginController>(),
+                    () => provider.GetRequiredService<QuanLiBanHang>(),
+                    provider
+                );
+            });
+
+            // (Giữ nguyên các đăng ký Forms/UCs của Dev2, 3, 4, 6)
+            services.AddTransient<SideBarControl>();
             services.AddTransient<ChatLieuControl>();
             services.AddTransient<ChatLieuEditForm>();
             services.AddTransient<DanhMucMenuControl>();
@@ -112,17 +173,23 @@ namespace BagShopManagement
             services.AddTransient<SanPhamEditForm>();
             services.AddTransient<ThuongHieuControl>();
             services.AddTransient<ThuongHieuEditForm>();
-
-            // Dev4 Forms
+            services.AddTransient<KhachHangControl>();
+            services.AddTransient<NhaCungCapControl>();
+            services.AddTransient<Views.Dev3.ThemKhachHangForm2>();
+            services.AddTransient<ThemNhaCungCapForm>();
             services.AddTransient<POSForm>();
             services.AddTransient<HoaDonBanForm>();
             services.AddTransient<UC_POS>();
             services.AddTransient<UC_HoaDonBan>();
-
-            // Dev6 Forms
             services.AddTransient<frmHoaDonNhapDetail>();
             services.AddTransient<ucHoaDonNhapList>();
             services.AddTransient<ucBaoCaoThongKe>();
+
+            // (Bổ sung các Forms/UCs của Dev1)
+            services.AddTransient<ForgotPasswordForm>();
+            services.AddTransient<EmployeeEditForm>();
+            services.AddTransient<ucProfile>();
+            services.AddTransient<ucEmployeeManagement>();
             services.AddTransient<ucThemHDN>();
             services.AddTransient<frmViewHoaDonNhapDetails>();
             services.AddTransient<ucSuaHoaDonNhap>();

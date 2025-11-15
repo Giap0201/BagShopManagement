@@ -454,5 +454,11 @@ namespace BagShopManagement.Views.Dev2
                 MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+
+        private void dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+
+        }
     }
 }
