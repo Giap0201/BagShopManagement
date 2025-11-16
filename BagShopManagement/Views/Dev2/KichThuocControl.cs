@@ -157,7 +157,7 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        // ===== Import =====
+        // ===== Import từ Excel =====
         private void BtnImport_Click(object sender, EventArgs e)
         {
             try
@@ -165,7 +165,7 @@ namespace BagShopManagement.Views.Dev2
                 using var ofd = new OpenFileDialog
                 {
                     Filter = "Excel files (*.xlsx)|*.xlsx",
-                    Title = "Chọn file Excel để import (TenKichThuoc, ChieuDai, ChieuRong, ChieuCao)"
+                    Title = "Chọn file Excel để import kích thước"
                 };
 
                 if (ofd.ShowDialog() != DialogResult.OK) return;
@@ -174,9 +174,7 @@ namespace BagShopManagement.Views.Dev2
                     "Xác nhận Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
                     return;
 
-                int inserted = 0, updated = 0, skipped = 0;
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
                 using var package = new ExcelPackage(new FileInfo(ofd.FileName));
                 var ws = package.Workbook.Worksheets.FirstOrDefault();
                 if (ws == null)
@@ -185,39 +183,50 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                int colTen = -1, colDai = -1, colRong = -1, colCao = -1;
+                // ===== XÁC ĐỊNH DÒNG HEADER =====
+                int headerRow = 1;
+                if (ws.Cells[1, 1].Text.ToLower().Contains("kích thước"))
+                    headerRow = 2;
+
+                var headers = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
                 int lastCol = ws.Dimension.End.Column;
+
                 for (int c = 1; c <= lastCol; c++)
                 {
-                    var h = ws.Cells[1, c].Text?.Trim();
-                    if (string.Equals(h, "TenKichThuoc", StringComparison.OrdinalIgnoreCase)) colTen = c;
-                    if (string.Equals(h, "ChieuDai", StringComparison.OrdinalIgnoreCase)) colDai = c;
-                    if (string.Equals(h, "ChieuRong", StringComparison.OrdinalIgnoreCase)) colRong = c;
-                    if (string.Equals(h, "ChieuCao", StringComparison.OrdinalIgnoreCase)) colCao = c;
+                    string name = ws.Cells[headerRow, c].Text.Trim();
+                    switch (name.ToLower())
+                    {
+                        case "mã kích thước":
+                        case "makichthuoc": headers["MaKichThuoc"] = c; break;
+                        case "tên kích thước":
+                        case "tenkichthuoc": headers["TenKichThuoc"] = c; break;
+                        case "chiều dài":
+                        case "chieudai": headers["ChieuDai"] = c; break;
+                        case "chiều rộng":
+                        case "chieurong": headers["ChieuRong"] = c; break;
+                        case "chiều cao":
+                        case "chieucao": headers["ChieuCao"] = c; break;
+                    }
                 }
 
-                if (colTen == -1 || colDai == -1 || colRong == -1 || colCao == -1)
+                if (!headers.ContainsKey("TenKichThuoc"))
                 {
-                    MessageBox.Show("Template sai. Yêu cầu header: TenKichThuoc, ChieuDai, ChieuRong, ChieuCao",
-                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Không tìm thấy cột 'Tên kích thước'.", "Lỗi");
                     return;
                 }
 
                 var existingList = _controller.GetAll() ?? new List<KichThuoc>();
                 int lastRow = ws.Dimension.End.Row;
+                int inserted = 0, updated = 0, skipped = 0;
 
-                for (int r = 2; r <= lastRow; r++)
+                for (int r = headerRow + 1; r <= lastRow; r++)
                 {
-                    var ten = ws.Cells[r, colTen].Text?.Trim();
-                    if (string.IsNullOrEmpty(ten))
-                    {
-                        skipped++;
-                        continue;
-                    }
+                    string ten = ws.Cells[r, headers["TenKichThuoc"]].Text?.Trim();
+                    if (string.IsNullOrEmpty(ten)) { skipped++; continue; }
 
-                    string daiTxt = (ws.Cells[r, colDai].Text ?? "").Trim().Replace(',', '.');
-                    string rongTxt = (ws.Cells[r, colRong].Text ?? "").Trim().Replace(',', '.');
-                    string caoTxt = (ws.Cells[r, colCao].Text ?? "").Trim().Replace(',', '.');
+                    string daiTxt = ws.Cells[r, headers["ChieuDai"]].Text?.Trim().Replace(',', '.') ?? "0";
+                    string rongTxt = ws.Cells[r, headers["ChieuRong"]].Text?.Trim().Replace(',', '.') ?? "0";
+                    string caoTxt = ws.Cells[r, headers["ChieuCao"]].Text?.Trim().Replace(',', '.') ?? "0";
 
                     if (!decimal.TryParse(daiTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal dai) ||
                         !decimal.TryParse(rongTxt, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal rong) ||
@@ -227,15 +236,30 @@ namespace BagShopManagement.Views.Dev2
                         continue;
                     }
 
-                    var existing = existingList.FirstOrDefault(x =>
-                        string.Equals(x.TenKichThuoc?.Trim(), ten, StringComparison.OrdinalIgnoreCase));
+                    KichThuoc existing = null;
+
+                    // Nếu có mã → ưu tiên tìm theo mã
+                    if (headers.ContainsKey("MaKichThuoc"))
+                    {
+                        var ma = ws.Cells[r, headers["MaKichThuoc"]].Text?.Trim();
+                        if (!string.IsNullOrEmpty(ma))
+                            existing = existingList.FirstOrDefault(x =>
+                                string.Equals(x.MaKichThuoc, ma, StringComparison.OrdinalIgnoreCase));
+                    }
+
+                    // Nếu không tìm theo mã → tìm theo tên
+                    if (existing == null)
+                    {
+                        existing = existingList.FirstOrDefault(x =>
+                            string.Equals(x.TenKichThuoc?.Trim(), ten, StringComparison.OrdinalIgnoreCase));
+                    }
 
                     if (existing != null)
                     {
+                        existing.TenKichThuoc = ten;
                         existing.ChieuDai = dai;
                         existing.ChieuRong = rong;
                         existing.ChieuCao = cao;
-
                         if (_controller.Update(existing)) updated++; else skipped++;
                     }
                     else
@@ -267,7 +291,7 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        // ===== Export =====
+        // ===== Export ra Excel =====
         private void BtnExport_Click(object sender, EventArgs e)
         {
             try
@@ -288,24 +312,33 @@ namespace BagShopManagement.Views.Dev2
 
                 ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
                 using var p = new ExcelPackage();
-                var ws = p.Workbook.Worksheets.Add("KichThuoc");
+                var ws = p.Workbook.Worksheets.Add("Kích thước");
 
-                ws.Cells["A1"].Value = "MaKichThuoc";
-                ws.Cells["B1"].Value = "TenKichThuoc";
-                ws.Cells["C1"].Value = "ChieuDai";
-                ws.Cells["D1"].Value = "ChieuRong";
-                ws.Cells["E1"].Value = "ChieuCao";
+                // ====== TIÊU ĐỀ LỚN ======
+                ws.Cells["A1"].Value = "DANH MỤC KÍCH THƯỚC";
+                ws.Cells["A1:E1"].Merge = true;
+                ws.Cells["A1"].Style.Font.Size = 18;
+                ws.Cells["A1"].Style.Font.Bold = true;
+                ws.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
 
-                using (var r = ws.Cells["A1:E1"])
+
+                // ====== HEADER ======
+                string[] headers = { "Mã kích thước", "Tên kích thước", "Chiều dài", "Chiều rộng", "Chiều cao" };
+                for (int i = 0; i < headers.Length; i++)
+                    ws.Cells[2, i + 1].Value = headers[i];
+
+                using (var range = ws.Cells["A2:E2"])
                 {
-                    r.Style.Font.Bold = true;
-                    r.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
-                    r.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
-                    r.Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
-                    r.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+                    range.Style.Font.Bold = true;
+                    range.Style.Font.Size = 12;
+                    range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                    range.Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                    range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    range.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
                 }
 
-                int row = 2;
+                // ====== GHI DỮ LIỆU ======
+                int row = 3;
                 foreach (var x in list)
                 {
                     ws.Cells[row, 1].Value = x.MaKichThuoc;
@@ -316,16 +349,17 @@ namespace BagShopManagement.Views.Dev2
                     row++;
                 }
 
-                ws.Cells.AutoFitColumns();
-                p.SaveAs(new FileInfo(sfd.FileName));
+                ws.Cells[2, 1, row - 1, headers.Length].AutoFitColumns();
+                ws.View.FreezePanes(3, 1);
 
-                MessageBox.Show("Xuất file thành công!", "Thành công",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
+                p.SaveAs(new FileInfo(sfd.FileName));
+                MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Lỗi xuất: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
     }
 }
