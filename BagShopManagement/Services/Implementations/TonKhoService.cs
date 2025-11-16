@@ -18,6 +18,11 @@ namespace BagShopManagement.Services.Implementations
             _sanPhamRepo = sanPhamRepo;
         }
 
+        public bool DecreaseStock(string maSP, int soLuong)
+        {
+            throw new NotImplementedException();
+        }
+
         public void DieuChinhTonKho(string maSP, int soLuongThucTe, string maNV, string ghiChu)
         {
             if (soLuongThucTe < 0)
@@ -55,6 +60,11 @@ namespace BagShopManagement.Services.Implementations
         public List<SanPham> GetAllProducts()
         {
             return _sanPhamRepo.GetAll();
+        }
+
+        public void IncreaseStock(string maSP, int soLuong)
+        {
+            throw new NotImplementedException();
         }
     }
 }

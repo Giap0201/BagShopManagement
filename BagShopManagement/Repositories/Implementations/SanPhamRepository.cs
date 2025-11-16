@@ -54,7 +54,7 @@ namespace BagShopManagement.Repositories.Implementations
             string q = @"INSERT INTO SanPham
 (MaSP, TenSP, GiaNhap, GiaBan, SoLuongTon, MoTa, AnhChinh, MaLoaiTui, MaThuongHieu, MaChatLieu, MaMau, MaKichThuoc, MaNCC, TrangThai, NgayTao)
 VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh, @MaLoaiTui, @MaThuongHieu, @MaChatLieu, @MaMau, @MaKichThuoc, @MaNCC, @TrangThai, @NgayTao)";
-                {
+            var p = new[]
             {
                 new SqlParameter("@MaSP", sp.MaSP),
                 new SqlParameter("@TenSP", sp.TenSP),
@@ -72,8 +72,8 @@ VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh, @MaLoai
                 new SqlParameter("@TrangThai", sp.TrangThai),
                 new SqlParameter("@NgayTao", sp.NgayTao)
             };
+            return ExecuteNonQuery(q, p) > 0;
         }
-
 
         public bool Update(SanPham sp)
         {
@@ -82,7 +82,7 @@ TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
 MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu,
 MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC,
 TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
-        {
+            var p = new[]
             {
                 new SqlParameter("@TenSP", sp.TenSP),
                 new SqlParameter("@GiaNhap", sp.GiaNhap),
@@ -101,18 +101,19 @@ TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
                 new SqlParameter("@MaSP", sp.MaSP)
             };
             return ExecuteNonQuery(q, p) > 0;
-
-
-            {
-        {
-            string q = "DELETE FROM SanPham WHERE MaSP=@MaSP";
         }
 
-
+        public bool Delete(string maSP)
         {
+            string q = "DELETE FROM SanPham WHERE MaSP=@MaSP";
+            return ExecuteNonQuery(q, new SqlParameter("@MaSP", maSP)) > 0;
+        }
+
+        public List<SanPham> Search(string keyword)
         {
             string q = "SELECT * FROM SanPham WHERE MaSP LIKE @kw OR TenSP LIKE @kw ORDER BY MaSP";
             var dt = ExecuteQuery(q, new SqlParameter("@kw", $"%{keyword}%"));
+            return dt.AsEnumerable().Select(Map).ToList();
         }
 
         public string GetMaxCode()
@@ -142,5 +143,55 @@ TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
                 return 0;
             }
         }
+
+        public List<SanPham> GetAvailableProducts(string maCTGG)
+        {
+            var list = new List<SanPham>();
+            string query = @"SELECT s.MaSP, s.TenSP, s.SoLuongTon 
+                             FROM SanPham s
+                             WHERE s.MaSP NOT IN (SELECT ct.MaSP FROM ChiTietGiamGia ct WHERE ct.MaCTGG = @MaCTGG)";
+
+            var parameter = new SqlParameter("@MaCTGG", maCTGG);
+
+            // Sử dụng phương thức ExecuteQuery từ lớp cha BaseRepository
+            DataTable data = ExecuteQuery(query, parameter);
+
+            foreach (DataRow row in data.Rows)
+            {
+                list.Add(new SanPham
+                {
+                    MaSP = row["MaSP"].ToString(),
+                    TenSP = row["TenSP"].ToString(),
+                    SoLuongTon = Convert.ToInt32(row["SoLuongTon"])
+                });
+            }
+            return list;
+        }
+
+        //public SanPham GetById(string maSP)
+        //{
+        //    string query = "SELECT MaSP, TenSP, SoLuongTon FROM SanPham WHERE MaSP = @MaSP";
+        //    var dt = ExecuteQuery(query, new SqlParameter("@MaSP", maSP));
+        //    if (dt.Rows.Count == 0) return null;
+
+        //    var row = dt.Rows[0];
+        //    return new SanPham
+        //    {
+        //        MaSP = row["MaSP"].ToString(),
+        //        TenSP = row["TenSP"].ToString(),
+        //        SoLuongTon = Convert.ToInt32(row["SoLuongTon"])
+        //    };
+        //}
+
+        public void UpdateSoLuong(string maSP, int soLuongMoi)
+        {
+            string query = "UPDATE SanPham SET SoLuongTon = @SoLuongMoi WHERE MaSP = @MaSP";
+            ExecuteNonQuery(query,
+                new SqlParameter("@SoLuongMoi", soLuongMoi),
+                new SqlParameter("@MaSP", maSP)
+            );
+        }
+
+
     }
 }
