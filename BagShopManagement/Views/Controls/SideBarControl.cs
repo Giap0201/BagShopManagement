@@ -5,7 +5,7 @@ using System.Windows.Forms;
 namespace BagShopManagement.Views.Controls
 {
 
-    
+
     public partial class SideBarControl : UserControl
     {
         // === Events của Dev4, Dev6, Dev2, Dev3 (Từ file cơ sở) ===
@@ -17,6 +17,8 @@ namespace BagShopManagement.Views.Controls
         public event EventHandler ShowQuanLyHoaDonClicked;
         public event EventHandler KhachHangClicked;
         public event EventHandler NhaCungCapClicked;
+        public event EventHandler ShowTonKhoClicked;
+        public event EventHandler ShowKhuyenMaiClicked;
 
         // === Events của Dev1 (Bổ sung) ===
         public event EventHandler ShowEmployeeManagementClicked;
@@ -97,9 +99,14 @@ namespace BagShopManagement.Views.Controls
             ShowProfileClicked?.Invoke(this, EventArgs.Empty);
         }
 
-        private void SideBarControl_Load(object sender, EventArgs e)
+        private void btnTonKho_Click(object sender, EventArgs e)
         {
-            // (Giữ trống)
+            ShowTonKhoClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void btnKhuyenMai_Click(object sender, EventArgs e)
+        {
+            ShowKhuyenMaiClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }
