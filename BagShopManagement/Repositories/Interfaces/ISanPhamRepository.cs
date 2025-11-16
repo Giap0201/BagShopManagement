@@ -11,7 +11,19 @@ namespace BagShopManagement.Repositories.Interfaces
     {
         List<SanPham> GetAvailableProducts(string maCTGG);
         List<SanPham> GetAll();
+
         SanPham GetById(string maSP);
-        void UpdateSoLuong(string maSP, int soLuongMoi);
+
+        bool Add(SanPham sp);
+
+        bool Update(SanPham sp);
+
+        bool Delete(string maSP);
+
+        List<SanPham> Search(string keyword);
+
+        string GetMaxCode();
+
+        int GetTonKho(string maSP);
     }
 }

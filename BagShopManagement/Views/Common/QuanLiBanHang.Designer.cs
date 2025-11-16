@@ -2,15 +2,8 @@
 {
     partial class QuanLiBanHang
     {
-        /// <summary>
-        /// Required designer variable.
-        /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -20,18 +13,13 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
         private void InitializeComponent()
         {
             headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
-            sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
-            pnlMainContent = new Panel();
-            
+            sideBarControl = new BagShopManagement.Views.Controls.SideBarControl();
+            panelContent = new Panel();
+            mainPanel = new Panel();
+            panelContent.SuspendLayout();
             SuspendLayout();
             // 
             // headerControl1
@@ -39,21 +27,38 @@
             headerControl1.BackColor = SystemColors.ControlLight;
             headerControl1.Dock = DockStyle.Top;
             headerControl1.Location = new Point(0, 0);
+            headerControl1.Margin = new Padding(6);
             headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1360, 76);
+            headerControl1.Size = new Size(905, 76);
             headerControl1.TabIndex = 0;
             // 
-            // sideBarControl1
+            // sideBarControl
             // 
-            sideBarControl1.Dock = DockStyle.Left;
-            sideBarControl1.Location = new Point(0, 76);
-            sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(336, 773);
-            sideBarControl1.TabIndex = 1;
-            sideBarControl1.Load += sideBarControl1_Load;
-            //sideBarControl1.NavigationButtonClicked += SideBarControl1_NavigationButtonClicked;
+            sideBarControl.Dock = DockStyle.Left;
+            sideBarControl.Location = new Point(0, 76);
+            sideBarControl.Margin = new Padding(6);
+            sideBarControl.Name = "sideBarControl";
+            sideBarControl.Size = new Size(336, 439);
+            sideBarControl.TabIndex = 1;
+            sideBarControl.Load += sideBarControl_Load;
             // 
-            // pnlMainContent
+            // panelContent
+            // 
+            panelContent.Controls.Add(mainPanel);
+            panelContent.Dock = DockStyle.Fill;
+            panelContent.Location = new Point(336, 76);
+            panelContent.Name = "panelContent";
+            panelContent.Size = new Size(569, 439);
+            panelContent.TabIndex = 2;
+            // 
+            // mainPanel
+            // 
+            mainPanel.Dock = DockStyle.Fill;
+            mainPanel.Location = new Point(0, 0);
+            mainPanel.Margin = new Padding(1);
+            mainPanel.Name = "mainPanel";
+            mainPanel.Size = new Size(569, 439);
+            mainPanel.TabIndex = 0;
             // 
             pnlMainContent.Dock = DockStyle.Fill;
             pnlMainContent.Location = new Point(336, 76);
@@ -65,21 +70,22 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1360, 849);
-            Controls.Add(pnlMainContent);
-            Controls.Add(sideBarControl1);
+            ClientSize = new Size(905, 515);
+            Controls.Add(panelContent);
+            Controls.Add(sideBarControl);
             Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "QuanLiBanHang";
-            Text = "QuanLiBanHang";
+            Text = "Quản lý bán hàng - Bag Shop Management";
             WindowState = FormWindowState.Maximized;
+            Load += QuanLiBanHang_Load;
+            panelContent.ResumeLayout(false);
             ResumeLayout(false);
         }
 
-        #endregion
-
-        private Controls.HeaderControl headerControl1;
-        private Controls.SideBarControl sideBarControl1;
-        private Panel pnlMainContent;
+        private BagShopManagement.Views.Controls.HeaderControl headerControl1;
+        private BagShopManagement.Views.Controls.SideBarControl sideBarControl;
+        private System.Windows.Forms.Panel panelContent;
+        private Panel mainPanel;
     }
 }
