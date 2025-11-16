@@ -16,19 +16,6 @@ namespace BagShopManagement.Repositories.Implementations
             return ExecuteQuery(query);
         }
 
-        //public int ImportDanhMuc(string tableName, DataTable data)
-        //{
-        //    int count = 0;
-        //    foreach (DataRow row in data.Rows)
-        //    {
-        //        var columns = string.Join(",", data.Columns.Cast<DataColumn>().Select(c => c.ColumnName));
-        //        var values = string.Join(",", data.Columns.Cast<DataColumn>().Select(c => $"'{row[c].ToString().Replace("'", "''")}'"));
-        //        string query = $"INSERT INTO {tableName} ({columns}) VALUES ({values})";
-        //        count += ExecuteNonQuery(query);
-        //    }
-        //    return count;
-        //}
-
         public int ImportFromExcel(ExcelWorksheet worksheet, string tableName)
         {
             int rowCount = worksheet.Dimension.Rows;
