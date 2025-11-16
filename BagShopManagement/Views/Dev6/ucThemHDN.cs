@@ -190,13 +190,13 @@ namespace BagShopManagement.Views.Dev6
             txtThanhTien.Clear();
         }
 
-        private void NgayDuyet_NgayHuy()
-        {
-            dtpNgayDuyet.Visible = false;
-            dtpNgayHuy.Visible = false;
-            lblNgayDuyet.Visible = false;
-            lblNgayHuy.Visible = false;
-        }
+        //private void NgayDuyet_NgayHuy()
+        //{
+        //    dtpNgayDuyet.Visible = false;
+        //    dtpNgayHuy.Visible = false;
+        //    lblNgayDuyet.Visible = false;
+        //    lblNgayHuy.Visible = false;
+        //}
 
         // Validate input chi tiet
         private bool ValidateChiTietInput()
@@ -259,8 +259,8 @@ namespace BagShopManagement.Views.Dev6
         {
             ClearFieldThongTinSanPham();
             btnLuuChiTietHDN.Enabled = true;
-            btnSuaChiTietHDN.Enabled = false;
-            btnXoaChiTietHDN.Enabled = false;
+            //btnSuaChiTietHDN.Enabled = false;
+            //btnXoaChiTietHDN.Enabled = false;
         }
 
         // Su kien xoa chi tiet hoa don khi chua luu vao db
@@ -426,7 +426,7 @@ namespace BagShopManagement.Views.Dev6
         {
             ClearFieldThongTinChung();
             ClearFieldThongTinSanPham();
-            NgayDuyet_NgayHuy();
+            //NgayDuyet_NgayHuy();
             _listChiTiets.Clear();
             RefreshGrid();
             txtMaHDN.Text = _maHoaDonGenerator.GenerateNewMaHDN(dtpNgayNhap.Value);
@@ -435,8 +435,8 @@ namespace BagShopManagement.Views.Dev6
 
         private void HelperHoaDonDaDuyet()
         {
-            dtpNgayDuyet.Visible = true;
-            lblNgayDuyet.Visible = true;
+            //dtpNgayDuyet.Visible = true;
+            //lblNgayDuyet.Visible = true;
             btnTamLuuHDN.Enabled = false;
             btnDuyetHDN.Enabled = false;
             btnThemChiTietHDN.Enabled = false;
@@ -453,23 +453,23 @@ namespace BagShopManagement.Views.Dev6
             btnLuuChiTietHDN.Enabled = true;
             btnSuaChiTietHDN.Enabled = true;
             btnXoaChiTietHDN.Enabled = true;
-            dtpNgayDuyet.Visible = false;
-            lblNgayDuyet.Visible = false;
-            dtpNgayHuy.Visible = false;
-            lblNgayHuy.Visible = false;
-            SetHoaDonStatus(TrangThaiHoaDonNhap.TamLuu);
+            //dtpNgayDuyet.Visible = false;
+            //lblNgayDuyet.Visible = false;
+            //dtpNgayHuy.Visible = false;
+            //lblNgayHuy.Visible = false;
+            //SetHoaDonStatus(TrangThaiHoaDonNhap.TamLuu);
         }
 
-        private void SetHoaDonStatus(TrangThaiHoaDonNhap status)
-        {
-            cboTrangThai.SelectedValue = (byte)status;
+        //private void SetHoaDonStatus(TrangThaiHoaDonNhap status)
+        //{
+        //    cboTrangThai.SelectedValue = (byte)status;
 
-            lblNgayDuyet.Visible = (status == TrangThaiHoaDonNhap.HoatDong);
-            dtpNgayDuyet.Visible = (status == TrangThaiHoaDonNhap.HoatDong);
+        //    lblNgayDuyet.Visible = (status == TrangThaiHoaDonNhap.HoatDong);
+        //    dtpNgayDuyet.Visible = (status == TrangThaiHoaDonNhap.HoatDong);
 
-            lblNgayHuy.Visible = (status == TrangThaiHoaDonNhap.DaHuy);
-            dtpNgayHuy.Visible = (status == TrangThaiHoaDonNhap.DaHuy);
-        }
+        //    lblNgayHuy.Visible = (status == TrangThaiHoaDonNhap.DaHuy);
+        //    dtpNgayHuy.Visible = (status == TrangThaiHoaDonNhap.DaHuy);
+        //}
 
         private void btnTamLuuHDN_Click(object sender, EventArgs e)
         {
@@ -533,8 +533,8 @@ namespace BagShopManagement.Views.Dev6
             try
             {
                 _controller.DuyetHoaDon(maHDN);
-                SetHoaDonStatus(TrangThaiHoaDonNhap.HoatDong);
-                dtpNgayDuyet.Value = DateTime.Now;
+                //SetHoaDonStatus(TrangThaiHoaDonNhap.HoatDong);
+                //dtpNgayDuyet.Value = DateTime.Now;
                 HelperHoaDonDaDuyet();
                 MessageBox.Show("Duyệt hóa đơn nhập thành công!",
                 "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -617,6 +617,16 @@ namespace BagShopManagement.Views.Dev6
             {
                 MessageBox.Show("Lỗi khi quay lại danh sách hóa đơn: " + ex.Message);
             }
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cboNhanVien_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
 
         //private void btnInHDN_Click(object sender, EventArgs e)
