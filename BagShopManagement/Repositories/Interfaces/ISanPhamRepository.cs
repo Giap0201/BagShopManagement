@@ -9,6 +9,7 @@ namespace BagShopManagement.Repositories.Interfaces
 {
     public interface ISanPhamRepository
     {
+        List<SanPham> GetAvailableProducts(string maCTGG);
         List<SanPham> GetAll();
 
         SanPham GetById(string maSP);
@@ -20,6 +21,11 @@ namespace BagShopManagement.Repositories.Interfaces
         bool Delete(string maSP);
 
         List<SanPham> Search(string keyword);
+
         string GetMaxCode();
+
+        int GetTonKho(string maSP);
+
+        void UpdateSoLuong(string maSP, int soLuongMoi);
     }
 }

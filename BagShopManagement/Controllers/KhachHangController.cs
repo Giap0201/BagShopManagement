@@ -31,6 +31,8 @@ namespace BagShopManagement.Controllers
         // Xóa khách hàng theo mã
         public bool Delete(string maKH) => _service.Delete(maKH);
 
+        public string GenerateNextCode() => _service.GenerateNextCustomerCode();
+
         // Tìm kiếm khách hàng theo từ khóa (tên, SDT, email, v.v.)
         //public List<KhachHang> Search(string keyword) => _service.Search(keyword);
     }

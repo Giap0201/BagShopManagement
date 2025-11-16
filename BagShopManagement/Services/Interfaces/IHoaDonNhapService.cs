@@ -1,6 +1,7 @@
 ﻿using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
-using BagShopManagement.Models.Enums; // Cần dùng Enum
+using BagShopManagement.Models;
+using BagShopManagement.Models.Enums;
 using System;
 using System.Collections.Generic;
 
@@ -8,7 +9,7 @@ namespace BagShopManagement.Services.Interfaces
 {
     public interface IHoaDonNhapService
     {
-        /// Tao moi hoa don nhap khi dang o trang thai tam luu
+        // Tao moi hoa don nhap khi dang o trang thai tam luu
         string CreateDraftHoaDonNhap(HoaDonNhapRequest request);
 
         // Duyet hoa don tu trang thai tam luu sang hoat dong, cap nhat ton kho, gia nhap moi
@@ -35,19 +36,13 @@ namespace BagShopManagement.Services.Interfaces
 
         #region === TRUY VẤN (READ) ===
 
-        /// <summary>
-        /// Lấy toàn bộ Hóa đơn (DTO) để hiển thị.
-        /// </summary>
+        // Lay toan bo hoa don nhap DTO de hien thi
         List<HoaDonNhapResponse> GetAllHoaDonNhap();
 
-        /// <summary>
-        /// Lấy chi tiết một Hóa đơn (Header và Details).
-        /// </summary>
+        // Lay chi tiet mot hoa don nhap
         HoaDonNhapResponse GetHoaDonNhapDetail(string maHDN);
 
-        /// <summary>
-        /// Tìm kiếm Hóa đơn theo nhiều tiêu chí.
-        /// </summary>
+        // Tim kiem hoa don
         List<HoaDonNhapResponse> Search(
             string? maHDN,
             DateTime? tuNgay,
@@ -56,6 +51,9 @@ namespace BagShopManagement.Services.Interfaces
             string? maNV,
             TrangThaiHoaDonNhap? trangThai // Thêm trạng thái vào tìm kiếm
         );
+
+        // Lay ma hoa don nhap hien thi combobox
+        List<HoaDonNhap> GetAll();
 
         #endregion === TRUY VẤN (READ) ===
     }

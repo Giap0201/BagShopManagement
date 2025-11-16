@@ -1,4 +1,5 @@
-﻿using BagShopManagement.Utils;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
@@ -144,6 +145,20 @@ namespace BagShopManagement.DataAccess
             {
                 return false;
             }
+        }
+        public static void InsertChuongTrinhGiamGia(ChuongTrinhGiamGia ctgg)
+        {
+            string query = "INSERT INTO ChuongTrinhGiamGia (MaCTGG, TenChuongTrinh, NgayBatDau, NgayKetThuc, MoTa, TrangThai) VALUES (@MaCTGG, @Ten, @NgayBD, @NgayKT, @MoTa, @TrangThai)";
+            SqlParameter[] parameters = {
+                new SqlParameter("@MaCTGG", ctgg.MaCTGG),
+                new SqlParameter("@Ten", ctgg.TenChuongTrinh),
+                new SqlParameter("@NgayBD", ctgg.NgayBatDau),
+                new SqlParameter("@NgayKT", ctgg.NgayKetThuc),
+                new SqlParameter("@MoTa", ctgg.MoTa),
+                new SqlParameter("@TrangThai", ctgg.TrangThai)
+            };
+
+            ExecuteNonQuery(query, parameters);
         }
     }
 }

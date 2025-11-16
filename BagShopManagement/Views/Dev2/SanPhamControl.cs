@@ -293,172 +293,271 @@ namespace BagShopManagement.Views.Dev2
             }
         }
 
-        // ================= IMPORT =================
+        // ====== IMPORT ======
         private void BtnImport_Click(object sender, EventArgs e)
         {
             try
             {
-                using (var ofd = new OpenFileDialog())
+                using var ofd = new OpenFileDialog
                 {
-                    ofd.Filter = "Excel files (*.xlsx)|*.xlsx";
-                    ofd.Title = "Chọn file Excel để import sản phẩm";
-                    if (ofd.ShowDialog() != DialogResult.OK) return;
+                    Filter = "Excel files (*.xlsx)|*.xlsx",
+                    Title = "Chọn file Excel để import sản phẩm"
+                };
 
-                    if (MessageBox.Show("Bạn có chắc chắn muốn import danh sách sản phẩm từ file này không?",
-                        "Xác nhận Import", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes) return;
+                if (ofd.ShowDialog() != DialogResult.OK) return;
 
-                    string file = ofd.FileName;
-                    if (!File.Exists(file))
-                    {
-                        MessageBox.Show("File không tồn tại.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        return;
-                    }
+                if (MessageBox.Show("Bạn có chắc chắn muốn import danh sách sản phẩm?",
+                    "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+                    return;
 
-                    ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                    int inserted = 0, updated = 0, skipped = 0;
+                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-                    using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
-                    using (var package = new ExcelPackage(stream))
-                    {
-                        var ws = package.Workbook.Worksheets.FirstOrDefault();
-                        if (ws == null)
-                        {
-                            MessageBox.Show("Không tìm thấy sheet trong file Excel.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        int startRow = 1;
-                        int lastRow = ws.Dimension.End.Row;
-
-                        var headers = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
-                        for (int c = 1; c <= ws.Dimension.End.Column; c++)
-                        {
-                            var h = (ws.Cells[startRow, c].Text ?? "").Trim();
-                            if (!string.IsNullOrEmpty(h)) headers[h] = c;
-                        }
-
-                        if (!headers.ContainsKey("TenSP"))
-                        {
-                            MessageBox.Show("Thiếu cột 'TenSP' trong file.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            return;
-                        }
-
-                        var existingList = _controller.GetAll();
-
-                        for (int r = startRow + 1; r <= lastRow; r++)
-                        {
-                            string tenSP = ws.Cells[r, headers["TenSP"]].Text?.Trim();
-                            if (string.IsNullOrEmpty(tenSP)) { skipped++; continue; }
-
-                            string maSP = headers.ContainsKey("MaSP") ? ws.Cells[r, headers["MaSP"]].Text?.Trim() : null;
-                            var existing = existingList?.FirstOrDefault(x => x.MaSP == maSP);
-
-                            if (existing != null)
-                            {
-                                existing.GiaNhap = decimal.TryParse(ws.Cells[r, headers.GetValueOrDefault("GiaNhap", -1)]?.Text, out var gn) ? gn : existing.GiaNhap;
-                                existing.GiaBan = decimal.TryParse(ws.Cells[r, headers.GetValueOrDefault("GiaBan", -1)]?.Text, out var gb) ? gb : existing.GiaBan;
-                                existing.SoLuongTon = int.TryParse(ws.Cells[r, headers.GetValueOrDefault("SoLuongTon", -1)]?.Text, out var sl) ? sl : existing.SoLuongTon;
-                                existing.MoTa = ws.Cells[r, headers.GetValueOrDefault("MoTa", -1)]?.Text ?? existing.MoTa;
-
-                                if (_controller.Update(existing)) updated++; else skipped++;
-                            }
-                            else
-                            {
-                                string newCode = _controller.GenerateNextCode();
-
-                                var sp = new SanPham
-                                {
-                                    MaSP = newCode,
-                                    TenSP = tenSP,
-                                    GiaNhap = decimal.TryParse(ws.Cells[r, headers.GetValueOrDefault("GiaNhap", -1)]?.Text, out var gn) ? gn : 0,
-                                    GiaBan = decimal.TryParse(ws.Cells[r, headers.GetValueOrDefault("GiaBan", -1)]?.Text, out var gb) ? gb : 0,
-                                    SoLuongTon = int.TryParse(ws.Cells[r, headers.GetValueOrDefault("SoLuongTon", -1)]?.Text, out var sl) ? sl : 0,
-                                    MoTa = ws.Cells[r, headers.GetValueOrDefault("MoTa", -1)]?.Text,
-                                    AnhChinh = ws.Cells[r, headers.GetValueOrDefault("AnhChinh", -1)]?.Text,
-                                    MaLoaiTui = ws.Cells[r, headers.GetValueOrDefault("MaLoaiTui", -1)]?.Text,
-                                    MaThuongHieu = ws.Cells[r, headers.GetValueOrDefault("MaThuongHieu", -1)]?.Text,
-                                    MaChatLieu = ws.Cells[r, headers.GetValueOrDefault("MaChatLieu", -1)]?.Text,
-                                    MaMau = ws.Cells[r, headers.GetValueOrDefault("MaMau", -1)]?.Text,
-                                    MaKichThuoc = ws.Cells[r, headers.GetValueOrDefault("MaKichThuoc", -1)]?.Text,
-                                    MaNCC = ws.Cells[r, headers.GetValueOrDefault("MaNCC", -1)]?.Text,
-                                    TrangThai = true,
-                                    NgayTao = DateTime.Now
-                                };
-
-                                if (_controller.Add(sp)) { inserted++; existingList.Add(sp); } else skipped++;
-                            }
-                        }
-                    }
-
-                    LoadData();
-                    MessageBox.Show($"Import hoàn tất.\nThêm: {inserted}, Cập nhật: {updated}, Bỏ qua: {skipped}",
-                        "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Lỗi import: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        // ================= EXPORT =================
-        private void BtnExport_Click(object sender, EventArgs e)
-        {
-            using (var sfd = new SaveFileDialog())
-            {
-                sfd.Filter = "Excel File|*.xlsx";
-                sfd.FileName = $"SanPham_{DateTime.Now:yyyyMMdd_HHmm}.xlsx";
-                if (sfd.ShowDialog() != DialogResult.OK) return;
-
-                var list = dgvSanPham.DataSource as List<SanPham>;
-                if (list == null || list.Count == 0)
+                using var package = new ExcelPackage(new FileInfo(ofd.FileName));
+                var ws = package.Workbook.Worksheets.FirstOrDefault();
+                if (ws == null)
                 {
-                    MessageBox.Show("Không có dữ liệu để xuất.");
+                    MessageBox.Show("Không tìm thấy sheet.", "Lỗi");
                     return;
                 }
 
-                ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-                using (var p = new ExcelPackage())
+                // ====== XÁC ĐỊNH HEADER ======
+                int headerRow = 1;
+                if (ws.Cells[1, 1].Text.ToLower().Contains("danh sách sản phẩm"))
+                    headerRow = 3;
+
+                var headers = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
+                int lastCol = ws.Dimension.End.Column;
+
+                for (int c = 1; c <= lastCol; c++)
                 {
-                    var ws = p.Workbook.Worksheets.Add("SanPham");
-                    string[] headers = { "MaSP", "TenSP", "GiaNhap", "GiaBan", "SoLuongTon", "MoTa", "AnhChinh", "MaLoaiTui", "MaThuongHieu", "MaChatLieu", "MaMau", "MaKichThuoc", "MaNCC", "TrangThai", "NgayTao" };
+                    var name = ws.Cells[headerRow, c].Text.Trim();
 
-                    for (int i = 0; i < headers.Length; i++)
-                        ws.Cells[1, i + 1].Value = headers[i];
-
-                    int row = 2;
-                    foreach (var x in list)
+                    switch (name.ToLower())
                     {
-                        ws.Cells[row, 1].Value = x.MaSP;
-                        ws.Cells[row, 2].Value = x.TenSP;
-                        ws.Cells[row, 3].Value = x.GiaNhap;
-                        ws.Cells[row, 4].Value = x.GiaBan;
-                        ws.Cells[row, 5].Value = x.SoLuongTon;
-                        ws.Cells[row, 6].Value = x.MoTa;
-                        ws.Cells[row, 7].Value = x.AnhChinh;
-                        ws.Cells[row, 8].Value = x.MaLoaiTui;
-                        ws.Cells[row, 9].Value = x.MaThuongHieu;
-                        ws.Cells[row, 10].Value = x.MaChatLieu;
-                        ws.Cells[row, 11].Value = x.MaMau;
-                        ws.Cells[row, 12].Value = x.MaKichThuoc;
-                        ws.Cells[row, 13].Value = x.MaNCC;
-                        ws.Cells[row, 14].Value = x.TrangThai;
-                        ws.Cells[row, 15].Value = x.NgayTao;
-                        row++;
+                        case "mã sp": case "masp": headers["MaSP"] = c; break;
+                        case "tên sản phẩm": case "tensp": headers["TenSP"] = c; break;
+                        case "giá nhập": case "gianhap": headers["GiaNhap"] = c; break;
+                        case "giá bán": case "giaban": headers["GiaBan"] = c; break;
+                        case "số lượng tồn": case "soluongton": headers["SoLuongTon"] = c; break;
+                        case "mô tả": case "mota": headers["MoTa"] = c; break;
+                        case "ảnh chính": case "anhchinh": headers["AnhChinh"] = c; break;
+                        case "loại túi": case "maloaitui": headers["MaLoaiTui"] = c; break;
+                        case "thương hiệu": case "mathuonghieu": headers["MaThuongHieu"] = c; break;
+                        case "chất liệu": case "machatlieu": headers["MaChatLieu"] = c; break;
+                        case "màu sắc": case "mamau": headers["MaMau"] = c; break;
+                        case "kích thước": case "makichthuoc": headers["MaKichThuoc"] = c; break;
+                        case "nhà cung cấp": case "mancc": headers["MaNCC"] = c; break;
+                        case "trạng thái": case "trangthai": headers["TrangThai"] = c; break;
+                        case "ngày tạo": case "ngaytao": headers["NgayTao"] = c; break;
                     }
-
-                    ws.Cells.AutoFitColumns();
-                    p.SaveAs(new FileInfo(sfd.FileName));
                 }
 
-                MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                if (!headers.ContainsKey("TenSP"))
+                {
+                    MessageBox.Show("Không tìm thấy cột Tên sản phẩm.", "Lỗi");
+                    return;
+                }
+
+                var list = _controller.GetAll();
+                int lastRow = ws.Dimension.End.Row;
+                int inserted = 0, updated = 0, skipped = 0;
+
+                // ====== ĐỌC DỮ LIỆU ======
+                for (int r = headerRow + 1; r <= lastRow; r++)
+                {
+                    var ten = ws.Cells[r, headers["TenSP"]].Text?.Trim();
+                    if (string.IsNullOrEmpty(ten)) { skipped++; continue; }
+
+                    string maSP = headers.ContainsKey("MaSP") ? ws.Cells[r, headers["MaSP"]].Text?.Trim() : null;
+                    var existing = list.FirstOrDefault(x => x.MaSP == maSP);
+
+                    // ===== UPDATE =====
+                    if (existing != null)
+                    {
+                        if (headers.ContainsKey("GiaNhap"))
+                            existing.GiaNhap = decimal.TryParse(ws.Cells[r, headers["GiaNhap"]].Text, out var gn) ? gn : existing.GiaNhap;
+
+                        if (headers.ContainsKey("GiaBan"))
+                            existing.GiaBan = decimal.TryParse(ws.Cells[r, headers["GiaBan"]].Text, out var gb) ? gb : existing.GiaBan;
+
+                        if (headers.ContainsKey("SoLuongTon"))
+                            existing.SoLuongTon = int.TryParse(ws.Cells[r, headers["SoLuongTon"]].Text, out var sl) ? sl : existing.SoLuongTon;
+
+                        if (headers.ContainsKey("MoTa"))
+                            existing.MoTa = ws.Cells[r, headers["MoTa"]].Text;
+
+                        _controller.Update(existing);
+                        updated++;
+                        continue;
+                    }
+
+                    // ===== INSERT =====
+                    string newCode = _controller.GenerateNextCode();
+
+                    var sp = new SanPham
+                    {
+                        MaSP = newCode,
+                        TenSP = ten,
+                        GiaNhap = headers.ContainsKey("GiaNhap") &&
+                                  decimal.TryParse(ws.Cells[r, headers["GiaNhap"]].Text, out var gn2) ? gn2 : 0,
+
+                        GiaBan = headers.ContainsKey("GiaBan") &&
+                                 decimal.TryParse(ws.Cells[r, headers["GiaBan"]].Text, out var gb2) ? gb2 : 0,
+
+                        SoLuongTon = headers.ContainsKey("SoLuongTon") &&
+                                     int.TryParse(ws.Cells[r, headers["SoLuongTon"]].Text, out var sl2) ? sl2 : 0,
+
+                        MoTa = headers.ContainsKey("MoTa") ? ws.Cells[r, headers["MoTa"]].Text : null,
+                        AnhChinh = headers.ContainsKey("AnhChinh") ? ws.Cells[r, headers["AnhChinh"]].Text : null,
+                        MaLoaiTui = headers.ContainsKey("MaLoaiTui") ? ws.Cells[r, headers["MaLoaiTui"]].Text : null,
+                        MaThuongHieu = headers.ContainsKey("MaThuongHieu") ? ws.Cells[r, headers["MaThuongHieu"]].Text : null,
+                        MaChatLieu = headers.ContainsKey("MaChatLieu") ? ws.Cells[r, headers["MaChatLieu"]].Text : null,
+                        MaMau = headers.ContainsKey("MaMau") ? ws.Cells[r, headers["MaMau"]].Text : null,
+                        MaKichThuoc = headers.ContainsKey("MaKichThuoc") ? ws.Cells[r, headers["MaKichThuoc"]].Text : null,
+                        MaNCC = headers.ContainsKey("MaNCC") ? ws.Cells[r, headers["MaNCC"]].Text : null,
+                        TrangThai = true,
+                        NgayTao = DateTime.Now
+                    };
+
+                    if (_controller.Add(sp))
+                    {
+                        inserted++;
+                        list.Add(sp);
+                    }
+                    else skipped++;
+                }
+
+                LoadData();
+
+                MessageBox.Show(
+                    $"Import hoàn tất.\nThêm mới: {inserted}\nCập nhật: {updated}\nBỏ qua: {skipped}",
+                    "Kết quả", MessageBoxButtons.OK, MessageBoxIcon.Information
+                );
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi import: " + ex.Message);
             }
         }
 
-        private void dgvSanPham_CellContentClick(object sender, DataGridViewCellEventArgs e)
+
+        // ====== EXPORT ======
+        private void BtnExport_Click(object sender, EventArgs e)
         {
+            using var sfd = new SaveFileDialog
+            {
+                Filter = "Excel File|*.xlsx",
+                FileName = $"DanhSachSanPham_{DateTime.Now:yyyyMMdd_HHmm}.xlsx"
+            };
 
+            if (sfd.ShowDialog() != DialogResult.OK) return;
 
+            var list = dgvSanPham.DataSource as List<SanPham>;
+            if (list == null || list.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất.");
+                return;
+            }
+
+            // ====== LOAD DANH MỤC ======
+            var svc = _danhMucService; // dùng service có sẵn
+
+            Dictionary<string, string> mapLoaiTui = svc.GetAll("DanhMucLoaiTui")
+                .AsEnumerable()
+                .ToDictionary(r => r["MaLoaiTui"].ToString(), r => r["TenLoaiTui"].ToString());
+
+            Dictionary<string, string> mapThuongHieu = svc.GetAll("ThuongHieu")
+                .AsEnumerable()
+                .ToDictionary(r => r["MaThuongHieu"].ToString(), r => r["TenThuongHieu"].ToString());
+
+            Dictionary<string, string> mapChatLieu = svc.GetAll("ChatLieu")
+                .AsEnumerable()
+                .ToDictionary(r => r["MaChatLieu"].ToString(), r => r["TenChatLieu"].ToString());
+
+            Dictionary<string, string> mapMau = svc.GetAll("MauSac")
+                .AsEnumerable()
+                .ToDictionary(r => r["MaMau"].ToString(), r => r["TenMau"].ToString());
+
+            Dictionary<string, string> mapKichThuoc = svc.GetAll("KichThuoc")
+                .AsEnumerable()
+                .ToDictionary(r => r["MaKichThuoc"].ToString(), r => r["TenKichThuoc"].ToString());
+
+            Dictionary<string, string> mapNCC = svc.GetAll("NhaCungCap")
+                .AsEnumerable()
+                .ToDictionary(r => r["MaNCC"].ToString(), r => r["TenNCC"].ToString());
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using var p = new ExcelPackage();
+            var ws = p.Workbook.Worksheets.Add("Sản phẩm");
+
+            // ===== TIÊU ĐỀ =====
+            ws.Cells["A1"].Value = "DANH SÁCH SẢN PHẨM";
+            ws.Cells["A1:O1"].Merge = true;
+            ws.Cells["A1"].Style.Font.Size = 18;
+            ws.Cells["A1"].Style.Font.Bold = true;
+            ws.Cells["A1"].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+
+            ws.Row(2).Height = 5;
+
+            string[] headers =
+            {
+        "Mã SP", "Tên sản phẩm", "Giá nhập", "Giá bán", "Số lượng tồn",
+        "Mô tả", "Ảnh chính", "Loại túi", "Thương hiệu", "Chất liệu",
+        "Màu sắc", "Kích thước", "Nhà cung cấp", "Trạng thái", "Ngày tạo"
+    };
+
+            for (int i = 0; i < headers.Length; i++)
+                ws.Cells[3, i + 1].Value = headers[i];
+
+            using (var range = ws.Cells[3, 1, 3, headers.Length])
+            {
+                range.Style.Font.Bold = true;
+                range.Style.Font.Size = 12;
+                range.Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                range.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(220, 230, 241));
+                range.Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                range.Style.Border.BorderAround(OfficeOpenXml.Style.ExcelBorderStyle.Thin);
+            }
+
+            // ===== DỮ LIỆU =====
+            int row = 4;
+            foreach (var x in list)
+            {
+                ws.Cells[row, 1].Value = x.MaSP;
+                ws.Cells[row, 2].Value = x.TenSP;
+                ws.Cells[row, 3].Value = x.GiaNhap;
+                ws.Cells[row, 4].Value = x.GiaBan;
+                ws.Cells[row, 5].Value = x.SoLuongTon;
+                ws.Cells[row, 6].Value = x.MoTa;
+                ws.Cells[row, 7].Value = x.AnhChinh;
+
+                // ===== ÁNH XẠ DANH MỤC → TÊN =====
+                ws.Cells[row, 8].Value = mapLoaiTui.TryGetValue(x.MaLoaiTui, out var tenLT) ? tenLT : x.MaLoaiTui;
+                ws.Cells[row, 9].Value = mapThuongHieu.TryGetValue(x.MaThuongHieu, out var tenTH) ? tenTH : x.MaThuongHieu;
+                ws.Cells[row, 10].Value = mapChatLieu.TryGetValue(x.MaChatLieu, out var tenCL) ? tenCL : x.MaChatLieu;
+                ws.Cells[row, 11].Value = mapMau.TryGetValue(x.MaMau, out var tenM) ? tenM : x.MaMau;
+                ws.Cells[row, 12].Value = mapKichThuoc.TryGetValue(x.MaKichThuoc, out var tenKT) ? tenKT : x.MaKichThuoc;
+                ws.Cells[row, 13].Value = mapNCC.TryGetValue(x.MaNCC, out var tenNCC) ? tenNCC : x.MaNCC;
+
+                ws.Cells[row, 14].Value = x.TrangThai ? "Đang bán" : "Ngừng bán";
+
+                ws.Cells[row, 15].Value = x.NgayTao;
+                ws.Cells[row, 15].Style.Numberformat.Format = "dd/MM/yyyy HH:mm";
+
+                row++;
+            }
+
+            ws.Cells[3, 1, row - 1, headers.Length].AutoFitColumns();
+            ws.View.FreezePanes(4, 1);
+
+            p.SaveAs(new FileInfo(sfd.FileName));
+
+            MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+
+
+
     }
 }
