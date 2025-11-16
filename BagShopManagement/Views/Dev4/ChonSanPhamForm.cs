@@ -81,16 +81,15 @@ namespace BagShopManagement.Views.Dev4
                 }
             });
 
-            // Cột ảnh (nếu có)
-            var imgColumn = new DataGridViewImageColumn
+            // Cột URL ảnh
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
                 HeaderText = "Ảnh",
+                DataPropertyName = "AnhChinh",
                 Name = "AnhSP",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 10F,
-                ImageLayout = DataGridViewImageCellLayout.Zoom
-            };
-            dgvSanPham.Columns.Add(imgColumn);
+                FillWeight = 23F
+            });
 
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -122,17 +121,6 @@ namespace BagShopManagement.Views.Dev4
 
                 dgvSanPham.DataSource = null;
                 dgvSanPham.DataSource = displayList;
-
-                // Xử lý hiển thị ảnh (nếu có trường ảnh)
-                foreach (DataGridViewRow row in dgvSanPham.Rows)
-                {
-                    var sp = row.DataBoundItem as SanPham;
-                    if (sp != null)
-                    {
-                        // TODO: Load ảnh từ database hoặc file nếu có
-                        // row.Cells["AnhSP"].Value = LoadImage(sp.AnhSP);
-                    }
-                }
             }
             catch (Exception ex)
             {

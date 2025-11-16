@@ -48,10 +48,8 @@ namespace BagShopManagement.Repositories.Implementations
                 NgayNhap = row.IsNull("NgayNhap") ? (DateTime?)null : Convert.ToDateTime(row["NgayNhap"]),
                 NgayDuyet = row.IsNull("NgayDuyet") ? (DateTime?)null : Convert.ToDateTime(row["NgayDuyet"]),
                 NgayHuy = row.IsNull("NgayHuy") ? (DateTime?)null : Convert.ToDateTime(row["NgayHuy"]),
-
                 TongTien = row.IsNull("TongTien") ? 0 : Convert.ToDecimal(row["TongTien"]),
                 GhiChu = row.IsNull("GhiChu") ? "" : row["GhiChu"].ToString(),
-
                 TrangThai = row.IsNull("TrangThai")
                     ? TrangThaiHoaDonNhap.TamLuu
                     : (TrangThaiHoaDonNhap)Convert.ToByte(row["TrangThai"])
@@ -82,8 +80,8 @@ namespace BagShopManagement.Repositories.Implementations
                 MaSP = reader["MaSP"].ToString(),
                 TenSP = reader.IsDBNull(reader.GetOrdinal("TenSP")) ? "" : reader["TenSP"].ToString(),
                 SoLuong = Convert.ToInt32(reader["SoLuong"]),
-                DonGia = Convert.ToDecimal(reader["DonGia"])
-                // Thành tiền được tính ở lớp DTO Response
+                DonGia = Convert.ToDecimal(reader["DonGia"]),
+                ThanhTien = Convert.ToDecimal(reader["ThanhTien"])
             };
         }
 
@@ -96,7 +94,6 @@ namespace BagShopManagement.Repositories.Implementations
         public HoaDonNhap GetById(string maHDN)
         {
             string query = "SELECT * FROM HoaDonNhap WHERE MaHDN = @MaHDN";
-            // Giả định BaseRepository có phương thức ExecuteQuery
             var dt = ExecuteQuery(query, new SqlParameter("@MaHDN", maHDN));
             return dt.Rows.Count > 0 ? MapToHoaDonNhap(dt.Rows[0]) : null;
         }
@@ -202,7 +199,7 @@ namespace BagShopManagement.Repositories.Implementations
             return cmd.ExecuteNonQuery() > 0;
         }
 
-        /// Duyệt hóa đơn nhập → cập nhật trạng thái = Hoạt động, gán NgàyDuyet, cộng tồn kho.
+        /// Duyet hoa don, cap nhat trang thai ngay duyet, cap nhat ton kho
         public bool ApproveDraftHoaDonNhap(string maHDN, DateTime ngayDuyet, List<ChiTietHoaDonNhap> chiTiets)
         {
             if (chiTiets == null || chiTiets.Count == 0)
@@ -215,21 +212,18 @@ namespace BagShopManagement.Repositories.Implementations
             {
                 string sqlUpdateKho = @"
                     UPDATE SanPham
-                    SET SoLuongTon = SoLuongTon + @SL,
-                        GiaNhap = @DonGia
+                    SET SoLuongTon = SoLuongTon + @SL
                     WHERE MaSP = @MaSP";
 
                 using (var cmdKho = new SqlCommand(sqlUpdateKho, conn, tran))
                 {
                     cmdKho.Parameters.Add("@SL", SqlDbType.Int);
                     cmdKho.Parameters.Add("@MaSP", SqlDbType.VarChar, 20);
-                    cmdKho.Parameters.Add("@DonGia", SqlDbType.Decimal);
 
                     foreach (var ct in chiTiets)
                     {
                         cmdKho.Parameters["@SL"].Value = ct.SoLuong;
                         cmdKho.Parameters["@MaSP"].Value = ct.MaSP;
-                        cmdKho.Parameters["@DonGia"].Value = ct.DonGia;
                         cmdKho.ExecuteNonQuery();
                     }
                 }
@@ -258,6 +252,7 @@ namespace BagShopManagement.Repositories.Implementations
             }
         }
 
+        // huy hoa don nhap khi da la hoat dong
         public bool CancelActiveHoaDonNhap(string maHDN, DateTime ngayHuy, List<ChiTietHoaDonNhap> chiTiets)
         {
             if (chiTiets == null || chiTiets.Count == 0)
@@ -321,13 +316,13 @@ namespace BagShopManagement.Repositories.Implementations
         {
             string sql = @"
                 SELECT h.MaHDN, h.MaNCC, ncc.TenNCC, h.MaNV, nv.HoTen AS TenNV,
-                       h.NgayNhap, h.NgayDuyet, h.TongTien, h.GhiChu, h.TrangThai
+                       h.NgayNhap, h.NgayDuyet, h.TongTien, h.GhiChu, h.TrangThai, h.NgayHuy
                 FROM HoaDonNhap h
                 LEFT JOIN NhaCungCap ncc ON h.MaNCC = ncc.MaNCC
                 LEFT JOIN NhanVien nv ON h.MaNV = nv.MaNV
                 WHERE h.MaHDN = @MaHDN;
 
-                SELECT c.MaSP, sp.TenSP, c.SoLuong, c.DonGia
+                SELECT c.MaSP, sp.TenSP, c.SoLuong, c.DonGia,c.ThanhTien
                 FROM ChiTietHoaDonNhap c
                 LEFT JOIN SanPham sp ON c.MaSP = sp.MaSP
                 WHERE c.MaHDN = @MaHDN;";
@@ -360,7 +355,7 @@ namespace BagShopManagement.Repositories.Implementations
         {
             var queryBuilder = new StringBuilder(@"
                 SELECT hdn.MaHDN, hdn.MaNCC, ncc.TenNCC, hdn.MaNV, nv.HoTen AS TenNV,
-                       hdn.NgayNhap, hdn.NgayDuyet, hdn.TongTien, hdn.GhiChu, hdn.TrangThai
+                       hdn.NgayNhap, hdn.NgayDuyet,hdn.NgayHuy, hdn.TongTien, hdn.GhiChu, hdn.TrangThai
                 FROM HoaDonNhap hdn
                 LEFT JOIN NhaCungCap ncc ON hdn.MaNCC = ncc.MaNCC
                 LEFT JOIN NhanVien nv ON hdn.MaNV = nv.MaNV
@@ -406,6 +401,21 @@ namespace BagShopManagement.Repositories.Implementations
             var list = new List<HoaDonNhapResponse>();
             foreach (DataRow row in dt.Rows)
                 list.Add(MapToHoaDonNhapResponse(row));
+            return list;
+        }
+
+        public List<HoaDonNhap> GetAll()
+        {
+            string query = "select MaHDN from HoaDonNhap order by MaHDN";
+            DataTable dt = ExecuteQuery(query);
+            var list = new List<HoaDonNhap>();
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(new HoaDonNhap
+                {
+                    MaHDN = row["MaHDN"].ToString()
+                });
+            }
             return list;
         }
     }

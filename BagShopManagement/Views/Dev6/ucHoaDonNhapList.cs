@@ -3,101 +3,74 @@ using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
-using Microsoft.Extensions.DependencyInjection; // Thêm
+using BagShopManagement.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
 namespace BagShopManagement.Views.Dev6
 {
     public partial class ucHoaDonNhapList : UserControl
     {
         private readonly HoaDonNhapController _controller;
-        private readonly INhaCungCapRepository _nhaCungCapRepo;
-        private readonly INhanVienRepository _nhanVienRepo;
-        private readonly IServiceProvider _serviceProvider;
+        private readonly INhaCungCapRepository _nccRepo;
+        private readonly INhanVienRepository _nvRepo;
+        private readonly IServiceProvider _provider;
 
         public ucHoaDonNhapList(
             HoaDonNhapController controller,
-            INhaCungCapRepository nhaCungCapRepo,
-            INhanVienRepository nhanVienRepo,
-            IServiceProvider serviceProvider)
+            INhaCungCapRepository nccRepo,
+            INhanVienRepository nvRepo,
+            IServiceProvider provider)
         {
             InitializeComponent();
             _controller = controller;
-            _nhaCungCapRepo = nhaCungCapRepo;
-            _nhanVienRepo = nhanVienRepo;
-            _serviceProvider = serviceProvider;
+            _nccRepo = nccRepo;
+            _nvRepo = nvRepo;
+            _provider = provider;
         }
 
         private void ucHoaDonNhapList_Load(object sender, EventArgs e)
         {
-            if (!this.DesignMode)
-            {
-                try
-                {
-                    LoadComboBoxes();
-                    LoadAllInvoices();
-                    UpdateUIState(null);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"Không thể tải danh sách hóa đơn {ex.Message}");
-                }
-            }
-        }
-
-        #region === CÁC HÀM TẢI DỮ LIỆU (LOAD) ===
-
-        private void LoadAllInvoices()
-        {
-            if (_controller == null) return;
+            if (DesignMode) return;
             try
             {
-                List<HoaDonNhapResponse> danhSach = _controller.LayDanhSachHoaDon();
-                dgvDanhSach.DataSource = null;
-                dgvDanhSach.DataSource = danhSach;
-                FormatInvoiceGrid();
+                LoadComboBoxes();
+                LoadData();
+                UpdateButtonState(null);
+                SettingUI();
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Lỗi khi tải dữ liệu {ex.Message}");
+                MessageBox.Show($"Lỗi khi tải form: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void FormatInvoiceGrid()
+        #region === LOAD DATA ===
+
+        public void LoadData()
         {
-            if (dgvDanhSach.DataSource == null) return;
-            dgvDanhSach.Columns["TenTrangThai"].HeaderText = "Trạng Thái";
-            dgvDanhSach.Columns["MaHDN"].HeaderText = "Mã HĐN";
-            dgvDanhSach.Columns["TenNCC"].HeaderText = "Nhà Cung Cấp";
-            dgvDanhSach.Columns["TenNV"].HeaderText = "Nhân Viên Lập";
-            dgvDanhSach.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
-            dgvDanhSach.Columns["NgayDuyet"].HeaderText = "Ngày Duyệt";
-            dgvDanhSach.Columns["TongTien"].HeaderText = "Tổng Tiền";
-            dgvDanhSach.Columns["TongTien"].DefaultCellStyle.Format = "N0";
-            dgvDanhSach.Columns["MaNCC"].Visible = false;
-            dgvDanhSach.Columns["MaNV"].Visible = false;
-            dgvDanhSach.Columns["TrangThai"].Visible = false;
-            dgvDanhSach.Columns["GhiChu"].Visible = false;
-            if (dgvDanhSach.Columns.Contains("ChiTiet"))
+            try
             {
-                dgvDanhSach.Columns["ChiTiet"].Visible = false;
+                var danhSach = _controller.LayDanhSachHoaDon();
+
+                // CHỈNH SỬA TẠI ĐÂY: Chuyển null thành "N/A" cho Ngày duyệt & Ngày hủy
+                foreach (var hd in danhSach)
+                {
+                    if (!hd.NgayDuyet.HasValue) hd.NgayDuyet = null;
+                    if (!hd.NgayHuy.HasValue) hd.NgayHuy = null;
+                }
+
+                dgvDanhSach.DataSource = danhSach;
+                FormatGrid();
             }
-            foreach (DataGridViewRow row in dgvDanhSach.Rows)
+            catch (Exception ex)
             {
-                if (row.DataBoundItem == null) continue;
-                var trangThai = (TrangThaiHoaDonNhap)row.Cells["TrangThai"].Value;
-                row.DefaultCellStyle.BackColor = SystemColors.Window;
-                row.DefaultCellStyle.Font = new Font(this.Font, FontStyle.Regular);
-                row.DefaultCellStyle.ForeColor = SystemColors.ControlText;
-                if (trangThai == TrangThaiHoaDonNhap.DaHuy)
-                {
-                    row.DefaultCellStyle.BackColor = Color.LightGray;
-                    row.DefaultCellStyle.Font = new Font(this.Font, FontStyle.Strikeout);
-                    row.DefaultCellStyle.ForeColor = Color.DarkGray;
-                }
-                else if (trangThai == TrangThaiHoaDonNhap.TamLuu)
-                {
-                    row.DefaultCellStyle.BackColor = Color.LemonChiffon;
-                }
+                MessageBox.Show($"Lỗi khi tải danh sách: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                dgvDanhSach.DataSource = null;
             }
         }
 
@@ -106,13 +79,14 @@ namespace BagShopManagement.Views.Dev6
             LoadTrangThaiComboBox();
             LoadComboBoxNhaCungCap();
             LoadComboBoxNhanVien();
+            LoadComboBoxHoaDonNhap();
         }
 
         private void LoadTrangThaiComboBox()
         {
             var dataSource = new List<object>
             {
-                new { Value = (byte?)null, Display = "--- Tất cả trạng thái ---" },
+                new { Value = (byte?)null, Display = "-- Tất cả trạng thái --" },
                 new { Value = (byte?)TrangThaiHoaDonNhap.TamLuu, Display = "Tạm lưu" },
                 new { Value = (byte?)TrangThaiHoaDonNhap.HoatDong, Display = "Hoạt động" },
                 new { Value = (byte?)TrangThaiHoaDonNhap.DaHuy, Display = "Đã hủy" }
@@ -123,108 +97,344 @@ namespace BagShopManagement.Views.Dev6
             cmbSearchTrangThai.SelectedIndex = 0;
         }
 
+        private void EnableSearchableComboBox(ComboBox comboBox, List<string> items)
+        {
+            comboBox.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            comboBox.AutoCompleteSource = AutoCompleteSource.CustomSource;
+            var autoSource = new AutoCompleteStringCollection();
+            autoSource.AddRange(items.ToArray());
+            comboBox.AutoCompleteCustomSource = autoSource;
+        }
+
         private void LoadComboBoxNhaCungCap()
         {
-            if (_nhaCungCapRepo == null) return;
             try
             {
-                var list = _nhaCungCapRepo.GetAll();
-                list.Insert(0, new NhaCungCap { MaNCC = "", TenNCC = "--- Tất cả NCC ---" });
+                var list = _nccRepo.GetAll();
+                list.Insert(0, new NhaCungCap { MaNCC = "", TenNCC = "--Tất cả NCC--" });
                 cmbSearchNCC.DataSource = list;
                 cmbSearchNCC.DisplayMember = "TenNCC";
                 cmbSearchNCC.ValueMember = "MaNCC";
+                EnableSearchableComboBox(cmbSearchNCC, list.Select(x => x.TenNCC).ToList());
             }
-            catch (Exception ex) { MessageBox.Show($"Lỗi tải danh sách NCC: {ex.Message}"); }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tải danh sách NCC: {ex.Message}");
+            }
         }
 
         private void LoadComboBoxNhanVien()
         {
-            if (_nhanVienRepo == null) return;
             try
             {
-                var list = _nhanVienRepo.GetAll();
-                list.Insert(0, new NhanVien { MaNV = "", HoTen = "--- Tất cả NV ---" });
+                var list = _nvRepo.GetAll();
+                list.Insert(0, new NhanVien { MaNV = "", HoTen = "--Tất cả NV--" });
                 cmbSearchNhanVien.DataSource = list;
                 cmbSearchNhanVien.DisplayMember = "HoTen";
                 cmbSearchNhanVien.ValueMember = "MaNV";
-            }
-            catch (Exception ex) { MessageBox.Show($"Lỗi tải danh sách NV: {ex.Message}"); }
-        }
-
-        #endregion === CÁC HÀM TẢI DỮ LIỆU (LOAD) ===
-
-        #region === CÁC HÀM XỬ LÝ SỰ KIỆN ===
-
-        private void UpdateUIState(TrangThaiHoaDonNhap? trangThai)
-        {
-            if (btnThem == null) return;
-            if (trangThai == null)
-            {
-                btnThem.Enabled = true;
-                btnXemSua.Enabled = false;
-                btnDuyet.Enabled = false;
-                btnHuy.Enabled = false;
-            }
-            else if (trangThai == TrangThaiHoaDonNhap.TamLuu)
-            {
-                btnThem.Enabled = true;
-                btnXemSua.Enabled = true;
-                btnDuyet.Enabled = true;
-                btnHuy.Enabled = true;
-            }
-            else if (trangThai == TrangThaiHoaDonNhap.HoatDong)
-            {
-                btnThem.Enabled = true;
-                btnXemSua.Enabled = true;
-                btnDuyet.Enabled = false;
-                btnHuy.Enabled = true;
-            }
-            else if (trangThai == TrangThaiHoaDonNhap.DaHuy)
-            {
-                btnThem.Enabled = true;
-                btnXemSua.Enabled = true;
-                btnDuyet.Enabled = false;
-                btnHuy.Enabled = false;
-            }
-        }
-
-        private void dgvDanhSach_SelectionChanged(object sender, EventArgs e)
-        {
-            if (dgvDanhSach == null || dgvDanhSach.CurrentRow == null || dgvDanhSach.CurrentRow.DataBoundItem == null)
-            {
-                UpdateUIState(null);
-                return;
-            }
-            var trangThai = (TrangThaiHoaDonNhap)dgvDanhSach.CurrentRow.Cells["TrangThai"].Value;
-            UpdateUIState(trangThai);
-        }
-
-        // === LOGIC NÚT THÊM MỚI (Quan trọng) ===
-        private void btnThem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                using (var frm = _serviceProvider.GetRequiredService<frmHoaDonNhapDetail>())
-                {
-                    frm.ShowDialog();
-                    LoadAllInvoices();
-                }
+                EnableSearchableComboBox(cmbSearchNhanVien, list.Select(x => x.HoTen).ToList());
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Không thể tải danh sách hóa đơn {ex.Message}");
+                MessageBox.Show($"Lỗi tải danh sách NV: {ex.Message}");
             }
+        }
+
+        private void LoadComboBoxHoaDonNhap()
+        {
+            try
+            {
+                var list = _controller.GetAll();
+                list.Insert(0, new HoaDonNhap { MaHDN = "--Tất cả--" });
+                cmbSearchMaHDN.DataSource = list;
+                cmbSearchMaHDN.DisplayMember = "MaHDN";
+                cmbSearchMaHDN.ValueMember = "MaHDN";
+                EnableSearchableComboBox(cmbSearchMaHDN, list.Select(x => x.MaHDN).ToList());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tải danh sách hoá đơn nhập: {ex.Message}");
+            }
+        }
+
+        private void FormatGrid()
+        {
+            if (dgvDanhSach.DataSource == null) return;
+
+            dgvDanhSach.Columns["MaHDN"].HeaderText = "Mã HĐN";
+            dgvDanhSach.Columns["TenNCC"].HeaderText = "Nhà Cung Cấp";
+            dgvDanhSach.Columns["TenNV"].HeaderText = "Nhân Viên";
+            dgvDanhSach.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
+            dgvDanhSach.Columns["NgayDuyet"].HeaderText = "Ngày Duyệt";
+            dgvDanhSach.Columns["NgayHuy"].HeaderText = "Ngày Hủy";
+            dgvDanhSach.Columns["TongTien"].HeaderText = "Tổng Tiền";
+            dgvDanhSach.Columns["TenTrangThai"].HeaderText = "Trạng Thái";
+
+            // Định dạng ngày duyệt, ngày hủy: nếu null → hiển thị "N/A"
+            dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.NullValue = "N/A";
+            dgvDanhSach.Columns["NgayHuy"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgvDanhSach.Columns["NgayHuy"].DefaultCellStyle.NullValue = "N/A";
+
+            dgvDanhSach.Columns["TongTien"].DefaultCellStyle.Format = "N0";
+
+            string[] hideCols = { "MaNCC", "MaNV", "GhiChu", "ChiTiet", "TrangThai", "NgayDuyet", "NgayHuy" };
+            foreach (var col in hideCols)
+                if (dgvDanhSach.Columns.Contains(col) && col != "NgayDuyet" && col != "NgayHuy")
+                    dgvDanhSach.Columns[col].Visible = false;
+
+            // Hiển thị 2 cột ngày duyệt & ngày hủy
+            if (dgvDanhSach.Columns.Contains("NgayDuyet")) dgvDanhSach.Columns["NgayDuyet"].Visible = true;
+            if (dgvDanhSach.Columns.Contains("NgayHuy")) dgvDanhSach.Columns["NgayHuy"].Visible = true;
+        }
+
+        #endregion === LOAD DATA ===
+
+        #region === UI/SELECTION ===
+
+        private void dgvDanhSach_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is HoaDonNhapResponse item)
+                UpdateButtonState(item.TrangThai);
+            else
+                UpdateButtonState(null);
+        }
+
+        private void UpdateButtonState(TrangThaiHoaDonNhap? t)
+        {
+            btnThem.Enabled = true;
+            btnXem.Enabled = t != null;
+            btnInHoaDon.Enabled = t != null;
+            btnXuatExel.Enabled = dgvDanhSach.Rows.Count > 0;
+
+            if (t == TrangThaiHoaDonNhap.TamLuu)
+            {
+                btnDuyet.Enabled = true;
+                btnSua.Enabled = true;
+                btnHuy.Enabled = true;
+            }
+            else if (t == TrangThaiHoaDonNhap.HoatDong)
+            {
+                btnDuyet.Enabled = false;
+                btnSua.Enabled = false;
+                btnHuy.Enabled = true;
+            }
+            else
+            {
+                btnDuyet.Enabled = false;
+                btnSua.Enabled = false;
+                btnHuy.Enabled = false;
+            }
+        }
+
+        private void SettingUI()
+        {
+            dtpTuNgay.Checked = false;
+            dtpDenNgay.Checked = false;
+        }
+
+        #endregion === UI/SELECTION ===
+
+        #region === BUTTON HANDLER ===
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            var uc = _provider.GetRequiredService<ucThemHDN>();
+            this.Controls.Clear();
+            uc.Dock = DockStyle.Fill;
+            this.Controls.Add(uc);
         }
 
         private void btnLamMoi_Click(object sender, EventArgs e)
         {
-            cmbSearchMaHDN.Text = "";
+            cmbSearchMaHDN.SelectedIndex = 0;
             cmbSearchNCC.SelectedIndex = 0;
             cmbSearchNhanVien.SelectedIndex = 0;
             cmbSearchTrangThai.SelectedIndex = 0;
-            LoadAllInvoices();
+            dtpTuNgay.Checked = false;
+            dtpDenNgay.Checked = false;
+            LoadData();
         }
 
-        #endregion === CÁC HÀM XỬ LÝ SỰ KIỆN ===
+        private void btnXem_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item) return;
+            try
+            {
+                var full = _controller.LayChiTietHoaDon(item.MaHDN);
+                if (full == null)
+                {
+                    MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                var frm = _provider.GetRequiredService<frmViewHoaDonNhapDetails>();
+                frm.LoadData(full);
+                frm.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xem: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnSua_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item) return;
+            try
+            {
+                var full = _controller.LayChiTietHoaDon(item.MaHDN);
+                if (full == null)
+                {
+                    MessageBox.Show("Không tìm thấy hoá đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+                var uc = _provider.GetRequiredService<ucSuaHoaDonNhap>();
+                uc.LoadData(full);
+                this.Controls.Clear();
+                uc.Dock = DockStyle.Fill;
+                this.Controls.Add(uc);
+                uc.BringToFront();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sửa: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnHuy_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item) return;
+            if (MessageBox.Show($"Bạn có chắc chắn muốn hủy hóa đơn [{item.MaHDN}]?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+            {
+                try
+                {
+                    _controller.HuyHoaDon(item.MaHDN);
+                    MessageBox.Show("Đã hủy thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            }
+        }
+
+        private void btnDuyet_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item) return;
+            if (MessageBox.Show($"Duyệt hóa đơn [{item.MaHDN}] và cập nhật tồn kho?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                try
+                {
+                    _controller.DuyetHoaDon(item.MaHDN);
+                    MessageBox.Show("Duyệt thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    LoadData();
+                }
+                catch (Exception ex) { MessageBox.Show(ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error); }
+            }
+        }
+
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string ma = cmbSearchMaHDN.Text == "--Tất cả--" ? "" : cmbSearchMaHDN.Text.Trim();
+                string maNCC = cmbSearchNCC.SelectedValue?.ToString() ?? "";
+                string maNV = cmbSearchNhanVien.SelectedValue?.ToString() ?? "";
+                byte? tt = cmbSearchTrangThai.SelectedValue as byte?;
+                DateTime? tuNgay = dtpTuNgay.Checked ? dtpTuNgay.Value.Date : null;
+                DateTime? denNgay = dtpDenNgay.Checked ? dtpDenNgay.Value.Date : null;
+
+                var ds = _controller.TimKiemHoaDon(ma, tuNgay, denNgay, maNCC, maNV,
+                    tt.HasValue ? (TrangThaiHoaDonNhap?)tt.Value : null);
+
+                dgvDanhSach.DataSource = ds;
+                FormatGrid();
+
+                if (!ds.Any())
+                    MessageBox.Show("Không tìm thấy kết quả nào.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi tìm kiếm: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void dgvDanhSach_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0 && dgvDanhSach.Rows[e.RowIndex].Cells["MaHDN"].Value != null)
+                cmbSearchMaHDN.Text = dgvDanhSach.Rows[e.RowIndex].Cells["MaHDN"].Value.ToString();
+        }
+
+        #endregion === BUTTON HANDLER ===
+
+        // IN 1 PHIẾU NHẬP
+        private void btnInHoaDon_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item)
+            {
+                MessageBox.Show("Vui lòng chọn hóa đơn cần in!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var hd = _controller.LayChiTietHoaDon(item.MaHDN);
+                if (hd == null || hd.ChiTiet == null || !hd.ChiTiet.Any())
+                {
+                    MessageBox.Show("Hóa đơn trống, không thể in!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                using var sfd = new SaveFileDialog
+                {
+                    Filter = "File Excel|*.xlsx",
+                    FileName = $"PhieuNhap_{hd.MaHDN}.xlsx",
+                    Title = "Xuất phiếu nhập hàng"
+                };
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ExcelHelper.XuatPhieuNhapHang(sfd.FileName, hd);
+                    MessageBox.Show("Xuất phiếu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = sfd.FileName, UseShellExecute = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất phiếu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        // XUẤT TOÀN BỘ DANH SÁCH RA EXCEL
+        private void btnXuatExel_Click(object sender, EventArgs e)
+        {
+            if (dgvDanhSach.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            var danhSach = dgvDanhSach.DataSource as List<HoaDonNhapResponse>;
+            if (danhSach == null || !danhSach.Any()) return;
+
+            using var sfd = new SaveFileDialog
+            {
+                Filter = "File Excel|*.xlsx",
+                FileName = $"DanhSach_HoaDonNhap_{DateTime.Now:yyyyMMdd_HHmm}.xlsx",
+                Title = "Xuất danh sách hóa đơn nhập"
+            };
+
+            if (sfd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    ExcelHelper.XuatDanhSachHoaDonNhap(sfd.FileName, danhSach);
+                    MessageBox.Show($"Xuất danh sách thành công!\nTổng: {danhSach.Count} hóa đơn", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = sfd.FileName, UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi xuất file: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

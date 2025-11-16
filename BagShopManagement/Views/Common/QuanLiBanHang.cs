@@ -4,10 +4,13 @@ using BagShopManagement.Views.Dev2;
 using BagShopManagement.Views.Dev3;
 using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev4.Dev4_POS;
+using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
+using BagShopManagement.Views.Controls;
+using BagShopManagement.Views.Dev5;
 
 // === BỔ SUNG CÁC USING CHO DEV1 ===
 using BagShopManagement.Views; // Cần cho LoginForm
@@ -117,7 +120,7 @@ namespace BagShopManagement.Views.Common
             if (this.DesignMode) return;
 
             // === BƯỚC 1: XỬ LÝ ĐĂNG NHẬP (BỔ SUNG TỪ DEV1) ===
-            // (Giữ nguyên logic "Login-First" của bạn: 
+            // (Giữ nguyên logic "Login-First" của bạn:
             // Program.cs chạy LoginForm trước, sau đó MainForm này mới được load)
             if (!UserContext.IsLoggedIn)
             {
@@ -130,10 +133,13 @@ namespace BagShopManagement.Views.Common
             // (Giả sử bạn có 1 ToolStripStatusLabel tên là 'tsslUserInfo')
             // tsslUserInfo.Text = $"Người dùng: {UserContext.HoTen} ({UserContext.MaVaiTro})";
 
-
             // === BƯỚC 3: GÁN SỰ KIỆN CHO SIDEBAR (HỢP NHẤT) ===
 
             // (Giả sử instance của SideBarControl tên là 'sideBarControl')
+
+            // Dev5 Events (Đã có)
+            sideBarControl.ShowTonKhoClicked += (s, ev) => ShowUserControl<TonKhoControl>();
+            sideBarControl.ShowKhuyenMaiClicked += (s, ev) => ShowUserControl<PromotionControl>();
 
             // Dev6 Events (Đã có)
             sideBarControl.ShowHoaDonNhapClicked += (s, ev) => ShowUserControl<ucHoaDonNhapList>();
@@ -142,8 +148,12 @@ namespace BagShopManagement.Views.Common
             // Dev4 Events (Đã có)
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
 
+            // Dev4 - Hóa đơn bán (Quản lý hóa đơn)
+            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
+
             // Dev2 Events (Đã có)
             sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
+            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
 
             // Dev3 Events (Đã có)
             sideBarControl.NhaCungCapClicked += (s, ev) => ShowUserControl<NhaCungCapControl>();
@@ -173,11 +183,12 @@ namespace BagShopManagement.Views.Common
             // Gắn sự kiện "Nhân viên" (Employee Management)
             sideBarControl.ShowEmployeeManagementClicked += (s, ev) => ShowUserControl<ucEmployeeManagement>();
 
-
             // === BƯỚC 4: XỬ LÝ PHÂN QUYỀN (BỔ SUNG TỪ DEV1) ===
             // (Bạn cần đặt các nút trong SideBarControl là 'public'
             // bằng cách chọn nút -> Properties -> Modifiers -> Public)
 
+            // TẠM THỜI COMMENT ĐỂ TEST
+            /*
             if (UserContext.MaQuyenList != null)
             {
                 // (Giả sử tên nút là btnNhanVien và btnTaiKhoan)
@@ -193,6 +204,7 @@ namespace BagShopManagement.Views.Common
                 // sideBarControl.btnSanPham.Enabled = UserContext.MaQuyenList.Contains("Q001");
                 // ...
             }
+            */
         }
 
         // --- (Các hàm load trống của nhóm bạn, giữ nguyên) ---
@@ -202,12 +214,10 @@ namespace BagShopManagement.Views.Common
 
         private void hoaDonNhapControl2_Load(object sender, EventArgs e)
         {
-
         }
 
         private void panelMain_Paint(object sender, PaintEventArgs e)
         {
-
         }
     }
 }
