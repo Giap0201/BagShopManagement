@@ -27,7 +27,7 @@ namespace BagShopManagement.Services.Implementations
 
             var sanPhamHienTai = _sanPhamRepo.GetById(maSP);
             if (sanPhamHienTai == null)
-            {
+        {
                 throw new KeyNotFoundException("Không tìm thấy sản phẩm với mã này.");
             }
 
