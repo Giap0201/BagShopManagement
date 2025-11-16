@@ -60,11 +60,11 @@
             mainPanel.Size = new Size(569, 439);
             mainPanel.TabIndex = 0;
             // 
-            pnlMainContent.Dock = DockStyle.Fill;
-            pnlMainContent.Location = new Point(336, 76);
-            pnlMainContent.Name = "pnlMainContent";
-            pnlMainContent.Size = new Size(1024, 773);
-            pnlMainContent.TabIndex = 2;
+            //pnlMainContent.Dock = DockStyle.Fill;
+            //pnlMainContent.Location = new Point(336, 76);
+            //pnlMainContent.Name = "pnlMainContent";
+            //pnlMainContent.Size = new Size(1024, 773);
+            //pnlMainContent.TabIndex = 2;
             // 
             // QuanLiBanHang
             // 

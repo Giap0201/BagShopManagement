@@ -137,6 +137,10 @@ namespace BagShopManagement.Views.Common
 
             // (Giả sử instance của SideBarControl tên là 'sideBarControl')
 
+            // Dev5 Events (Đã có)
+            sideBarControl.ShowTonKhoClicked += (s, ev) => ShowUserControl<TonKhoControl>();
+            sideBarControl.ShowKhuyenMaiClicked += (s, ev) => ShowUserControl<PromotionControl>();
+
             // Dev6 Events (Đã có)
             sideBarControl.ShowHoaDonNhapClicked += (s, ev) => ShowUserControl<ucHoaDonNhapList>();
             sideBarControl.ShowBaoCaoThongKeClicked += (s, ev) => ShowUserControl<ucBaoCaoThongKe>();

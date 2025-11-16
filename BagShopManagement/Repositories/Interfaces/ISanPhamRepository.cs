@@ -25,5 +25,7 @@ namespace BagShopManagement.Repositories.Interfaces
         string GetMaxCode();
 
         int GetTonKho(string maSP);
+
+        void UpdateSoLuong(string maSP, int soLuongMoi);
     }
 }

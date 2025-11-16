@@ -33,7 +33,7 @@
             panel1 = new Panel();
             btnBCTK = new Button();
             btnKhuyenMai = new Button();
-            btnKho = new Button();
+            btnTonKho = new Button();
             btnHoaDonNhap = new Button();
             btnTaiKhoan = new Button();
             btnNCC = new Button();
@@ -54,7 +54,7 @@
             panel1.BackColor = SystemColors.Info;
             panel1.Controls.Add(btnBCTK);
             panel1.Controls.Add(btnKhuyenMai);
-            panel1.Controls.Add(btnKho);
+            panel1.Controls.Add(btnTonKho);
             panel1.Controls.Add(btnHoaDonNhap);
             panel1.Controls.Add(btnTaiKhoan);
             panel1.Controls.Add(btnNCC);
@@ -89,16 +89,18 @@
             btnKhuyenMai.TabIndex = 11;
             btnKhuyenMai.Text = "Khuyến Mãi";
             btnKhuyenMai.UseVisualStyleBackColor = true;
+            btnKhuyenMai.Click += btnKhuyenMai_Click;
             // 
-            // btnKho
+            // btnTonKho
             // 
-            btnKho.BackColor = SystemColors.Info;
-            btnKho.Location = new Point(-3, 508);
-            btnKho.Name = "btnKho";
-            btnKho.Size = new Size(330, 57);
-            btnKho.TabIndex = 9;
-            btnKho.Text = "Kho";
-            btnKho.UseVisualStyleBackColor = false;
+            btnTonKho.BackColor = SystemColors.Info;
+            btnTonKho.Location = new Point(-3, 508);
+            btnTonKho.Name = "btnTonKho";
+            btnTonKho.Size = new Size(330, 57);
+            btnTonKho.TabIndex = 9;
+            btnTonKho.Text = "Tồn Kho";
+            btnTonKho.UseVisualStyleBackColor = false;
+            btnTonKho.Click += btnTonKho_Click;
             // 
             // btnHoaDonNhap
             // 
@@ -239,7 +241,7 @@
         public Button btnSanPham;
         public Button btnDanhMuc;
         public Button btnBanHang;
-        public Button btnKho;
+        public Button btnTonKho;
         public Button btnTaiKhoan;
         public Button btnHoaDonNhap;
         public Button btnKhuyenMai;
