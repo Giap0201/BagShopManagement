@@ -161,16 +161,15 @@ namespace BagShopManagement.Views.Dev6
         {
             if (dgvDanhSach.DataSource == null) return;
 
-            dgvDanhSach.Columns["MaHDN"].HeaderText = "Mã HĐN";
-            dgvDanhSach.Columns["TenNCC"].HeaderText = "Nhà Cung Cấp";
-            dgvDanhSach.Columns["TenNV"].HeaderText = "Nhân Viên";
-            dgvDanhSach.Columns["NgayNhap"].HeaderText = "Ngày Nhập";
-            dgvDanhSach.Columns["NgayDuyet"].HeaderText = "Ngày Duyệt";
-            dgvDanhSach.Columns["NgayHuy"].HeaderText = "Ngày Hủy";
-            dgvDanhSach.Columns["TongTien"].HeaderText = "Tổng Tiền";
-            dgvDanhSach.Columns["TenTrangThai"].HeaderText = "Trạng Thái";
+            dgvDanhSach.Columns["MaHDN"].HeaderText = "MÃ HĐN";
+            dgvDanhSach.Columns["TenNCC"].HeaderText = "NHÀ CUNG CẤP";
+            dgvDanhSach.Columns["TenNV"].HeaderText = "NHÂN VIÊN";
+            dgvDanhSach.Columns["NgayNhap"].HeaderText = "NGÀY NHẬP";
+            dgvDanhSach.Columns["NgayDuyet"].HeaderText = "NGÀY DUYỆT";
+            dgvDanhSach.Columns["NgayHuy"].HeaderText = "NGÀY HUỶ";
+            dgvDanhSach.Columns["TongTien"].HeaderText = "TỔNG TIỀN";
+            dgvDanhSach.Columns["TenTrangThai"].HeaderText = "TRẠNG THÁI";
 
-            // Định dạng ngày duyệt, ngày hủy: nếu null → hiển thị "N/A"
             dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.Format = "dd/MM/yyyy";
             dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.NullValue = "N/A";
             dgvDanhSach.Columns["NgayHuy"].DefaultCellStyle.Format = "dd/MM/yyyy";
@@ -186,6 +185,12 @@ namespace BagShopManagement.Views.Dev6
             // Hiển thị 2 cột ngày duyệt & ngày hủy
             if (dgvDanhSach.Columns.Contains("NgayDuyet")) dgvDanhSach.Columns["NgayDuyet"].Visible = true;
             if (dgvDanhSach.Columns.Contains("NgayHuy")) dgvDanhSach.Columns["NgayHuy"].Visible = true;
+
+            // Bật tự động sắp xếp cho tất cả các cột
+            foreach (DataGridViewColumn col in dgvDanhSach.Columns)
+            {
+                col.SortMode = DataGridViewColumnSortMode.Automatic;
+            }
         }
 
         #endregion === LOAD DATA ===
