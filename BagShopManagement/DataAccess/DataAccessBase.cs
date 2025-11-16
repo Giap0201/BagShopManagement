@@ -1,20 +1,60 @@
 ﻿using BagShopManagement.Models;
 using BagShopManagement.Utils;
 using Microsoft.Data.SqlClient;
-using Microsoft.Identity.Client;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.IO;
+using System.Text.Json;
 
 namespace BagShopManagement.DataAccess
 {
+    /// <summary>
+    /// [DEPRECATED] Sử dụng BaseRepository thay thế
+    /// Class này được giữ lại để backward compatibility với code legacy
+    /// Các repository mới nên kế thừa BaseRepository
+    /// </summary>
+    [Obsolete("Use BaseRepository pattern instead. This class is kept for backward compatibility only.")]
     public static class DataAccessBase
     {
-        //chuoi ket noi tu SSMS
-        private static readonly string ConnectionString = "Server=LAPTOP-7PVL0SIL;Database=BagStoreDB;Trusted_Connection=True;TrustServerCertificate=True;";
+        //chuoi ket noi - uu tien doc tu appsettings.json, fallback ve hardcoded
+        private static readonly string ConnectionString = LoadConnectionString();
+
+        private static string LoadConnectionString()
+        {
+            try
+            {
+                string appSettingsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
+                if (File.Exists(appSettingsPath))
+                {
+                    string json = File.ReadAllText(appSettingsPath);
+                    using (JsonDocument doc = JsonDocument.Parse(json))
+                    {
+                        if (doc.RootElement.TryGetProperty("ConnectionStrings", out JsonElement connStrings))
+                        {
+                            if (connStrings.TryGetProperty("Default", out JsonElement defaultConn))
+                            {
+                                return defaultConn.GetString() ?? GetFallbackConnectionString();
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"Failed to load connection string from appsettings.json: {ex.Message}. Using fallback.");
+            }
+            return GetFallbackConnectionString();
+        }
+
+        private static string GetFallbackConnectionString()
+        {
+            return "Server=DESKTOP-862VN9A;Database=BagShopManagementDB;User Id=sa;Password=Ndtrung@3605;Trusted_Connection=True;TrustServerCertificate=True;";
+        }
+
+        public static string GetConnectionString()
+        {
+            return ConnectionString;
+        }
 
         //phuong thuc tao va mo ket noi voi database
         public static SqlConnection GetConnection()
@@ -38,107 +78,72 @@ namespace BagShopManagement.DataAccess
         //thuc thi cau truy van select, tra ve datatable co ket qua
         public static DataTable ExecuteQuery(string query, params SqlParameter[] parameters)
         {
-            if (string.IsNullOrEmpty(query))
+            if (string.IsNullOrWhiteSpace(query))
+                throw new ArgumentException("Câu truy vấn không được để trống.", nameof(query));
+
+            DataTable dt = new DataTable();
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var cmd = new SqlCommand(query, conn))
+            using (var da = new SqlDataAdapter(cmd))
             {
-                ExceptionHandler.Handle(new ArgumentException("Câu truy vấn không được để trống."), "Lỗi truy vấn.");
-                return null;
+                if (parameters != null && parameters.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
+
+                conn.Open();
+                da.Fill(dt);
             }
-            using (var conn = GetConnection())
-            {
-                if (conn == null) return null;
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        if (parameters != null && parameters.Length > 0)
-                        {
-                            cmd.Parameters.AddRange(parameters);
-                        }
-                        using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                        {
-                            DataTable dt = new DataTable();
-                            da.Fill(dt);
-                            return dt;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.Handle(ex, $"Lỗi khi thực thi truy vấn: {query}");
-                    return null;
-                }
-            }
+
+            return dt;
         }
 
-        //thuc thi cau lenh select, update, delete, tra ve so dong bi anh huoc
+        // 3. Thực thi INSERT, UPDATE, DELETE
         public static int ExecuteNonQuery(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
-            {
-                ExceptionHandler.Handle(new ArgumentException("Câu lệnh không được để trống."), "Lỗi câu lệnh.");
-                return -1;
-            }
+                throw new ArgumentException("Câu lệnh không được để trống.", nameof(query));
 
-            using (SqlConnection conn = GetConnection())
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var cmd = new SqlCommand(query, conn))
             {
-                if (conn == null)
-                    return -1;
+                if (parameters != null && parameters.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
 
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        if (parameters != null && parameters.Length > 0)
-                            cmd.Parameters.AddRange(parameters);
-                        return cmd.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.Handle(ex, $"Lỗi khi thực thi câu lệnh: {query}");
-                    return -1;
-                }
+                conn.Open();
+                return cmd.ExecuteNonQuery();
             }
         }
 
-        //thuc thi cau truy van tra ve gia tri don count,sum
+        // 4. Thực thi truy vấn trả về 1 giá trị (COUNT, SUM, MAX...)
         public static object ExecuteScalar(string query, params SqlParameter[] parameters)
         {
             if (string.IsNullOrWhiteSpace(query))
+                throw new ArgumentException("Câu truy vấn không được để trống.", nameof(query));
+
+            using (var conn = new SqlConnection(ConnectionString))
+            using (var cmd = new SqlCommand(query, conn))
             {
-                ExceptionHandler.Handle(new ArgumentException("Câu truy vấn không được để trống."), "Lỗi truy vấn.");
-                return null;
-            }
+                if (parameters != null && parameters.Length > 0)
+                    cmd.Parameters.AddRange(parameters);
 
-            using (SqlConnection conn = GetConnection())
-            {
-                if (conn == null)
-                    return null;
-
-                try
-                {
-                    using (SqlCommand cmd = new SqlCommand(query, conn))
-                    {
-                        if (parameters != null && parameters.Length > 0)
-                            cmd.Parameters.AddRange(parameters);
-
-                        return cmd.ExecuteScalar();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    ExceptionHandler.Handle(ex, $"Lỗi khi thực thi truy vấn scalar: {query}");
-                    return null;
-                }
+                conn.Open();
+                return cmd.ExecuteScalar();
             }
         }
 
-        //kiem tra ket noi co so du lieu
+        // 5. Kiểm tra kết nối
         public static bool TestConnection()
         {
-            using (SqlConnection conn = GetConnection())
+            try
             {
-                return conn != null && conn.State != ConnectionState.Open;
+                using (SqlConnection conn = GetConnection())
+                {
+                    return conn != null && conn.State == ConnectionState.Open;
+                }
+            }
+            catch
+            {
+                return false;
             }
         }
         public static void InsertChuongTrinhGiamGia(ChuongTrinhGiamGia ctgg)
