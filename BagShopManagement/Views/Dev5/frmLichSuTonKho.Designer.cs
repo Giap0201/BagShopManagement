@@ -40,6 +40,7 @@
             // 
             // pnlTop
             // 
+            pnlTop.BackColor = Color.White;
             pnlTop.Controls.Add(lblThongTinSP);
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
@@ -51,16 +52,18 @@
             // 
             lblThongTinSP.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             lblThongTinSP.AutoSize = true;
-            lblThongTinSP.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblThongTinSP.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblThongTinSP.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             lblThongTinSP.Location = new Point(229, 25);
             lblThongTinSP.Name = "lblThongTinSP";
             lblThongTinSP.Size = new Size(387, 25);
             lblThongTinSP.TabIndex = 0;
-            lblThongTinSP.Text = "Lịch sử cho sản phẩm: [Tên sản phẩm]";
+            lblThongTinSP.Text = "📊 Lịch sử cho sản phẩm: [Tên sản phẩm]";
             lblThongTinSP.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // pnlBottom
             // 
+            pnlBottom.BackColor = Color.White;
             pnlBottom.Controls.Add(btnDong);
             pnlBottom.Dock = DockStyle.Bottom;
             pnlBottom.Location = new Point(0, 378);
@@ -71,12 +74,18 @@
             // btnDong
             // 
             btnDong.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnDong.BackColor = System.Drawing.ColorTranslator.FromHtml("#718096");
+            btnDong.FlatStyle = FlatStyle.Flat;
+            btnDong.FlatAppearance.BorderSize = 0;
+            btnDong.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnDong.ForeColor = Color.White;
+            btnDong.Cursor = Cursors.Hand;
             btnDong.Location = new Point(638, 16);
             btnDong.Name = "btnDong";
-            btnDong.Size = new Size(118, 35);
+            btnDong.Size = new Size(130, 38);
             btnDong.TabIndex = 0;
-            btnDong.Text = "Đóng";
-            btnDong.UseVisualStyleBackColor = true;
+            btnDong.Text = "✖ Đóng";
+            btnDong.UseVisualStyleBackColor = false;
             // 
             // dgvLichSu
             // 
@@ -98,6 +107,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             ClientSize = new Size(800, 450);
             Controls.Add(dgvLichSu);
             Controls.Add(pnlBottom);

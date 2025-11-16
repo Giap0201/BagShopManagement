@@ -33,7 +33,7 @@
             // 
             // panelHeader
             // 
-            panelHeader.BackColor = SystemColors.MenuHighlight;
+            panelHeader.BackColor = BagShopManagement.Utils.ThemeColors.Primary;
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
@@ -44,7 +44,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = SystemColors.ControlLight;
+            BackColor = BagShopManagement.Utils.ThemeColors.Primary;
             Controls.Add(panelHeader);
             Name = "HeaderControl";
             Size = new Size(605, 80);

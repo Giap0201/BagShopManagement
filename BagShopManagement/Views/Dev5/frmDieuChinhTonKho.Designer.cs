@@ -49,18 +49,21 @@
             // 
             // grpThongTinSP
             // 
+            grpThongTinSP.BackColor = Color.White;
             grpThongTinSP.Controls.Add(lblTonKhoCu);
             grpThongTinSP.Controls.Add(lblTenSP);
             grpThongTinSP.Controls.Add(label3);
             grpThongTinSP.Controls.Add(label2);
             grpThongTinSP.Controls.Add(lblMaSP);
             grpThongTinSP.Controls.Add(label1);
+            grpThongTinSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpThongTinSP.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             grpThongTinSP.Location = new Point(8, 4);
             grpThongTinSP.Name = "grpThongTinSP";
             grpThongTinSP.Size = new Size(320, 338);
             grpThongTinSP.TabIndex = 0;
             grpThongTinSP.TabStop = false;
-            grpThongTinSP.Text = "Thông tin sản phẩm";
+            grpThongTinSP.Text = "📋 Thông tin sản phẩm";
             // 
             // lblTonKhoCu
             // 
@@ -122,16 +125,19 @@
             // 
             // grpThongTinMoi
             // 
+            grpThongTinMoi.BackColor = Color.White;
             grpThongTinMoi.Controls.Add(txtGhiChu);
             grpThongTinMoi.Controls.Add(label5);
             grpThongTinMoi.Controls.Add(nudSoLuongMoi);
             grpThongTinMoi.Controls.Add(label4);
+            grpThongTinMoi.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpThongTinMoi.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             grpThongTinMoi.Location = new Point(349, 2);
             grpThongTinMoi.Name = "grpThongTinMoi";
             grpThongTinMoi.Size = new Size(450, 340);
             grpThongTinMoi.TabIndex = 1;
             grpThongTinMoi.TabStop = false;
-            grpThongTinMoi.Text = "Thông tin điều chỉnh";
+            grpThongTinMoi.Text = "✏️ Thông tin điều chỉnh";
             // 
             // txtGhiChu
             // 
@@ -171,29 +177,42 @@
             // btnHuy
             // 
             btnHuy.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnHuy.Location = new Point(513, 377);
+            btnHuy.BackColor = System.Drawing.ColorTranslator.FromHtml("#E2E8F0");
+            btnHuy.FlatStyle = FlatStyle.Flat;
+            btnHuy.FlatAppearance.BorderSize = 0;
+            btnHuy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnHuy.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnHuy.Cursor = Cursors.Hand;
+            btnHuy.Location = new Point(500, 377);
             btnHuy.Name = "btnHuy";
-            btnHuy.Size = new Size(104, 46);
+            btnHuy.Size = new Size(120, 46);
             btnHuy.TabIndex = 2;
-            btnHuy.Text = "Hủy";
-            btnHuy.UseVisualStyleBackColor = true;
+            btnHuy.Text = "❌ Hủy";
+            btnHuy.UseVisualStyleBackColor = false;
             btnHuy.Click += btnHuy_Click;
             // 
             // btnXacNhan
             // 
             btnXacNhan.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnXacNhan.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnXacNhan.FlatStyle = FlatStyle.Flat;
+            btnXacNhan.FlatAppearance.BorderSize = 0;
+            btnXacNhan.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXacNhan.ForeColor = Color.White;
+            btnXacNhan.Cursor = Cursors.Hand;
             btnXacNhan.Location = new Point(643, 377);
             btnXacNhan.Name = "btnXacNhan";
-            btnXacNhan.Size = new Size(102, 46);
+            btnXacNhan.Size = new Size(130, 46);
             btnXacNhan.TabIndex = 3;
-            btnXacNhan.Text = "Xác nhận";
-            btnXacNhan.UseVisualStyleBackColor = true;
+            btnXacNhan.Text = "✔ Xác nhận";
+            btnXacNhan.UseVisualStyleBackColor = false;
             btnXacNhan.Click += btnXacNhan_Click;
             // 
             // frmDieuChinhTonKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             ClientSize = new Size(800, 450);
             Controls.Add(btnXacNhan);
             Controls.Add(btnHuy);
@@ -205,7 +224,7 @@
             MinimizeBox = false;
             Name = "frmDieuChinhTonKho";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Điều chỉnh Tồn kho";
+            Text = "📦 Điều chỉnh Tồn kho";
             grpThongTinSP.ResumeLayout(false);
             grpThongTinSP.PerformLayout();
             grpThongTinMoi.ResumeLayout(false);

@@ -59,58 +59,89 @@
             // 
             // btnAdd
             // 
+            btnAdd.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Cursor = Cursors.Hand;
             btnAdd.Location = new Point(313, 55);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(94, 29);
+            btnAdd.Size = new Size(100, 32);
             btnAdd.TabIndex = 2;
-            btnAdd.Text = "Thêm";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Text = "➕ Thêm";
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(433, 55);
+            btnEdit.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnEdit.FlatStyle = FlatStyle.Flat;
+            btnEdit.FlatAppearance.BorderSize = 0;
+            btnEdit.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnEdit.ForeColor = Color.White;
+            btnEdit.Cursor = Cursors.Hand;
+            btnEdit.Location = new Point(428, 55);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(94, 29);
+            btnEdit.Size = new Size(100, 32);
             btnEdit.TabIndex = 3;
-            btnEdit.Text = "Sửa";
-            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Text = "✏️ Sửa";
+            btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(558, 57);
+            btnDelete.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Cursor = Cursors.Hand;
+            btnDelete.Location = new Point(543, 55);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(94, 29);
+            btnDelete.Size = new Size(100, 32);
             btnDelete.TabIndex = 4;
-            btnDelete.Text = "Xoá";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Text = "🗑️ Xoá";
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnImport
             // 
-            btnImport.Location = new Point(679, 55);
+            btnImport.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnImport.FlatStyle = FlatStyle.Flat;
+            btnImport.FlatAppearance.BorderSize = 0;
+            btnImport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnImport.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnImport.Cursor = Cursors.Hand;
+            btnImport.Location = new Point(658, 55);
             btnImport.Name = "btnImport";
-            btnImport.Size = new Size(94, 29);
+            btnImport.Size = new Size(110, 32);
             btnImport.TabIndex = 7;
-            btnImport.Text = "Nhập file";
-            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Text = "📂 Nhập file";
+            btnImport.UseVisualStyleBackColor = false;
             btnImport.Click += BtnImport_Click;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(800, 55);
+            btnExport.BackColor = System.Drawing.ColorTranslator.FromHtml("#6BCF7F");
+            btnExport.FlatStyle = FlatStyle.Flat;
+            btnExport.FlatAppearance.BorderSize = 0;
+            btnExport.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnExport.ForeColor = Color.White;
+            btnExport.Cursor = Cursors.Hand;
+            btnExport.Location = new Point(784, 55);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(94, 29);
+            btnExport.Size = new Size(110, 32);
             btnExport.TabIndex = 8;
-            btnExport.Text = "Xuất file";
-            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Text = "📄 Xuất file";
+            btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += BtnExport_Click;
             // 
             // ChatLieuControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(btnExport);
             Controls.Add(btnImport);
             Controls.Add(btnDelete);

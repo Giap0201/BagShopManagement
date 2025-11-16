@@ -59,58 +59,89 @@
             // 
             // btnAdd
             // 
+            btnAdd.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnAdd.ForeColor = Color.White;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.FlatAppearance.BorderSize = 0;
+            btnAdd.Font = new Font(btnAdd.Font.FontFamily, btnAdd.Font.Size, FontStyle.Bold);
+            btnAdd.Cursor = Cursors.Hand;
             btnAdd.Location = new Point(325, 55);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(94, 29);
             btnAdd.TabIndex = 2;
-            btnAdd.Text = "Thêm";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.Text = "➕ Thêm";
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
+            btnEdit.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnEdit.ForeColor = Color.White;
+            btnEdit.FlatStyle = FlatStyle.Flat;
+            btnEdit.FlatAppearance.BorderSize = 0;
+            btnEdit.Font = new Font(btnEdit.Font.FontFamily, btnEdit.Font.Size, FontStyle.Bold);
+            btnEdit.Cursor = Cursors.Hand;
             btnEdit.Location = new Point(448, 55);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(94, 29);
             btnEdit.TabIndex = 3;
-            btnEdit.Text = "Sửa";
-            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Text = "✏️ Sửa";
+            btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
+            btnDelete.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnDelete.ForeColor = Color.White;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.Font = new Font(btnDelete.Font.FontFamily, btnDelete.Font.Size, FontStyle.Bold);
+            btnDelete.Cursor = Cursors.Hand;
             btnDelete.Location = new Point(561, 55);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(94, 29);
             btnDelete.TabIndex = 4;
-            btnDelete.Text = "Xoá";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Text = "🗑️ Xoá";
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnImport
             // 
+            btnImport.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnImport.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnImport.FlatStyle = FlatStyle.Flat;
+            btnImport.FlatAppearance.BorderSize = 0;
+            btnImport.Font = new Font(btnImport.Font.FontFamily, btnImport.Font.Size, FontStyle.Bold);
+            btnImport.Cursor = Cursors.Hand;
             btnImport.Location = new Point(671, 56);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(94, 29);
             btnImport.TabIndex = 7;
-            btnImport.Text = "Nhập file";
-            btnImport.UseVisualStyleBackColor = true;
+            btnImport.Text = "📂 Nhập file";
+            btnImport.UseVisualStyleBackColor = false;
             btnImport.Click += BtnImport_Click;
             // 
             // btnExport
             // 
+            btnExport.BackColor = System.Drawing.ColorTranslator.FromHtml("#6BCF7F");
+            btnExport.ForeColor = Color.White;
+            btnExport.FlatStyle = FlatStyle.Flat;
+            btnExport.FlatAppearance.BorderSize = 0;
+            btnExport.Font = new Font(btnExport.Font.FontFamily, btnExport.Font.Size, FontStyle.Bold);
+            btnExport.Cursor = Cursors.Hand;
             btnExport.Location = new Point(787, 55);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(94, 29);
             btnExport.TabIndex = 8;
-            btnExport.Text = "Xuất file";
-            btnExport.UseVisualStyleBackColor = true;
+            btnExport.Text = "📄 Xuất file";
+            btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += BtnExport_Click;
             // 
             // KichThuocControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(btnExport);
             Controls.Add(btnImport);
             Controls.Add(btnDelete);

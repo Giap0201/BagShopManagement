@@ -47,6 +47,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             // pnlFilter
             // 
+            pnlFilter.BackColor = Color.White;
             pnlFilter.Controls.Add(btnRefresh);
             pnlFilter.Controls.Add(btnFilter);
             pnlFilter.Controls.Add(cmbTrangThai);
@@ -63,27 +64,40 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlFilter.Dock = DockStyle.Top;
             pnlFilter.Location = new Point(0, 0);
             pnlFilter.Name = "pnlFilter";
+            pnlFilter.Padding = new Padding(20);
             pnlFilter.Size = new Size(2090, 207);
             pnlFilter.TabIndex = 0;
             // 
             // btnRefresh
             // 
+            btnRefresh.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnRefresh.FlatStyle = FlatStyle.Flat;
+            btnRefresh.FlatAppearance.BorderSize = 0;
+            btnRefresh.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnRefresh.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             btnRefresh.Location = new Point(1812, 117);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(181, 78);
             btnRefresh.TabIndex = 12;
-            btnRefresh.Text = "Làm mới";
-            btnRefresh.UseVisualStyleBackColor = true;
+            btnRefresh.Text = "↻ Làm mới";
+            btnRefresh.UseVisualStyleBackColor = false;
+            btnRefresh.Cursor = Cursors.Hand;
             btnRefresh.Click += btnRefresh_Click;
             // 
             // btnFilter
             // 
+            btnFilter.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnFilter.FlatStyle = FlatStyle.Flat;
+            btnFilter.FlatAppearance.BorderSize = 0;
+            btnFilter.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnFilter.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             btnFilter.Location = new Point(1812, 14);
             btnFilter.Name = "btnFilter";
             btnFilter.Size = new Size(181, 76);
             btnFilter.TabIndex = 11;
-            btnFilter.Text = "Lọc";
-            btnFilter.UseVisualStyleBackColor = true;
+            btnFilter.Text = "🔍 Lọc";
+            btnFilter.UseVisualStyleBackColor = false;
+            btnFilter.Cursor = Cursors.Hand;
             btnFilter.Click += btnFilter_Click;
             // 
             // cmbTrangThai
@@ -183,10 +197,12 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             // pnlMain
             // 
+            pnlMain.BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             pnlMain.Controls.Add(dgvHoaDon);
             pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new Point(0, 207);
             pnlMain.Name = "pnlMain";
+            pnlMain.Padding = new Padding(20);
             pnlMain.Size = new Size(2090, 1012);
             pnlMain.TabIndex = 1;
             // 
@@ -206,6 +222,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             // pnlBottom
             // 
+            pnlBottom.BackColor = Color.White;
             pnlBottom.Controls.Add(btnDelete);
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnEdit);
@@ -214,60 +231,88 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.Dock = DockStyle.Bottom;
             pnlBottom.Location = new Point(0, 1219);
             pnlBottom.Name = "pnlBottom";
+            pnlBottom.Padding = new Padding(10);
             pnlBottom.Size = new Size(2090, 79);
             pnlBottom.TabIndex = 2;
             // 
             // btnDelete
             // 
+            btnDelete.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.FlatAppearance.BorderSize = 0;
+            btnDelete.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDelete.ForeColor = Color.White;
             btnDelete.Location = new Point(1993, 0);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(200, 79);
             btnDelete.TabIndex = 4;
-            btnDelete.Text = "Xóa hóa đơn";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Text = "🗑️ Xóa hóa đơn";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Cursor = Cursors.Hand;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnCancel
             // 
+            btnCancel.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnCancel.ForeColor = Color.White;
             btnCancel.Location = new Point(1762, 0);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(231, 79);
             btnCancel.TabIndex = 3;
-            btnCancel.Text = "Hủy hóa đơn";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Text = "❌ Hủy hóa đơn";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Cursor = Cursors.Hand;
             btnCancel.Click += btnCancel_Click;
             // 
             // btnEdit
             // 
+            btnEdit.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnEdit.FlatStyle = FlatStyle.Flat;
+            btnEdit.FlatAppearance.BorderSize = 0;
+            btnEdit.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnEdit.ForeColor = Color.White;
             btnEdit.Location = new Point(1599, 0);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(157, 76);
             btnEdit.TabIndex = 2;
-            btnEdit.Text = "Sửa";
-            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Text = "✏️ Sửa";
+            btnEdit.UseVisualStyleBackColor = false;
+            btnEdit.Cursor = Cursors.Hand;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnViewDetails
             // 
+            btnViewDetails.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnViewDetails.FlatStyle = FlatStyle.Flat;
+            btnViewDetails.FlatAppearance.BorderSize = 0;
+            btnViewDetails.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnViewDetails.ForeColor = Color.White;
             btnViewDetails.Location = new Point(1372, 0);
             btnViewDetails.Name = "btnViewDetails";
             btnViewDetails.Size = new Size(221, 76);
             btnViewDetails.TabIndex = 1;
-            btnViewDetails.Text = "Xem chi tiết";
-            btnViewDetails.UseVisualStyleBackColor = true;
+            btnViewDetails.Text = "👁️ Xem chi tiết";
+            btnViewDetails.UseVisualStyleBackColor = false;
+            btnViewDetails.Cursor = Cursors.Hand;
             btnViewDetails.Click += btnViewDetails_Click;
             // 
             // lblTotal
             // 
             lblTotal.AutoSize = true;
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTotal.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
             lblTotal.Location = new Point(3, 8);
             lblTotal.Name = "lblTotal";
             lblTotal.Size = new Size(118, 41);
             lblTotal.TabIndex = 0;
-            lblTotal.Text = "Tổng: 0";
+            lblTotal.Text = "📄 Tổng: 0";
             // 
             // UC_HoaDonBan
             // 
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(pnlMain);
             Controls.Add(pnlBottom);
             Controls.Add(pnlFilter);

@@ -25,6 +25,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
         private void UC_HoaDonBan_Load(object sender, EventArgs e)
         {
+            // Áp dụng theme GenZ Vibrant
+            Utils.ThemeHelper.ApplyThemeToDataGridView(dgvHoaDon);
+
             LoadHoaDonBanList();
             SetupDataGridView();
             SetupComboBoxes();

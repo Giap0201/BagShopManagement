@@ -67,12 +67,13 @@ namespace BagShopManagement.Views.Controls
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Trebuchet MS", 24F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
             label1.Location = new Point(313, 16);
             label1.Name = "label1";
-            label1.Size = new Size(436, 49);
+            label1.Size = new Size(480, 46);
             label1.TabIndex = 0;
-            label1.Text = "Chương trình giảm giá";
+            label1.Text = "🎁 Chương trình giảm giá";
             // 
             // splitContainer1
             // 
@@ -143,7 +144,7 @@ namespace BagShopManagement.Views.Controls
             // 
             // panel2
             // 
-            panel2.BackColor = SystemColors.InactiveCaption;
+            panel2.BackColor = Color.White;
             panel2.Controls.Add(txtMaCTGG);
             panel2.Controls.Add(label8);
             panel2.Controls.Add(btnChonSanPham);
@@ -184,42 +185,66 @@ namespace BagShopManagement.Views.Controls
             // 
             // btnChonSanPham
             // 
-            btnChonSanPham.Location = new Point(230, 453);
+            btnChonSanPham.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnChonSanPham.FlatStyle = FlatStyle.Flat;
+            btnChonSanPham.FlatAppearance.BorderSize = 0;
+            btnChonSanPham.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnChonSanPham.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnChonSanPham.Cursor = Cursors.Hand;
+            btnChonSanPham.Location = new Point(205, 450);
             btnChonSanPham.Name = "btnChonSanPham";
-            btnChonSanPham.Size = new Size(136, 82);
+            btnChonSanPham.Size = new Size(150, 82);
             btnChonSanPham.TabIndex = 13;
-            btnChonSanPham.Text = "\U0001f6d2 Áp dụng Sản phẩm";
-            btnChonSanPham.UseVisualStyleBackColor = true;
+            btnChonSanPham.Text = "🛒 Áp dụng SP";
+            btnChonSanPham.UseVisualStyleBackColor = false;
             btnChonSanPham.Click += btnChonSanPham_Click;
             // 
             // btnXoaCTGG
             // 
-            btnXoaCTGG.Location = new Point(55, 453);
+            btnXoaCTGG.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnXoaCTGG.FlatStyle = FlatStyle.Flat;
+            btnXoaCTGG.FlatAppearance.BorderSize = 0;
+            btnXoaCTGG.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXoaCTGG.ForeColor = Color.White;
+            btnXoaCTGG.Cursor = Cursors.Hand;
+            btnXoaCTGG.Location = new Point(52, 450);
             btnXoaCTGG.Name = "btnXoaCTGG";
-            btnXoaCTGG.Size = new Size(113, 82);
+            btnXoaCTGG.Size = new Size(130, 82);
             btnXoaCTGG.TabIndex = 12;
-            btnXoaCTGG.Text = "Xóa";
-            btnXoaCTGG.UseVisualStyleBackColor = true;
+            btnXoaCTGG.Text = "🗑️ Xoá";
+            btnXoaCTGG.UseVisualStyleBackColor = false;
             btnXoaCTGG.Click += btnXoaCTGG_Click;
             // 
             // btnLuuCTGG
             // 
-            btnLuuCTGG.Location = new Point(230, 385);
+            btnLuuCTGG.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnLuuCTGG.FlatStyle = FlatStyle.Flat;
+            btnLuuCTGG.FlatAppearance.BorderSize = 0;
+            btnLuuCTGG.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLuuCTGG.ForeColor = Color.White;
+            btnLuuCTGG.Cursor = Cursors.Hand;
+            btnLuuCTGG.Location = new Point(205, 385);
             btnLuuCTGG.Name = "btnLuuCTGG";
-            btnLuuCTGG.Size = new Size(136, 46);
+            btnLuuCTGG.Size = new Size(150, 46);
             btnLuuCTGG.TabIndex = 11;
-            btnLuuCTGG.Text = "Lưu/Cập nhật";
-            btnLuuCTGG.UseVisualStyleBackColor = true;
+            btnLuuCTGG.Text = "✔ Lưu/Cập nhật";
+            btnLuuCTGG.UseVisualStyleBackColor = false;
             btnLuuCTGG.Click += btnLuuCTGG_Click;
             // 
             // btnThemCTGG
             // 
+            btnThemCTGG.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnThemCTGG.FlatStyle = FlatStyle.Flat;
+            btnThemCTGG.FlatAppearance.BorderSize = 0;
+            btnThemCTGG.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnThemCTGG.ForeColor = Color.White;
+            btnThemCTGG.Cursor = Cursors.Hand;
             btnThemCTGG.Location = new Point(52, 385);
             btnThemCTGG.Name = "btnThemCTGG";
-            btnThemCTGG.Size = new Size(116, 46);
+            btnThemCTGG.Size = new Size(130, 46);
             btnThemCTGG.TabIndex = 10;
-            btnThemCTGG.Text = "Thêm Mới";
-            btnThemCTGG.UseVisualStyleBackColor = true;
+            btnThemCTGG.Text = "➕ Thêm Mới";
+            btnThemCTGG.UseVisualStyleBackColor = false;
             btnThemCTGG.Click += btnThemCTGG_Click;
             // 
             // dateTimePicker2
@@ -310,6 +335,7 @@ namespace BagShopManagement.Views.Controls
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(splitContainer1);
             Controls.Add(label1);
             Name = "PromotionControl";
@@ -330,7 +356,7 @@ namespace BagShopManagement.Views.Controls
             PerformLayout();
         }
 
-        
+
         #endregion
 
         private Label label1;

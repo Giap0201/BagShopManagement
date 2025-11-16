@@ -37,11 +37,13 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10F);
+            label1.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             label1.Location = new Point(22, 86);
             label1.Name = "label1";
-            label1.Size = new Size(297, 20);
+            label1.Size = new Size(380, 20);
             label1.TabIndex = 0;
-            label1.Text = "Nhập tên đăng nhập của bạn để khôi phục: ";
+            label1.Text = "🔑 Nhập tên đăng nhập của bạn để khôi phục: ";
             // 
             // txtTenDangNhap
             // 
@@ -52,28 +54,41 @@
             // 
             // txtGuiYeuCau
             // 
-            txtGuiYeuCau.Location = new Point(171, 187);
+            txtGuiYeuCau.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            txtGuiYeuCau.FlatStyle = FlatStyle.Flat;
+            txtGuiYeuCau.FlatAppearance.BorderSize = 0;
+            txtGuiYeuCau.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            txtGuiYeuCau.ForeColor = Color.White;
+            txtGuiYeuCau.Cursor = Cursors.Hand;
+            txtGuiYeuCau.Location = new Point(47, 138);
             txtGuiYeuCau.Name = "txtGuiYeuCau";
-            txtGuiYeuCau.Size = new Size(124, 29);
+            txtGuiYeuCau.Size = new Size(150, 35);
             txtGuiYeuCau.TabIndex = 2;
-            txtGuiYeuCau.Text = "Gửi Yêu Cầu";
-            txtGuiYeuCau.UseVisualStyleBackColor = true;
+            txtGuiYeuCau.Text = "📧 Gửi yêu cầu";
+            txtGuiYeuCau.UseVisualStyleBackColor = false;
             txtGuiYeuCau.Click += btnGuiYeuCau_Click;
             // 
             // btnHuy
             // 
-            btnHuy.Location = new Point(345, 187);
+            btnHuy.BackColor = System.Drawing.ColorTranslator.FromHtml("#E2E8F0");
+            btnHuy.FlatStyle = FlatStyle.Flat;
+            btnHuy.FlatAppearance.BorderSize = 0;
+            btnHuy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnHuy.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnHuy.Cursor = Cursors.Hand;
+            btnHuy.Location = new Point(221, 138);
             btnHuy.Name = "btnHuy";
-            btnHuy.Size = new Size(94, 29);
+            btnHuy.Size = new Size(133, 35);
             btnHuy.TabIndex = 3;
-            btnHuy.Text = "Huỷ";
-            btnHuy.UseVisualStyleBackColor = true;
+            btnHuy.Text = "❌ Hủy";
+            btnHuy.UseVisualStyleBackColor = false;
             btnHuy.Click += btnHuy_Click;
             // 
             // ForgotPasswordForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             CancelButton = btnHuy;
             ClientSize = new Size(646, 337);
             Controls.Add(btnHuy);

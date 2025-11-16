@@ -58,16 +58,18 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(350, 38);
+            lblTitle.Font = new Font("Segoe UI", 16F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            lblTitle.Location = new Point(300, 38);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(252, 31);
+            lblTitle.Size = new Size(350, 31);
             lblTitle.TabIndex = 0;
-            lblTitle.Text = "THÔNG TIN CÁ NHÂN";
+            lblTitle.Text = "👤 THÔNG TIN CÁ NHÂN";
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // grpThongTin
             // 
+            grpThongTin.BackColor = Color.White;
             grpThongTin.Controls.Add(txtVaiTro);
             grpThongTin.Controls.Add(txtTenDangNhap);
             grpThongTin.Controls.Add(txtSoDienThoai);
@@ -80,12 +82,14 @@
             grpThongTin.Controls.Add(label3);
             grpThongTin.Controls.Add(label2);
             grpThongTin.Controls.Add(label1);
+            grpThongTin.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpThongTin.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             grpThongTin.Location = new Point(0, 72);
             grpThongTin.Name = "grpThongTin";
             grpThongTin.Size = new Size(468, 451);
             grpThongTin.TabIndex = 1;
             grpThongTin.TabStop = false;
-            grpThongTin.Text = "Thông tin chung";
+            grpThongTin.Text = "📋 Thông tin chung";
             grpThongTin.Enter += GroupBox1_Enter;
             // 
             // txtVaiTro
@@ -198,6 +202,7 @@
             // 
             // grpDoiMatKhau
             // 
+            grpDoiMatKhau.BackColor = Color.White;
             grpDoiMatKhau.Controls.Add(btnDoiMatKhau);
             grpDoiMatKhau.Controls.Add(txtXacNhanMoi);
             grpDoiMatKhau.Controls.Add(txtMatKhauMoi);
@@ -205,21 +210,29 @@
             grpDoiMatKhau.Controls.Add(label9);
             grpDoiMatKhau.Controls.Add(label8);
             grpDoiMatKhau.Controls.Add(label7);
+            grpDoiMatKhau.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpDoiMatKhau.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             grpDoiMatKhau.Location = new Point(517, 72);
             grpDoiMatKhau.Name = "grpDoiMatKhau";
             grpDoiMatKhau.Size = new Size(468, 451);
             grpDoiMatKhau.TabIndex = 2;
             grpDoiMatKhau.TabStop = false;
-            grpDoiMatKhau.Text = "Đổi mật khẩu";
+            grpDoiMatKhau.Text = "🔐 Đổi mật khẩu";
             // 
             // btnDoiMatKhau
             // 
+            btnDoiMatKhau.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnDoiMatKhau.FlatStyle = FlatStyle.Flat;
+            btnDoiMatKhau.FlatAppearance.BorderSize = 0;
+            btnDoiMatKhau.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDoiMatKhau.ForeColor = Color.White;
+            btnDoiMatKhau.Cursor = Cursors.Hand;
             btnDoiMatKhau.Location = new Point(47, 246);
             btnDoiMatKhau.Name = "btnDoiMatKhau";
-            btnDoiMatKhau.Size = new Size(133, 29);
+            btnDoiMatKhau.Size = new Size(150, 35);
             btnDoiMatKhau.TabIndex = 6;
-            btnDoiMatKhau.Text = "Đổi mật khẩu";
-            btnDoiMatKhau.UseVisualStyleBackColor = true;
+            btnDoiMatKhau.Text = "🔒 Đổi mật khẩu";
+            btnDoiMatKhau.UseVisualStyleBackColor = false;
             btnDoiMatKhau.Click += btnDoiMatKhau_Click;
             // 
             // txtXacNhanMoi
@@ -275,18 +288,25 @@
             // 
             // btnLamMoi
             // 
+            btnLamMoi.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnLamMoi.FlatStyle = FlatStyle.Flat;
+            btnLamMoi.FlatAppearance.BorderSize = 0;
+            btnLamMoi.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLamMoi.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnLamMoi.Cursor = Cursors.Hand;
             btnLamMoi.Location = new Point(407, 548);
             btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new Size(167, 29);
+            btnLamMoi.Size = new Size(167, 35);
             btnLamMoi.TabIndex = 3;
-            btnLamMoi.Text = "Làm mới";
-            btnLamMoi.UseVisualStyleBackColor = true;
+            btnLamMoi.Text = "↻ Làm mới";
+            btnLamMoi.UseVisualStyleBackColor = false;
             btnLamMoi.Click += btnLamMoi_Click;
             // 
             // ucProfile
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(btnLamMoi);
             Controls.Add(grpDoiMatKhau);
             Controls.Add(grpThongTin);

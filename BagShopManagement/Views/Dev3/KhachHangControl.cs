@@ -44,6 +44,9 @@ namespace BagShopManagement.Views.Dev3
 
         private void KhachHangControl_Load(object sender, EventArgs e)
         {
+            // Áp dụng theme
+            Utils.ThemeHelper.ApplyThemeToDataGridView(dgvKhachHang);
+
             dgvKhachHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvKhachHang.MultiSelect = false;
             LoadDanhSachKH();
@@ -161,53 +164,53 @@ namespace BagShopManagement.Views.Dev3
         }
 
 
-private void ExportExcel_EPPlus(DataGridView dgv)
-    {
-        if (dgv.Rows.Count == 0)
+        private void ExportExcel_EPPlus(DataGridView dgv)
         {
-            MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo");
-            return;
-        }
-
-        SaveFileDialog sfd = new SaveFileDialog();
-        sfd.Filter = "Excel file|*.xlsx";
-        sfd.FileName = "KhachHang.xlsx";
-
-        if (sfd.ShowDialog() != DialogResult.OK)
-            return;
-
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-
-        using (ExcelPackage pkg = new ExcelPackage())
-        {
-            var ws = pkg.Workbook.Worksheets.Add("KhachHang");
-
-            // HEADER
-            for (int i = 0; i < dgv.Columns.Count; i++)
+            if (dgv.Rows.Count == 0)
             {
-                ws.Cells[1, i + 1].Value = dgv.Columns[i].HeaderText;
-                ws.Cells[1, i + 1].Style.Font.Bold = true;
-                ws.Cells[1, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
-                ws.Cells[1, i + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo");
+                return;
             }
 
-            // DATA
-            for (int i = 0; i < dgv.Rows.Count; i++)
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel file|*.xlsx";
+            sfd.FileName = "KhachHang.xlsx";
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (ExcelPackage pkg = new ExcelPackage())
             {
-                for (int j = 0; j < dgv.Columns.Count; j++)
+                var ws = pkg.Workbook.Worksheets.Add("KhachHang");
+
+                // HEADER
+                for (int i = 0; i < dgv.Columns.Count; i++)
                 {
-                    ws.Cells[i + 2, j + 1].Value = dgv.Rows[i].Cells[j].Value?.ToString();
+                    ws.Cells[1, i + 1].Value = dgv.Columns[i].HeaderText;
+                    ws.Cells[1, i + 1].Style.Font.Bold = true;
+                    ws.Cells[1, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    ws.Cells[1, i + 1].Style.Fill.BackgroundColor.SetColor(System.Drawing.Color.LightGray);
                 }
+
+                // DATA
+                for (int i = 0; i < dgv.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dgv.Columns.Count; j++)
+                    {
+                        ws.Cells[i + 2, j + 1].Value = dgv.Rows[i].Cells[j].Value?.ToString();
+                    }
+                }
+
+                ws.Cells.AutoFitColumns();
+
+                // Lưu file
+                pkg.SaveAs(new FileInfo(sfd.FileName));
             }
 
-            ws.Cells.AutoFitColumns();
-
-            // Lưu file
-            pkg.SaveAs(new FileInfo(sfd.FileName));
+            MessageBox.Show("Xuất Excel thành công!", "Thành công");
         }
 
-        MessageBox.Show("Xuất Excel thành công!", "Thành công");
     }
-
-}
 }

@@ -74,6 +74,7 @@
             // 
             // pnlSearch
             // 
+            pnlSearch.BackColor = Color.White;
             pnlSearch.Controls.Add(btnLamMoi);
             pnlSearch.Controls.Add(txtTimKiem);
             pnlSearch.Controls.Add(label1);
@@ -86,12 +87,18 @@
             // btnLamMoi
             // 
             btnLamMoi.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            btnLamMoi.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnLamMoi.FlatStyle = FlatStyle.Flat;
+            btnLamMoi.FlatAppearance.BorderSize = 0;
+            btnLamMoi.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnLamMoi.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnLamMoi.Cursor = Cursors.Hand;
             btnLamMoi.Location = new Point(691, 24);
             btnLamMoi.Name = "btnLamMoi";
-            btnLamMoi.Size = new Size(94, 29);
+            btnLamMoi.Size = new Size(94, 32);
             btnLamMoi.TabIndex = 2;
-            btnLamMoi.Text = "Làm mới";
-            btnLamMoi.UseVisualStyleBackColor = true;
+            btnLamMoi.Text = "↻ Làm mới";
+            btnLamMoi.UseVisualStyleBackColor = false;
             btnLamMoi.Click += btnLamMoi_Click;
             // 
             // txtTimKiem
@@ -148,37 +155,56 @@
             // 
             // btnDieuChinh
             // 
+            btnDieuChinh.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnDieuChinh.FlatStyle = FlatStyle.Flat;
+            btnDieuChinh.FlatAppearance.BorderSize = 0;
+            btnDieuChinh.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDieuChinh.ForeColor = Color.White;
+            btnDieuChinh.Cursor = Cursors.Hand;
             btnDieuChinh.Location = new Point(28, 28);
             btnDieuChinh.Name = "btnDieuChinh";
-            btnDieuChinh.Size = new Size(170, 40);
+            btnDieuChinh.Size = new Size(200, 45);
             btnDieuChinh.TabIndex = 0;
-            btnDieuChinh.Text = "Kiểm kê / Điều chỉnh";
-            btnDieuChinh.UseVisualStyleBackColor = true;
+            btnDieuChinh.Text = "📦 Kiểm kê / Điều chỉnh";
+            btnDieuChinh.UseVisualStyleBackColor = false;
             btnDieuChinh.Click += btnDieuChinh_Click;
             // 
             // btnXemLichSu
             // 
-            btnXemLichSu.Location = new Point(28, 74);
+            btnXemLichSu.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnXemLichSu.FlatStyle = FlatStyle.Flat;
+            btnXemLichSu.FlatAppearance.BorderSize = 0;
+            btnXemLichSu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXemLichSu.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnXemLichSu.Cursor = Cursors.Hand;
+            btnXemLichSu.Location = new Point(28, 84);
             btnXemLichSu.Name = "btnXemLichSu";
-            btnXemLichSu.Size = new Size(170, 40);
+            btnXemLichSu.Size = new Size(200, 45);
             btnXemLichSu.TabIndex = 1;
-            btnXemLichSu.Text = "Xem Lịch sử Thay đổi";
-            btnXemLichSu.UseVisualStyleBackColor = true;
+            btnXemLichSu.Text = "📜 Xem Lịch sử Thay đổi";
+            btnXemLichSu.UseVisualStyleBackColor = false;
             // 
             // btnXuatExcel
             // 
-            btnXuatExcel.Location = new Point(28, 120);
+            btnXuatExcel.BackColor = System.Drawing.ColorTranslator.FromHtml("#6BCF7F");
+            btnXuatExcel.FlatStyle = FlatStyle.Flat;
+            btnXuatExcel.FlatAppearance.BorderSize = 0;
+            btnXuatExcel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXuatExcel.ForeColor = Color.White;
+            btnXuatExcel.Cursor = Cursors.Hand;
+            btnXuatExcel.Location = new Point(28, 140);
             btnXuatExcel.Name = "btnXuatExcel";
-            btnXuatExcel.Size = new Size(170, 40);
+            btnXuatExcel.Size = new Size(200, 45);
             btnXuatExcel.TabIndex = 2;
-            btnXuatExcel.Text = "Xuất ra Excel";
-            btnXuatExcel.UseVisualStyleBackColor = true;
+            btnXuatExcel.Text = "📊 Xuất ra Excel";
+            btnXuatExcel.UseVisualStyleBackColor = false;
             btnXuatExcel.Click += btnXuatExcel_Click;
             // 
             // TonKhoControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(pnlMain);
             Name = "TonKhoControl";
             Size = new Size(1271, 556);

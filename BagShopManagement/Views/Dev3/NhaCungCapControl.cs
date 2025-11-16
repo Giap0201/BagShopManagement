@@ -19,6 +19,9 @@ namespace BagShopManagement.Views.Dev3
 
         private void NhaCungCapControl_Load(object sender, EventArgs e)
         {
+            // Áp dụng theme
+            Utils.ThemeHelper.ApplyThemeToDataGridView(dgvNCC);
+
             dgvNCC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvNCC.MultiSelect = false;
             LoadDanhSachNCC();

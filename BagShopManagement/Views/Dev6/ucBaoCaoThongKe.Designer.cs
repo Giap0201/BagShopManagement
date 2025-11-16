@@ -61,7 +61,7 @@
             // 
             // pnlMenu
             // 
-            pnlMenu.BackColor = Color.FromArgb(240, 248, 255);
+            pnlMenu.BackColor = Color.White;
             pnlMenu.BorderStyle = BorderStyle.FixedSingle;
             pnlMenu.Controls.Add(btnDoanhThu);
             pnlMenu.Controls.Add(btnNhapHang);
@@ -77,26 +77,34 @@
             // 
             // btnDoanhThu
             // 
+            btnDoanhThu.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
             btnDoanhThu.FlatStyle = FlatStyle.Flat;
+            btnDoanhThu.FlatAppearance.BorderSize = 0;
             btnDoanhThu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnDoanhThu.ForeColor = Color.White;
+            btnDoanhThu.Cursor = Cursors.Hand;
             btnDoanhThu.Location = new Point(20, 20);
             btnDoanhThu.Name = "btnDoanhThu";
             btnDoanhThu.Size = new Size(180, 50);
             btnDoanhThu.TabIndex = 0;
-            btnDoanhThu.Text = "Doanh thu";
-            btnDoanhThu.UseVisualStyleBackColor = true;
+            btnDoanhThu.Text = "💰 Doanh thu";
+            btnDoanhThu.UseVisualStyleBackColor = false;
             btnDoanhThu.Click += btnDoanhThu_Click;
             // 
             // btnNhapHang
             // 
+            btnNhapHang.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
             btnNhapHang.FlatStyle = FlatStyle.Flat;
+            btnNhapHang.FlatAppearance.BorderSize = 0;
             btnNhapHang.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnNhapHang.ForeColor = Color.White;
+            btnNhapHang.Cursor = Cursors.Hand;
             btnNhapHang.Location = new Point(220, 20);
             btnNhapHang.Name = "btnNhapHang";
             btnNhapHang.Size = new Size(180, 50);
             btnNhapHang.TabIndex = 1;
-            btnNhapHang.Text = "Nhập hàng";
-            btnNhapHang.UseVisualStyleBackColor = true;
+            btnNhapHang.Text = "📦 Nhập hàng";
+            btnNhapHang.UseVisualStyleBackColor = false;
             btnNhapHang.Click += btnNhapHang_Click;
             // 
             // btnTonKho
@@ -199,12 +207,18 @@
             // 
             // btnXuatExcel
             // 
+            btnXuatExcel.BackColor = System.Drawing.ColorTranslator.FromHtml("#6BCF7F");
+            btnXuatExcel.FlatStyle = FlatStyle.Flat;
+            btnXuatExcel.FlatAppearance.BorderSize = 0;
+            btnXuatExcel.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnXuatExcel.ForeColor = Color.White;
+            btnXuatExcel.Cursor = Cursors.Hand;
             btnXuatExcel.Location = new Point(1140, 20);
             btnXuatExcel.Name = "btnXuatExcel";
             btnXuatExcel.Size = new Size(160, 40);
             btnXuatExcel.TabIndex = 8;
-            btnXuatExcel.Text = "Xuất Excel";
-            btnXuatExcel.UseVisualStyleBackColor = true;
+            btnXuatExcel.Text = "📊 Xuất Excel";
+            btnXuatExcel.UseVisualStyleBackColor = false;
             btnXuatExcel.Click += btnXuatExcel_Click;
             // 
             // btnXemBang
@@ -276,12 +290,13 @@
             // lblTieuDe
             // 
             lblTieuDe.AutoSize = true;
-            lblTieuDe.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
+            lblTieuDe.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            lblTieuDe.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
             lblTieuDe.Location = new Point(20, 15);
             lblTieuDe.Name = "lblTieuDe";
-            lblTieuDe.Size = new Size(286, 37);
+            lblTieuDe.Size = new Size(350, 41);
             lblTieuDe.TabIndex = 0;
-            lblTieuDe.Text = "BÁO CÁO & THỐNG KÊ";
+            lblTieuDe.Text = "📊 BÁO CÁO & THỐNG KÊ";
             // 
             // chartDoanhThu
             // 
@@ -317,7 +332,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(pnlContent);
             Controls.Add(pnlMenu);
             Font = new Font("Segoe UI", 9F);

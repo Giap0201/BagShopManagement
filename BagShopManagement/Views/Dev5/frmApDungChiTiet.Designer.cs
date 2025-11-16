@@ -68,6 +68,7 @@
             // 
             // pnlTopInfo
             // 
+            pnlTopInfo.BackColor = Color.White;
             pnlTopInfo.Controls.Add(lblTenChuongTrinh);
             pnlTopInfo.Dock = DockStyle.Top;
             pnlTopInfo.Location = new Point(0, 0);
@@ -78,14 +79,17 @@
             // lblTenChuongTrinh
             // 
             lblTenChuongTrinh.AutoSize = true;
+            lblTenChuongTrinh.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+            lblTenChuongTrinh.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             lblTenChuongTrinh.Location = new Point(482, 28);
             lblTenChuongTrinh.Name = "lblTenChuongTrinh";
-            lblTenChuongTrinh.Size = new Size(120, 20);
+            lblTenChuongTrinh.Size = new Size(200, 25);
             lblTenChuongTrinh.TabIndex = 0;
-            lblTenChuongTrinh.Text = "Tên chương trình";
+            lblTenChuongTrinh.Text = "🎯 Tên chương trình";
             // 
             // panel1
             // 
+            panel1.BackColor = Color.White;
             panel1.Controls.Add(btnXacNhanKM);
             panel1.Controls.Add(btnHuỵChonKM);
             panel1.Dock = DockStyle.Bottom;
@@ -96,21 +100,33 @@
             // 
             // btnXacNhanKM
             // 
+            btnXacNhanKM.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnXacNhanKM.FlatStyle = FlatStyle.Flat;
+            btnXacNhanKM.FlatAppearance.BorderSize = 0;
+            btnXacNhanKM.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXacNhanKM.ForeColor = Color.White;
+            btnXacNhanKM.Cursor = Cursors.Hand;
             btnXacNhanKM.Location = new Point(888, 20);
             btnXacNhanKM.Name = "btnXacNhanKM";
-            btnXacNhanKM.Size = new Size(104, 46);
+            btnXacNhanKM.Size = new Size(140, 46);
             btnXacNhanKM.TabIndex = 1;
-            btnXacNhanKM.Text = "Xác nhận";
-            btnXacNhanKM.UseVisualStyleBackColor = true;
+            btnXacNhanKM.Text = "✔ Xác nhận";
+            btnXacNhanKM.UseVisualStyleBackColor = false;
             // 
             // btnHuỵChonKM
             // 
+            btnHuỵChonKM.BackColor = System.Drawing.ColorTranslator.FromHtml("#E2E8F0");
+            btnHuỵChonKM.FlatStyle = FlatStyle.Flat;
+            btnHuỵChonKM.FlatAppearance.BorderSize = 0;
+            btnHuỵChonKM.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnHuỵChonKM.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnHuỵChonKM.Cursor = Cursors.Hand;
             btnHuỵChonKM.Location = new Point(735, 20);
             btnHuỵChonKM.Name = "btnHuỵChonKM";
-            btnHuỵChonKM.Size = new Size(114, 46);
+            btnHuỵChonKM.Size = new Size(130, 46);
             btnHuỵChonKM.TabIndex = 0;
-            btnHuỵChonKM.Text = "Hủy";
-            btnHuỵChonKM.UseVisualStyleBackColor = true;
+            btnHuỵChonKM.Text = "✖ Hủy";
+            btnHuỵChonKM.UseVisualStyleBackColor = false;
             // 
             // tableLayoutPanel1
             // 
@@ -131,6 +147,7 @@
             // 
             // pnlLeft
             // 
+            pnlLeft.BackColor = Color.White;
             pnlLeft.Controls.Add(dgvKhoSanPham);
             pnlLeft.Controls.Add(groupBox1);
             pnlLeft.Controls.Add(label3);
@@ -166,12 +183,18 @@
             // 
             // btnTimKiemKho
             // 
+            btnTimKiemKho.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnTimKiemKho.FlatStyle = FlatStyle.Flat;
+            btnTimKiemKho.FlatAppearance.BorderSize = 0;
+            btnTimKiemKho.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnTimKiemKho.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnTimKiemKho.Cursor = Cursors.Hand;
             btnTimKiemKho.Location = new Point(238, 75);
             btnTimKiemKho.Name = "btnTimKiemKho";
-            btnTimKiemKho.Size = new Size(94, 29);
+            btnTimKiemKho.Size = new Size(100, 32);
             btnTimKiemKho.TabIndex = 3;
-            btnTimKiemKho.Text = "Tìm";
-            btnTimKiemKho.UseVisualStyleBackColor = true;
+            btnTimKiemKho.Text = "🔍 Tìm";
+            btnTimKiemKho.UseVisualStyleBackColor = false;
             // 
             // txtTimKiemKho
             // 
@@ -201,6 +224,7 @@
             // 
             // pnlCenter
             // 
+            pnlCenter.BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             pnlCenter.Controls.Add(btnXoa);
             pnlCenter.Controls.Add(btnThem);
             pnlCenter.Controls.Add(nudPhanTramGiam);
@@ -213,23 +237,33 @@
             // 
             // btnXoa
             // 
-            btnXoa.Font = new Font("Times New Roman", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            btnXoa.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnXoa.FlatStyle = FlatStyle.Flat;
+            btnXoa.FlatAppearance.BorderSize = 0;
+            btnXoa.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnXoa.ForeColor = Color.White;
+            btnXoa.Cursor = Cursors.Hand;
             btnXoa.Location = new Point(87, 274);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(94, 46);
             btnXoa.TabIndex = 3;
             btnXoa.Text = "<<";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnXoa.UseVisualStyleBackColor = false;
             // 
             // btnThem
             // 
-            btnThem.Font = new Font("Times New Roman", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            btnThem.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnThem.FlatStyle = FlatStyle.Flat;
+            btnThem.FlatAppearance.BorderSize = 0;
+            btnThem.Font = new Font("Segoe UI", 18F, FontStyle.Bold);
+            btnThem.ForeColor = Color.White;
+            btnThem.Cursor = Cursors.Hand;
             btnThem.Location = new Point(87, 214);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(94, 40);
             btnThem.TabIndex = 2;
             btnThem.Text = ">>";
-            btnThem.UseVisualStyleBackColor = true;
+            btnThem.UseVisualStyleBackColor = false;
             // 
             // nudPhanTramGiam
             // 
@@ -250,6 +284,7 @@
             // 
             // pnlRight
             // 
+            pnlRight.BackColor = Color.White;
             pnlRight.Controls.Add(dgvSanPhamApDung);
             pnlRight.Controls.Add(groupBox2);
             pnlRight.Controls.Add(label5);
@@ -284,12 +319,18 @@
             // 
             // btnTimKiemApDung
             // 
+            btnTimKiemApDung.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnTimKiemApDung.FlatStyle = FlatStyle.Flat;
+            btnTimKiemApDung.FlatAppearance.BorderSize = 0;
+            btnTimKiemApDung.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnTimKiemApDung.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnTimKiemApDung.Cursor = Cursors.Hand;
             btnTimKiemApDung.Location = new Point(238, 75);
             btnTimKiemApDung.Name = "btnTimKiemApDung";
-            btnTimKiemApDung.Size = new Size(94, 29);
+            btnTimKiemApDung.Size = new Size(100, 32);
             btnTimKiemApDung.TabIndex = 3;
-            btnTimKiemApDung.Text = "Tìm";
-            btnTimKiemApDung.UseVisualStyleBackColor = true;
+            btnTimKiemApDung.Text = "🔍 Tìm";
+            btnTimKiemApDung.UseVisualStyleBackColor = false;
             // 
             // txtTimKiemApDung
             // 
@@ -321,6 +362,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             ClientSize = new Size(1549, 711);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);

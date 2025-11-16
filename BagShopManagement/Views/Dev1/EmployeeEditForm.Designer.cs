@@ -162,16 +162,19 @@
             // 
             // grpTaiKhoan
             // 
+            grpTaiKhoan.BackColor = Color.White;
             grpTaiKhoan.Controls.Add(txtMatKhau);
             grpTaiKhoan.Controls.Add(txtTenDangNhap);
             grpTaiKhoan.Controls.Add(lblMatKhau);
             grpTaiKhoan.Controls.Add(lblTenDangNhap);
+            grpTaiKhoan.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            grpTaiKhoan.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             grpTaiKhoan.Location = new Point(430, 35);
             grpTaiKhoan.Name = "grpTaiKhoan";
             grpTaiKhoan.Size = new Size(358, 163);
             grpTaiKhoan.TabIndex = 14;
             grpTaiKhoan.TabStop = false;
-            grpTaiKhoan.Text = "Thông tin tài khoản";
+            grpTaiKhoan.Text = "🔐 Thông tin tài khoản";
             // 
             // txtMatKhau
             // 
@@ -208,28 +211,41 @@
             // 
             // btnLuu
             // 
+            btnLuu.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnLuu.FlatStyle = FlatStyle.Flat;
+            btnLuu.FlatAppearance.BorderSize = 0;
+            btnLuu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLuu.ForeColor = Color.White;
+            btnLuu.Cursor = Cursors.Hand;
             btnLuu.Location = new Point(269, 395);
             btnLuu.Name = "btnLuu";
-            btnLuu.Size = new Size(94, 29);
+            btnLuu.Size = new Size(120, 35);
             btnLuu.TabIndex = 15;
-            btnLuu.Text = "Lưu";
-            btnLuu.UseVisualStyleBackColor = true;
+            btnLuu.Text = "✔ Lưu";
+            btnLuu.UseVisualStyleBackColor = false;
             btnLuu.Click += btnLuu_Click;
             // 
             // btnHuy
             // 
-            btnHuy.Location = new Point(430, 395);
+            btnHuy.BackColor = System.Drawing.ColorTranslator.FromHtml("#E2E8F0");
+            btnHuy.FlatStyle = FlatStyle.Flat;
+            btnHuy.FlatAppearance.BorderSize = 0;
+            btnHuy.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnHuy.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnHuy.Cursor = Cursors.Hand;
+            btnHuy.Location = new Point(410, 395);
             btnHuy.Name = "btnHuy";
-            btnHuy.Size = new Size(94, 29);
+            btnHuy.Size = new Size(120, 35);
             btnHuy.TabIndex = 16;
-            btnHuy.Text = "Hủy";
-            btnHuy.UseVisualStyleBackColor = true;
+            btnHuy.Text = "❌ Hủy";
+            btnHuy.UseVisualStyleBackColor = false;
             btnHuy.Click += btnHuy_Click;
             // 
             // EmployeeEditForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             CancelButton = btnHuy;
             ClientSize = new Size(800, 450);
             Controls.Add(btnHuy);
@@ -253,7 +269,7 @@
             MinimizeBox = false;
             Name = "EmployeeEditForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Thêm / Sửa Nhân viên";
+            Text = "👥 Thêm / Sửa Nhân viên";
             Load += EmployeeEditForm_Load;
             grpTaiKhoan.ResumeLayout(false);
             grpTaiKhoan.PerformLayout();

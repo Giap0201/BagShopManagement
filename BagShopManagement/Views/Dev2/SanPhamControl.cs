@@ -34,6 +34,9 @@ namespace BagShopManagement.Views.Dev2
 
         private void SanPhamControl_Load(object sender, EventArgs e)
         {
+            // Áp dụng theme GenZ Vibrant
+            ApplyTheme();
+
             LoadData();
             LoadAllDanhMucForFilter();
             picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
@@ -556,8 +559,97 @@ namespace BagShopManagement.Views.Dev2
             MessageBox.Show("Xuất file thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
+        /// <summary>
+        /// Áp dụng theme GenZ Vibrant cho UserControl
+        /// </summary>
+        private void ApplyTheme()
+        {
+            // Áp dụng màu nền
+            this.BackColor = Utils.ThemeColors.Background;
 
+            // Áp dụng theme cho DataGridView
+            if (dgvSanPham != null)
+            {
+                Utils.ThemeHelper.ApplyThemeToDataGridView(dgvSanPham);
+            }
 
+            // Tìm và áp dụng theme cho các button
+            ApplyThemeToButtons(this);
 
+            // Áp dụng theme cho các GroupBox, Panel, TextBox, ComboBox
+            ApplyThemeToControls(this);
+        }
+
+        private void ApplyThemeToButtons(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is Button btn)
+                {
+                    // Phân loại button theo tên hoặc text
+                    if (btn.Text.Contains("Thêm") || btn.Text.Contains("Lưu") || btn.Name.Contains("Add") || btn.Name.Contains("Save"))
+                    {
+                        Utils.ThemeHelper.ApplyPrimaryButtonStyle(btn);
+                    }
+                    else if (btn.Text.Contains("Sửa") || btn.Text.Contains("Cập nhật") || btn.Name.Contains("Edit") || btn.Name.Contains("Update"))
+                    {
+                        Utils.ThemeHelper.ApplySecondaryButtonStyle(btn);
+                    }
+                    else if (btn.Text.Contains("Xóa") || btn.Name.Contains("Delete") || btn.Name.Contains("Remove"))
+                    {
+                        Utils.ThemeHelper.ApplyErrorButtonStyle(btn);
+                    }
+                    else if (btn.Text.Contains("Xuất") || btn.Text.Contains("Export"))
+                    {
+                        Utils.ThemeHelper.ApplySuccessButtonStyle(btn);
+                    }
+                    else if (btn.Text.Contains("Làm mới") || btn.Text.Contains("Refresh") || btn.Text.Contains("Lọc"))
+                    {
+                        Utils.ThemeHelper.ApplyAccentButtonStyle(btn);
+                    }
+                    else
+                    {
+                        Utils.ThemeHelper.ApplySecondaryButtonStyle(btn);
+                    }
+                }
+                else if (ctrl.HasChildren)
+                {
+                    ApplyThemeToButtons(ctrl);
+                }
+            }
+        }
+
+        private void ApplyThemeToControls(Control parent)
+        {
+            foreach (Control ctrl in parent.Controls)
+            {
+                if (ctrl is GroupBox gb)
+                {
+                    Utils.ThemeHelper.ApplyGroupBoxStyle(gb);
+                }
+                else if (ctrl is Panel panel && !(ctrl is DataGridView))
+                {
+                    panel.BackColor = Utils.ThemeColors.Card;
+                }
+                else if (ctrl is TextBox tb)
+                {
+                    Utils.ThemeHelper.ApplyTextBoxStyle(tb);
+                }
+                else if (ctrl is ComboBox cb)
+                {
+                    Utils.ThemeHelper.ApplyComboBoxStyle(cb);
+                }
+                else if (ctrl is Label lbl && lbl.Font.Size >= 12)
+                {
+                    lbl.ForeColor = Utils.ThemeColors.Primary;
+                    lbl.Font = new Font("Segoe UI", lbl.Font.Size, FontStyle.Bold);
+                }
+
+                if (ctrl.HasChildren)
+                {
+                    ApplyThemeToControls(ctrl);
+                }
+            }
+        }
     }
 }

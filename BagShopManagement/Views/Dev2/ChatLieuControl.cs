@@ -25,6 +25,7 @@ namespace BagShopManagement.Views.Dev2
         // ====== Load dữ liệu & giao diện ======
         private void ChatLieuControl_Load(object sender, EventArgs e)
         {
+            Utils.ThemeHelper.ApplyThemeToDataGridView(dgvChatLieu);
             if (dgvChatLieu.Columns.Count == 0)
             {
                 dgvChatLieu.AutoGenerateColumns = false;

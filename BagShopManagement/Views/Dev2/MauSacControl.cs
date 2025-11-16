@@ -48,6 +48,7 @@ namespace BagShopManagement.Views.Dev2
 
             LoadData();
             try { txtSearch.PlaceholderText = "Tìm kiếm"; } catch { }
+            Utils.ThemeHelper.ApplyThemeToDataGridView(dgvMauSac);
         }
 
         private void LoadData()
@@ -276,7 +277,7 @@ namespace BagShopManagement.Views.Dev2
                     row++;
                 }
 
-                
+
                 ws.Cells[1, 1, row - 1, 2].AutoFitColumns();
                 ws.Cells["A1:B1"].Merge = true;
                 ws.View.FreezePanes(3, 1);

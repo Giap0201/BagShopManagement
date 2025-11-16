@@ -39,6 +39,36 @@ namespace BagShopManagement.Views.Controls
             // (Bạn CẦN làm tương tự cho btnNhanVien và btnTaiKhoan)
             // btnNhanVien.Click += btnNhanVien_Click;
             // btnTaiKhoan.Click += btnTaiKhoan_Click;
+
+            // Thêm hiệu ứng hover cho các nút
+            AddButtonHoverEffect(btnBanHang);
+            AddButtonHoverEffect(btnDanhMuc);
+            AddButtonHoverEffect(btnSanPham);
+            AddButtonHoverEffect(btnHoaDonBan);
+            AddButtonHoverEffect(btnKhachHang);
+            AddButtonHoverEffect(btnNhanVien);
+            AddButtonHoverEffect(btnNCC);
+            AddButtonHoverEffect(btnTaiKhoan);
+            AddButtonHoverEffect(btnTonKho);
+            AddButtonHoverEffect(btnHoaDonNhap);
+            AddButtonHoverEffect(btnKhuyenMai);
+            AddButtonHoverEffect(btnBCTK);
+        }
+
+        // Hàm thêm hiệu ứng hover cho nút
+        private void AddButtonHoverEffect(Button btn)
+        {
+            var originalColor = btn.BackColor;
+            btn.MouseEnter += (s, e) =>
+            {
+                btn.BackColor = Utils.ThemeColors.PrimaryLight;
+                btn.ForeColor = Utils.ThemeColors.Card;
+            };
+            btn.MouseLeave += (s, e) =>
+            {
+                btn.BackColor = originalColor;
+                btn.ForeColor = Utils.ThemeColors.TextPrimary;
+            };
         }
 
         // --- Các hàm _Click của nhóm bạn ---

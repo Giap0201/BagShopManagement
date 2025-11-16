@@ -67,6 +67,7 @@ namespace BagShopManagement.Views.Dev2
 
             LoadData();
             try { txtSearch.PlaceholderText = "Tìm kiếm..."; } catch { }
+            Utils.ThemeHelper.ApplyThemeToDataGridView(dgvKichThuoc);
         }
 
         private void LoadData()

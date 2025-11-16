@@ -55,67 +55,101 @@
             // 
             // txtTimKhachHang
             // 
+            txtTimKhachHang.BorderStyle = BorderStyle.FixedSingle;
+            txtTimKhachHang.Font = new Font("Segoe UI", 10F);
             txtTimKhachHang.Location = new Point(45, 35);
             txtTimKhachHang.Name = "txtTimKhachHang";
-            txtTimKhachHang.Size = new Size(192, 27);
+            txtTimKhachHang.PlaceholderText = "Nhập tên hoặc SĐT...";
+            txtTimKhachHang.Size = new Size(192, 30);
             txtTimKhachHang.TabIndex = 1;
             // 
             // btnTim
             // 
+            btnTim.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnTim.FlatStyle = FlatStyle.Flat;
+            btnTim.FlatAppearance.BorderSize = 0;
+            btnTim.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnTim.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             btnTim.Location = new Point(243, 29);
             btnTim.Name = "btnTim";
             btnTim.Size = new Size(125, 38);
             btnTim.TabIndex = 2;
-            btnTim.Text = "Tìm kiếm";
-            btnTim.UseVisualStyleBackColor = true;
+            btnTim.Text = "🔍 Tìm kiếm";
+            btnTim.UseVisualStyleBackColor = false;
+            btnTim.Cursor = Cursors.Hand;
             btnTim.Click += btnTim_Click;
             // 
             // btnThemMoi
             // 
+            btnThemMoi.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnThemMoi.FlatStyle = FlatStyle.Flat;
+            btnThemMoi.FlatAppearance.BorderSize = 0;
+            btnThemMoi.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnThemMoi.ForeColor = Color.White;
             btnThemMoi.Location = new Point(394, 29);
             btnThemMoi.Name = "btnThemMoi";
             btnThemMoi.Size = new Size(125, 38);
             btnThemMoi.TabIndex = 3;
-            btnThemMoi.Text = "Thêm Mới";
-            btnThemMoi.UseVisualStyleBackColor = true;
+            btnThemMoi.Text = "➕ Thêm Mới";
+            btnThemMoi.UseVisualStyleBackColor = false;
+            btnThemMoi.Cursor = Cursors.Hand;
             btnThemMoi.Click += btnThemMoi_Click;
             // 
             // btnSua
             // 
+            btnSua.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnSua.FlatStyle = FlatStyle.Flat;
+            btnSua.FlatAppearance.BorderSize = 0;
+            btnSua.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSua.ForeColor = Color.White;
             btnSua.Location = new Point(864, 29);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(125, 38);
             btnSua.TabIndex = 4;
-            btnSua.Text = "Sửa";
-            btnSua.UseVisualStyleBackColor = true;
+            btnSua.Text = "✏️ Sửa";
+            btnSua.UseVisualStyleBackColor = false;
             btnSua.Visible = false;
+            btnSua.Cursor = Cursors.Hand;
             btnSua.Click += btnSua_Click;
             // 
             // btnXoa
             // 
+            btnXoa.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnXoa.FlatStyle = FlatStyle.Flat;
+            btnXoa.FlatAppearance.BorderSize = 0;
+            btnXoa.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXoa.ForeColor = Color.White;
             btnXoa.Location = new Point(708, 29);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(125, 38);
             btnXoa.TabIndex = 5;
-            btnXoa.Text = "Xóa";
-            btnXoa.UseVisualStyleBackColor = true;
+            btnXoa.Text = "🗑️ Xóa";
+            btnXoa.UseVisualStyleBackColor = false;
             btnXoa.Visible = false;
+            btnXoa.Cursor = Cursors.Hand;
             btnXoa.Click += btnXoa_Click;
             // 
             // btnXuatExcel
             // 
+            btnXuatExcel.BackColor = System.Drawing.ColorTranslator.FromHtml("#6BCF7F");
+            btnXuatExcel.FlatStyle = FlatStyle.Flat;
+            btnXuatExcel.FlatAppearance.BorderSize = 0;
+            btnXuatExcel.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnXuatExcel.ForeColor = Color.White;
             btnXuatExcel.Location = new Point(548, 29);
             btnXuatExcel.Name = "btnXuatExcel";
             btnXuatExcel.Size = new Size(125, 38);
             btnXuatExcel.TabIndex = 6;
-            btnXuatExcel.Text = "Xuất excel";
-            btnXuatExcel.UseVisualStyleBackColor = true;
+            btnXuatExcel.Text = "📊 Xuất Excel";
+            btnXuatExcel.UseVisualStyleBackColor = false;
+            btnXuatExcel.Cursor = Cursors.Hand;
             btnXuatExcel.Click += btnXuatExcel_Click;
             // 
             // KhachHangControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(btnXuatExcel);
             Controls.Add(btnXoa);
             Controls.Add(btnSua);

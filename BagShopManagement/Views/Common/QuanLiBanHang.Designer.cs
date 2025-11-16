@@ -24,7 +24,7 @@
             // 
             // headerControl1
             // 
-            headerControl1.BackColor = SystemColors.ControlLight;
+            headerControl1.BackColor = BagShopManagement.Utils.ThemeColors.Primary;
             headerControl1.Dock = DockStyle.Top;
             headerControl1.Location = new Point(0, 0);
             headerControl1.Margin = new Padding(6);
@@ -34,6 +34,7 @@
             // 
             // sideBarControl
             // 
+            sideBarControl.BackColor = BagShopManagement.Utils.ThemeColors.Secondary;
             sideBarControl.Dock = DockStyle.Left;
             sideBarControl.Location = new Point(0, 76);
             sideBarControl.Margin = new Padding(6);
@@ -44,6 +45,7 @@
             // 
             // panelContent
             // 
+            panelContent.BackColor = BagShopManagement.Utils.ThemeColors.Background;
             panelContent.Controls.Add(mainPanel);
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(336, 76);
@@ -53,6 +55,7 @@
             // 
             // mainPanel
             // 
+            mainPanel.BackColor = BagShopManagement.Utils.ThemeColors.Background;
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(0, 0);
             mainPanel.Margin = new Padding(1);
@@ -70,6 +73,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = BagShopManagement.Utils.ThemeColors.Background;
             ClientSize = new Size(905, 515);
             Controls.Add(panelContent);
             Controls.Add(sideBarControl);

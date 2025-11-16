@@ -32,6 +32,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             // pnlTop
             // 
+            pnlTop.BackColor = Color.White;
             pnlTop.Controls.Add(btnSearch);
             pnlTop.Controls.Add(txtSearch);
             pnlTop.Controls.Add(lblSearch);
@@ -43,12 +44,18 @@ namespace BagShopManagement.Views.Dev4
             // 
             // btnSearch
             // 
+            btnSearch.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.FlatAppearance.BorderSize = 0;
+            btnSearch.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnSearch.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnSearch.Cursor = Cursors.Hand;
             btnSearch.Location = new Point(1200, 25);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(150, 50);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍 Tìm kiếm";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.UseVisualStyleBackColor = false;
             btnSearch.Click += btnSearch_Click;
             // 
             // txtSearch
@@ -88,6 +95,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             // pnlBottom
             // 
+            pnlBottom.BackColor = Color.White;
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnSelect);
             pnlBottom.Dock = DockStyle.Bottom;
@@ -98,18 +106,28 @@ namespace BagShopManagement.Views.Dev4
             // 
             // btnCancel
             // 
+            btnCancel.BackColor = System.Drawing.ColorTranslator.FromHtml("#E2E8F0");
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            btnCancel.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnCancel.Cursor = Cursors.Hand;
             btnCancel.Location = new Point(750, 25);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(200, 60);
             btnCancel.TabIndex = 1;
-            btnCancel.Text = "Hủy";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Text = "❌ Hủy";
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // btnSelect
             // 
-            btnSelect.BackColor = Color.FromArgb(0, 122, 204);
+            btnSelect.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnSelect.FlatStyle = FlatStyle.Flat;
+            btnSelect.FlatAppearance.BorderSize = 0;
+            btnSelect.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             btnSelect.ForeColor = Color.White;
+            btnSelect.Cursor = Cursors.Hand;
             btnSelect.Location = new Point(450, 25);
             btnSelect.Name = "btnSelect";
             btnSelect.Size = new Size(200, 60);
@@ -122,13 +140,14 @@ namespace BagShopManagement.Views.Dev4
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             ClientSize = new Size(1400, 800);
             Controls.Add(dgvSanPham);
             Controls.Add(pnlBottom);
             Controls.Add(pnlTop);
             Name = "ChonSanPhamForm";
             StartPosition = FormStartPosition.CenterParent;
-            Text = "Chọn sản phẩm";
+            Text = "🛒 Chọn sản phẩm";
             Load += ChonSanPhamForm_Load;
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();

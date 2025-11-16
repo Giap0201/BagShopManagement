@@ -60,6 +60,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.White;
             groupBox1.Controls.Add(dtpDenNgay);
             groupBox1.Controls.Add(dtpTuNgay);
             groupBox1.Controls.Add(cmbSearchNhanVien);
@@ -74,12 +75,14 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
             groupBox1.Controls.Add(label1);
+            groupBox1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            groupBox1.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             groupBox1.Location = new Point(106, 105);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(608, 323);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
-            groupBox1.Text = "Tìm kiếm";
+            groupBox1.Text = "🔍 Tìm kiếm";
             // 
             // dtpDenNgay
             // 
@@ -133,12 +136,18 @@
             // 
             // btnTimKiem
             // 
+            btnTimKiem.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnTimKiem.FlatStyle = FlatStyle.Flat;
+            btnTimKiem.FlatAppearance.BorderSize = 0;
+            btnTimKiem.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnTimKiem.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnTimKiem.Cursor = Cursors.Hand;
             btnTimKiem.Location = new Point(438, 47);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(164, 29);
+            btnTimKiem.Size = new Size(164, 32);
             btnTimKiem.TabIndex = 0;
-            btnTimKiem.Text = "Tìm kiếm";
-            btnTimKiem.UseVisualStyleBackColor = true;
+            btnTimKiem.Text = "🔍 Tìm kiếm";
+            btnTimKiem.UseVisualStyleBackColor = false;
             btnTimKiem.Click += btnTimKiem_Click;
             // 
             // cmbSearchMaHDN
@@ -205,6 +214,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.BackColor = Color.White;
             groupBox2.Controls.Add(btnInHoaDon);
             groupBox2.Controls.Add(btnSua);
             groupBox2.Controls.Add(btnXuatExel);
@@ -212,12 +222,14 @@
             groupBox2.Controls.Add(btnDuyet);
             groupBox2.Controls.Add(btnXem);
             groupBox2.Controls.Add(btnThem);
+            groupBox2.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            groupBox2.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
             groupBox2.Location = new Point(884, 105);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(297, 343);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Chức năng";
+            groupBox2.Text = "⚙️ Chức năng";
             // 
             // btnInHoaDon
             // 
@@ -281,12 +293,18 @@
             // 
             // btnThem
             // 
+            btnThem.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnThem.FlatStyle = FlatStyle.Flat;
+            btnThem.FlatAppearance.BorderSize = 0;
+            btnThem.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnThem.ForeColor = Color.White;
+            btnThem.Cursor = Cursors.Hand;
             btnThem.Location = new Point(34, 29);
             btnThem.Name = "btnThem";
-            btnThem.Size = new Size(164, 29);
+            btnThem.Size = new Size(220, 32);
             btnThem.TabIndex = 2;
-            btnThem.Text = "Thêm mới";
-            btnThem.UseVisualStyleBackColor = true;
+            btnThem.Text = "➕ Thêm mới";
+            btnThem.UseVisualStyleBackColor = false;
             btnThem.Click += btnThem_Click;
             // 
             // dgvDanhSach
@@ -308,17 +326,19 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
             label7.Location = new Point(550, 18);
             label7.Name = "label7";
-            label7.Size = new Size(362, 38);
+            label7.Size = new Size(420, 41);
             label7.TabIndex = 9;
-            label7.Text = "QUẢN LÍ HOÁ ĐƠN NHẬP";
+            label7.Text = "📝 QUẢN LÍ HOÁ ĐƠN NHẬP";
             // 
             // ucHoaDonNhapList
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Controls.Add(label7);
             Controls.Add(dgvDanhSach);
             Controls.Add(groupBox2);

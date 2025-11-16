@@ -41,11 +41,45 @@
             btnMauSac.SetBounds(startX, startY + h + spacingY, w, h);
             btnKichThuoc.SetBounds(startX + w + spacingX, startY + h + spacingY, w, h);
 
-            btnLoaiTui.Text = "Loại Túi";
-            btnThuongHieu.Text = "Thương Hiệu";
-            btnChatLieu.Text = "Chất Liệu";
-            btnMauSac.Text = "Màu Sắc";
-            btnKichThuoc.Text = "Kích Thước";
+            btnLoaiTui.Text = "👜 Loại Túi";
+            btnLoaiTui.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF6B9D");
+            btnLoaiTui.ForeColor = Color.White;
+            btnLoaiTui.FlatStyle = FlatStyle.Flat;
+            btnLoaiTui.FlatAppearance.BorderSize = 0;
+            btnLoaiTui.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnLoaiTui.Cursor = Cursors.Hand;
+
+            btnThuongHieu.Text = "⭐ Thương Hiệu";
+            btnThuongHieu.BackColor = System.Drawing.ColorTranslator.FromHtml("#6C63FF");
+            btnThuongHieu.ForeColor = Color.White;
+            btnThuongHieu.FlatStyle = FlatStyle.Flat;
+            btnThuongHieu.FlatAppearance.BorderSize = 0;
+            btnThuongHieu.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnThuongHieu.Cursor = Cursors.Hand;
+
+            btnChatLieu.Text = "🧵 Chất Liệu";
+            btnChatLieu.BackColor = System.Drawing.ColorTranslator.FromHtml("#FFD93D");
+            btnChatLieu.ForeColor = System.Drawing.ColorTranslator.FromHtml("#2D3748");
+            btnChatLieu.FlatStyle = FlatStyle.Flat;
+            btnChatLieu.FlatAppearance.BorderSize = 0;
+            btnChatLieu.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnChatLieu.Cursor = Cursors.Hand;
+
+            btnMauSac.Text = "🎨 Màu Sắc";
+            btnMauSac.BackColor = System.Drawing.ColorTranslator.FromHtml("#6BCF7F");
+            btnMauSac.ForeColor = Color.White;
+            btnMauSac.FlatStyle = FlatStyle.Flat;
+            btnMauSac.FlatAppearance.BorderSize = 0;
+            btnMauSac.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnMauSac.Cursor = Cursors.Hand;
+
+            btnKichThuoc.Text = "📏 Kích Thước";
+            btnKichThuoc.BackColor = System.Drawing.ColorTranslator.FromHtml("#FF5757");
+            btnKichThuoc.ForeColor = Color.White;
+            btnKichThuoc.FlatStyle = FlatStyle.Flat;
+            btnKichThuoc.FlatAppearance.BorderSize = 0;
+            btnKichThuoc.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            btnKichThuoc.Cursor = Cursors.Hand;
 
             Controls.Add(btnLoaiTui);
             Controls.Add(btnThuongHieu);
@@ -54,6 +88,7 @@
             Controls.Add(btnKichThuoc);
 
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = System.Drawing.ColorTranslator.FromHtml("#F8F9FA");
             Name = "DanhMucMenuControl";
             Size = new Size(800, 380);
             ResumeLayout(false);
