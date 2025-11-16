@@ -75,5 +75,19 @@ namespace BagShopManagement.Controllers
                 throw; // Re-throw lỗi gốc
             }
         }
+
+        public IEnumerable<NhanVienResponse> HandleSearchNhanVien(string keyword)
+        {
+            try
+            {
+                // Gọi service để xử lý
+                return _nhanVienService.SearchNhanVien(keyword);
+            }
+            catch (Exception ex)
+            {
+                // Ném lỗi ra cho View (ucEmployeeManagement) xử lý
+                throw new Exception("Lỗi khi tìm kiếm: " + ex.Message, ex);
+            }
+        }
     }
 }

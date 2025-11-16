@@ -62,6 +62,7 @@
             txtTimKiem.Name = "txtTimKiem";
             txtTimKiem.Size = new Size(249, 30);
             txtTimKiem.TabIndex = 5;
+            txtTimKiem.KeyDown += txtTimKiem_KeyDown;
             // 
             // btnTimKiem
             // 
@@ -76,6 +77,7 @@
             btnTimKiem.TabIndex = 4;
             btnTimKiem.Text = "Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = false;
+            btnTimKiem.Click += btnTimKiem_Click;
             // 
             // btnKhoaMo
             // 
