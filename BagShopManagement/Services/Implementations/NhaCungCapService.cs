@@ -4,6 +4,7 @@ using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace BagShopManagement.Services
 {
@@ -89,6 +90,24 @@ namespace BagShopManagement.Services
             {
                 throw new ApplicationException("Lỗi khi tìm kiếm nhà cung cấp: " + ex.Message, ex);
             }
+        }
+        public string GenerateNextCode()
+        {
+            var maxCode = _repository.GetMaxCode();
+            if (string.IsNullOrWhiteSpace(maxCode))
+            {
+                return "NCC001";
+            }
+
+            string numericPart = maxCode.StartsWith("NCC", StringComparison.OrdinalIgnoreCase)
+                ? maxCode.Substring(3)
+                : maxCode;
+
+            if (!int.TryParse(numericPart, out int current))
+                current = 0;
+
+            int next = current + 1;
+            return "NCC" + next.ToString("000", CultureInfo.InvariantCulture);
         }
     }
 }

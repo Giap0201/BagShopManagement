@@ -2,6 +2,7 @@
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Utils;
+using BagShopManagement.Views.Dev3; // Thêm để sử dụng ThemKhachHangForm2
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -31,6 +32,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         private void UC_POS_Load(object sender, EventArgs e)
         {
             SetupCartColumns();
+
+            // Tự động điền mã nhân viên từ UserContext sau khi đăng nhập
+            if (!string.IsNullOrEmpty(UserContext.MaNV))
+            {
+                txtMaNV.Text = UserContext.MaNV;
+                txtMaNV.ReadOnly = true; // Không cho sửa mã NV
+            }
         }
 
         /// <summary>
@@ -151,11 +159,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 }
                 else
                 {
-                    // Khách hàng chưa tồn tại - hiển thị form thêm mới
-                    var themKHForm = new ThemKhachHangForm(sdt);
+                    // Khách hàng chưa tồn tại - hiển thị form thêm mới (Dev3)
+                    var khController = new KhachHangController();
+                    var themKHForm = new ThemKhachHangForm2(khController);
+
                     if (themKHForm.ShowDialog() == DialogResult.OK)
                     {
-                        var khMoi = themKHForm.KhachHangMoi;
+                        // Sau khi thêm thành công, tìm lại khách hàng theo SĐT
+                        var khMoi = khRepo.GetBySDT(sdt);
                         if (khMoi != null)
                         {
                             txtMaKH.Text = khMoi.MaKH;
@@ -186,7 +197,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     // Hiển thị thông tin sản phẩm đã chọn
                     lblMaSPValue.Text = sp.MaSP;
                     lblTenSP.Text = $"Tên: {sp.TenSP}";
-                    lblGiaSP.Text = $"Giá: {sp.GiaBan:N0} ₫ | Tồn kho: {sp.SoLuongTon}";
+                    lblGiaSP.Text = $"{sp.GiaBan:N0} ₫";
+
+                    // Hiển thị ảnh sản phẩm
+                    LoadProductImage(sp.AnhChinh);
 
                     // Focus vào số lượng
                     numQty.Focus();
@@ -275,8 +289,98 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             lblTenSP.Text = "";
             lblGiaSP.Text = "";
             numQty.Value = 1;
+            picSanPham.Image = null;
             btnChonSP.Focus();
         }
+
+        /// <summary>
+        /// Load và hiển thị ảnh sản phẩm từ URL hoặc đường dẫn
+        /// </summary>
+        private async void LoadProductImage(string? imageUrl)
+        {
+            try
+            {
+                // Xóa ảnh cũ
+                if (picSanPham.Image != null)
+                {
+                    picSanPham.Image.Dispose();
+                    picSanPham.Image = null;
+                }
+
+                // Nếu không có URL thì dùng placeholder
+                if (string.IsNullOrWhiteSpace(imageUrl))
+                {
+                    picSanPham.Image = Properties.Resources.image_placeholder;
+                    return;
+                }
+
+                // Kiểm tra nếu là URL (http/https)
+                if (imageUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
+                    imageUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
+                {
+                    using (var httpClient = new System.Net.Http.HttpClient())
+                    {
+                        httpClient.Timeout = TimeSpan.FromSeconds(10);
+
+                        try
+                        {
+                            byte[] imageBytes = await httpClient.GetByteArrayAsync(imageUrl);
+                            using (var ms = new MemoryStream(imageBytes))
+                            {
+                                using (var tempImage = Image.FromStream(ms))
+                                {
+                                    picSanPham.Image = new Bitmap(tempImage);
+                                }
+                            }
+                        }
+                        catch
+                        {
+                            picSanPham.Image = Properties.Resources.image_placeholder;
+                        }
+                    }
+                }
+                else
+                {
+                    string imagePath;
+
+                    if (Path.IsPathRooted(imageUrl))
+                    {
+                        imagePath = imageUrl;
+                    }
+                    else
+                    {
+                        imagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Resources", "AnhSanPham", imageUrl);
+                    }
+
+                    if (File.Exists(imagePath))
+                    {
+                        try
+                        {
+                            using (var fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read))
+                            using (var tempImage = Image.FromStream(fileStream))
+                            {
+                                picSanPham.Image = new Bitmap(tempImage);
+                            }
+                        }
+                        catch
+                        {
+                            picSanPham.Image = Properties.Resources.image_placeholder;
+                        }
+                    }
+                    else
+                    {
+                        Logger.Log($"UC_POS.LoadProductImage: File not found - {imagePath}");
+                        picSanPham.Image = Properties.Resources.image_placeholder;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"UC_POS.LoadProductImage Error: {ex.Message} - URL: {imageUrl}");
+                picSanPham.Image = Properties.Resources.image_placeholder;
+            }
+        }
+
 
         private void RefreshCartGrid()
         {

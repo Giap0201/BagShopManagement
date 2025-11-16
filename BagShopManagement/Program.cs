@@ -6,21 +6,21 @@ using BagShopManagement.Services;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
+// --- Using Bổ sung cho Dev1 (từ Snippet 2) ---
+using BagShopManagement.Views; // Cần cho LoginForm
 using BagShopManagement.Views.Common;
 using BagShopManagement.Views.Controls;
+using BagShopManagement.Views.Dev1; // Cần cho Forms/UCs của Dev1
 using BagShopManagement.Views.Dev2;
+using BagShopManagement.Views.Dev3;
+using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev4.Dev4_POS;
-using BagShopManagement.Views.Dev4;
+using BagShopManagement.Views.Dev5;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Windows.Forms;
-using BagShopManagement.Views.Dev3;
-
-// --- Using Bổ sung cho Dev1 (từ Snippet 2) ---
-using BagShopManagement.Views; // Cần cho LoginForm
-using BagShopManagement.Views.Dev1; // Cần cho Forms/UCs của Dev1
 
 namespace BagShopManagement
 {
@@ -105,6 +105,28 @@ namespace BagShopManagement
             services.AddTransient<ITonKhoService, TonKhoService>();
             services.AddTransient<IPosService, PosService>();
 
+            // DEV - 5 KHÔNG CẦN ĐĂNG KÝ GÌ Ở ĐÂY
+            // 1. Đăng ký Repositories
+            services.AddTransient<IChuongTrinhGiamGiaRepository, ChuongTrinhGiamGiaRepository>();
+            services.AddTransient<IChiTietGiamGiaRepository, ChiTietGiamGiaRepository>();
+            services.AddTransient<ISanPhamRepository, SanPhamRepository>(); // <-- BỔ SUNG
+
+            // 2. Đăng ký Services
+            services.AddTransient<IChuongTrinhGiamGiaService, ChuongTrinhGiamGiaService>();
+            services.AddTransient<IChiTietGiamGiaService, ChiTietGiamGiaService>();
+            //services.AddTransient<ILichSuTonKhoRepository, LichSuTonKhoRepository>(); // <-- BỔ SUNG MỚI
+            services.AddTransient<ITonKhoService, TonKhoService>(); // <-- BỔ SUNG MỚI
+            services.AddTransient<TonKhoController>(); // <
+
+            // 3. Đăng ký Controllers
+            services.AddTransient<ChuongTrinhGiamGiaController>();
+            services.AddTransient<ChiTietGiamGiaController>(); // <-- BỔ SUNG
+
+            // 4. Đăng ký Forms và UserControls (Luôn là Transient)
+            services.AddTransient<QuanLiBanHang>(); // Form chính của bạn
+            services.AddTransient<PromotionControl>();
+            services.AddTransient<TonKhoControl>();
+
             // === Đăng ký Services - Dev6 (Giữ nguyên) ===
             services.AddTransient<IHoaDonNhapService, HoaDonNhapService>();
             services.AddTransient<IBaoCaoService, BaoCaoService>();
@@ -175,7 +197,7 @@ namespace BagShopManagement
             services.AddTransient<ThuongHieuEditForm>();
             services.AddTransient<KhachHangControl>();
             services.AddTransient<NhaCungCapControl>();
-            services.AddTransient<Views.Dev3.ThemKhachHangForm2>();
+            services.AddTransient<ThemKhachHangForm2>();
             services.AddTransient<ThemNhaCungCapForm>();
             services.AddTransient<POSForm>();
             services.AddTransient<HoaDonBanForm>();
@@ -190,6 +212,9 @@ namespace BagShopManagement
             services.AddTransient<EmployeeEditForm>();
             services.AddTransient<ucProfile>();
             services.AddTransient<ucEmployeeManagement>();
+            services.AddTransient<ucThemHDN>();
+            services.AddTransient<frmViewHoaDonNhapDetails>();
+            services.AddTransient<ucSuaHoaDonNhap>();
         }
     }
 }

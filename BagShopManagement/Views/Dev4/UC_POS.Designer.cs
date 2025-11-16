@@ -17,6 +17,7 @@
 
         private void InitializeComponent()
         {
+            picSanPham = new PictureBox();
             pnlTop = new Panel();
             label1 = new Label();
             txtMaNV = new TextBox();
@@ -54,6 +55,7 @@
             lblSanPham = new Label();
             pnlRight = new Panel();
             dgvCart = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)picSanPham).BeginInit();
             pnlTop.SuspendLayout();
             pnlLeft.SuspendLayout();
             grpActions.SuspendLayout();
@@ -63,6 +65,16 @@
             pnlRight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCart).BeginInit();
             SuspendLayout();
+            // 
+            // picSanPham
+            // 
+            picSanPham.BorderStyle = BorderStyle.FixedSingle;
+            picSanPham.Location = new Point(372, 204);
+            picSanPham.Name = "picSanPham";
+            picSanPham.Size = new Size(205, 227);
+            picSanPham.SizeMode = PictureBoxSizeMode.Zoom;
+            picSanPham.TabIndex = 14;
+            picSanPham.TabStop = false;
             // 
             // pnlTop
             // 
@@ -78,7 +90,7 @@
             pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(1578, 204);
+            pnlTop.Size = new Size(1571, 204);
             pnlTop.TabIndex = 2;
             // 
             // label1
@@ -272,6 +284,7 @@
             // 
             // grpAdd
             // 
+            grpAdd.Controls.Add(picSanPham);
             grpAdd.Controls.Add(lblGiaSP);
             grpAdd.Controls.Add(lblTenSP);
             grpAdd.Controls.Add(lblMaSPValue);
@@ -298,9 +311,9 @@
             lblGiaSP.BorderStyle = BorderStyle.Fixed3D;
             lblGiaSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             lblGiaSP.ForeColor = Color.Green;
-            lblGiaSP.Location = new Point(219, 330);
+            lblGiaSP.Location = new Point(190, 439);
             lblGiaSP.Name = "lblGiaSP";
-            lblGiaSP.Size = new Size(326, 59);
+            lblGiaSP.Size = new Size(326, 47);
             lblGiaSP.TabIndex = 10;
             lblGiaSP.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -309,7 +322,7 @@
             lblTenSP.BackColor = SystemColors.Control;
             lblTenSP.BorderStyle = BorderStyle.Fixed3D;
             lblTenSP.Font = new Font("Segoe UI", 10F);
-            lblTenSP.Location = new Point(219, 217);
+            lblTenSP.Location = new Point(190, 118);
             lblTenSP.Name = "lblTenSP";
             lblTenSP.Size = new Size(326, 65);
             lblTenSP.TabIndex = 9;
@@ -321,15 +334,15 @@
             lblMaSPValue.BackColor = SystemColors.Control;
             lblMaSPValue.BorderStyle = BorderStyle.Fixed3D;
             lblMaSPValue.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblMaSPValue.Location = new Point(221, 99);
+            lblMaSPValue.Location = new Point(190, 220);
             lblMaSPValue.Name = "lblMaSPValue";
-            lblMaSPValue.Size = new Size(326, 66);
+            lblMaSPValue.Size = new Size(163, 66);
             lblMaSPValue.TabIndex = 8;
             lblMaSPValue.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblMaSPLabel
             // 
-            lblMaSPLabel.Location = new Point(20, 114);
+            lblMaSPLabel.Location = new Point(20, 235);
             lblMaSPLabel.Name = "lblMaSPLabel";
             lblMaSPLabel.Size = new Size(160, 54);
             lblMaSPLabel.TabIndex = 11;
@@ -338,7 +351,7 @@
             // 
             // lblTenSPLabel
             // 
-            lblTenSPLabel.Location = new Point(18, 217);
+            lblTenSPLabel.Location = new Point(18, 119);
             lblTenSPLabel.Name = "lblTenSPLabel";
             lblTenSPLabel.Size = new Size(160, 65);
             lblTenSPLabel.TabIndex = 12;
@@ -347,7 +360,7 @@
             // 
             // lblGiaSPLabel
             // 
-            lblGiaSPLabel.Location = new Point(18, 330);
+            lblGiaSPLabel.Location = new Point(18, 428);
             lblGiaSPLabel.Name = "lblGiaSPLabel";
             lblGiaSPLabel.Size = new Size(160, 59);
             lblGiaSPLabel.TabIndex = 13;
@@ -396,19 +409,19 @@
             // 
             // numQty
             // 
-            numQty.Location = new Point(219, 430);
+            numQty.Location = new Point(190, 347);
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(167, 47);
+            numQty.Size = new Size(149, 47);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // lblQty
             // 
-            lblQty.Location = new Point(32, 430);
+            lblQty.Location = new Point(38, 347);
             lblQty.Name = "lblQty";
-            lblQty.Size = new Size(153, 45);
+            lblQty.Size = new Size(146, 45);
             lblQty.TabIndex = 4;
             lblQty.Text = "Số lượng:";
             // 
@@ -451,6 +464,7 @@
             Name = "UC_POS";
             Size = new Size(1571, 1276);
             Load += UC_POS_Load;
+            ((System.ComponentModel.ISupportInitialize)picSanPham).EndInit();
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();
             pnlLeft.ResumeLayout(false);
@@ -502,5 +516,6 @@
         private DataGridView dgvCart;
         private Button btnDelete;
         private Label label1;
+        private PictureBox picSanPham;
     }
 }
