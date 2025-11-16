@@ -32,5 +32,6 @@ namespace BagShopManagement.Repositories.Interfaces
         void Update(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran);
 
         List<NhanVien> GetAll();
+        List<NhanVienResponse> Search(string formattedKeyword);
     }
 }

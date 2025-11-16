@@ -100,28 +100,32 @@ namespace BagShopManagement.Repositories.Implementations
             return list;
         }
 
+        // --- HÀM GetNextMaNV (GEN MÃ 7 SỐ) ---
         public string GetNextMaNV()
         {
-            // Logic sinh mã: Lấy mã lớn nhất hiện tại (ví dụ: NV005) + 1 -> NV006
-            string sql = "SELECT MAX(MaNV) FROM NhanVien WHERE MaNV LIKE 'NV%'";
+            // Cấu hình: 7 chữ số (0000001 -> 9999999), Tiền tố "NV"
+            const int PADDING_LENGTH = 7;
+            const string PREFIX = "NV";
 
-            var maxMaNV = ExecuteScalar(sql)?.ToString();
+            // Logic sinh mã: Lấy mã LỚN NHẤT hiện tại
+            // Dùng CAST(SUBSTRING(...) AS INT) để sắp xếp theo SỐ
+            string sql = $@"
+                SELECT MAX(CAST(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH}) AS INT)) 
+                FROM NhanVien 
+                WHERE MaNV LIKE '{PREFIX}%' AND ISNUMERIC(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH})) = 1";
 
-            if (string.IsNullOrEmpty(maxMaNV))
+            var result = ExecuteScalar(sql); // Trả về số lớn nhất (ví dụ: 9) hoặc NULL
+
+            int nextNum = 1; // Mặc định là 1 (cho trường hợp bảng rỗng)
+
+            if (result != null && result != DBNull.Value)
             {
-                return "NV001"; // Bắt đầu
+                nextNum = Convert.ToInt32(result) + 1; // Lấy số lớn nhất + 1
             }
 
-            // Tách phần số (ví dụ: "NV005" -> "005")
-            string numPart = maxMaNV.Substring(2);
-            if (int.TryParse(numPart, out int num))
-            {
-                num++; // Tăng lên 1
-                return "NV" + num.ToString("D3"); // "D3" = 006
-            }
-
-            // Fallback nếu logic lỗi
-            throw new Exception("Không thể sinh Mã Nhân Viên mới.");
+            // Trả về mã mới với padding 7 số
+            // ví dụ: "NV" + 1.ToString("D7") -> "NV0000001"
+            return PREFIX + nextNum.ToString($"D{PADDING_LENGTH}");
         }
 
         // --- Phiên bản không transaction ---
@@ -215,6 +219,43 @@ namespace BagShopManagement.Repositories.Implementations
                     MaNV = row["MaNV"].ToString(),
                     HoTen = row["HoTen"].ToString()
                 });
+            }
+            return list;
+        }
+
+        public List<NhanVienResponse> Search(string formattedKeyword)
+        {
+            var list = new List<NhanVienResponse>();
+            // Câu lệnh SQL JOIN và tìm kiếm trên nhiều cột
+            string sql = @"
+                SELECT 
+                    nv.MaNV, nv.HoTen, nv.ChucVu, nv.SoDienThoai, nv.Email,
+                    tk.TenDangNhap,
+                    tk.TrangThai AS TrangThaiTK,
+                    vt.MaVaiTro,
+                    vt.TenVaiTro
+                FROM NhanVien nv
+                JOIN TaiKhoan tk ON nv.MaNV = tk.MaNV
+                LEFT JOIN VaiTro vt ON tk.MaVaiTro = vt.MaVaiTro
+                WHERE 
+                    nv.MaNV LIKE @keyword OR
+                    nv.HoTen LIKE @keyword OR
+                    tk.TenDangNhap LIKE @keyword OR
+                    nv.SoDienThoai LIKE @keyword OR
+                    nv.Email LIKE @keyword OR
+                    vt.TenVaiTro LIKE @keyword";
+
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+            // Thêm tham số @keyword (ví dụ: "%admin%")
+            cmd.Parameters.AddWithValue("@keyword", formattedKeyword);
+
+            conn.Open();
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
+            {
+                // Tái sử dụng hàm MapToNhanVienResponse
+                list.Add(MapToNhanVienResponse(reader));
             }
             return list;
         }
