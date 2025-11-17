@@ -25,6 +25,7 @@
             label3 = new Label();
             txtGhiChu = new TextBox();
             dtpNgayNhap = new DateTimePicker();
+            btnTamLuuHDN = new Button();
             cboNhanVien = new ComboBox();
             cboNhaCungCap = new ComboBox();
             label6 = new Label();
@@ -49,20 +50,15 @@
             btnThemChiTietHDN = new Button();
             label10 = new Label();
             dgvChiTiet = new DataGridView();
-            btnTaoMoiHDN = new Button();
             btnThoat = new Button();
             btnInHDN = new Button();
-            btnDuyetHDN = new Button();
-            btnTamLuuHDN = new Button();
             errorProvider1 = new ErrorProvider(components);
             label7 = new Label();
-            panel1 = new Panel();
             bindingSource1 = new BindingSource(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvChiTiet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
-            panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
@@ -73,6 +69,7 @@
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(txtGhiChu);
             groupBox1.Controls.Add(dtpNgayNhap);
+            groupBox1.Controls.Add(btnTamLuuHDN);
             groupBox1.Controls.Add(cboNhanVien);
             groupBox1.Controls.Add(cboNhaCungCap);
             groupBox1.Controls.Add(label6);
@@ -86,7 +83,7 @@
             groupBox1.ForeColor = Color.FromArgb(54, 54, 54);
             groupBox1.Location = new Point(46, 82);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1472, 170);
+            groupBox1.Size = new Size(1472, 231);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN CHUNG";
@@ -132,7 +129,23 @@
             dtpNgayNhap.Name = "dtpNgayNhap";
             dtpNgayNhap.Size = new Size(200, 30);
             dtpNgayNhap.TabIndex = 7;
-            //dtpNgayNhap.ValueChanged += dtpNgayNhap_ValueChanged;
+            // 
+            // btnTamLuuHDN
+            // 
+            btnTamLuuHDN.BackColor = Color.DodgerBlue;
+            btnTamLuuHDN.Cursor = Cursors.Hand;
+            btnTamLuuHDN.FlatAppearance.BorderSize = 0;
+            btnTamLuuHDN.FlatAppearance.MouseOverBackColor = Color.Blue;
+            btnTamLuuHDN.FlatStyle = FlatStyle.Flat;
+            btnTamLuuHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnTamLuuHDN.ForeColor = Color.White;
+            btnTamLuuHDN.Location = new Point(1247, 166);
+            btnTamLuuHDN.Name = "btnTamLuuHDN";
+            btnTamLuuHDN.Size = new Size(132, 45);
+            btnTamLuuHDN.TabIndex = 5;
+            btnTamLuuHDN.Text = "LƯU";
+            btnTamLuuHDN.UseVisualStyleBackColor = false;
+            btnTamLuuHDN.Click += btnCapNhatHDN_Click;
             // 
             // cboNhanVien
             // 
@@ -163,7 +176,6 @@
             label6.Size = new Size(89, 23);
             label6.TabIndex = 11;
             label6.Text = "Nhân viên";
-            //label6.Click += label6_Click;
             // 
             // label5
             // 
@@ -237,9 +249,9 @@
             groupBox2.FlatStyle = FlatStyle.Flat;
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.FromArgb(54, 54, 54);
-            groupBox2.Location = new Point(46, 277);
+            groupBox2.Location = new Point(46, 334);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1472, 482);
+            groupBox2.Size = new Size(1472, 488);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CHI TIẾT HOÁ ĐƠN";
@@ -247,7 +259,7 @@
             // lblTongTien
             // 
             lblTongTien.AutoSize = true;
-            lblTongTien.Location = new Point(149, 426);
+            lblTongTien.Location = new Point(151, 436);
             lblTongTien.Name = "lblTongTien";
             lblTongTien.Size = new Size(19, 23);
             lblTongTien.TabIndex = 0;
@@ -260,7 +272,7 @@
             txtThanhTien.Location = new Point(1106, 239);
             txtThanhTien.Name = "txtThanhTien";
             txtThanhTien.ReadOnly = true;
-            txtThanhTien.Size = new Size(241, 30);
+            txtThanhTien.Size = new Size(273, 30);
             txtThanhTien.TabIndex = 1;
             // 
             // txtDonGia
@@ -270,7 +282,7 @@
             txtDonGia.ForeColor = Color.FromArgb(54, 54, 54);
             txtDonGia.Location = new Point(1106, 177);
             txtDonGia.Name = "txtDonGia";
-            txtDonGia.Size = new Size(241, 30);
+            txtDonGia.Size = new Size(273, 30);
             txtDonGia.TabIndex = 2;
             txtDonGia.TextChanged += txtDonGia_TextChanged;
             // 
@@ -281,7 +293,7 @@
             txtSoLuong.ForeColor = Color.FromArgb(54, 54, 54);
             txtSoLuong.Location = new Point(1106, 116);
             txtSoLuong.Name = "txtSoLuong";
-            txtSoLuong.Size = new Size(241, 30);
+            txtSoLuong.Size = new Size(273, 30);
             txtSoLuong.TabIndex = 3;
             txtSoLuong.TextChanged += txtSoLuong_TextChanged;
             // 
@@ -292,7 +304,7 @@
             cboSanPham.ForeColor = Color.FromArgb(54, 54, 54);
             cboSanPham.Location = new Point(1106, 47);
             cboSanPham.Name = "cboSanPham";
-            cboSanPham.Size = new Size(241, 31);
+            cboSanPham.Size = new Size(274, 31);
             cboSanPham.TabIndex = 4;
             // 
             // btnLuuChiTietHDN
@@ -304,7 +316,7 @@
             btnLuuChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnLuuChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnLuuChiTietHDN.ForeColor = Color.White;
-            btnLuuChiTietHDN.Location = new Point(1270, 340);
+            btnLuuChiTietHDN.Location = new Point(1270, 364);
             btnLuuChiTietHDN.Name = "btnLuuChiTietHDN";
             btnLuuChiTietHDN.Size = new Size(119, 46);
             btnLuuChiTietHDN.TabIndex = 5;
@@ -315,7 +327,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(37, 426);
+            label14.Location = new Point(37, 436);
             label14.Name = "label14";
             label14.Size = new Size(87, 23);
             label14.TabIndex = 6;
@@ -330,7 +342,7 @@
             btnXoaChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnXoaChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnXoaChiTietHDN.ForeColor = Color.White;
-            btnXoaChiTietHDN.Location = new Point(1133, 340);
+            btnXoaChiTietHDN.Location = new Point(1133, 364);
             btnXoaChiTietHDN.Name = "btnXoaChiTietHDN";
             btnXoaChiTietHDN.Size = new Size(119, 46);
             btnXoaChiTietHDN.TabIndex = 7;
@@ -346,7 +358,7 @@
             btnSuaChiTietHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnSuaChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnSuaChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnSuaChiTietHDN.Location = new Point(991, 340);
+            btnSuaChiTietHDN.Location = new Point(991, 364);
             btnSuaChiTietHDN.Name = "btnSuaChiTietHDN";
             btnSuaChiTietHDN.Size = new Size(119, 46);
             btnSuaChiTietHDN.TabIndex = 8;
@@ -390,7 +402,7 @@
             btnThemChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnThemChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThemChiTietHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnThemChiTietHDN.Location = new Point(849, 340);
+            btnThemChiTietHDN.Location = new Point(849, 364);
             btnThemChiTietHDN.Name = "btnThemChiTietHDN";
             btnThemChiTietHDN.Size = new Size(119, 46);
             btnThemChiTietHDN.TabIndex = 12;
@@ -453,26 +465,9 @@
             dgvChiTiet.RowHeadersVisible = false;
             dgvChiTiet.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvChiTiet.Size = new Size(730, 344);
+            dgvChiTiet.Size = new Size(730, 368);
             dgvChiTiet.TabIndex = 14;
             dgvChiTiet.CellClick += dgvChiTiet_CellClick;
-            // 
-            // btnTaoMoiHDN
-            // 
-            btnTaoMoiHDN.BackColor = Color.FromArgb(199, 199, 199);
-            btnTaoMoiHDN.Cursor = Cursors.Hand;
-            btnTaoMoiHDN.FlatAppearance.BorderSize = 0;
-            btnTaoMoiHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
-            btnTaoMoiHDN.FlatStyle = FlatStyle.Flat;
-            btnTaoMoiHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnTaoMoiHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnTaoMoiHDN.Location = new Point(136, 22);
-            btnTaoMoiHDN.Name = "btnTaoMoiHDN";
-            btnTaoMoiHDN.Size = new Size(132, 45);
-            btnTaoMoiHDN.TabIndex = 2;
-            btnTaoMoiHDN.Text = "TẠO MỚI";
-            btnTaoMoiHDN.UseVisualStyleBackColor = false;
-            //btnTaoMoiHDN.Click += btnTaoMoiHDN_Click;
             // 
             // btnThoat
             // 
@@ -482,7 +477,7 @@
             btnThoat.FlatStyle = FlatStyle.Flat;
             btnThoat.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThoat.ForeColor = Color.FromArgb(54, 54, 54);
-            btnThoat.Location = new Point(1201, 22);
+            btnThoat.Location = new Point(1386, 840);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(132, 45);
             btnThoat.TabIndex = 7;
@@ -498,44 +493,13 @@
             btnInHDN.FlatStyle = FlatStyle.Flat;
             btnInHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnInHDN.ForeColor = Color.White;
-            btnInHDN.Location = new Point(905, 22);
+            btnInHDN.Location = new Point(1198, 840);
             btnInHDN.Name = "btnInHDN";
             btnInHDN.Size = new Size(147, 45);
             btnInHDN.TabIndex = 4;
             btnInHDN.Text = "IN HOÁ ĐƠN";
             btnInHDN.UseVisualStyleBackColor = false;
-            // 
-            // btnDuyetHDN
-            // 
-            btnDuyetHDN.BackColor = Color.Aqua;
-            btnDuyetHDN.Cursor = Cursors.Hand;
-            btnDuyetHDN.FlatAppearance.BorderSize = 0;
-            btnDuyetHDN.FlatAppearance.MouseOverBackColor = Color.Cyan;
-            btnDuyetHDN.FlatStyle = FlatStyle.Flat;
-            btnDuyetHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnDuyetHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnDuyetHDN.Location = new Point(634, 22);
-            btnDuyetHDN.Name = "btnDuyetHDN";
-            btnDuyetHDN.Size = new Size(132, 45);
-            btnDuyetHDN.TabIndex = 6;
-            btnDuyetHDN.Text = "DUYỆT";
-            btnDuyetHDN.UseVisualStyleBackColor = false;
-            // 
-            // btnTamLuuHDN
-            // 
-            btnTamLuuHDN.BackColor = Color.DodgerBlue;
-            btnTamLuuHDN.Cursor = Cursors.Hand;
-            btnTamLuuHDN.FlatAppearance.BorderSize = 0;
-            btnTamLuuHDN.FlatAppearance.MouseOverBackColor = Color.Blue;
-            btnTamLuuHDN.FlatStyle = FlatStyle.Flat;
-            btnTamLuuHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnTamLuuHDN.ForeColor = Color.White;
-            btnTamLuuHDN.Location = new Point(384, 22);
-            btnTamLuuHDN.Name = "btnTamLuuHDN";
-            btnTamLuuHDN.Size = new Size(132, 45);
-            btnTamLuuHDN.TabIndex = 5;
-            btnTamLuuHDN.Text = "TẠM LƯU";
-            btnTamLuuHDN.UseVisualStyleBackColor = false;
+            btnInHDN.Click += btnInHDN_Click;
             // 
             // errorProvider1
             // 
@@ -545,41 +509,27 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(668, 13);
+            label7.Location = new Point(592, 15);
             label7.Name = "label7";
-            label7.Size = new Size(314, 38);
+            label7.Size = new Size(486, 38);
             label7.TabIndex = 17;
-            label7.Text = "THÊM HOÁ ĐƠN MỚI";
+            label7.Text = "SỬA THÔNG TIN HOÁ ĐƠN NHẬP";
             // 
-            // panel1
+            // ucSuaHoaDonNhap
             // 
-            panel1.BackColor = Color.White;
-            panel1.Controls.Add(btnTaoMoiHDN);
-            panel1.Controls.Add(btnInHDN);
-            panel1.Controls.Add(btnThoat);
-            panel1.Controls.Add(btnDuyetHDN);
-            panel1.Controls.Add(btnTamLuuHDN);
-            panel1.Location = new Point(46, 783);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1472, 92);
-            panel1.TabIndex = 15;
-            // 
-            // ucThemHDN
-            // 
-            Controls.Add(panel1);
+            Controls.Add(btnThoat);
             Controls.Add(label7);
+            Controls.Add(btnInHDN);
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
-            Name = "ucThemHDN";
+            Name = "ucSuaHoaDonNhap";
             Size = new Size(1591, 908);
-            //Load += ucChiTietHDN_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvChiTiet).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
-            panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -616,15 +566,11 @@
         private Label label13;
         private Label label14;
         private Label lblTongTien;
-
-        private Button btnTaoMoiHDN;
         private Button btnThoat;
         private Button btnInHDN;
-        private Button btnDuyetHDN;
         private Button btnTamLuuHDN;
 
         private ErrorProvider errorProvider1;
-        private Panel panel1;
         private Label label7;
         private TextBox txtThanhTien;
         private BindingSource bindingSource1;
