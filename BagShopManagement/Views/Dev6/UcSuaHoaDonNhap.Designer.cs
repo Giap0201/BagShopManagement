@@ -230,7 +230,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.BackColor = SystemColors.Window;
+            groupBox2.BackColor = Color.White;
             groupBox2.Controls.Add(lblTongTien);
             groupBox2.Controls.Add(txtThanhTien);
             groupBox2.Controls.Add(txtDonGia);
@@ -342,7 +342,7 @@
             btnXoaChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnXoaChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnXoaChiTietHDN.ForeColor = Color.White;
-            btnXoaChiTietHDN.Location = new Point(1133, 364);
+            btnXoaChiTietHDN.Location = new Point(986, 364);
             btnXoaChiTietHDN.Name = "btnXoaChiTietHDN";
             btnXoaChiTietHDN.Size = new Size(119, 46);
             btnXoaChiTietHDN.TabIndex = 7;
@@ -358,7 +358,7 @@
             btnSuaChiTietHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnSuaChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnSuaChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnSuaChiTietHDN.Location = new Point(991, 364);
+            btnSuaChiTietHDN.Location = new Point(1128, 364);
             btnSuaChiTietHDN.Name = "btnSuaChiTietHDN";
             btnSuaChiTietHDN.Size = new Size(119, 46);
             btnSuaChiTietHDN.TabIndex = 8;
@@ -395,7 +395,7 @@
             // 
             // btnThemChiTietHDN
             // 
-            btnThemChiTietHDN.BackColor = Color.Aqua;
+            btnThemChiTietHDN.BackColor = Color.FromArgb(224, 224, 224);
             btnThemChiTietHDN.Cursor = Cursors.Hand;
             btnThemChiTietHDN.FlatAppearance.BorderSize = 0;
             btnThemChiTietHDN.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 192, 192);
@@ -509,6 +509,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(54, 54, 54);
             label7.Location = new Point(592, 15);
             label7.Name = "label7";
             label7.Size = new Size(486, 38);

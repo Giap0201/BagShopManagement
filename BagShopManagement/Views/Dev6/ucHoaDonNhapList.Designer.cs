@@ -88,6 +88,7 @@
             // 
             // dtpDenNgay
             // 
+            dtpDenNgay.CalendarForeColor = Color.FromArgb(54, 54, 54);
             dtpDenNgay.CalendarMonthBackground = Color.FromArgb(252, 252, 252);
             dtpDenNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpDenNgay.Format = DateTimePickerFormat.Short;
@@ -98,6 +99,7 @@
             // 
             // dtpTuNgay
             // 
+            dtpTuNgay.CalendarForeColor = Color.FromArgb(54, 54, 54);
             dtpTuNgay.CalendarMonthBackground = Color.FromArgb(252, 252, 252);
             dtpTuNgay.Cursor = Cursors.Hand;
             dtpTuNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -136,7 +138,7 @@
             btnLamMoi.BackColor = Color.FromArgb(224, 224, 224);
             btnLamMoi.Cursor = Cursors.Hand;
             btnLamMoi.FlatAppearance.BorderSize = 0;
-            btnLamMoi.FlatAppearance.MouseOverBackColor = Color.Silver;
+            btnLamMoi.FlatAppearance.MouseOverBackColor = Color.DarkGray;
             btnLamMoi.FlatStyle = FlatStyle.Flat;
             btnLamMoi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLamMoi.Location = new Point(1070, 115);
@@ -253,7 +255,7 @@
             btnSua.BackColor = Color.FromArgb(224, 224, 224);
             btnSua.Cursor = Cursors.Hand;
             btnSua.FlatAppearance.BorderSize = 0;
-            btnSua.FlatAppearance.MouseOverBackColor = Color.Silver;
+            btnSua.FlatAppearance.MouseOverBackColor = Color.DarkGray;
             btnSua.FlatStyle = FlatStyle.Flat;
             btnSua.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSua.ForeColor = Color.FromArgb(51, 51, 51);
@@ -270,7 +272,7 @@
             btnInHoaDon.BackColor = Color.Gainsboro;
             btnInHoaDon.Cursor = Cursors.Hand;
             btnInHoaDon.FlatAppearance.BorderSize = 0;
-            btnInHoaDon.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnInHoaDon.FlatAppearance.MouseOverBackColor = Color.DarkGray;
             btnInHoaDon.FlatStyle = FlatStyle.Flat;
             btnInHoaDon.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnInHoaDon.ForeColor = Color.FromArgb(51, 51, 51);
@@ -301,10 +303,10 @@
             // 
             // btnHuy
             // 
-            btnHuy.BackColor = Color.FromArgb(231, 76, 60);
+            btnHuy.BackColor = Color.Red;
             btnHuy.Cursor = Cursors.Hand;
             btnHuy.FlatAppearance.BorderSize = 0;
-            btnHuy.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnHuy.FlatAppearance.MouseOverBackColor = Color.FromArgb(192, 0, 0);
             btnHuy.FlatStyle = FlatStyle.Flat;
             btnHuy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnHuy.ForeColor = Color.White;
@@ -321,7 +323,7 @@
             btnDuyet.BackColor = SystemColors.Highlight;
             btnDuyet.Cursor = Cursors.Hand;
             btnDuyet.FlatAppearance.BorderSize = 0;
-            btnDuyet.FlatAppearance.MouseOverBackColor = Color.Blue;
+            btnDuyet.FlatAppearance.MouseOverBackColor = Color.MidnightBlue;
             btnDuyet.FlatStyle = FlatStyle.Flat;
             btnDuyet.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDuyet.ForeColor = Color.White;
@@ -338,7 +340,7 @@
             btnXem.BackColor = Color.FromArgb(224, 224, 224);
             btnXem.Cursor = Cursors.Hand;
             btnXem.FlatAppearance.BorderSize = 0;
-            btnXem.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnXem.FlatAppearance.MouseOverBackColor = Color.DarkGray;
             btnXem.FlatStyle = FlatStyle.Flat;
             btnXem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXem.ForeColor = Color.FromArgb(54, 54, 54);
