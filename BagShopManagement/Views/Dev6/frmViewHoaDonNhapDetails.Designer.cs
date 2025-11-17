@@ -289,7 +289,7 @@
             lblTongTien.AutoSize = true;
             lblTongTien.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTongTien.ForeColor = Color.Red;
-            lblTongTien.Location = new Point(843, 326);
+            lblTongTien.Location = new Point(979, 326);
             lblTongTien.Name = "lblTongTien";
             lblTongTien.Size = new Size(82, 28);
             lblTongTien.TabIndex = 17;
@@ -321,7 +321,7 @@
             dgvChiTiet.BackgroundColor = SystemColors.Control;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = Color.White;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -362,7 +362,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label8.ForeColor = Color.FromArgb(54, 54, 54);
-            label8.Location = new Point(671, 326);
+            label8.Location = new Point(773, 326);
             label8.Name = "label8";
             label8.Size = new Size(125, 28);
             label8.TabIndex = 1;
