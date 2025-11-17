@@ -51,7 +51,7 @@
             // 
             // panel1
             // 
-            panel1.BackColor = SystemColors.Info;
+            panel1.BackColor = Color.FromArgb(64, 78, 103);
             panel1.Controls.Add(btnBCTK);
             panel1.Controls.Add(btnKhuyenMai);
             panel1.Controls.Add(btnTonKho);
@@ -164,6 +164,7 @@
             // 
             // btnSanPham
             // 
+            btnSanPham.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             btnSanPham.Location = new Point(0, 199);
             btnSanPham.Name = "btnSanPham";
             btnSanPham.Size = new Size(330, 57);

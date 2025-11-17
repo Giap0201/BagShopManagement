@@ -33,7 +33,7 @@
             // 
             // panelHeader
             // 
-            panelHeader.BackColor = SystemColors.MenuHighlight;
+            panelHeader.BackColor = Color.FromArgb(52, 73, 94);
             panelHeader.Dock = DockStyle.Top;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
