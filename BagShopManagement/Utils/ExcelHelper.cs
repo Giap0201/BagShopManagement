@@ -23,7 +23,7 @@ namespace BagShopManagement.Utils
 
                 // Ten cua hang
                 ws.Cells[dong, 1, dong, 7].Merge = true;
-                ws.Cells[dong, 1].Value = "TÚI XÁCH CAO CẤP LUXURY";
+                ws.Cells[dong, 1].Value = "TÚI XÁCH CAO CẤP UTC";
                 ws.Cells[dong, 1].Style.Font.Size = 22;
                 ws.Cells[dong, 1].Style.Font.Bold = true;
                 ws.Cells[dong, 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -247,6 +247,32 @@ namespace BagShopManagement.Utils
 
         public static void XuatBaoCaoChung(string filePath, DataTable data, string tieuDe)
         {
+            // Convert string date → DateTime
+            foreach (DataColumn col in data.Columns)
+            {
+                if (col.ColumnName.ToLower().Contains("ngay")) // cột NgayBan, NgayNhap, NgayTao...
+                {
+                    if (col.DataType != typeof(DateTime))
+                    {
+                        // Tạo cột DateTime tạm
+                        DataColumn newCol = new DataColumn(col.ColumnName + "_dt", typeof(DateTime));
+
+                        data.Columns.Add(newCol);
+
+                        foreach (DataRow row in data.Rows)
+                        {
+                            DateTime dt;
+                            if (DateTime.TryParse(row[col.ColumnName]?.ToString(), out dt))
+                                row[newCol.ColumnName] = dt;
+                        }
+
+                        // Xóa cột cũ & đổi tên cột mới
+                        data.Columns.Remove(col);
+                        newCol.ColumnName = col.ColumnName;
+                    }
+                }
+            }
+
             using var package = new ExcelPackage();
             var ws = package.Workbook.Worksheets.Add("Báo cáo");
 
@@ -270,6 +296,15 @@ namespace BagShopManagement.Utils
 
             // Data
             ws.Cells[5, 1].LoadFromDataTable(data, false);
+
+            // Format lại cột ngày trong Excel
+            for (int col = 1; col <= data.Columns.Count; col++)
+            {
+                if (data.Columns[col - 1].DataType == typeof(DateTime))
+                {
+                    ws.Column(col).Style.Numberformat.Format = "dd/MM/yyyy";
+                }
+            }
 
             ws.Cells[1, 1, 4 + data.Rows.Count, data.Columns.Count].AutoFitColumns();
             package.SaveAs(new FileInfo(filePath));
