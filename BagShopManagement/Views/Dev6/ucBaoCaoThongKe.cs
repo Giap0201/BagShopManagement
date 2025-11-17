@@ -26,7 +26,7 @@ namespace BagShopManagement.Views.Dev6
             dtpTuNgay.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpDenNgay.Value = DateTime.Today;
 
-            HideAllViews();
+            //HideAllViews();
             SelectMenuButton(btnDoanhThu);
             LoadCurrentReport();
         }
@@ -86,14 +86,14 @@ namespace BagShopManagement.Views.Dev6
             if (data == null || data.Rows.Count == 0)
             {
                 ShowInfo("Không có dữ liệu trong khoảng thời gian này.");
-                HideAllViews();
+                //HideAllViews();
                 return;
             }
 
             _currentData = data;
             UpdateTitle();
             ShowGrid(data);
-            HideChart();
+            //HideChart();
         }
 
         private void UpdateTitle()
@@ -173,94 +173,94 @@ namespace BagShopManagement.Views.Dev6
             _ => columnName
         };
 
-        private void btnXemBieuDo_Click(object sender, EventArgs e)
-        {
-            if (_currentData == null || _currentData.Rows.Count == 0)
-            {
-                ShowWarning("Không có dữ liệu để vẽ biểu đồ!");
-                return;
-            }
+        //private void btnXemBieuDo_Click(object sender, EventArgs e)
+        //{
+        //    if (_currentData == null || _currentData.Rows.Count == 0)
+        //    {
+        //        ShowWarning("Không có dữ liệu để vẽ biểu đồ!");
+        //        return;
+        //    }
 
-            chartDoanhThu.Series.Clear();
-            chartDoanhThu.Titles.Clear();
-            chartDoanhThu.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
-            chartDoanhThu.ChartAreas[0].AxisX.Interval = 1;
+        //    chartDoanhThu.Series.Clear();
+        //    chartDoanhThu.Titles.Clear();
+        //    chartDoanhThu.ChartAreas[0].AxisX.LabelStyle.Angle = -45;
+        //    chartDoanhThu.ChartAreas[0].AxisX.Interval = 1;
 
-            // Chọn biểu đồ phù hợp theo từng báo cáo
-            switch (_currentReportType)
-            {
-                case "doanhthu":
-                    DrawChart("Doanh thu theo ngày", "NgayBan", "TongDoanhThu", SeriesChartType.Column, "Doanh thu (đ)");
-                    break;
+        //    // Chọn biểu đồ phù hợp theo từng báo cáo
+        //    switch (_currentReportType)
+        //    {
+        //        case "doanhthu":
+        //            DrawChart("Doanh thu theo ngày", "NgayBan", "TongDoanhThu", SeriesChartType.Column, "Doanh thu (đ)");
+        //            break;
 
-                case "nhaphang":
-                    DrawChart("Chi phí nhập hàng", "NgayNhap", "TongTienNhap", SeriesChartType.Area, "Tiền nhập (đ)");
-                    break;
+        //        case "nhaphang":
+        //            DrawChart("Chi phí nhập hàng", "NgayNhap", "TongTienNhap", SeriesChartType.Area, "Tiền nhập (đ)");
+        //            break;
 
-                case "tonkho":
-                    // Lỗi biểu đồ tồn kho thường do dữ liệu không phù hợp với biểu đồ cột
-                    // Thường tồn kho không nhiều nhóm, dùng Pie chart sẽ trực quan hơn
-                    DrawChart("Tồn kho theo sản phẩm", "TenSP", "SoLuongTon", SeriesChartType.Pie, "Số lượng tồn");
-                    break;
+        //        case "tonkho":
+        //            // Lỗi biểu đồ tồn kho thường do dữ liệu không phù hợp với biểu đồ cột
+        //            // Thường tồn kho không nhiều nhóm, dùng Pie chart sẽ trực quan hơn
+        //            DrawChart("Tồn kho theo sản phẩm", "TenSP", "SoLuongTon", SeriesChartType.Pie, "Số lượng tồn");
+        //            break;
 
-                case "nhanvien":
-                    // Doanh thu nhân viên nên dùng Bar chart hoặc Column chart, nếu tên dài thì Bar chart
-                    // Sửa lỗi bằng cách đổi thành Bar chart, tránh tràn nhãn tên nhân viên
-                    DrawChart("Doanh thu theo nhân viên", "TenNhanVien", "TongDoanhThu", SeriesChartType.Bar, "Doanh thu (đ)");
-                    break;
+        //        case "nhanvien":
+        //            // Doanh thu nhân viên nên dùng Bar chart hoặc Column chart, nếu tên dài thì Bar chart
+        //            // Sửa lỗi bằng cách đổi thành Bar chart, tránh tràn nhãn tên nhân viên
+        //            DrawChart("Doanh thu theo nhân viên", "TenNhanVien", "TongDoanhThu", SeriesChartType.Bar, "Doanh thu (đ)");
+        //            break;
 
-                case "sanpham":
-                    DrawChart("Top sản phẩm bán chạy", "TenSP", "TongSoLuongBan", SeriesChartType.Bar, "Số lượng bán");
-                    break;
+        //        case "sanpham":
+        //            DrawChart("Top sản phẩm bán chạy", "TenSP", "TongSoLuongBan", SeriesChartType.Bar, "Số lượng bán");
+        //            break;
 
-                case "khachhang":
-                    DrawChart("Top khách hàng thân thiết", "TenKhachHang", "TongChiTieu", SeriesChartType.Pie, "Tổng chi tiêu");
-                    break;
+        //        case "khachhang":
+        //            DrawChart("Top khách hàng thân thiết", "TenKhachHang", "TongChiTieu", SeriesChartType.Pie, "Tổng chi tiêu");
+        //            break;
 
-                case "giamgia":
-                    ShowInfo("Biểu đồ giảm giá sẽ được bổ sung trong bản cập nhật tiếp theo.");
-                    break;
+        //        case "giamgia":
+        //            ShowInfo("Biểu đồ giảm giá sẽ được bổ sung trong bản cập nhật tiếp theo.");
+        //            break;
 
-                default:
-                    ShowInfo("Chưa hỗ trợ biểu đồ cho loại báo cáo này.");
-                    break;
-            }
-        }
+        //        default:
+        //            ShowInfo("Chưa hỗ trợ biểu đồ cho loại báo cáo này.");
+        //            break;
+        //    }
+        //}
 
-        private void DrawChart(string title, string xCol, string yCol, SeriesChartType chartType, string yTitle)
-        {
-            var series = new Series("Data")
-            {
-                ChartType = chartType,
-                XValueMember = xCol,
-                YValueMembers = yCol,
-                IsValueShownAsLabel = true,
-                Font = new Font("Segoe UI", 9F, FontStyle.Bold)
-            };
+        //private void DrawChart(string title, string xCol, string yCol, SeriesChartType chartType, string yTitle)
+        //{
+        //    var series = new Series("Data")
+        //    {
+        //        ChartType = chartType,
+        //        XValueMember = xCol,
+        //        YValueMembers = yCol,
+        //        IsValueShownAsLabel = true,
+        //        Font = new Font("Segoe UI", 9F, FontStyle.Bold)
+        //    };
 
-            if (chartType == SeriesChartType.Pie || chartType == SeriesChartType.Doughnut)
-            {
-                series["PieLabelStyle"] = "Outside";
-                series["PieLineColor"] = "Black";
-            }
+        //    if (chartType == SeriesChartType.Pie || chartType == SeriesChartType.Doughnut)
+        //    {
+        //        series["PieLabelStyle"] = "Outside";
+        //        series["PieLineColor"] = "Black";
+        //    }
 
-            chartDoanhThu.Series.Add(series);
-            chartDoanhThu.DataSource = _currentData;
-            chartDoanhThu.DataBind();
+        //    chartDoanhThu.Series.Add(series);
+        //    chartDoanhThu.DataSource = _currentData;
+        //    chartDoanhThu.DataBind();
 
-            chartDoanhThu.Titles.Add(title).Font = new Font("Segoe UI", 14F, FontStyle.Bold);
-            chartDoanhThu.ChartAreas[0].AxisY.Title = yTitle;
-            chartDoanhThu.ChartAreas[0].AxisY.TitleFont = new Font("Segoe UI", 10F, FontStyle.Bold);
+        //    chartDoanhThu.Titles.Add(title).Font = new Font("Segoe UI", 14F, FontStyle.Bold);
+        //    chartDoanhThu.ChartAreas[0].AxisY.Title = yTitle;
+        //    chartDoanhThu.ChartAreas[0].AxisY.TitleFont = new Font("Segoe UI", 10F, FontStyle.Bold);
 
-            chartDoanhThu.Visible = true;
-            dgvBaoCao.Visible = false;
-        }
+        //    chartDoanhThu.Visible = true;
+        //    dgvBaoCao.Visible = false;
+        //}
 
-        private void btnXemBang_Click(object sender, EventArgs e)
-        {
-            dgvBaoCao.Visible = true;
-            chartDoanhThu.Visible = false;
-        }
+        //private void btnXemBang_Click(object sender, EventArgs e)
+        //{
+        //    dgvBaoCao.Visible = true;
+        //    chartDoanhThu.Visible = false;
+        //}
 
         private void btnXuatExcel_Click(object sender, EventArgs e)
         {
@@ -307,10 +307,6 @@ namespace BagShopManagement.Views.Dev6
             selected.BackColor = Color.FromArgb(30, 144, 255);
             selected.ForeColor = Color.White;
         }
-
-        private void HideAllViews() => dgvBaoCao.Visible = chartDoanhThu.Visible = false;
-
-        private void HideChart() => chartDoanhThu.Visible = false;
 
         private void ShowInfo(string msg) => MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

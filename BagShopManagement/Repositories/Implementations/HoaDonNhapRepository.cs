@@ -67,6 +67,7 @@ namespace BagShopManagement.Repositories.Implementations
                 TenNV = reader.IsDBNull(reader.GetOrdinal("TenNV")) ? "" : reader["TenNV"].ToString(),
                 NgayNhap = Convert.ToDateTime(reader["NgayNhap"]),
                 NgayDuyet = reader.IsDBNull(reader.GetOrdinal("NgayDuyet")) ? null : Convert.ToDateTime(reader["NgayDuyet"]),
+                NgayHuy = reader.IsDBNull(reader.GetOrdinal("NgayHuy")) ? null : Convert.ToDateTime(reader["NgayHuy"]),
                 TongTien = Convert.ToDecimal(reader["TongTien"]),
                 GhiChu = reader.IsDBNull(reader.GetOrdinal("GhiChu")) ? null : reader["GhiChu"].ToString(),
                 TrangThai = (TrangThaiHoaDonNhap)Convert.ToByte(reader["TrangThai"])
