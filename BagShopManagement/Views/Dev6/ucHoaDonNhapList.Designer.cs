@@ -251,6 +251,7 @@
             // btnSua
             // 
             btnSua.BackColor = Color.FromArgb(224, 224, 224);
+            btnSua.Cursor = Cursors.Hand;
             btnSua.FlatAppearance.BorderSize = 0;
             btnSua.FlatAppearance.MouseOverBackColor = Color.Silver;
             btnSua.FlatStyle = FlatStyle.Flat;
@@ -267,6 +268,7 @@
             // btnInHoaDon
             // 
             btnInHoaDon.BackColor = Color.Gainsboro;
+            btnInHoaDon.Cursor = Cursors.Hand;
             btnInHoaDon.FlatAppearance.BorderSize = 0;
             btnInHoaDon.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnInHoaDon.FlatStyle = FlatStyle.Flat;
@@ -283,6 +285,7 @@
             // btnXuatExel
             // 
             btnXuatExel.BackColor = Color.FromArgb(224, 224, 224);
+            btnXuatExel.Cursor = Cursors.Hand;
             btnXuatExel.FlatAppearance.BorderSize = 0;
             btnXuatExel.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnXuatExel.FlatStyle = FlatStyle.Flat;
@@ -299,6 +302,7 @@
             // btnHuy
             // 
             btnHuy.BackColor = Color.FromArgb(231, 76, 60);
+            btnHuy.Cursor = Cursors.Hand;
             btnHuy.FlatAppearance.BorderSize = 0;
             btnHuy.FlatAppearance.MouseOverBackColor = Color.Red;
             btnHuy.FlatStyle = FlatStyle.Flat;
@@ -315,6 +319,7 @@
             // btnDuyet
             // 
             btnDuyet.BackColor = SystemColors.Highlight;
+            btnDuyet.Cursor = Cursors.Hand;
             btnDuyet.FlatAppearance.BorderSize = 0;
             btnDuyet.FlatAppearance.MouseOverBackColor = Color.Blue;
             btnDuyet.FlatStyle = FlatStyle.Flat;
@@ -331,6 +336,7 @@
             // btnXem
             // 
             btnXem.BackColor = Color.FromArgb(224, 224, 224);
+            btnXem.Cursor = Cursors.Hand;
             btnXem.FlatAppearance.BorderSize = 0;
             btnXem.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnXem.FlatStyle = FlatStyle.Flat;
@@ -347,6 +353,7 @@
             // btnThem
             // 
             btnThem.BackColor = SystemColors.Highlight;
+            btnThem.Cursor = Cursors.Hand;
             btnThem.FlatAppearance.BorderSize = 0;
             btnThem.FlatAppearance.MouseOverBackColor = Color.Blue;
             btnThem.FlatStyle = FlatStyle.Flat;

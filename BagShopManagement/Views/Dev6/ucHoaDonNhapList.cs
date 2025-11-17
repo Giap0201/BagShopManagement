@@ -56,8 +56,6 @@ namespace BagShopManagement.Views.Dev6
             try
             {
                 var danhSach = _controller.LayDanhSachHoaDon();
-
-                // CHỈNH SỬA TẠI ĐÂY: Chuyển null thành "N/A" cho Ngày duyệt & Ngày hủy
                 foreach (var hd in danhSach)
                 {
                     if (!hd.NgayDuyet.HasValue) hd.NgayDuyet = null;
@@ -170,11 +168,12 @@ namespace BagShopManagement.Views.Dev6
             dgvDanhSach.Columns["TongTien"].HeaderText = "TỔNG TIỀN";
             dgvDanhSach.Columns["TenTrangThai"].HeaderText = "TRẠNG THÁI";
 
-            dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgvDanhSach.Columns["NgayNhap"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
+            dgvDanhSach.Columns["NgayNhap"].DefaultCellStyle.NullValue = "N/A";
+            dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
             dgvDanhSach.Columns["NgayDuyet"].DefaultCellStyle.NullValue = "N/A";
-            dgvDanhSach.Columns["NgayHuy"].DefaultCellStyle.Format = "dd/MM/yyyy";
+            dgvDanhSach.Columns["NgayHuy"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm";
             dgvDanhSach.Columns["NgayHuy"].DefaultCellStyle.NullValue = "N/A";
-
             dgvDanhSach.Columns["TongTien"].DefaultCellStyle.Format = "N0";
 
             string[] hideCols = { "MaNCC", "MaNV", "GhiChu", "ChiTiet", "TrangThai", "NgayDuyet", "NgayHuy" };
@@ -182,7 +181,6 @@ namespace BagShopManagement.Views.Dev6
                 if (dgvDanhSach.Columns.Contains(col) && col != "NgayDuyet" && col != "NgayHuy")
                     dgvDanhSach.Columns[col].Visible = false;
 
-            // Hiển thị 2 cột ngày duyệt & ngày hủy
             if (dgvDanhSach.Columns.Contains("NgayDuyet")) dgvDanhSach.Columns["NgayDuyet"].Visible = true;
             if (dgvDanhSach.Columns.Contains("NgayHuy")) dgvDanhSach.Columns["NgayHuy"].Visible = true;
 

@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             pnlMenu = new Panel();
             btnDoanhThu = new Button();
             btnNhapHang = new Button();
@@ -42,20 +40,16 @@
             pnlHeader = new Panel();
             btnInBaoCao = new Button();
             btnXuatExcel = new Button();
-            btnXemBang = new Button();
-            btnXemBieuDo = new Button();
             btnXemBaoCao = new Button();
             dtpDenNgay = new DateTimePicker();
             dtpTuNgay = new DateTimePicker();
             lblDenNgay = new Label();
             lblTuNgay = new Label();
             lblTieuDe = new Label();
-            chartDoanhThu = new System.Windows.Forms.DataVisualization.Charting.Chart();
             dgvBaoCao = new DataGridView();
             pnlMenu.SuspendLayout();
             pnlContent.SuspendLayout();
             pnlHeader.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chartDoanhThu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dgvBaoCao).BeginInit();
             SuspendLayout();
             // 
@@ -162,7 +156,6 @@
             // pnlContent
             // 
             pnlContent.Controls.Add(pnlHeader);
-            pnlContent.Controls.Add(chartDoanhThu);
             pnlContent.Controls.Add(dgvBaoCao);
             pnlContent.Location = new Point(12, 110);
             pnlContent.Name = "pnlContent";
@@ -175,8 +168,6 @@
             pnlHeader.BorderStyle = BorderStyle.FixedSingle;
             pnlHeader.Controls.Add(btnInBaoCao);
             pnlHeader.Controls.Add(btnXuatExcel);
-            pnlHeader.Controls.Add(btnXemBang);
-            pnlHeader.Controls.Add(btnXemBieuDo);
             pnlHeader.Controls.Add(btnXemBaoCao);
             pnlHeader.Controls.Add(dtpDenNgay);
             pnlHeader.Controls.Add(dtpTuNgay);
@@ -206,26 +197,6 @@
             btnXuatExcel.Text = "Xuất Excel";
             btnXuatExcel.UseVisualStyleBackColor = true;
             btnXuatExcel.Click += btnXuatExcel_Click;
-            // 
-            // btnXemBang
-            // 
-            btnXemBang.Location = new Point(960, 20);
-            btnXemBang.Name = "btnXemBang";
-            btnXemBang.Size = new Size(160, 40);
-            btnXemBang.TabIndex = 7;
-            btnXemBang.Text = "Xem bảng";
-            btnXemBang.UseVisualStyleBackColor = true;
-            btnXemBang.Click += btnXemBang_Click;
-            // 
-            // btnXemBieuDo
-            // 
-            btnXemBieuDo.Location = new Point(780, 20);
-            btnXemBieuDo.Name = "btnXemBieuDo";
-            btnXemBieuDo.Size = new Size(160, 40);
-            btnXemBieuDo.TabIndex = 6;
-            btnXemBieuDo.Text = "Xem biểu đồ";
-            btnXemBieuDo.UseVisualStyleBackColor = true;
-            btnXemBieuDo.Click += btnXemBieuDo_Click;
             // 
             // btnXemBaoCao
             // 
@@ -283,24 +254,12 @@
             lblTieuDe.TabIndex = 0;
             lblTieuDe.Text = "BÁO CÁO & THỐNG KÊ";
             // 
-            // chartDoanhThu
-            // 
-            chartArea1.Name = "ChartArea1";
-            chartDoanhThu.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            chartDoanhThu.Legends.Add(legend1);
-            chartDoanhThu.Location = new Point(20, 120);
-            chartDoanhThu.Name = "chartDoanhThu";
-            chartDoanhThu.Size = new Size(1520, 400);
-            chartDoanhThu.TabIndex = 1;
-            chartDoanhThu.Visible = false;
-            // 
             // dgvBaoCao
             // 
             dgvBaoCao.AllowUserToAddRows = false;
             dgvBaoCao.AllowUserToDeleteRows = false;
             dgvBaoCao.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBaoCao.BackgroundColor = Color.White;
+            dgvBaoCao.BackgroundColor = SystemColors.Control;
             dgvBaoCao.BorderStyle = BorderStyle.None;
             dgvBaoCao.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvBaoCao.Location = new Point(20, 120);
@@ -328,7 +287,6 @@
             pnlContent.ResumeLayout(false);
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)chartDoanhThu).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvBaoCao).EndInit();
             ResumeLayout(false);
         }
@@ -352,12 +310,8 @@
         private System.Windows.Forms.DateTimePicker dtpTuNgay;
         private System.Windows.Forms.DateTimePicker dtpDenNgay;
         private System.Windows.Forms.Button btnXemBaoCao;
-        private System.Windows.Forms.Button btnXemBieuDo;
-        private System.Windows.Forms.Button btnXemBang;
         private System.Windows.Forms.Button btnXuatExcel;
         private System.Windows.Forms.Button btnInBaoCao;
-
-        private System.Windows.Forms.DataVisualization.Charting.Chart chartDoanhThu;
         private System.Windows.Forms.DataGridView dgvBaoCao;
     }
 }
