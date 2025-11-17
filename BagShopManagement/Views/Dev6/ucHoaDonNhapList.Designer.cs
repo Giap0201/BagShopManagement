@@ -79,9 +79,9 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
-            groupBox1.Location = new Point(66, 81);
+            groupBox1.Location = new Point(53, 81);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1457, 196);
+            groupBox1.Size = new Size(1481, 196);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "TÌM KIẾM";
@@ -288,7 +288,7 @@
             btnXuatExel.FlatStyle = FlatStyle.Flat;
             btnXuatExel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXuatExel.ForeColor = Color.FromArgb(51, 51, 51);
-            btnXuatExel.Location = new Point(1391, 846);
+            btnXuatExel.Location = new Point(1402, 846);
             btnXuatExel.Name = "btnXuatExel";
             btnXuatExel.Size = new Size(132, 39);
             btnXuatExel.TabIndex = 6;
@@ -366,6 +366,7 @@
             dgvDanhSach.AllowUserToDeleteRows = false;
             dgvDanhSach.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvDanhSach.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvDanhSach.BackgroundColor = SystemColors.ControlLight;
             dgvDanhSach.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
@@ -378,7 +379,7 @@
             dgvDanhSach.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvDanhSach.EnableHeadersVisualStyles = false;
             dgvDanhSach.GridColor = Color.LightGray;
-            dgvDanhSach.Location = new Point(66, 381);
+            dgvDanhSach.Location = new Point(53, 381);
             dgvDanhSach.MultiSelect = false;
             dgvDanhSach.Name = "dgvDanhSach";
             dgvDanhSach.ReadOnly = true;
@@ -393,7 +394,7 @@
             dgvDanhSach.RowHeadersVisible = false;
             dgvDanhSach.RowHeadersWidth = 51;
             dgvDanhSach.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDanhSach.Size = new Size(1457, 446);
+            dgvDanhSach.Size = new Size(1481, 446);
             dgvDanhSach.TabIndex = 8;
             dgvDanhSach.CellClick += dgvDanhSach_CellClick;
             dgvDanhSach.SelectionChanged += dgvDanhSach_SelectionChanged;
@@ -416,9 +417,9 @@
             panel1.Controls.Add(btnDuyet);
             panel1.Controls.Add(btnInHoaDon);
             panel1.Controls.Add(btnHuy);
-            panel1.Location = new Point(66, 293);
+            panel1.Location = new Point(53, 293);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1457, 67);
+            panel1.Size = new Size(1481, 67);
             panel1.TabIndex = 10;
             // 
             // ucHoaDonNhapList
