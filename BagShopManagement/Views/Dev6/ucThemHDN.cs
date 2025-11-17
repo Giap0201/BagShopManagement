@@ -78,12 +78,10 @@ namespace BagShopManagement.Views.Dev6
             dgvChiTiet.Columns["DonGia"].DataPropertyName = "DonGia";
             dgvChiTiet.Columns["ThanhTien"].DataPropertyName = "ThanhTien";
 
-            dgvChiTiet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvChiTiet.MultiSelect = false;
-            dgvChiTiet.ReadOnly = true;
-            dgvChiTiet.AllowUserToAddRows = false;
-            dgvChiTiet.DataSource = new BindingList<ChiTietHDNResponse>(_listChiTiets);
+            //dgvChiTiet.DataSource = new BindingList<ChiTietHDNResponse>(_listChiTiets);
+            var source = new BindingSource();
+            source.DataSource = new BindingList<ChiTietHDNResponse>(_listChiTiets);
+            dgvChiTiet.DataSource = source;
         }
 
         // load du lieu cho cac combobox
@@ -621,12 +619,10 @@ namespace BagShopManagement.Views.Dev6
 
         private void label6_Click(object sender, EventArgs e)
         {
-
         }
 
         private void cboNhanVien_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         //private void btnInHDN_Click(object sender, EventArgs e)
