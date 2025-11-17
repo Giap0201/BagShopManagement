@@ -84,7 +84,7 @@
             groupBox1.FlatStyle = FlatStyle.Flat;
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(54, 54, 54);
-            groupBox1.Location = new Point(46, 82);
+            groupBox1.Location = new Point(46, 70);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(1472, 170);
             groupBox1.TabIndex = 0;
@@ -238,9 +238,9 @@
             groupBox2.FlatStyle = FlatStyle.Flat;
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.FromArgb(54, 54, 54);
-            groupBox2.Location = new Point(46, 277);
+            groupBox2.Location = new Point(46, 262);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1472, 482);
+            groupBox2.Size = new Size(1472, 499);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CHI TIẾT HOÁ ĐƠN";
@@ -248,9 +248,11 @@
             // lblTongTien
             // 
             lblTongTien.AutoSize = true;
-            lblTongTien.Location = new Point(149, 426);
+            lblTongTien.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTongTien.ForeColor = Color.Red;
+            lblTongTien.Location = new Point(155, 426);
             lblTongTien.Name = "lblTongTien";
-            lblTongTien.Size = new Size(19, 23);
+            lblTongTien.Size = new Size(22, 25);
             lblTongTien.TabIndex = 0;
             lblTongTien.Text = "0";
             // 
@@ -316,9 +318,10 @@
             // label14
             // 
             label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label14.Location = new Point(37, 426);
             label14.Name = "label14";
-            label14.Size = new Size(87, 23);
+            label14.Size = new Size(99, 25);
             label14.TabIndex = 6;
             label14.Text = "Tổng tiền:";
             // 
@@ -420,7 +423,7 @@
             dgvChiTiet.BackgroundColor = SystemColors.Control;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = Color.White;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
