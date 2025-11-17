@@ -18,6 +18,8 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             cboTrangThai = new ComboBox();
             label3 = new Label();
@@ -55,11 +57,13 @@
             errorProvider1 = new ErrorProvider(components);
             label7 = new Label();
             panel1 = new Panel();
+            bindingSource1 = new BindingSource(components);
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvChiTiet).BeginInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).BeginInit();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
             // 
             // groupBox1
@@ -80,9 +84,9 @@
             groupBox1.FlatStyle = FlatStyle.Flat;
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(54, 54, 54);
-            groupBox1.Location = new Point(65, 63);
+            groupBox1.Location = new Point(46, 82);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1446, 177);
+            groupBox1.Size = new Size(1472, 170);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN CHUNG";
@@ -90,7 +94,6 @@
             // cboTrangThai
             // 
             cboTrangThai.BackColor = SystemColors.Window;
-            cboTrangThai.Cursor = Cursors.Hand;
             cboTrangThai.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cboTrangThai.ForeColor = Color.FromArgb(54, 54, 54);
             cboTrangThai.Location = new Point(1180, 43);
@@ -196,7 +199,6 @@
             // txtMaHDN
             // 
             txtMaHDN.BackColor = SystemColors.Control;
-            txtMaHDN.Cursor = Cursors.Hand;
             txtMaHDN.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMaHDN.ForeColor = Color.FromArgb(54, 54, 54);
             txtMaHDN.Location = new Point(243, 44);
@@ -217,7 +219,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.BackColor = Color.White;
+            groupBox2.BackColor = SystemColors.Window;
             groupBox2.Controls.Add(lblTongTien);
             groupBox2.Controls.Add(txtThanhTien);
             groupBox2.Controls.Add(txtDonGia);
@@ -233,11 +235,12 @@
             groupBox2.Controls.Add(btnThemChiTietHDN);
             groupBox2.Controls.Add(label10);
             groupBox2.Controls.Add(dgvChiTiet);
+            groupBox2.FlatStyle = FlatStyle.Flat;
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.FromArgb(54, 54, 54);
-            groupBox2.Location = new Point(65, 272);
+            groupBox2.Location = new Point(46, 277);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1446, 448);
+            groupBox2.Size = new Size(1472, 482);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CHI TIẾT HOÁ ĐƠN";
@@ -245,7 +248,7 @@
             // lblTongTien
             // 
             lblTongTien.AutoSize = true;
-            lblTongTien.Location = new Point(148, 402);
+            lblTongTien.Location = new Point(149, 426);
             lblTongTien.Name = "lblTongTien";
             lblTongTien.Size = new Size(19, 23);
             lblTongTien.TabIndex = 0;
@@ -253,7 +256,6 @@
             // 
             // txtThanhTien
             // 
-            txtThanhTien.Cursor = Cursors.Hand;
             txtThanhTien.Font = new Font("Segoe UI", 10.2F);
             txtThanhTien.ForeColor = Color.FromArgb(54, 54, 54);
             txtThanhTien.Location = new Point(1106, 239);
@@ -314,7 +316,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(37, 402);
+            label14.Location = new Point(37, 426);
             label14.Name = "label14";
             label14.Size = new Size(87, 23);
             label14.TabIndex = 6;
@@ -411,22 +413,45 @@
             // 
             dgvChiTiet.AllowUserToAddRows = false;
             dgvChiTiet.AllowUserToDeleteRows = false;
+            dgvChiTiet.AllowUserToResizeColumns = false;
+            dgvChiTiet.AllowUserToResizeRows = false;
+            dgvChiTiet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvChiTiet.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvChiTiet.BackgroundColor = SystemColors.Control;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvChiTiet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvChiTiet.ColumnHeadersHeight = 29;
-            dgvChiTiet.ColumnHeadersVisible = false;
             dgvChiTiet.Cursor = Cursors.Hand;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(54, 54, 54);
+            dataGridViewCellStyle2.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvChiTiet.EnableHeadersVisualStyles = false;
+            dgvChiTiet.GridColor = Color.LightGray;
             dgvChiTiet.Location = new Point(37, 42);
             dgvChiTiet.MultiSelect = false;
             dgvChiTiet.Name = "dgvChiTiet";
             dgvChiTiet.ReadOnly = true;
             dgvChiTiet.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvChiTiet.RowHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvChiTiet.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvChiTiet.RowHeadersVisible = false;
             dgvChiTiet.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvChiTiet.Size = new Size(730, 344);
@@ -442,7 +467,7 @@
             btnTaoMoiHDN.FlatStyle = FlatStyle.Flat;
             btnTaoMoiHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnTaoMoiHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnTaoMoiHDN.Location = new Point(65, 13);
+            btnTaoMoiHDN.Location = new Point(136, 22);
             btnTaoMoiHDN.Name = "btnTaoMoiHDN";
             btnTaoMoiHDN.Size = new Size(132, 45);
             btnTaoMoiHDN.TabIndex = 2;
@@ -458,7 +483,7 @@
             btnThoat.FlatStyle = FlatStyle.Flat;
             btnThoat.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThoat.ForeColor = Color.FromArgb(54, 54, 54);
-            btnThoat.Location = new Point(977, 13);
+            btnThoat.Location = new Point(1201, 22);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(132, 45);
             btnThoat.TabIndex = 7;
@@ -474,7 +499,7 @@
             btnInHDN.FlatStyle = FlatStyle.Flat;
             btnInHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnInHDN.ForeColor = Color.White;
-            btnInHDN.Location = new Point(684, 22);
+            btnInHDN.Location = new Point(905, 22);
             btnInHDN.Name = "btnInHDN";
             btnInHDN.Size = new Size(147, 45);
             btnInHDN.TabIndex = 4;
@@ -491,7 +516,7 @@
             btnDuyetHDN.FlatStyle = FlatStyle.Flat;
             btnDuyetHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDuyetHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnDuyetHDN.Location = new Point(423, 13);
+            btnDuyetHDN.Location = new Point(634, 22);
             btnDuyetHDN.Name = "btnDuyetHDN";
             btnDuyetHDN.Size = new Size(132, 45);
             btnDuyetHDN.TabIndex = 6;
@@ -508,7 +533,7 @@
             btnTamLuuHDN.FlatStyle = FlatStyle.Flat;
             btnTamLuuHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnTamLuuHDN.ForeColor = Color.White;
-            btnTamLuuHDN.Location = new Point(244, 13);
+            btnTamLuuHDN.Location = new Point(384, 22);
             btnTamLuuHDN.Name = "btnTamLuuHDN";
             btnTamLuuHDN.Size = new Size(132, 45);
             btnTamLuuHDN.TabIndex = 5;
@@ -533,15 +558,14 @@
             // panel1
             // 
             panel1.BackColor = Color.White;
-            panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(btnTaoMoiHDN);
             panel1.Controls.Add(btnInHDN);
             panel1.Controls.Add(btnThoat);
             panel1.Controls.Add(btnDuyetHDN);
             panel1.Controls.Add(btnTamLuuHDN);
-            panel1.Location = new Point(65, 736);
+            panel1.Location = new Point(46, 783);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1446, 92);
+            panel1.Size = new Size(1472, 92);
             panel1.TabIndex = 15;
             // 
             // ucThemHDN
@@ -551,7 +575,7 @@
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
             Name = "ucThemHDN";
-            Size = new Size(1591, 876);
+            Size = new Size(1591, 908);
             Load += ucChiTietHDN_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -560,6 +584,7 @@
             ((System.ComponentModel.ISupportInitialize)dgvChiTiet).EndInit();
             ((System.ComponentModel.ISupportInitialize)errorProvider1).EndInit();
             panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)bindingSource1).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -606,5 +631,6 @@
         private Panel panel1;
         private Label label7;
         private TextBox txtThanhTien;
+        private BindingSource bindingSource1;
     }
 }
