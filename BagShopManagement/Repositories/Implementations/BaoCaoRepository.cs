@@ -8,8 +8,6 @@ namespace BagShopManagement.Repositories.Implementations
 {
     public class BaoCaoRepository : BaseRepository, IBaoCaoRepository
     {
-        private readonly string _connectionString;
-
         public DataTable GetBaoCaoDoanhThuTheoNgay(DateTime? tuNgay = null, DateTime? denNgay = null)
         {
             DateTime fromDate = tuNgay?.Date ?? DateTime.Today;
