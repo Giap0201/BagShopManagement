@@ -68,157 +68,158 @@
             // txtMaSP
             // 
             txtMaSP.Font = new Font("Times New Roman", 12F);
-            txtMaSP.Location = new Point(126, 26);
+            txtMaSP.Location = new Point(151, 39);
             txtMaSP.Multiline = true;
             txtMaSP.Name = "txtMaSP";
             txtMaSP.ReadOnly = true;
-            txtMaSP.Size = new Size(175, 60);
+            txtMaSP.Size = new Size(300, 35);
             txtMaSP.TabIndex = 0;
             // 
             // txtTenSP
             // 
             txtTenSP.Font = new Font("Times New Roman", 12F);
-            txtTenSP.Location = new Point(126, 92);
+            txtTenSP.Location = new Point(151, 80);
             txtTenSP.Multiline = true;
             txtTenSP.Name = "txtTenSP";
             txtTenSP.ReadOnly = true;
-            txtTenSP.Size = new Size(175, 60);
+            txtTenSP.Size = new Size(300, 35);
             txtTenSP.TabIndex = 1;
             // 
             // txtGiaNhap
             // 
             txtGiaNhap.Font = new Font("Times New Roman", 12F);
-            txtGiaNhap.Location = new Point(126, 158);
+            txtGiaNhap.Location = new Point(151, 121);
             txtGiaNhap.Multiline = true;
             txtGiaNhap.Name = "txtGiaNhap";
             txtGiaNhap.ReadOnly = true;
-            txtGiaNhap.Size = new Size(175, 60);
+            txtGiaNhap.Size = new Size(300, 35);
             txtGiaNhap.TabIndex = 2;
             // 
             // txtGiaBan
             // 
             txtGiaBan.Font = new Font("Times New Roman", 12F);
-            txtGiaBan.Location = new Point(126, 224);
+            txtGiaBan.Location = new Point(151, 164);
             txtGiaBan.Multiline = true;
             txtGiaBan.Name = "txtGiaBan";
             txtGiaBan.ReadOnly = true;
-            txtGiaBan.Size = new Size(175, 60);
+            txtGiaBan.Size = new Size(300, 35);
             txtGiaBan.TabIndex = 3;
             // 
             // txtSoLuong
             // 
             txtSoLuong.Font = new Font("Times New Roman", 12F);
-            txtSoLuong.Location = new Point(126, 290);
+            txtSoLuong.Location = new Point(151, 205);
             txtSoLuong.Multiline = true;
             txtSoLuong.Name = "txtSoLuong";
             txtSoLuong.ReadOnly = true;
-            txtSoLuong.Size = new Size(175, 60);
+            txtSoLuong.Size = new Size(300, 35);
             txtSoLuong.TabIndex = 4;
             // 
             // txtMoTa
             // 
             txtMoTa.Font = new Font("Times New Roman", 12F);
-            txtMoTa.Location = new Point(126, 356);
+            txtMoTa.Location = new Point(151, 575);
             txtMoTa.Multiline = true;
             txtMoTa.Name = "txtMoTa";
             txtMoTa.ReadOnly = true;
-            txtMoTa.Size = new Size(175, 126);
+            txtMoTa.Size = new Size(300, 138);
             txtMoTa.TabIndex = 5;
             // 
             // txtLoaiTui
             // 
             txtLoaiTui.Font = new Font("Times New Roman", 12F);
-            txtLoaiTui.Location = new Point(446, 29);
+            txtLoaiTui.Location = new Point(151, 246);
             txtLoaiTui.Multiline = true;
             txtLoaiTui.Name = "txtLoaiTui";
             txtLoaiTui.ReadOnly = true;
-            txtLoaiTui.Size = new Size(175, 60);
+            txtLoaiTui.Size = new Size(300, 35);
             txtLoaiTui.TabIndex = 6;
             // 
             // txtNgayTao
             // 
             txtNgayTao.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
-            txtNgayTao.Location = new Point(446, 491);
+            txtNgayTao.Location = new Point(151, 534);
             txtNgayTao.Multiline = true;
             txtNgayTao.Name = "txtNgayTao";
             txtNgayTao.ReadOnly = true;
-            txtNgayTao.Size = new Size(175, 60);
+            txtNgayTao.Size = new Size(300, 35);
             txtNgayTao.TabIndex = 13;
             // 
             // txtTrangThai
             // 
             txtTrangThai.Font = new Font("Times New Roman", 12F);
-            txtTrangThai.Location = new Point(446, 425);
+            txtTrangThai.Location = new Point(151, 493);
             txtTrangThai.Multiline = true;
             txtTrangThai.Name = "txtTrangThai";
             txtTrangThai.ReadOnly = true;
-            txtTrangThai.Size = new Size(175, 60);
+            txtTrangThai.Size = new Size(300, 35);
             txtTrangThai.TabIndex = 12;
             // 
             // txtNCC
             // 
             txtNCC.Font = new Font("Times New Roman", 12F);
-            txtNCC.Location = new Point(446, 359);
+            txtNCC.Location = new Point(151, 452);
             txtNCC.Multiline = true;
             txtNCC.Name = "txtNCC";
             txtNCC.ReadOnly = true;
-            txtNCC.Size = new Size(175, 60);
+            txtNCC.Size = new Size(300, 35);
             txtNCC.TabIndex = 11;
             // 
             // txtKichThuoc
             // 
             txtKichThuoc.Font = new Font("Times New Roman", 12F);
-            txtKichThuoc.Location = new Point(446, 293);
+            txtKichThuoc.Location = new Point(151, 411);
             txtKichThuoc.Multiline = true;
             txtKichThuoc.Name = "txtKichThuoc";
             txtKichThuoc.ReadOnly = true;
-            txtKichThuoc.Size = new Size(175, 60);
+            txtKichThuoc.Size = new Size(300, 35);
             txtKichThuoc.TabIndex = 10;
             // 
             // txtMau
             // 
             txtMau.Font = new Font("Times New Roman", 12F);
-            txtMau.Location = new Point(446, 227);
+            txtMau.Location = new Point(151, 369);
             txtMau.Multiline = true;
             txtMau.Name = "txtMau";
             txtMau.ReadOnly = true;
-            txtMau.Size = new Size(175, 60);
+            txtMau.Size = new Size(300, 35);
             txtMau.TabIndex = 9;
             // 
             // txtChatLieu
             // 
             txtChatLieu.Font = new Font("Times New Roman", 12F);
-            txtChatLieu.Location = new Point(446, 161);
+            txtChatLieu.Location = new Point(151, 328);
             txtChatLieu.Multiline = true;
             txtChatLieu.Name = "txtChatLieu";
             txtChatLieu.ReadOnly = true;
-            txtChatLieu.Size = new Size(175, 60);
+            txtChatLieu.Size = new Size(300, 35);
             txtChatLieu.TabIndex = 8;
             // 
             // txtThuongHieu
             // 
             txtThuongHieu.Font = new Font("Times New Roman", 12F);
-            txtThuongHieu.Location = new Point(446, 95);
+            txtThuongHieu.Location = new Point(151, 287);
             txtThuongHieu.Multiline = true;
             txtThuongHieu.Name = "txtThuongHieu";
             txtThuongHieu.ReadOnly = true;
-            txtThuongHieu.Size = new Size(175, 60);
+            txtThuongHieu.Size = new Size(300, 35);
             txtThuongHieu.TabIndex = 7;
             // 
             // picAnhChinh
             // 
             picAnhChinh.Location = new Point(6, 29);
             picAnhChinh.Name = "picAnhChinh";
-            picAnhChinh.Size = new Size(508, 522);
+            picAnhChinh.Size = new Size(876, 636);
             picAnhChinh.TabIndex = 14;
             picAnhChinh.TabStop = false;
             // 
             // btnClose
             // 
-            btnClose.BackColor = SystemColors.MenuHighlight;
-            btnClose.Font = new Font("Times New Roman", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 163);
-            btnClose.ForeColor = SystemColors.ButtonHighlight;
-            btnClose.Location = new Point(6, 491);
+            btnClose.BackColor = SystemColors.Highlight;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClose.ForeColor = Color.White;
+            btnClose.Location = new Point(1100, 689);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(295, 60);
             btnClose.TabIndex = 15;
@@ -242,7 +243,6 @@
             groupBox1.Controls.Add(label4);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(btnClose);
             groupBox1.Controls.Add(txtMaSP);
             groupBox1.Controls.Add(txtNgayTao);
             groupBox1.Controls.Add(txtTenSP);
@@ -257,9 +257,10 @@
             groupBox1.Controls.Add(txtChatLieu);
             groupBox1.Controls.Add(txtLoaiTui);
             groupBox1.Controls.Add(txtThuongHieu);
-            groupBox1.Location = new Point(12, 12);
+            groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox1.Location = new Point(20, 12);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(645, 564);
+            groupBox1.Size = new Size(481, 737);
             groupBox1.TabIndex = 16;
             groupBox1.TabStop = false;
             groupBox1.Text = "Chi tiết sản phẩm";
@@ -267,149 +268,150 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Times New Roman", 12F);
-            label1.Location = new Point(6, 32);
+            label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label1.Location = new Point(20, 41);
             label1.Name = "label1";
-            label1.Size = new Size(114, 22);
+            label1.Size = new Size(115, 23);
             label1.TabIndex = 30;
             label1.Text = "Mã sản phẩm";
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Font = new Font("Times New Roman", 12F);
-            label8.Location = new Point(326, 493);
+            label8.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label8.Location = new Point(20, 536);
             label8.Name = "label8";
-            label8.Size = new Size(80, 22);
+            label8.Size = new Size(81, 23);
             label8.TabIndex = 29;
             label8.Text = "Ngày tạo";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Font = new Font("Times New Roman", 12F);
-            label9.Location = new Point(326, 427);
+            label9.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label9.Location = new Point(20, 495);
             label9.Name = "label9";
-            label9.Size = new Size(89, 22);
+            label9.Size = new Size(87, 23);
             label9.TabIndex = 28;
             label9.Text = "Trạng thái";
             // 
             // label10
             // 
             label10.AutoSize = true;
-            label10.Font = new Font("Times New Roman", 12F);
-            label10.Location = new Point(326, 362);
+            label10.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label10.Location = new Point(20, 454);
             label10.Name = "label10";
-            label10.Size = new Size(116, 22);
+            label10.Size = new Size(117, 23);
             label10.TabIndex = 27;
             label10.Text = "Nhà cung cấp";
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Font = new Font("Times New Roman", 12F);
-            label11.Location = new Point(326, 295);
+            label11.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label11.Location = new Point(20, 413);
             label11.Name = "label11";
-            label11.Size = new Size(98, 22);
+            label11.Size = new Size(92, 23);
             label11.TabIndex = 26;
             label11.Text = "Kích thước";
             // 
             // label12
             // 
             label12.AutoSize = true;
-            label12.Font = new Font("Times New Roman", 12F);
-            label12.Location = new Point(331, 229);
+            label12.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label12.Location = new Point(20, 371);
             label12.Name = "label12";
-            label12.Size = new Size(76, 22);
+            label12.Size = new Size(74, 23);
             label12.TabIndex = 25;
             label12.Text = "Màu sắc";
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Font = new Font("Times New Roman", 12F);
-            label13.Location = new Point(326, 163);
+            label13.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label13.Location = new Point(20, 330);
             label13.Name = "label13";
-            label13.Size = new Size(81, 22);
+            label13.Size = new Size(78, 23);
             label13.TabIndex = 24;
             label13.Text = "Chất liệu";
             // 
             // label14
             // 
             label14.AutoSize = true;
-            label14.Font = new Font("Times New Roman", 12F);
-            label14.Location = new Point(326, 98);
+            label14.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label14.Location = new Point(20, 289);
             label14.Name = "label14";
-            label14.Size = new Size(109, 22);
+            label14.Size = new Size(108, 23);
             label14.TabIndex = 23;
             label14.Text = "Thương hiệu";
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Times New Roman", 12F);
-            label7.Location = new Point(326, 31);
+            label7.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label7.Location = new Point(20, 248);
             label7.Name = "label7";
-            label7.Size = new Size(72, 22);
+            label7.Size = new Size(66, 23);
             label7.TabIndex = 22;
             label7.Text = "Loại túi";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Times New Roman", 12F);
-            label6.Location = new Point(6, 362);
+            label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label6.Location = new Point(20, 577);
             label6.Name = "label6";
-            label6.Size = new Size(56, 22);
+            label6.Size = new Size(56, 23);
             label6.TabIndex = 21;
             label6.Text = "Mô tả";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Times New Roman", 12F);
-            label5.Location = new Point(6, 296);
+            label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label5.Location = new Point(20, 207);
             label5.Name = "label5";
-            label5.Size = new Size(111, 22);
+            label5.Size = new Size(110, 23);
             label5.TabIndex = 20;
             label5.Text = "Số lượng tồn";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Times New Roman", 12F);
-            label4.Location = new Point(6, 230);
+            label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label4.Location = new Point(20, 166);
             label4.Name = "label4";
-            label4.Size = new Size(72, 22);
+            label4.Size = new Size(69, 23);
             label4.TabIndex = 19;
             label4.Text = "Giá bán";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Times New Roman", 12F);
-            label3.Location = new Point(6, 164);
+            label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label3.Location = new Point(20, 123);
             label3.Name = "label3";
-            label3.Size = new Size(81, 22);
+            label3.Size = new Size(79, 23);
             label3.TabIndex = 18;
             label3.Text = "Giá nhập";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Times New Roman", 12F);
-            label2.Location = new Point(6, 98);
+            label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label2.Location = new Point(20, 82);
             label2.Name = "label2";
-            label2.Size = new Size(118, 22);
+            label2.Size = new Size(116, 23);
             label2.TabIndex = 17;
             label2.Text = "Tên sản phẩm";
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(picAnhChinh);
-            groupBox2.Location = new Point(663, 12);
+            groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox2.Location = new Point(507, 12);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(520, 564);
+            groupBox2.Size = new Size(888, 671);
             groupBox2.TabIndex = 17;
             groupBox2.TabStop = false;
             groupBox2.Text = "Ảnh";
@@ -418,9 +420,10 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1195, 588);
+            ClientSize = new Size(1407, 760);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
+            Controls.Add(btnClose);
             Name = "SanPhamDetailForm";
             Text = "SanPhamDetailForm";
             Load += SanPhamDetailForm_Load;

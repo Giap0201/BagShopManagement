@@ -28,9 +28,11 @@ namespace BagShopManagement.Views.Dev2
             if (dgvThuongHieu.Columns.Count == 0)
             {
                 dgvThuongHieu.AutoGenerateColumns = false;
-                dgvThuongHieu.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Mã", DataPropertyName = "MaThuongHieu", Name = "MaThuongHieu", ReadOnly = true, Width = 120 });
-                dgvThuongHieu.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Tên", DataPropertyName = "TenThuongHieu", Name = "TenThuongHieu", Width = 250 });
-                dgvThuongHieu.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Quốc gia", DataPropertyName = "QuocGia", Name = "QuocGia", Width = 200 });
+                // Cho toàn bộ DataGridView fill chiều ngang
+                dgvThuongHieu.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+                dgvThuongHieu.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Mã thương hiệu", DataPropertyName = "MaThuongHieu", Name = "MaThuongHieu", ReadOnly = true, FillWeight = 20 });
+                dgvThuongHieu.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Tên thương hiệu", DataPropertyName = "TenThuongHieu", Name = "TenThuongHieu", FillWeight = 40 });
+                dgvThuongHieu.Columns.Add(new DataGridViewTextBoxColumn() { HeaderText = "Quốc gia", DataPropertyName = "QuocGia", Name = "QuocGia", FillWeight = 40 });
             }
 
             LoadData();
