@@ -6,6 +6,7 @@ using BagShopManagement.Services;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
+
 // --- Using Bổ sung cho Dev1 (từ Snippet 2) ---
 using BagShopManagement.Views; // Cần cho LoginForm
 using BagShopManagement.Views.Common;
@@ -27,7 +28,6 @@ namespace BagShopManagement
     internal static class Program
     {
         [STAThread]
-        // === HÀM MAIN() ĐÃ CẬP NHẬT THEO DEV1 (Login-First) ===
         private static void Main()
         {
             ApplicationConfiguration.Initialize();
@@ -203,7 +203,6 @@ namespace BagShopManagement
             services.AddTransient<HoaDonBanForm>();
             services.AddTransient<UC_POS>();
             services.AddTransient<UC_HoaDonBan>();
-            services.AddTransient<frmHoaDonNhapDetail>();
             services.AddTransient<ucHoaDonNhapList>();
             services.AddTransient<ucBaoCaoThongKe>();
 
