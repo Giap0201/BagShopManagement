@@ -67,17 +67,17 @@ namespace BagShopManagement.Views.Dev2
                     }
                     else
                     {
-                        picAnhChinh.Image = Properties.Resources.image_placeholder;
+                        picAnhChinh.Image = Properties.Resources.no_image;
                     }
                 }
                 else
                 {
-                    picAnhChinh.Image = Properties.Resources.image_placeholder;
+                    picAnhChinh.Image = Properties.Resources.no_image;
                 }
             }
             catch
             {
-                picAnhChinh.Image = Properties.Resources.image_placeholder;
+                picAnhChinh.Image = Properties.Resources.no_image;
             }
 
             picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
