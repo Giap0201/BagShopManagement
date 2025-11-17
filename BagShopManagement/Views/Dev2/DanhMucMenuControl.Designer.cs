@@ -23,40 +23,110 @@
             btnChatLieu = new Button();
             btnMauSac = new Button();
             btnKichThuoc = new Button();
+            label1 = new Label();
             SuspendLayout();
-
-            int w = 200;
-            int h = 70;
-            int spacingX = 40;
-            int spacingY = 40;
-            int startX = 80;
-            int startY = 40;
-
-            // hàng 1
-            btnLoaiTui.SetBounds(startX, startY, w, h);
-            btnThuongHieu.SetBounds(startX + w + spacingX, startY, w, h);
-            btnChatLieu.SetBounds(startX + (w * 2) + (spacingX * 2), startY, w, h);
-
-            // hàng 2
-            btnMauSac.SetBounds(startX, startY + h + spacingY, w, h);
-            btnKichThuoc.SetBounds(startX + w + spacingX, startY + h + spacingY, w, h);
-
+            // 
+            // btnLoaiTui
+            // 
+            btnLoaiTui.BackColor = SystemColors.Highlight;
+            btnLoaiTui.FlatAppearance.BorderColor = Color.White;
+            btnLoaiTui.FlatAppearance.BorderSize = 2;
+            btnLoaiTui.FlatStyle = FlatStyle.Flat;
+            btnLoaiTui.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnLoaiTui.ForeColor = Color.White;
+            btnLoaiTui.Location = new Point(13, 171);
+            btnLoaiTui.Name = "btnLoaiTui";
+            btnLoaiTui.Size = new Size(1538, 116);
+            btnLoaiTui.TabIndex = 0;
             btnLoaiTui.Text = "Loại Túi";
+            btnLoaiTui.UseVisualStyleBackColor = false;
+            // 
+            // btnThuongHieu
+            // 
+            btnThuongHieu.BackColor = SystemColors.Highlight;
+            btnThuongHieu.FlatAppearance.BorderColor = Color.White;
+            btnThuongHieu.FlatAppearance.BorderSize = 2;
+            btnThuongHieu.FlatStyle = FlatStyle.Flat;
+            btnThuongHieu.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnThuongHieu.ForeColor = Color.White;
+            btnThuongHieu.Location = new Point(13, 415);
+            btnThuongHieu.Name = "btnThuongHieu";
+            btnThuongHieu.Size = new Size(1538, 116);
+            btnThuongHieu.TabIndex = 1;
             btnThuongHieu.Text = "Thương Hiệu";
+            btnThuongHieu.UseVisualStyleBackColor = false;
+            // 
+            // btnChatLieu
+            // 
+            btnChatLieu.BackColor = Color.FromArgb(64, 78, 103);
+            btnChatLieu.FlatAppearance.BorderColor = Color.White;
+            btnChatLieu.FlatAppearance.BorderSize = 2;
+            btnChatLieu.FlatStyle = FlatStyle.Flat;
+            btnChatLieu.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnChatLieu.ForeColor = Color.White;
+            btnChatLieu.Location = new Point(13, 293);
+            btnChatLieu.Name = "btnChatLieu";
+            btnChatLieu.Size = new Size(1538, 116);
+            btnChatLieu.TabIndex = 2;
             btnChatLieu.Text = "Chất Liệu";
+            btnChatLieu.UseVisualStyleBackColor = false;
+            // 
+            // btnMauSac
+            // 
+            btnMauSac.BackColor = Color.FromArgb(64, 78, 103);
+            btnMauSac.FlatAppearance.BorderColor = Color.White;
+            btnMauSac.FlatAppearance.BorderSize = 2;
+            btnMauSac.FlatStyle = FlatStyle.Flat;
+            btnMauSac.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnMauSac.ForeColor = Color.White;
+            btnMauSac.Location = new Point(13, 537);
+            btnMauSac.Name = "btnMauSac";
+            btnMauSac.Size = new Size(1538, 116);
+            btnMauSac.TabIndex = 3;
             btnMauSac.Text = "Màu Sắc";
+            btnMauSac.UseVisualStyleBackColor = false;
+            // 
+            // btnKichThuoc
+            // 
+            btnKichThuoc.BackColor = SystemColors.Highlight;
+            btnKichThuoc.FlatAppearance.BorderColor = Color.White;
+            btnKichThuoc.FlatAppearance.BorderSize = 2;
+            btnKichThuoc.FlatStyle = FlatStyle.Flat;
+            btnKichThuoc.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnKichThuoc.ForeColor = Color.White;
+            btnKichThuoc.Location = new Point(13, 659);
+            btnKichThuoc.Name = "btnKichThuoc";
+            btnKichThuoc.Size = new Size(1538, 116);
+            btnKichThuoc.TabIndex = 4;
             btnKichThuoc.Text = "Kích Thước";
-
+            btnKichThuoc.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            label1.ForeColor = Color.FromArgb(51, 51, 51);
+            label1.Location = new Point(664, 71);
+            label1.Name = "label1";
+            label1.Size = new Size(244, 38);
+            label1.TabIndex = 5;
+            label1.Text = "LOẠI DANH MỤC";
+            // 
+            // DanhMucMenuControl
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(label1);
             Controls.Add(btnLoaiTui);
             Controls.Add(btnThuongHieu);
             Controls.Add(btnChatLieu);
             Controls.Add(btnMauSac);
             Controls.Add(btnKichThuoc);
-
-            AutoScaleMode = AutoScaleMode.Font;
             Name = "DanhMucMenuControl";
-            Size = new Size(800, 380);
+            Size = new Size(1565, 788);
             ResumeLayout(false);
+            PerformLayout();
         }
+        private Label label1;
     }
 }
