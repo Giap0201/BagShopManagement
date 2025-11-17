@@ -18,7 +18,7 @@ namespace BagShopManagement.Views.Dev6
         public ucBaoCaoThongKe(BaoCaoController controller)
         {
             InitializeComponent();
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _controller = controller;
         }
 
         private void ucBaoCaoThongKe_Load(object sender, EventArgs e)
@@ -31,19 +31,40 @@ namespace BagShopManagement.Views.Dev6
             LoadCurrentReport();
         }
 
-        private void btnDoanhThu_Click(object sender, EventArgs e) => SelectReport("doanhthu", btnDoanhThu);
+        private void btnDoanhThu_Click(object sender, EventArgs e)
+        {
+            SelectReport("doanhthu", btnDoanhThu);
+        }
 
-        private void btnNhapHang_Click(object sender, EventArgs e) => SelectReport("nhaphang", btnNhapHang);
+        private void btnNhapHang_Click(object sender, EventArgs e)
+        {
+            SelectReport("nhaphang", btnNhapHang);
+        }
 
-        private void btnTonKho_Click(object sender, EventArgs e) => SelectReport("tonkho", btnTonKho);
+        private void btnTonKho_Click(object sender, EventArgs e)
+        {
+            SelectReport("tonkho", btnTonKho);
+        }
 
-        private void btnNhanVien_Click(object sender, EventArgs e) => SelectReport("nhanvien", btnNhanVien);
+        private void btnNhanVien_Click(object sender, EventArgs e)
+        {
+            SelectReport("nhanvien", btnNhanVien);
+        }
 
-        private void btnKhachHang_Click(object sender, EventArgs e) => SelectReport("khachhang", btnKhachHang);
+        private void btnKhachHang_Click(object sender, EventArgs e)
+        {
+            SelectReport("khachhang", btnKhachHang);
+        }
 
-        private void btnSanPham_Click(object sender, EventArgs e) => SelectReport("sanpham", btnSanPham);
+        private void btnSanPham_Click(object sender, EventArgs e)
+        {
+            SelectReport("sanpham", btnSanPham);
+        }
 
-        private void btnGiamGia_Click(object sender, EventArgs e) => SelectReport("giamgia", btnGiamGia);
+        private void btnGiamGia_Click(object sender, EventArgs e)
+        {
+            SelectReport("giamgia", btnGiamGia);
+        }
 
         private void SelectReport(string reportType, Button selectedButton)
         {
@@ -60,7 +81,6 @@ namespace BagShopManagement.Views.Dev6
             {
                 DateTime fromDate = dtpTuNgay.Value.Date;
                 DateTime toDate = dtpDenNgay.Value.Date;
-
                 _currentData = _currentReportType switch
                 {
                     "doanhthu" => _controller.LayBaoCaoDoanhThuTheoNgay(fromDate, toDate),
@@ -86,14 +106,17 @@ namespace BagShopManagement.Views.Dev6
             if (data == null || data.Rows.Count == 0)
             {
                 ShowInfo("Không có dữ liệu trong khoảng thời gian này.");
-                //HideAllViews();
+                _currentData = null;
+                dgvBaoCao.DataSource = null;
+                dgvBaoCao.Rows.Clear();
+                dgvBaoCao.Columns.Clear();
+                dgvBaoCao.Visible = true;
+                lblTieuDe.Text = "BÁO CÁO THỐNG KÊ";
                 return;
             }
-
             _currentData = data;
             UpdateTitle();
             ShowGrid(data);
-            //HideChart();
         }
 
         private void UpdateTitle()
@@ -127,49 +150,46 @@ namespace BagShopManagement.Views.Dev6
                         col.Name.Contains("SoLuong"))
                     {
                         col.DefaultCellStyle.Format = "N0";
-                        col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     }
                 }
+                if (col.ValueType == typeof(DateTime))
+                {
+                    col.DefaultCellStyle.Format = "dd/MM/yyyy";
+                }
             }
-
-            dgvBaoCao.AlternatingRowsDefaultCellStyle.BackColor = Color.FromArgb(248, 252, 255);
-            dgvBaoCao.DefaultCellStyle.SelectionBackColor = Color.CornflowerBlue;
-            dgvBaoCao.DefaultCellStyle.SelectionForeColor = Color.White;
-            dgvBaoCao.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dgvBaoCao.ColumnHeadersDefaultCellStyle.BackColor = Color.FromArgb(30, 144, 255);
-            dgvBaoCao.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dgvBaoCao.EnableHeadersVisualStyles = false;
-            dgvBaoCao.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvBaoCao.Visible = true;
         }
 
         private string FormatColumnHeader(string columnName) => columnName switch
         {
-            "NgayBan" => "Ngày bán",
-            "SoHoaDon" => "Số hóa đơn",
-            "TongDoanhThu" => "Tổng doanh thu",
-            "NgayNhap" => "Ngày nhập",
-            "SoPhieuNhap" => "Số phiếu nhập",
-            "TongTienNhap" => "Tổng tiền nhập",
-            "MaSP" => "Mã SP",
-            "TenSP" => "Tên sản phẩm",
-            "SoLuongTon" => "Tồn kho",
-            "GiaTriTonKho" => "Giá trị tồn kho",
-            "TenThuongHieu" => "Thương hiệu",
-            "TenNCC" => "Nhà cung cấp",
-            "MaNV" => "Mã NV",
-            "TenNhanVien" => "Nhân viên",
-            "MaKH" => "Mã KH",
-            "TenKhachHang" => "Khách hàng",
-            "SoLanMua" => "Số lần mua",
-            "TongChiTieu" => "Tổng chi tiêu",
-            "TongSoLuongBan" => "Số lượng bán",
-            "TenChuongTrinh" => "Chương trình",
-            "NgayBatDau" => "Ngày bắt đầu",
-            "NgayKetThuc" => "Ngày kết thúc",
-            "SoSanPhamApDung" => "Số SP áp dụng",
-            "MucGiamTrungBinh" => "Mức giảm TB (%)",
-            "TrangThai" => "Trạng thái",
+            "GiaNhap" => "GIÁ NHẬP",
+            "GiaBan" => "GIÁ BÁN",
+            "MaCTGG" => "MÃ CTGG",
+            "NgayBan" => "NGÀY BÁN",
+            "SoHoaDon" => "SỐ HOÁ ĐƠN",
+            "TongDoanhThu" => "TỔNG DOANH THU",
+            "NgayNhap" => "NGÀY NHẬP",
+            "SoPhieuNhap" => "SỐ PHIẾU NHẬP",
+            "TongTienNhap" => "TỔNG TIỀN NHẬP",
+            "MaSP" => "MÃ SẢN PHẨM",
+            "TenSP" => "TÊN SẢN PHẨM",
+            "SoLuongTon" => "TỒN KHO",
+            "GiaTriTonKho" => "GIÁ TRỊ TỒN KHO",
+            "TenThuongHieu" => "THƯƠNG HIỆU",
+            "TenNCC" => "NHÀ CUNG CẤP",
+            "MaNV" => "MÃ NHÂN VIÊN",
+            "TenNhanVien" => "NHÂN VIÊN",
+            "MaKH" => "MÃ KHÁCH HÀNG",
+            "TenKhachHang" => "KHÁCH HÀNG",
+            "SoLanMua" => "SỐ LẦN MUA",
+            "TongChiTieu" => "TỔNG CHI TIÊU",
+            "TongSoLuongBan" => "SỐ LƯỢNG BÁN",
+            "TenChuongTrinh" => "CHƯƠNG TRÌNH",
+            "NgayBatDau" => "NGÀY BẮT ĐẦU",
+            "NgayKetThuc" => "NGÀY KẾT THÚC",
+            "SoSanPhamApDung" => "SỐ SẢN PHẨM ÁP DỤNG",
+            "MucGiamTrungBinh" => "MỨC GIẢM TRUNG BÌNH(%)",
+            "TrangThai" => "TRẠNG THÁI",
             _ => columnName
         };
 
@@ -277,7 +297,6 @@ namespace BagShopManagement.Views.Dev6
             };
 
             if (sfd.ShowDialog() != DialogResult.OK) return;
-
             try
             {
                 var exportTable = _currentData.Copy();
@@ -301,19 +320,31 @@ namespace BagShopManagement.Views.Dev6
             var buttons = new[] { btnDoanhThu, btnNhapHang, btnTonKho, btnNhanVien, btnKhachHang, btnSanPham, btnGiamGia };
             foreach (var btn in buttons)
             {
-                btn.BackColor = SystemColors.Control;
-                btn.ForeColor = SystemColors.ControlText;
+                btn.BackColor = Color.FromArgb(224, 224, 224);
+                btn.ForeColor = Color.FromArgb(54, 54, 54);
             }
             selected.BackColor = Color.FromArgb(30, 144, 255);
             selected.ForeColor = Color.White;
         }
 
-        private void ShowInfo(string msg) => MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private void ShowInfo(string msg)
+        {
+            MessageBox.Show(msg, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
 
-        private void ShowWarning(string msg) => MessageBox.Show(msg, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        private void ShowWarning(string msg)
+        {
+            MessageBox.Show(msg, "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
 
-        private void ShowError(string msg) => MessageBox.Show(msg, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        private void ShowError(string msg)
+        {
+            MessageBox.Show(msg, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
 
-        private void ShowSuccess(string msg) => MessageBox.Show(msg, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private void ShowSuccess(string msg)
+        {
+            MessageBox.Show(msg, "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }

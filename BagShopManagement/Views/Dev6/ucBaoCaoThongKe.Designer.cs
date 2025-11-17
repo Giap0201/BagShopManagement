@@ -28,290 +28,367 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlMenu = new Panel();
-            btnDoanhThu = new Button();
-            btnNhapHang = new Button();
-            btnTonKho = new Button();
-            btnNhanVien = new Button();
-            btnKhachHang = new Button();
-            btnSanPham = new Button();
             btnGiamGia = new Button();
-            pnlContent = new Panel();
+            btnSanPham = new Button();
+            btnKhachHang = new Button();
+            btnNhanVien = new Button();
+            btnTonKho = new Button();
+            btnNhapHang = new Button();
+            btnDoanhThu = new Button();
+            dgvBaoCao = new DataGridView();
             pnlHeader = new Panel();
-            btnInBaoCao = new Button();
-            btnXuatExcel = new Button();
-            btnXemBaoCao = new Button();
-            dtpDenNgay = new DateTimePicker();
             dtpTuNgay = new DateTimePicker();
+            dtpDenNgay = new DateTimePicker();
+            btnXemBaoCao = new Button();
+            btnXuatExcel = new Button();
             lblDenNgay = new Label();
             lblTuNgay = new Label();
             lblTieuDe = new Label();
-            dgvBaoCao = new DataGridView();
+            label7 = new Label();
             pnlMenu.SuspendLayout();
-            pnlContent.SuspendLayout();
-            pnlHeader.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvBaoCao).BeginInit();
+            pnlHeader.SuspendLayout();
             SuspendLayout();
             // 
             // pnlMenu
             // 
-            pnlMenu.BackColor = Color.FromArgb(240, 248, 255);
-            pnlMenu.BorderStyle = BorderStyle.FixedSingle;
-            pnlMenu.Controls.Add(btnDoanhThu);
-            pnlMenu.Controls.Add(btnNhapHang);
-            pnlMenu.Controls.Add(btnTonKho);
-            pnlMenu.Controls.Add(btnNhanVien);
-            pnlMenu.Controls.Add(btnKhachHang);
-            pnlMenu.Controls.Add(btnSanPham);
+            pnlMenu.BackColor = Color.White;
             pnlMenu.Controls.Add(btnGiamGia);
-            pnlMenu.Location = new Point(12, 12);
+            pnlMenu.Controls.Add(btnSanPham);
+            pnlMenu.Controls.Add(btnKhachHang);
+            pnlMenu.Controls.Add(btnNhanVien);
+            pnlMenu.Controls.Add(btnTonKho);
+            pnlMenu.Controls.Add(btnNhapHang);
+            pnlMenu.Controls.Add(btnDoanhThu);
+            pnlMenu.Location = new Point(40, 74);
             pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(1560, 90);
+            pnlMenu.Size = new Size(1497, 90);
             pnlMenu.TabIndex = 0;
-            // 
-            // btnDoanhThu
-            // 
-            btnDoanhThu.FlatStyle = FlatStyle.Flat;
-            btnDoanhThu.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnDoanhThu.Location = new Point(20, 20);
-            btnDoanhThu.Name = "btnDoanhThu";
-            btnDoanhThu.Size = new Size(180, 50);
-            btnDoanhThu.TabIndex = 0;
-            btnDoanhThu.Text = "Doanh thu";
-            btnDoanhThu.UseVisualStyleBackColor = true;
-            btnDoanhThu.Click += btnDoanhThu_Click;
-            // 
-            // btnNhapHang
-            // 
-            btnNhapHang.FlatStyle = FlatStyle.Flat;
-            btnNhapHang.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnNhapHang.Location = new Point(220, 20);
-            btnNhapHang.Name = "btnNhapHang";
-            btnNhapHang.Size = new Size(180, 50);
-            btnNhapHang.TabIndex = 1;
-            btnNhapHang.Text = "Nhập hàng";
-            btnNhapHang.UseVisualStyleBackColor = true;
-            btnNhapHang.Click += btnNhapHang_Click;
-            // 
-            // btnTonKho
-            // 
-            btnTonKho.FlatStyle = FlatStyle.Flat;
-            btnTonKho.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnTonKho.Location = new Point(420, 20);
-            btnTonKho.Name = "btnTonKho";
-            btnTonKho.Size = new Size(180, 50);
-            btnTonKho.TabIndex = 2;
-            btnTonKho.Text = "Tồn kho";
-            btnTonKho.UseVisualStyleBackColor = true;
-            btnTonKho.Click += btnTonKho_Click;
-            // 
-            // btnNhanVien
-            // 
-            btnNhanVien.FlatStyle = FlatStyle.Flat;
-            btnNhanVien.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnNhanVien.Location = new Point(620, 20);
-            btnNhanVien.Name = "btnNhanVien";
-            btnNhanVien.Size = new Size(180, 50);
-            btnNhanVien.TabIndex = 3;
-            btnNhanVien.Text = "Nhân viên";
-            btnNhanVien.UseVisualStyleBackColor = true;
-            btnNhanVien.Click += btnNhanVien_Click;
-            // 
-            // btnKhachHang
-            // 
-            btnKhachHang.FlatStyle = FlatStyle.Flat;
-            btnKhachHang.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnKhachHang.Location = new Point(820, 20);
-            btnKhachHang.Name = "btnKhachHang";
-            btnKhachHang.Size = new Size(180, 50);
-            btnKhachHang.TabIndex = 4;
-            btnKhachHang.Text = "Khách hàng";
-            btnKhachHang.UseVisualStyleBackColor = true;
-            btnKhachHang.Click += btnKhachHang_Click;
-            // 
-            // btnSanPham
-            // 
-            btnSanPham.FlatStyle = FlatStyle.Flat;
-            btnSanPham.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSanPham.Location = new Point(1020, 20);
-            btnSanPham.Name = "btnSanPham";
-            btnSanPham.Size = new Size(180, 50);
-            btnSanPham.TabIndex = 5;
-            btnSanPham.Text = "Sản phẩm";
-            btnSanPham.UseVisualStyleBackColor = true;
-            btnSanPham.Click += btnSanPham_Click;
             // 
             // btnGiamGia
             // 
+            btnGiamGia.BackColor = Color.FromArgb(224, 224, 224);
+            btnGiamGia.Cursor = Cursors.Hand;
+            btnGiamGia.FlatAppearance.BorderSize = 0;
+            btnGiamGia.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnGiamGia.FlatStyle = FlatStyle.Flat;
-            btnGiamGia.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnGiamGia.Location = new Point(1220, 20);
+            btnGiamGia.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnGiamGia.ForeColor = Color.FromArgb(54, 54, 54);
+            btnGiamGia.Location = new Point(1281, 20);
             btnGiamGia.Name = "btnGiamGia";
-            btnGiamGia.Size = new Size(180, 50);
-            btnGiamGia.TabIndex = 6;
-            btnGiamGia.Text = "Giảm giá";
-            btnGiamGia.UseVisualStyleBackColor = true;
+            btnGiamGia.Size = new Size(178, 46);
+            btnGiamGia.TabIndex = 19;
+            btnGiamGia.Text = "GIẢM GIÁ";
+            btnGiamGia.UseVisualStyleBackColor = false;
             btnGiamGia.Click += btnGiamGia_Click;
             // 
-            // pnlContent
+            // btnSanPham
             // 
-            pnlContent.Controls.Add(pnlHeader);
-            pnlContent.Controls.Add(dgvBaoCao);
-            pnlContent.Location = new Point(12, 110);
-            pnlContent.Name = "pnlContent";
-            pnlContent.Size = new Size(1560, 670);
-            pnlContent.TabIndex = 1;
+            btnSanPham.BackColor = Color.FromArgb(224, 224, 224);
+            btnSanPham.Cursor = Cursors.Hand;
+            btnSanPham.FlatAppearance.BorderSize = 0;
+            btnSanPham.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnSanPham.FlatStyle = FlatStyle.Flat;
+            btnSanPham.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnSanPham.ForeColor = Color.FromArgb(54, 54, 54);
+            btnSanPham.Location = new Point(1070, 20);
+            btnSanPham.Name = "btnSanPham";
+            btnSanPham.Size = new Size(178, 46);
+            btnSanPham.TabIndex = 18;
+            btnSanPham.Text = "SẢN PHẨM";
+            btnSanPham.UseVisualStyleBackColor = false;
+            btnSanPham.Click += btnSanPham_Click;
             // 
-            // pnlHeader
+            // btnKhachHang
             // 
-            pnlHeader.BackColor = Color.WhiteSmoke;
-            pnlHeader.BorderStyle = BorderStyle.FixedSingle;
-            pnlHeader.Controls.Add(btnInBaoCao);
-            pnlHeader.Controls.Add(btnXuatExcel);
-            pnlHeader.Controls.Add(btnXemBaoCao);
-            pnlHeader.Controls.Add(dtpDenNgay);
-            pnlHeader.Controls.Add(dtpTuNgay);
-            pnlHeader.Controls.Add(lblDenNgay);
-            pnlHeader.Controls.Add(lblTuNgay);
-            pnlHeader.Controls.Add(lblTieuDe);
-            pnlHeader.Location = new Point(0, 0);
-            pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1560, 100);
-            pnlHeader.TabIndex = 0;
+            btnKhachHang.BackColor = Color.FromArgb(224, 224, 224);
+            btnKhachHang.Cursor = Cursors.Hand;
+            btnKhachHang.FlatAppearance.BorderSize = 0;
+            btnKhachHang.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnKhachHang.FlatStyle = FlatStyle.Flat;
+            btnKhachHang.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnKhachHang.ForeColor = Color.FromArgb(54, 54, 54);
+            btnKhachHang.Location = new Point(863, 20);
+            btnKhachHang.Name = "btnKhachHang";
+            btnKhachHang.Size = new Size(178, 46);
+            btnKhachHang.TabIndex = 17;
+            btnKhachHang.Text = "KHÁCH HÀNG";
+            btnKhachHang.UseVisualStyleBackColor = false;
+            btnKhachHang.Click += btnKhachHang_Click;
             // 
-            // btnInBaoCao
+            // btnNhanVien
             // 
-            btnInBaoCao.Location = new Point(1320, 20);
-            btnInBaoCao.Name = "btnInBaoCao";
-            btnInBaoCao.Size = new Size(160, 40);
-            btnInBaoCao.TabIndex = 9;
-            btnInBaoCao.Text = "In báo cáo";
-            btnInBaoCao.UseVisualStyleBackColor = true;
+            btnNhanVien.BackColor = Color.FromArgb(224, 224, 224);
+            btnNhanVien.Cursor = Cursors.Hand;
+            btnNhanVien.FlatAppearance.BorderSize = 0;
+            btnNhanVien.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnNhanVien.FlatStyle = FlatStyle.Flat;
+            btnNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnNhanVien.ForeColor = Color.FromArgb(54, 54, 54);
+            btnNhanVien.Location = new Point(654, 20);
+            btnNhanVien.Name = "btnNhanVien";
+            btnNhanVien.Size = new Size(178, 46);
+            btnNhanVien.TabIndex = 16;
+            btnNhanVien.Text = "NHÂN VIÊN";
+            btnNhanVien.UseVisualStyleBackColor = false;
+            btnNhanVien.Click += btnNhanVien_Click;
             // 
-            // btnXuatExcel
+            // btnTonKho
             // 
-            btnXuatExcel.Location = new Point(1140, 20);
-            btnXuatExcel.Name = "btnXuatExcel";
-            btnXuatExcel.Size = new Size(160, 40);
-            btnXuatExcel.TabIndex = 8;
-            btnXuatExcel.Text = "Xuất Excel";
-            btnXuatExcel.UseVisualStyleBackColor = true;
-            btnXuatExcel.Click += btnXuatExcel_Click;
+            btnTonKho.BackColor = Color.FromArgb(224, 224, 224);
+            btnTonKho.Cursor = Cursors.Hand;
+            btnTonKho.FlatAppearance.BorderSize = 0;
+            btnTonKho.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnTonKho.FlatStyle = FlatStyle.Flat;
+            btnTonKho.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnTonKho.ForeColor = Color.FromArgb(54, 54, 54);
+            btnTonKho.Location = new Point(447, 20);
+            btnTonKho.Name = "btnTonKho";
+            btnTonKho.Size = new Size(178, 46);
+            btnTonKho.TabIndex = 15;
+            btnTonKho.Text = "TỒN KHO";
+            btnTonKho.UseVisualStyleBackColor = false;
+            btnTonKho.Click += btnTonKho_Click;
             // 
-            // btnXemBaoCao
+            // btnNhapHang
             // 
-            btnXemBaoCao.Location = new Point(600, 20);
-            btnXemBaoCao.Name = "btnXemBaoCao";
-            btnXemBaoCao.Size = new Size(160, 40);
-            btnXemBaoCao.TabIndex = 5;
-            btnXemBaoCao.Text = "Xem báo cáo";
-            btnXemBaoCao.UseVisualStyleBackColor = true;
-            btnXemBaoCao.Click += btnXemBaoCao_Click;
+            btnNhapHang.BackColor = Color.FromArgb(224, 224, 224);
+            btnNhapHang.Cursor = Cursors.Hand;
+            btnNhapHang.FlatAppearance.BorderSize = 0;
+            btnNhapHang.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnNhapHang.FlatStyle = FlatStyle.Flat;
+            btnNhapHang.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnNhapHang.ForeColor = Color.FromArgb(54, 54, 54);
+            btnNhapHang.Location = new Point(241, 20);
+            btnNhapHang.Name = "btnNhapHang";
+            btnNhapHang.Size = new Size(178, 46);
+            btnNhapHang.TabIndex = 14;
+            btnNhapHang.Text = "NHẬP HÀNG";
+            btnNhapHang.UseVisualStyleBackColor = false;
+            btnNhapHang.Click += btnNhapHang_Click;
             // 
-            // dtpDenNgay
+            // btnDoanhThu
             // 
-            dtpDenNgay.Format = DateTimePickerFormat.Short;
-            dtpDenNgay.Location = new Point(390, 62);
-            dtpDenNgay.Name = "dtpDenNgay";
-            dtpDenNgay.Size = new Size(140, 27);
-            dtpDenNgay.TabIndex = 4;
-            // 
-            // dtpTuNgay
-            // 
-            dtpTuNgay.Format = DateTimePickerFormat.Short;
-            dtpTuNgay.Location = new Point(100, 62);
-            dtpTuNgay.Name = "dtpTuNgay";
-            dtpTuNgay.Size = new Size(140, 27);
-            dtpTuNgay.TabIndex = 3;
-            // 
-            // lblDenNgay
-            // 
-            lblDenNgay.AutoSize = true;
-            lblDenNgay.Font = new Font("Segoe UI", 10F);
-            lblDenNgay.Location = new Point(300, 65);
-            lblDenNgay.Name = "lblDenNgay";
-            lblDenNgay.Size = new Size(87, 23);
-            lblDenNgay.TabIndex = 2;
-            lblDenNgay.Text = "Đến ngày:";
-            // 
-            // lblTuNgay
-            // 
-            lblTuNgay.AutoSize = true;
-            lblTuNgay.Font = new Font("Segoe UI", 10F);
-            lblTuNgay.Location = new Point(20, 65);
-            lblTuNgay.Name = "lblTuNgay";
-            lblTuNgay.Size = new Size(75, 23);
-            lblTuNgay.TabIndex = 1;
-            lblTuNgay.Text = "Từ ngày:";
-            // 
-            // lblTieuDe
-            // 
-            lblTieuDe.AutoSize = true;
-            lblTieuDe.Font = new Font("Segoe UI", 16F, FontStyle.Bold);
-            lblTieuDe.Location = new Point(20, 15);
-            lblTieuDe.Name = "lblTieuDe";
-            lblTieuDe.Size = new Size(286, 37);
-            lblTieuDe.TabIndex = 0;
-            lblTieuDe.Text = "BÁO CÁO & THỐNG KÊ";
+            btnDoanhThu.BackColor = Color.FromArgb(224, 224, 224);
+            btnDoanhThu.Cursor = Cursors.Hand;
+            btnDoanhThu.FlatAppearance.BorderSize = 0;
+            btnDoanhThu.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnDoanhThu.FlatStyle = FlatStyle.Flat;
+            btnDoanhThu.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnDoanhThu.ForeColor = Color.FromArgb(54, 54, 54);
+            btnDoanhThu.Location = new Point(36, 20);
+            btnDoanhThu.Name = "btnDoanhThu";
+            btnDoanhThu.Size = new Size(178, 46);
+            btnDoanhThu.TabIndex = 13;
+            btnDoanhThu.Text = "DOANH THU";
+            btnDoanhThu.UseVisualStyleBackColor = false;
+            btnDoanhThu.Click += btnDoanhThu_Click;
             // 
             // dgvBaoCao
             // 
             dgvBaoCao.AllowUserToAddRows = false;
             dgvBaoCao.AllowUserToDeleteRows = false;
             dgvBaoCao.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvBaoCao.BackgroundColor = SystemColors.Control;
-            dgvBaoCao.BorderStyle = BorderStyle.None;
+            dgvBaoCao.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvBaoCao.BackgroundColor = Color.White;
+            dgvBaoCao.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvBaoCao.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvBaoCao.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvBaoCao.Location = new Point(20, 120);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(54, 54, 54);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvBaoCao.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvBaoCao.EnableHeadersVisualStyles = false;
+            dgvBaoCao.GridColor = Color.LightGray;
+            dgvBaoCao.Location = new Point(40, 308);
+            dgvBaoCao.MultiSelect = false;
             dgvBaoCao.Name = "dgvBaoCao";
             dgvBaoCao.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvBaoCao.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvBaoCao.RowHeadersVisible = false;
             dgvBaoCao.RowHeadersWidth = 51;
+            dgvBaoCao.RowTemplate.Height = 35;
             dgvBaoCao.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBaoCao.Size = new Size(1520, 530);
-            dgvBaoCao.TabIndex = 0;
-            dgvBaoCao.Visible = false;
+            dgvBaoCao.Size = new Size(1497, 556);
+            dgvBaoCao.TabIndex = 9;
+            // 
+            // pnlHeader
+            // 
+            pnlHeader.BackColor = Color.White;
+            pnlHeader.Controls.Add(dtpTuNgay);
+            pnlHeader.Controls.Add(dtpDenNgay);
+            pnlHeader.Controls.Add(btnXemBaoCao);
+            pnlHeader.Controls.Add(btnXuatExcel);
+            pnlHeader.Controls.Add(lblDenNgay);
+            pnlHeader.Controls.Add(lblTuNgay);
+            pnlHeader.Controls.Add(lblTieuDe);
+            pnlHeader.Location = new Point(40, 184);
+            pnlHeader.Name = "pnlHeader";
+            pnlHeader.Size = new Size(1497, 100);
+            pnlHeader.TabIndex = 0;
+            // 
+            // dtpTuNgay
+            // 
+            dtpTuNgay.CalendarForeColor = Color.FromArgb(54, 54, 54);
+            dtpTuNgay.CalendarMonthBackground = Color.FromArgb(252, 252, 252);
+            dtpTuNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpTuNgay.Format = DateTimePickerFormat.Short;
+            dtpTuNgay.Location = new Point(122, 52);
+            dtpTuNgay.Name = "dtpTuNgay";
+            dtpTuNgay.Size = new Size(193, 30);
+            dtpTuNgay.TabIndex = 22;
+            // 
+            // dtpDenNgay
+            // 
+            dtpDenNgay.CalendarForeColor = Color.FromArgb(54, 54, 54);
+            dtpDenNgay.CalendarMonthBackground = Color.FromArgb(252, 252, 252);
+            dtpDenNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dtpDenNgay.Format = DateTimePickerFormat.Short;
+            dtpDenNgay.Location = new Point(605, 51);
+            dtpDenNgay.Name = "dtpDenNgay";
+            dtpDenNgay.Size = new Size(193, 30);
+            dtpDenNgay.TabIndex = 21;
+            // 
+            // btnXemBaoCao
+            // 
+            btnXemBaoCao.BackColor = Color.FromArgb(224, 224, 224);
+            btnXemBaoCao.Cursor = Cursors.Hand;
+            btnXemBaoCao.FlatAppearance.BorderSize = 0;
+            btnXemBaoCao.FlatAppearance.MouseOverBackColor = Color.Gray;
+            btnXemBaoCao.FlatStyle = FlatStyle.Flat;
+            btnXemBaoCao.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnXemBaoCao.ForeColor = Color.FromArgb(54, 54, 54);
+            btnXemBaoCao.Location = new Point(1084, 25);
+            btnXemBaoCao.Name = "btnXemBaoCao";
+            btnXemBaoCao.Size = new Size(178, 46);
+            btnXemBaoCao.TabIndex = 20;
+            btnXemBaoCao.Text = "XEM BÁO CÁO";
+            btnXemBaoCao.UseVisualStyleBackColor = false;
+            btnXemBaoCao.Click += btnXemBaoCao_Click;
+            // 
+            // btnXuatExcel
+            // 
+            btnXuatExcel.BackColor = Color.DodgerBlue;
+            btnXuatExcel.Cursor = Cursors.Hand;
+            btnXuatExcel.FlatAppearance.BorderSize = 0;
+            btnXuatExcel.FlatStyle = FlatStyle.Flat;
+            btnXuatExcel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnXuatExcel.ForeColor = Color.White;
+            btnXuatExcel.Location = new Point(1282, 25);
+            btnXuatExcel.Name = "btnXuatExcel";
+            btnXuatExcel.Size = new Size(178, 45);
+            btnXuatExcel.TabIndex = 10;
+            btnXuatExcel.Text = "XUẤT EXCEL";
+            btnXuatExcel.UseVisualStyleBackColor = false;
+            btnXuatExcel.Click += btnXuatExcel_Click;
+            // 
+            // lblDenNgay
+            // 
+            lblDenNgay.AutoSize = true;
+            lblDenNgay.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblDenNgay.ForeColor = Color.FromArgb(54, 54, 54);
+            lblDenNgay.Location = new Point(469, 58);
+            lblDenNgay.Name = "lblDenNgay";
+            lblDenNgay.Size = new Size(88, 23);
+            lblDenNgay.TabIndex = 2;
+            lblDenNgay.Text = "Đến ngày:";
+            // 
+            // lblTuNgay
+            // 
+            lblTuNgay.AutoSize = true;
+            lblTuNgay.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTuNgay.ForeColor = Color.FromArgb(54, 54, 54);
+            lblTuNgay.Location = new Point(20, 58);
+            lblTuNgay.Name = "lblTuNgay";
+            lblTuNgay.Size = new Size(77, 23);
+            lblTuNgay.TabIndex = 1;
+            lblTuNgay.Text = "Từ ngày:";
+            // 
+            // lblTieuDe
+            // 
+            lblTieuDe.AutoSize = true;
+            lblTieuDe.Font = new Font("Segoe UI Semibold", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTieuDe.ForeColor = Color.FromArgb(54, 54, 54);
+            lblTieuDe.Location = new Point(20, 11);
+            lblTieuDe.Name = "lblTieuDe";
+            lblTieuDe.Size = new Size(231, 31);
+            lblTieuDe.TabIndex = 0;
+            lblTieuDe.Text = "BÁO CÁO THỐNG KÊ";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(54, 54, 54);
+            label7.Location = new Point(565, 16);
+            label7.Name = "label7";
+            label7.Size = new Size(464, 38);
+            label7.TabIndex = 18;
+            label7.Text = "BÁO CÁO THỐNG KÊ CỬA HÀNG";
             // 
             // ucBaoCaoThongKe
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
-            Controls.Add(pnlContent);
+            BackColor = SystemColors.Control;
+            Controls.Add(dgvBaoCao);
+            Controls.Add(pnlHeader);
+            Controls.Add(label7);
             Controls.Add(pnlMenu);
             Font = new Font("Segoe UI", 9F);
             Name = "ucBaoCaoThongKe";
-            Size = new Size(1584, 800);
+            Size = new Size(1594, 932);
             Load += ucBaoCaoThongKe_Load;
             pnlMenu.ResumeLayout(false);
-            pnlContent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvBaoCao).EndInit();
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dgvBaoCao).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
 
         private System.Windows.Forms.Panel pnlMenu;
-        private System.Windows.Forms.Button btnDoanhThu;
-        private System.Windows.Forms.Button btnNhapHang;
-        private System.Windows.Forms.Button btnTonKho;
-        private System.Windows.Forms.Button btnNhanVien;
-        private System.Windows.Forms.Button btnKhachHang;
-        private System.Windows.Forms.Button btnSanPham;
-        private System.Windows.Forms.Button btnGiamGia;
-
-        private System.Windows.Forms.Panel pnlContent;
         private System.Windows.Forms.Panel pnlHeader;
         private System.Windows.Forms.Label lblTieuDe;
         private System.Windows.Forms.Label lblTuNgay;
         private System.Windows.Forms.Label lblDenNgay;
-        private System.Windows.Forms.DateTimePicker dtpTuNgay;
-        private System.Windows.Forms.DateTimePicker dtpDenNgay;
-        private System.Windows.Forms.Button btnXemBaoCao;
         private System.Windows.Forms.Button btnXuatExcel;
         private System.Windows.Forms.Button btnInBaoCao;
-        private System.Windows.Forms.DataGridView dgvBaoCao;
+        private Button btnGiamGia;
+        private Button btnSanPham;
+        private Button btnKhachHang;
+        private Button btnNhanVien;
+        private Button btnTonKho;
+        private Button btnNhapHang;
+        private Button btnDoanhThu;
+        private Label label7;
+        private Button btnXemBaoCao;
+        private DataGridView dgvBaoCao;
+        private DateTimePicker dtpTuNgay;
+        private DateTimePicker dtpDenNgay;
     }
 }

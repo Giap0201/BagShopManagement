@@ -305,7 +305,7 @@
             btnLuuChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnLuuChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnLuuChiTietHDN.ForeColor = Color.White;
-            btnLuuChiTietHDN.Location = new Point(1270, 340);
+            btnLuuChiTietHDN.Location = new Point(1272, 340);
             btnLuuChiTietHDN.Name = "btnLuuChiTietHDN";
             btnLuuChiTietHDN.Size = new Size(119, 46);
             btnLuuChiTietHDN.TabIndex = 5;
@@ -331,7 +331,7 @@
             btnXoaChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnXoaChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnXoaChiTietHDN.ForeColor = Color.White;
-            btnXoaChiTietHDN.Location = new Point(1133, 340);
+            btnXoaChiTietHDN.Location = new Point(985, 340);
             btnXoaChiTietHDN.Name = "btnXoaChiTietHDN";
             btnXoaChiTietHDN.Size = new Size(119, 46);
             btnXoaChiTietHDN.TabIndex = 7;
@@ -347,7 +347,7 @@
             btnSuaChiTietHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnSuaChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnSuaChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnSuaChiTietHDN.Location = new Point(991, 340);
+            btnSuaChiTietHDN.Location = new Point(1129, 340);
             btnSuaChiTietHDN.Name = "btnSuaChiTietHDN";
             btnSuaChiTietHDN.Size = new Size(119, 46);
             btnSuaChiTietHDN.TabIndex = 8;
@@ -384,14 +384,14 @@
             // 
             // btnThemChiTietHDN
             // 
-            btnThemChiTietHDN.BackColor = Color.Aqua;
+            btnThemChiTietHDN.BackColor = Color.FromArgb(224, 224, 224);
             btnThemChiTietHDN.Cursor = Cursors.Hand;
             btnThemChiTietHDN.FlatAppearance.BorderSize = 0;
             btnThemChiTietHDN.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 192, 192);
             btnThemChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnThemChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThemChiTietHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnThemChiTietHDN.Location = new Point(849, 340);
+            btnThemChiTietHDN.Location = new Point(848, 340);
             btnThemChiTietHDN.Name = "btnThemChiTietHDN";
             btnThemChiTietHDN.Size = new Size(119, 46);
             btnThemChiTietHDN.TabIndex = 12;
@@ -460,7 +460,7 @@
             // 
             // btnTaoMoiHDN
             // 
-            btnTaoMoiHDN.BackColor = Color.FromArgb(199, 199, 199);
+            btnTaoMoiHDN.BackColor = Color.FromArgb(224, 224, 224);
             btnTaoMoiHDN.Cursor = Cursors.Hand;
             btnTaoMoiHDN.FlatAppearance.BorderSize = 0;
             btnTaoMoiHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
@@ -509,7 +509,7 @@
             // 
             // btnDuyetHDN
             // 
-            btnDuyetHDN.BackColor = Color.Aqua;
+            btnDuyetHDN.BackColor = Color.FromArgb(224, 224, 224);
             btnDuyetHDN.Cursor = Cursors.Hand;
             btnDuyetHDN.FlatAppearance.BorderSize = 0;
             btnDuyetHDN.FlatAppearance.MouseOverBackColor = Color.Cyan;
@@ -549,6 +549,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(54, 54, 54);
             label7.Location = new Point(668, 13);
             label7.Name = "label7";
             label7.Size = new Size(314, 38);
@@ -570,6 +571,7 @@
             // 
             // ucThemHDN
             // 
+            BackColor = SystemColors.Control;
             Controls.Add(panel1);
             Controls.Add(label7);
             Controls.Add(groupBox1);
