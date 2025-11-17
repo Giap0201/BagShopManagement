@@ -25,8 +25,6 @@ namespace BagShopManagement.Views.Dev6
         {
             dtpTuNgay.Value = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1);
             dtpDenNgay.Value = DateTime.Today;
-
-            //HideAllViews();
             SelectMenuButton(btnDoanhThu);
             LoadCurrentReport();
         }
@@ -73,7 +71,10 @@ namespace BagShopManagement.Views.Dev6
             LoadCurrentReport();
         }
 
-        private void btnXemBaoCao_Click(object sender, EventArgs e) => LoadCurrentReport();
+        private void btnXemBaoCao_Click(object sender, EventArgs e)
+        {
+            LoadCurrentReport();
+        }
 
         private void LoadCurrentReport()
         {
