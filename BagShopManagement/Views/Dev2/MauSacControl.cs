@@ -29,20 +29,22 @@ namespace BagShopManagement.Views.Dev2
             if (dgvMauSac.Columns.Count == 0)
             {
                 dgvMauSac.AutoGenerateColumns = false;
+                // Cho toàn bộ DataGridView fill chiều ngang
+                dgvMauSac.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvMauSac.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Mã",
+                    HeaderText = "Mã màu",
                     DataPropertyName = "MaMau",
                     Name = "MaMau",
                     ReadOnly = true,
-                    Width = 120
+                    FillWeight = 30
                 });
                 dgvMauSac.Columns.Add(new DataGridViewTextBoxColumn()
                 {
                     HeaderText = "Tên màu",
                     DataPropertyName = "TenMau",
                     Name = "TenMau",
-                    Width = 300
+                    FillWeight = 70
                 });
             }
 

@@ -27,41 +27,43 @@ namespace BagShopManagement.Views.Dev2
             if (dgvKichThuoc.Columns.Count == 0)
             {
                 dgvKichThuoc.AutoGenerateColumns = false;
+                // Cho toàn bộ DataGridView fill chiều ngang
+                dgvKichThuoc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
                 dgvKichThuoc.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Mã",
+                    HeaderText = "Mã KT",
                     DataPropertyName = "MaKichThuoc",
                     Name = "MaKichThuoc",
                     ReadOnly = true,
-                    Width = 100
+                    FillWeight = 15
                 });
                 dgvKichThuoc.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Tên",
+                    HeaderText = "Tên kích thước",
                     DataPropertyName = "TenKichThuoc",
                     Name = "TenKichThuoc",
-                    Width = 180
+                    FillWeight = 25
                 });
                 dgvKichThuoc.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Dài",
+                    HeaderText = "Chiều dài",
                     DataPropertyName = "ChieuDai",
                     Name = "ChieuDai",
-                    Width = 80
+                    FillWeight = 20
                 });
                 dgvKichThuoc.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Rộng",
+                    HeaderText = "Chiều rộng",
                     DataPropertyName = "ChieuRong",
                     Name = "ChieuRong",
-                    Width = 80
+                    FillWeight = 20
                 });
                 dgvKichThuoc.Columns.Add(new DataGridViewTextBoxColumn()
                 {
-                    HeaderText = "Cao",
+                    HeaderText = "Chiều cao",
                     DataPropertyName = "ChieuCao",
                     Name = "ChieuCao",
-                    Width = 80
+                    FillWeight = 20
                 });
             }
 
