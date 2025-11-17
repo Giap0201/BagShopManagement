@@ -1,22 +1,15 @@
-﻿// === Using của nhóm bạn (Dev2, 3, 4, 6) ===
-using BagShopManagement.Views.Controls;
+﻿using BagShopManagement.Views.Controls;
 using BagShopManagement.Views.Dev2;
 using BagShopManagement.Views.Dev3;
-using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Windows.Forms;
-using BagShopManagement.Views.Controls;
 using BagShopManagement.Views.Dev5;
 
 // === BỔ SUNG CÁC USING CHO DEV1 ===
-using BagShopManagement.Views; // Cần cho LoginForm
 using BagShopManagement.Views.Dev1; // Cần cho ucProfile, ucEmployeeManagement
 using BagShopManagement.Utils; // Cần cho UserContext
-using System.Linq; // Cần cho UserContext.MaQuyenList.Contains()
 
 namespace BagShopManagement.Views.Common
 {
