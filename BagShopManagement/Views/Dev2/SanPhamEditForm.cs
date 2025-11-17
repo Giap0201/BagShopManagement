@@ -83,8 +83,24 @@ namespace BagShopManagement.Views.Dev2
             {
                 txtAnhChinh.Text = sp.AnhChinh;
                 string path = Path.Combine(Application.StartupPath, "Resources", "AnhSanPham", sp.AnhChinh);
+
                 if (File.Exists(path))
+                {
                     picAnhChinh.ImageLocation = path;
+                    picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                else
+                {
+                    // Nếu file không tồn tại, hiển thị ảnh mặc định
+                    picAnhChinh.Image = Properties.Resources.no_image;
+                    picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+            }
+            else
+            {
+                // Nếu sp.AnhChinh rỗng, hiển thị ảnh mặc định
+                picAnhChinh.Image = Properties.Resources.no_image;
+                picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
 
@@ -148,6 +164,7 @@ namespace BagShopManagement.Views.Dev2
                 _selectedImagePath = ofd.FileName;
                 txtAnhChinh.Text = Path.GetFileName(ofd.FileName);
                 picAnhChinh.ImageLocation = ofd.FileName;
+                picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
             }
         }
     }
