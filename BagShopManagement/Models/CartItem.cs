@@ -14,6 +14,6 @@ namespace BagShopManagement.Models
         public decimal DonGia { get; set; }
         public decimal GiamGiaSP { get; set; }
 
-        public decimal ThanhTien => (DonGia - GiamGiaSP) * SoLuong;
+        public decimal ThanhTien => (DonGia * SoLuong) - GiamGiaSP;
     }
 }
