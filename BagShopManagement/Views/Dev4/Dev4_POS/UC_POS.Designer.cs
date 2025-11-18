@@ -313,7 +313,7 @@
             lblKhuyenMaiValue.ForeColor = Color.Gray;
             lblKhuyenMaiValue.Location = new Point(223, 230);
             lblKhuyenMaiValue.Name = "lblKhuyenMaiValue";
-            lblKhuyenMaiValue.Size = new Size(145, 47);
+            lblKhuyenMaiValue.Size = new Size(324, 47);
             lblKhuyenMaiValue.TabIndex = 16;
             lblKhuyenMaiValue.Text = "0%";
             lblKhuyenMaiValue.TextAlign = ContentAlignment.MiddleCenter;

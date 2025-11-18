@@ -506,7 +506,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 dgvCart.DataSource = null;
                 dgvCart.DataSource = cart;
 
-                decimal total = cart.Sum(i => (i.DonGia - i.GiamGiaSP) * i.SoLuong);
+                // ✅ FIXED: Dùng ThanhTien thay vì tính sai công thức
+                decimal total = cart.Sum(i => i.ThanhTien);
                 lblTotal.Text = $"Tổng: {total:N0} ₫";
             }
             catch (Exception ex)
