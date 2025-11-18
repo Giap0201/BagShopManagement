@@ -240,5 +240,48 @@ namespace BagShopManagement.Views.Dev1
 
             // (Bạn có thể thêm các định dạng cho các cột khác ở đây)
         }
+        private void PerformSearch()
+        {
+            // (Giả sử TextBox tên là 'txtTimKiem')
+            // string keyword = txtTimKiem.Text.Trim();
+            string keyword = txtTimKiem.Text.Trim(); ; // <-- Thay thế bằng control của bạn
+
+            try
+            {
+                // Gọi Controller để lấy dữ liệu tìm kiếm
+                var searchResult = _nhanVienController.HandleSearchNhanVien(keyword);
+
+                // Cập nhật DataGridView
+                dgvNhanVien.DataSource = null;
+                dgvNhanVien.DataSource = searchResult;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi tìm kiếm nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Kích hoạt khi nhấn nút "Tìm"
+        /// (Bạn phải kết nối sự kiện Click của nút "Tìm" vào hàm này)
+        /// </summary>
+        private void btnTimKiem_Click(object sender, EventArgs e)
+        {
+            PerformSearch();
+        }
+
+        /// <summary>
+        /// Kích hoạt khi gõ phím trong TextBox (để bắt phím Enter)
+        /// (Bạn phải kết nối sự kiện KeyDown của TextBox "Tìm" vào hàm này)
+        /// </summary>
+        private void txtTimKiem_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                PerformSearch();
+                // Ngăn tiếng "bíp" của Windows khi nhấn Enter
+                e.SuppressKeyPress = true;
+            }
+        }
     }
 }

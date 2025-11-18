@@ -66,5 +66,23 @@ namespace BagShopManagement.Repositories.Implementations
             }
             return list;
         }
+
+        public bool Add(VaiTro vaiTro)
+        {
+            string sql = @"
+                INSERT INTO VaiTro (MaVaiTro, TenVaiTro, MoTa)
+                VALUES (@MaVaiTro, @TenVaiTro, @MoTa)";
+
+            using var conn = new SqlConnection(_connectionString);
+            using var cmd = new SqlCommand(sql, conn);
+
+            cmd.Parameters.AddWithValue("@MaVaiTro", vaiTro.MaVaiTro);
+            cmd.Parameters.AddWithValue("@TenVaiTro", vaiTro.TenVaiTro);
+            cmd.Parameters.AddWithValue("@MoTa", (object)vaiTro.MoTa ?? DBNull.Value);
+
+            conn.Open();
+            int rowsAffected = cmd.ExecuteNonQuery();
+            return rowsAffected > 0;
+        }
     }
 }

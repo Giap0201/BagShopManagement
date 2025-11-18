@@ -29,7 +29,7 @@
             headerControl1.Location = new Point(0, 0);
             headerControl1.Margin = new Padding(6);
             headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(905, 76);
+            headerControl1.Size = new Size(1159, 76);
             headerControl1.TabIndex = 0;
             // 
             // sideBarControl
@@ -38,7 +38,7 @@
             sideBarControl.Location = new Point(0, 76);
             sideBarControl.Margin = new Padding(6);
             sideBarControl.Name = "sideBarControl";
-            sideBarControl.Size = new Size(336, 439);
+            sideBarControl.Size = new Size(336, 765);
             sideBarControl.TabIndex = 1;
             sideBarControl.Load += sideBarControl_Load;
             // 
@@ -48,7 +48,7 @@
             panelContent.Dock = DockStyle.Fill;
             panelContent.Location = new Point(336, 76);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(569, 439);
+            panelContent.Size = new Size(823, 765);
             panelContent.TabIndex = 2;
             // 
             // mainPanel
@@ -57,20 +57,14 @@
             mainPanel.Location = new Point(0, 0);
             mainPanel.Margin = new Padding(1);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(569, 439);
+            mainPanel.Size = new Size(823, 765);
             mainPanel.TabIndex = 0;
-            // 
-            //pnlMainContent.Dock = DockStyle.Fill;
-            //pnlMainContent.Location = new Point(336, 76);
-            //pnlMainContent.Name = "pnlMainContent";
-            //pnlMainContent.Size = new Size(1024, 773);
-            //pnlMainContent.TabIndex = 2;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(905, 515);
+            ClientSize = new Size(1159, 841);
             Controls.Add(panelContent);
             Controls.Add(sideBarControl);
             Controls.Add(headerControl1);

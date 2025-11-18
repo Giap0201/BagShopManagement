@@ -42,6 +42,11 @@ namespace BagShopManagement
                 {
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
+                    // Lấy Seeder từ DI
+                    var seeder = provider.GetRequiredService<DatabaseSeeder>();
+                    // Chạy hàm kiểm tra và tạo (nếu cần)
+                    seeder.SeedInitialData();
+                    // === KẾT THÚC BƯỚC MỚI ===
 
                     // === CHẠY LOGINFORM ĐẦU TIÊN ===
                     var loginForm = provider.GetRequiredService<LoginForm>();
@@ -199,7 +204,6 @@ namespace BagShopManagement
             services.AddTransient<NhaCungCapControl>();
             services.AddTransient<ThemKhachHangForm2>();
             services.AddTransient<ThemNhaCungCapForm>();
-            services.AddTransient<POSForm>();
             services.AddTransient<HoaDonBanForm>();
             services.AddTransient<UC_POS>();
             services.AddTransient<UC_HoaDonBan>();
@@ -214,6 +218,7 @@ namespace BagShopManagement
             services.AddTransient<ucThemHDN>();
             services.AddTransient<frmViewHoaDonNhapDetails>();
             services.AddTransient<ucSuaHoaDonNhap>();
+            services.AddTransient<DatabaseSeeder>();
         }
     }
 }
