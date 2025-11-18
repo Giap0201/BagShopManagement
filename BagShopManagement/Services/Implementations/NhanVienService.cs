@@ -160,5 +160,19 @@ namespace BagShopManagement.Services.Implementations
                 }
             }
         }
+        public IEnumerable<NhanVienResponse> SearchNhanVien(string keyword)
+        {
+            // Nếu người dùng không nhập gì (hoặc xóa hết) và bấm tìm
+            // thì trả về toàn bộ danh sách
+            if (string.IsNullOrWhiteSpace(keyword))
+            {
+                return GetAllNhanVien();
+            }
+
+            // Thêm ký tự '%' để tìm kiếm (LIKE %keyword%)
+            string formattedKeyword = $"%{keyword.Trim()}%";
+
+            return _nhanVienRepo.Search(formattedKeyword);
+        }
     }
 }

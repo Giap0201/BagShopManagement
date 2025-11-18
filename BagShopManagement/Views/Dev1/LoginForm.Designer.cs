@@ -41,10 +41,10 @@
             // lblTitle
             // 
             lblTitle.AutoSize = true;
-            lblTitle.Font = new Font("Segoe UI", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitle.Location = new Point(268, 100);
+            lblTitle.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(254, 100);
             lblTitle.Name = "lblTitle";
-            lblTitle.Size = new Size(234, 31);
+            lblTitle.Size = new Size(288, 38);
             lblTitle.TabIndex = 0;
             lblTitle.Text = "Đăng nhập hệ thống";
             lblTitle.TextAlign = ContentAlignment.MiddleCenter;
@@ -52,42 +52,47 @@
             // lblUsername
             // 
             lblUsername.AutoSize = true;
+            lblUsername.Font = new Font("Segoe UI", 10.2F);
             lblUsername.Location = new Point(195, 181);
             lblUsername.Name = "lblUsername";
-            lblUsername.Size = new Size(114, 20);
+            lblUsername.Size = new Size(133, 23);
             lblUsername.TabIndex = 1;
             lblUsername.Text = "Tên đăng nhập: ";
             // 
             // txtTenDangNhap
             // 
+            txtTenDangNhap.Font = new Font("Segoe UI", 10.2F);
             txtTenDangNhap.Location = new Point(341, 178);
             txtTenDangNhap.Name = "txtTenDangNhap";
-            txtTenDangNhap.Size = new Size(194, 27);
+            txtTenDangNhap.Size = new Size(194, 30);
             txtTenDangNhap.TabIndex = 2;
             // 
             // lblPassword
             // 
             lblPassword.AutoSize = true;
+            lblPassword.Font = new Font("Segoe UI", 10.2F);
             lblPassword.Location = new Point(195, 246);
             lblPassword.Name = "lblPassword";
-            lblPassword.Size = new Size(73, 20);
+            lblPassword.Size = new Size(86, 23);
             lblPassword.TabIndex = 3;
             lblPassword.Text = "Mật khẩu:";
             // 
             // txtMatKhau
             // 
+            txtMatKhau.Font = new Font("Segoe UI", 10.2F);
             txtMatKhau.Location = new Point(341, 243);
             txtMatKhau.Name = "txtMatKhau";
             txtMatKhau.PasswordChar = '*';
-            txtMatKhau.Size = new Size(194, 27);
+            txtMatKhau.Size = new Size(194, 30);
             txtMatKhau.TabIndex = 4;
             // 
             // llblQuenMatKhau
             // 
             llblQuenMatKhau.AutoSize = true;
+            llblQuenMatKhau.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             llblQuenMatKhau.Location = new Point(559, 300);
             llblQuenMatKhau.Name = "llblQuenMatKhau";
-            llblQuenMatKhau.Size = new Size(116, 20);
+            llblQuenMatKhau.Size = new Size(154, 28);
             llblQuenMatKhau.TabIndex = 5;
             llblQuenMatKhau.TabStop = true;
             llblQuenMatKhau.Text = "Quên mật khẩu?";
@@ -95,22 +100,32 @@
             // 
             // btnDangNhap
             // 
+            btnDangNhap.BackColor = SystemColors.Highlight;
+            btnDangNhap.FlatAppearance.BorderSize = 0;
+            btnDangNhap.FlatStyle = FlatStyle.Flat;
+            btnDangNhap.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnDangNhap.ForeColor = Color.White;
             btnDangNhap.Location = new Point(254, 358);
             btnDangNhap.Name = "btnDangNhap";
-            btnDangNhap.Size = new Size(94, 29);
+            btnDangNhap.Size = new Size(131, 42);
             btnDangNhap.TabIndex = 6;
             btnDangNhap.Text = "Đăng nhập";
-            btnDangNhap.UseVisualStyleBackColor = true;
+            btnDangNhap.UseVisualStyleBackColor = false;
             btnDangNhap.Click += btnDangNhap_Click;
             // 
             // btnThoat
             // 
+            btnThoat.BackColor = Color.FromArgb(231, 76, 60);
+            btnThoat.FlatAppearance.BorderSize = 0;
+            btnThoat.FlatStyle = FlatStyle.Flat;
+            btnThoat.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnThoat.ForeColor = Color.White;
             btnThoat.Location = new Point(422, 358);
             btnThoat.Name = "btnThoat";
-            btnThoat.Size = new Size(94, 29);
+            btnThoat.Size = new Size(94, 42);
             btnThoat.TabIndex = 7;
             btnThoat.Text = "Thoát";
-            btnThoat.UseVisualStyleBackColor = true;
+            btnThoat.UseVisualStyleBackColor = false;
             btnThoat.Click += btnThoat_Click;
             // 
             // LoginForm
@@ -118,6 +133,7 @@
             AcceptButton = btnDangNhap;
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonFace;
             CancelButton = btnThoat;
             ClientSize = new Size(800, 450);
             Controls.Add(btnThoat);

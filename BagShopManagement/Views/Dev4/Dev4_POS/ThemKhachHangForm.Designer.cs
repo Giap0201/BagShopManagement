@@ -38,7 +38,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblTitle.AutoSize = true;
             this.lblTitle.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
-            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(0, 122, 204);
+            this.lblTitle.ForeColor = System.Drawing.Color.FromArgb(0, 120, 215);
             this.lblTitle.Location = new System.Drawing.Point(120, 20);
             this.lblTitle.Name = "lblTitle";
             this.lblTitle.Size = new System.Drawing.Size(260, 30);
@@ -49,6 +49,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblMaKH.AutoSize = true;
             this.lblMaKH.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblMaKH.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.lblMaKH.Location = new System.Drawing.Point(30, 80);
             this.lblMaKH.Name = "lblMaKH";
             this.lblMaKH.Size = new System.Drawing.Size(120, 19);
@@ -57,7 +58,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // txtMaKH
             // 
+            this.txtMaKH.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+            this.txtMaKH.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtMaKH.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtMaKH.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.txtMaKH.Location = new System.Drawing.Point(180, 77);
             this.txtMaKH.Name = "txtMaKH";
             this.txtMaKH.Size = new System.Drawing.Size(280, 25);
@@ -67,7 +71,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblHoTen.AutoSize = true;
             this.lblHoTen.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblHoTen.ForeColor = System.Drawing.Color.Red;
+            this.lblHoTen.ForeColor = System.Drawing.Color.FromArgb(231, 76, 60);
             this.lblHoTen.Location = new System.Drawing.Point(30, 120);
             this.lblHoTen.Name = "lblHoTen";
             this.lblHoTen.Size = new System.Drawing.Size(70, 19);
@@ -76,7 +80,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // txtHoTen
             // 
+            this.txtHoTen.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+            this.txtHoTen.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtHoTen.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtHoTen.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.txtHoTen.Location = new System.Drawing.Point(180, 117);
             this.txtHoTen.Name = "txtHoTen";
             this.txtHoTen.Size = new System.Drawing.Size(280, 25);
@@ -86,6 +93,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblGioiTinh.AutoSize = true;
             this.lblGioiTinh.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblGioiTinh.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.lblGioiTinh.Location = new System.Drawing.Point(30, 160);
             this.lblGioiTinh.Name = "lblGioiTinh";
             this.lblGioiTinh.Size = new System.Drawing.Size(71, 19);
@@ -94,8 +102,11 @@ namespace BagShopManagement.Views.Dev4
             // 
             // cboGioiTinh
             // 
+            this.cboGioiTinh.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
             this.cboGioiTinh.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboGioiTinh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cboGioiTinh.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cboGioiTinh.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.cboGioiTinh.FormattingEnabled = true;
             this.cboGioiTinh.Items.AddRange(new object[] {
             "Nam",
@@ -110,7 +121,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblSDT.AutoSize = true;
             this.lblSDT.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.lblSDT.ForeColor = System.Drawing.Color.Red;
+            this.lblSDT.ForeColor = System.Drawing.Color.FromArgb(231, 76, 60);
             this.lblSDT.Location = new System.Drawing.Point(30, 200);
             this.lblSDT.Name = "lblSDT";
             this.lblSDT.Size = new System.Drawing.Size(118, 19);
@@ -119,7 +130,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // txtSDT
             // 
+            this.txtSDT.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+            this.txtSDT.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtSDT.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtSDT.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.txtSDT.Location = new System.Drawing.Point(180, 197);
             this.txtSDT.Name = "txtSDT";
             this.txtSDT.Size = new System.Drawing.Size(280, 25);
@@ -129,6 +143,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblDiaChi.AutoSize = true;
             this.lblDiaChi.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblDiaChi.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.lblDiaChi.Location = new System.Drawing.Point(30, 240);
             this.lblDiaChi.Name = "lblDiaChi";
             this.lblDiaChi.Size = new System.Drawing.Size(57, 19);
@@ -137,7 +152,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // txtDiaChi
             // 
+            this.txtDiaChi.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+            this.txtDiaChi.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtDiaChi.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtDiaChi.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.txtDiaChi.Location = new System.Drawing.Point(180, 237);
             this.txtDiaChi.Name = "txtDiaChi";
             this.txtDiaChi.Size = new System.Drawing.Size(280, 25);
@@ -147,6 +165,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.lblEmail.AutoSize = true;
             this.lblEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.lblEmail.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.lblEmail.Location = new System.Drawing.Point(30, 280);
             this.lblEmail.Name = "lblEmail";
             this.lblEmail.Size = new System.Drawing.Size(49, 19);
@@ -155,7 +174,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // txtEmail
             // 
+            this.txtEmail.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
+            this.txtEmail.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.txtEmail.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.txtEmail.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.txtEmail.Location = new System.Drawing.Point(180, 277);
             this.txtEmail.Name = "txtEmail";
             this.txtEmail.Size = new System.Drawing.Size(280, 25);
@@ -163,9 +185,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // btnSave
             // 
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(0, 192, 0);
+            this.btnSave.BackColor = System.Drawing.Color.FromArgb(0, 120, 215);
+            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSave.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnSave.ForeColor = System.Drawing.Color.White;
+            this.btnSave.ForeColor = System.Drawing.Color.FromArgb(255, 255, 255);
             this.btnSave.Location = new System.Drawing.Point(130, 330);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(130, 40);
@@ -176,9 +199,10 @@ namespace BagShopManagement.Views.Dev4
             // 
             // btnCancel
             // 
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(220, 53, 69);
+            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
+            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCancel.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
-            this.btnCancel.ForeColor = System.Drawing.Color.White;
+            this.btnCancel.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             this.btnCancel.Location = new System.Drawing.Point(280, 330);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(130, 40);
@@ -191,6 +215,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
             this.ClientSize = new System.Drawing.Size(500, 400);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
