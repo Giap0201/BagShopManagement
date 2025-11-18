@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             dgvKichThuoc = new DataGridView();
             txtSearch = new TextBox();
             btnAdd = new Button();
@@ -35,92 +37,176 @@
             btnDelete = new Button();
             btnImport = new Button();
             btnExport = new Button();
+            groupBox1 = new GroupBox();
+            groupBox = new GroupBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)dgvKichThuoc).BeginInit();
+            groupBox1.SuspendLayout();
+            groupBox.SuspendLayout();
             SuspendLayout();
             // 
             // dgvKichThuoc
             // 
-            dgvKichThuoc.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKichThuoc.Location = new Point(27, 126);
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            dataGridViewCellStyle1.ForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvKichThuoc.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvKichThuoc.ColumnHeadersHeight = 40;
+            dgvKichThuoc.Location = new Point(16, 29);
             dgvKichThuoc.Name = "dgvKichThuoc";
+            dgvKichThuoc.ReadOnly = true;
             dgvKichThuoc.RowHeadersWidth = 51;
-            dgvKichThuoc.Size = new Size(867, 361);
+            dgvKichThuoc.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = Color.White;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            dataGridViewCellStyle2.ForeColor = Color.FromArgb(51, 51, 51);
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = Color.White;
+            dgvKichThuoc.RowsDefaultCellStyle = dataGridViewCellStyle2;
+            dgvKichThuoc.Size = new Size(956, 431);
             dgvKichThuoc.TabIndex = 0;
             dgvKichThuoc.CellDoubleClick += dgvKichThuoc_CellDoubleClick;
             // 
             // txtSearch
             // 
-            txtSearch.Location = new Point(27, 57);
+            txtSearch.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            txtSearch.ForeColor = Color.FromArgb(51, 51, 51);
+            txtSearch.Location = new Point(19, 42);
+            txtSearch.Multiline = true;
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Tìm kiếm";
-            txtSearch.Size = new Size(260, 27);
+            txtSearch.Size = new Size(494, 50);
             txtSearch.TabIndex = 1;
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(325, 55);
+            btnAdd.BackColor = SystemColors.Highlight;
+            btnAdd.Cursor = Cursors.Hand;
+            btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnAdd.ForeColor = Color.White;
+            btnAdd.Location = new Point(19, 104);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(94, 29);
+            btnAdd.Size = new Size(494, 67);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Thêm";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(448, 55);
+            btnEdit.BackColor = Color.FromArgb(64, 78, 103);
+            btnEdit.Cursor = Cursors.Hand;
+            btnEdit.FlatStyle = FlatStyle.Flat;
+            btnEdit.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnEdit.ForeColor = Color.White;
+            btnEdit.Location = new Point(19, 177);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(94, 29);
+            btnEdit.Size = new Size(494, 67);
             btnEdit.TabIndex = 3;
             btnEdit.Text = "Sửa";
-            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += btnEdit_Click;
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(561, 55);
+            btnDelete.BackColor = Color.Red;
+            btnDelete.Cursor = Cursors.Hand;
+            btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            btnDelete.ForeColor = Color.White;
+            btnDelete.Location = new Point(19, 393);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(94, 29);
+            btnDelete.Size = new Size(494, 67);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "Xoá";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnImport
             // 
-            btnImport.Location = new Point(671, 56);
+            btnImport.BackColor = Color.FromArgb(224, 224, 224);
+            btnImport.Cursor = Cursors.Hand;
+            btnImport.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnImport.Location = new Point(19, 250);
             btnImport.Name = "btnImport";
-            btnImport.Size = new Size(94, 29);
+            btnImport.Size = new Size(494, 67);
             btnImport.TabIndex = 7;
             btnImport.Text = "Nhập file";
-            btnImport.UseVisualStyleBackColor = true;
+            btnImport.UseVisualStyleBackColor = false;
             btnImport.Click += BtnImport_Click;
             // 
             // btnExport
             // 
-            btnExport.Location = new Point(787, 55);
+            btnExport.BackColor = Color.FromArgb(224, 224, 224);
+            btnExport.Cursor = Cursors.Hand;
+            btnExport.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnExport.Location = new Point(19, 323);
             btnExport.Name = "btnExport";
-            btnExport.Size = new Size(94, 29);
+            btnExport.Size = new Size(494, 67);
             btnExport.TabIndex = 8;
             btnExport.Text = "Xuất file";
-            btnExport.UseVisualStyleBackColor = true;
+            btnExport.UseVisualStyleBackColor = false;
             btnExport.Click += BtnExport_Click;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(txtSearch);
+            groupBox1.Controls.Add(btnDelete);
+            groupBox1.Controls.Add(btnExport);
+            groupBox1.Controls.Add(btnAdd);
+            groupBox1.Controls.Add(btnImport);
+            groupBox1.Controls.Add(btnEdit);
+            groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
+            groupBox1.Location = new Point(27, 142);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(531, 473);
+            groupBox1.TabIndex = 9;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Thao tác";
+            // 
+            // groupBox
+            // 
+            groupBox.Controls.Add(dgvKichThuoc);
+            groupBox.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox.Location = new Point(564, 142);
+            groupBox.Name = "groupBox";
+            groupBox.Size = new Size(987, 473);
+            groupBox.TabIndex = 10;
+            groupBox.TabStop = false;
+            groupBox.Text = "Chi tiết";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            label1.Location = new Point(640, 53);
+            label1.Name = "label1";
+            label1.Size = new Size(352, 38);
+            label1.TabIndex = 11;
+            label1.Text = "DANH MỤC KÍCH THƯỚC";
             // 
             // KichThuocControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(btnExport);
-            Controls.Add(btnImport);
-            Controls.Add(btnDelete);
-            Controls.Add(btnEdit);
-            Controls.Add(btnAdd);
-            Controls.Add(txtSearch);
-            Controls.Add(dgvKichThuoc);
+            Controls.Add(label1);
+            Controls.Add(groupBox);
+            Controls.Add(groupBox1);
+            ForeColor = Color.FromArgb(51, 51, 51);
             Name = "KichThuocControl";
-            Size = new Size(926, 512);
+            Size = new Size(1569, 703);
             ((System.ComponentModel.ISupportInitialize)dgvKichThuoc).EndInit();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            groupBox.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -134,5 +220,8 @@
         private Button btnDelete;
         private Button btnImport;
         private Button btnExport;
+        private GroupBox groupBox1;
+        private GroupBox groupBox;
+        private Label label1;
     }
 }
