@@ -204,7 +204,6 @@ namespace BagShopManagement
             services.AddTransient<NhaCungCapControl>();
             services.AddTransient<ThemKhachHangForm2>();
             services.AddTransient<ThemNhaCungCapForm>();
-            services.AddTransient<POSForm>();
             services.AddTransient<HoaDonBanForm>();
             services.AddTransient<UC_POS>();
             services.AddTransient<UC_HoaDonBan>();

@@ -20,7 +20,22 @@ namespace BagShopManagement.Services.Implementations
 
         public bool DecreaseStock(string maSP, int soLuong)
         {
-            throw new NotImplementedException();
+            if (soLuong <= 0)
+                return false;
+
+            var sanPham = _sanPhamRepo.GetById(maSP);
+            if (sanPham == null)
+                return false;
+
+            // Kiểm tra tồn kho
+            if (sanPham.SoLuongTon < soLuong)
+                return false;
+
+            // Giảm tồn kho
+            int soLuongMoi = sanPham.SoLuongTon - soLuong;
+            _sanPhamRepo.UpdateSoLuong(maSP, soLuongMoi);
+
+            return true;
         }
 
         public void DieuChinhTonKho(string maSP, int soLuongThucTe, string maNV, string ghiChu)
@@ -32,7 +47,7 @@ namespace BagShopManagement.Services.Implementations
 
             var sanPhamHienTai = _sanPhamRepo.GetById(maSP);
             if (sanPhamHienTai == null)
-        {
+            {
                 throw new KeyNotFoundException("Không tìm thấy sản phẩm với mã này.");
             }
 
@@ -64,7 +79,16 @@ namespace BagShopManagement.Services.Implementations
 
         public void IncreaseStock(string maSP, int soLuong)
         {
-            throw new NotImplementedException();
+            if (soLuong <= 0)
+                throw new ArgumentException("Số lượng phải lớn hơn 0");
+
+            var sanPham = _sanPhamRepo.GetById(maSP);
+            if (sanPham == null)
+                throw new KeyNotFoundException($"Không tìm thấy sản phẩm {maSP}");
+
+            // Tăng tồn kho
+            int soLuongMoi = sanPham.SoLuongTon + soLuong;
+            _sanPhamRepo.UpdateSoLuong(maSP, soLuongMoi);
         }
     }
 }
