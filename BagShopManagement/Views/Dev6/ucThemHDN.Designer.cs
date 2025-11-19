@@ -86,7 +86,7 @@
             groupBox1.ForeColor = Color.FromArgb(54, 54, 54);
             groupBox1.Location = new Point(46, 70);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1472, 170);
+            groupBox1.Size = new Size(1472, 189);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN CHUNG";
@@ -238,9 +238,9 @@
             groupBox2.FlatStyle = FlatStyle.Flat;
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.ForeColor = Color.FromArgb(54, 54, 54);
-            groupBox2.Location = new Point(46, 262);
+            groupBox2.Location = new Point(46, 276);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1472, 499);
+            groupBox2.Size = new Size(1472, 494);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CHI TIẾT HOÁ ĐƠN";
@@ -250,7 +250,7 @@
             lblTongTien.AutoSize = true;
             lblTongTien.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTongTien.ForeColor = Color.Red;
-            lblTongTien.Location = new Point(155, 426);
+            lblTongTien.Location = new Point(155, 439);
             lblTongTien.Name = "lblTongTien";
             lblTongTien.Size = new Size(22, 25);
             lblTongTien.TabIndex = 0;
@@ -319,7 +319,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.Location = new Point(37, 426);
+            label14.Location = new Point(37, 439);
             label14.Name = "label14";
             label14.Size = new Size(99, 25);
             label14.TabIndex = 6;
@@ -457,7 +457,7 @@
             dgvChiTiet.RowHeadersVisible = false;
             dgvChiTiet.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvChiTiet.Size = new Size(730, 344);
+            dgvChiTiet.Size = new Size(730, 363);
             dgvChiTiet.TabIndex = 14;
             dgvChiTiet.CellClick += dgvChiTiet_CellClick;
             // 
@@ -470,7 +470,7 @@
             btnTaoMoiHDN.FlatStyle = FlatStyle.Flat;
             btnTaoMoiHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnTaoMoiHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnTaoMoiHDN.Location = new Point(136, 22);
+            btnTaoMoiHDN.Location = new Point(135, 35);
             btnTaoMoiHDN.Name = "btnTaoMoiHDN";
             btnTaoMoiHDN.Size = new Size(132, 45);
             btnTaoMoiHDN.TabIndex = 2;
@@ -486,7 +486,7 @@
             btnThoat.FlatStyle = FlatStyle.Flat;
             btnThoat.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThoat.ForeColor = Color.FromArgb(54, 54, 54);
-            btnThoat.Location = new Point(1201, 22);
+            btnThoat.Location = new Point(1201, 35);
             btnThoat.Name = "btnThoat";
             btnThoat.Size = new Size(132, 45);
             btnThoat.TabIndex = 7;
@@ -502,7 +502,7 @@
             btnInHDN.FlatStyle = FlatStyle.Flat;
             btnInHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnInHDN.ForeColor = Color.White;
-            btnInHDN.Location = new Point(905, 22);
+            btnInHDN.Location = new Point(925, 35);
             btnInHDN.Name = "btnInHDN";
             btnInHDN.Size = new Size(147, 45);
             btnInHDN.TabIndex = 4;
@@ -519,7 +519,7 @@
             btnDuyetHDN.FlatStyle = FlatStyle.Flat;
             btnDuyetHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDuyetHDN.ForeColor = Color.FromArgb(54, 54, 54);
-            btnDuyetHDN.Location = new Point(634, 22);
+            btnDuyetHDN.Location = new Point(659, 35);
             btnDuyetHDN.Name = "btnDuyetHDN";
             btnDuyetHDN.Size = new Size(132, 45);
             btnDuyetHDN.TabIndex = 6;
@@ -536,7 +536,7 @@
             btnTamLuuHDN.FlatStyle = FlatStyle.Flat;
             btnTamLuuHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnTamLuuHDN.ForeColor = Color.White;
-            btnTamLuuHDN.Location = new Point(384, 22);
+            btnTamLuuHDN.Location = new Point(389, 35);
             btnTamLuuHDN.Name = "btnTamLuuHDN";
             btnTamLuuHDN.Size = new Size(132, 45);
             btnTamLuuHDN.TabIndex = 5;
@@ -553,7 +553,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);
-            label7.Location = new Point(668, 13);
+            label7.Location = new Point(683, 13);
             label7.Name = "label7";
             label7.Size = new Size(314, 38);
             label7.TabIndex = 17;
@@ -567,9 +567,9 @@
             panel1.Controls.Add(btnThoat);
             panel1.Controls.Add(btnDuyetHDN);
             panel1.Controls.Add(btnTamLuuHDN);
-            panel1.Location = new Point(46, 783);
+            panel1.Location = new Point(46, 800);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1472, 92);
+            panel1.Size = new Size(1472, 116);
             panel1.TabIndex = 15;
             // 
             // ucThemHDN
@@ -580,7 +580,7 @@
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
             Name = "ucThemHDN";
-            Size = new Size(1591, 908);
+            Size = new Size(1591, 964);
             Load += ucChiTietHDN_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

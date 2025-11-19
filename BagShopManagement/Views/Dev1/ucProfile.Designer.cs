@@ -73,9 +73,9 @@
             grpThongTin.FlatStyle = FlatStyle.Flat;
             grpThongTin.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpThongTin.ForeColor = Color.FromArgb(54, 54, 54);
-            grpThongTin.Location = new Point(61, 74);
+            grpThongTin.Location = new Point(42, 74);
             grpThongTin.Name = "grpThongTin";
-            grpThongTin.Size = new Size(1454, 304);
+            grpThongTin.Size = new Size(1494, 304);
             grpThongTin.TabIndex = 1;
             grpThongTin.TabStop = false;
             grpThongTin.Text = "THÔNG TIN CHUNG";
@@ -215,9 +215,9 @@
             grpDoiMatKhau.FlatStyle = FlatStyle.Flat;
             grpDoiMatKhau.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpDoiMatKhau.ForeColor = Color.FromArgb(54, 54, 54);
-            grpDoiMatKhau.Location = new Point(61, 406);
+            grpDoiMatKhau.Location = new Point(42, 406);
             grpDoiMatKhau.Name = "grpDoiMatKhau";
-            grpDoiMatKhau.Size = new Size(1454, 454);
+            grpDoiMatKhau.Size = new Size(1494, 454);
             grpDoiMatKhau.TabIndex = 2;
             grpDoiMatKhau.TabStop = false;
             grpDoiMatKhau.Text = "ĐỔI MẬT KHẨU";
@@ -315,7 +315,7 @@
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label10.ForeColor = Color.FromArgb(54, 54, 54);
-            label10.Location = new Point(587, 17);
+            label10.Location = new Point(636, 14);
             label10.Name = "label10";
             label10.Size = new Size(351, 38);
             label10.TabIndex = 10;
