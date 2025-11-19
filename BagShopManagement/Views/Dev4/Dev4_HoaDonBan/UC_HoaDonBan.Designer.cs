@@ -61,7 +61,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlFilter.Controls.Add(chkFilterTrangThai);
             pnlFilter.Controls.Add(chkFilterNV);
             pnlFilter.Controls.Add(chkFilterDate);
-            pnlFilter.Dock = DockStyle.Top;
             pnlFilter.Location = new Point(0, 0);
             pnlFilter.Name = "pnlFilter";
             pnlFilter.Size = new Size(2090, 207);
@@ -206,10 +205,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             pnlMain.BackColor = Color.FromArgb(255, 255, 255);
             pnlMain.Controls.Add(dgvHoaDon);
-            pnlMain.Dock = DockStyle.Fill;
-            pnlMain.Location = new Point(0, 207);
+            pnlMain.Location = new Point(0, 201);
             pnlMain.Name = "pnlMain";
-            pnlMain.Size = new Size(2090, 1012);
+            pnlMain.Size = new Size(2090, 976);
             pnlMain.TabIndex = 1;
             // 
             // dgvHoaDon
@@ -218,14 +216,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvHoaDon.AllowUserToDeleteRows = false;
             dgvHoaDon.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvHoaDon.Dock = DockStyle.Fill;
             dgvHoaDon.GridColor = Color.FromArgb(204, 204, 204);
-            dgvHoaDon.Location = new Point(0, 0);
+            dgvHoaDon.Location = new Point(0, 54);
             dgvHoaDon.Name = "dgvHoaDon";
             dgvHoaDon.ReadOnly = true;
             dgvHoaDon.RowHeadersWidth = 51;
             dgvHoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvHoaDon.Size = new Size(2090, 1012);
+            dgvHoaDon.Size = new Size(2090, 958);
             dgvHoaDon.TabIndex = 0;
             // 
             // pnlBottom
@@ -236,7 +233,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.Controls.Add(btnEdit);
             pnlBottom.Controls.Add(btnViewDetails);
             pnlBottom.Controls.Add(lblTotal);
-            pnlBottom.Dock = DockStyle.Bottom;
             pnlBottom.Location = new Point(0, 1219);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(2090, 79);
@@ -247,7 +243,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnDelete.BackColor = Color.FromArgb(231, 76, 60);
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.ForeColor = Color.FromArgb(255, 255, 255);
-            btnDelete.Location = new Point(1993, 0);
+            btnDelete.Location = new Point(1748, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(200, 79);
             btnDelete.TabIndex = 4;
@@ -260,7 +256,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnCancel.BackColor = Color.FromArgb(231, 76, 60);
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.ForeColor = Color.FromArgb(255, 255, 255);
-            btnCancel.Location = new Point(1762, 0);
+            btnCancel.Location = new Point(1517, 3);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(231, 79);
             btnCancel.TabIndex = 3;
@@ -273,7 +269,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnEdit.BackColor = Color.FromArgb(224, 224, 224);
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.ForeColor = Color.FromArgb(51, 51, 51);
-            btnEdit.Location = new Point(1599, 0);
+            btnEdit.Location = new Point(1354, 3);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(157, 76);
             btnEdit.TabIndex = 2;
@@ -287,7 +283,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnViewDetails.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
             btnViewDetails.FlatStyle = FlatStyle.Flat;
             btnViewDetails.ForeColor = Color.FromArgb(51, 51, 51);
-            btnViewDetails.Location = new Point(1372, 0);
+            btnViewDetails.Location = new Point(1127, 3);
             btnViewDetails.Name = "btnViewDetails";
             btnViewDetails.Size = new Size(221, 76);
             btnViewDetails.TabIndex = 1;
