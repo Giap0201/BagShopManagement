@@ -231,7 +231,7 @@
             dgvBaoCao.RowHeadersWidth = 51;
             dgvBaoCao.RowTemplate.Height = 35;
             dgvBaoCao.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBaoCao.Size = new Size(1497, 556);
+            dgvBaoCao.Size = new Size(1497, 593);
             dgvBaoCao.TabIndex = 9;
             // 
             // pnlHeader
@@ -359,7 +359,7 @@
             Controls.Add(pnlMenu);
             Font = new Font("Segoe UI", 9F);
             Name = "ucBaoCaoThongKe";
-            Size = new Size(1594, 932);
+            Size = new Size(1594, 959);
             Load += ucBaoCaoThongKe_Load;
             pnlMenu.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvBaoCao).EndInit();
