@@ -37,7 +37,7 @@ namespace BagShopManagement.Views.Common
                 // BỔ SUNG: Đóng Form con (nếu đang hiển thị) trước khi mở UC
                 if (_currentChildForm != null)
                 {
-                    mainPanel.Controls.Remove(_currentChildForm);
+                    ucPanel.Controls.Remove(_currentChildForm);
                     _currentChildForm.Dispose();
                     _currentChildForm = null;
                 }
@@ -47,11 +47,11 @@ namespace BagShopManagement.Views.Common
 
                 if (_currentControl != null)
                 {
-                    mainPanel.Controls.Remove(_currentControl);
+                    ucPanel.Controls.Remove(_currentControl);
                     _currentControl.Dispose();
                 }
 
-                mainPanel.Controls.Add(newControl);
+                ucPanel.Controls.Add(newControl);
                 _currentControl = newControl;
             }
             catch (Exception ex)
@@ -79,7 +79,7 @@ namespace BagShopManagement.Views.Common
                 // BỔ SUNG: Đóng UC (nếu đang hiển thị) trước khi mở Form
                 if (_currentControl != null)
                 {
-                    mainPanel.Controls.Remove(_currentControl);
+                    ucPanel.Controls.Remove(_currentControl);
                     _currentControl.Dispose();
                     _currentControl = null;
                 }
@@ -87,7 +87,7 @@ namespace BagShopManagement.Views.Common
                 // Đóng form cũ nếu có
                 if (_currentChildForm != null)
                 {
-                    mainPanel.Controls.Remove(_currentChildForm);
+                    ucPanel.Controls.Remove(_currentChildForm);
                     _currentChildForm.Dispose();
                     _currentChildForm = null;
                 }
@@ -96,7 +96,7 @@ namespace BagShopManagement.Views.Common
                 form.TopLevel = false;
                 form.FormBorderStyle = FormBorderStyle.None;
                 form.Dock = DockStyle.Fill;
-                mainPanel.Controls.Add(form);
+                ucPanel.Controls.Add(form);
                 _currentChildForm = form;
                 form.Show();
             }
@@ -163,7 +163,6 @@ namespace BagShopManagement.Views.Common
             // === Dev1 Events (BỔ SUNG) ===
             sideBarControl.ShowProfileClicked += (s, ev) => ShowUserControl<ucProfile>();
             sideBarControl.ShowEmployeeManagementClicked += (s, ev) => ShowUserControl<ucEmployeeManagement>();
-
 
             // === BƯỚC 4: XỬ LÝ PHÂN QUYỀN (DỰA TRÊN image_e2d1dc.png) ===
             //

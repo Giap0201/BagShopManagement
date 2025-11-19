@@ -29,30 +29,17 @@
         private void InitializeComponent()
         {
             panelHeader = new Panel();
-            label1 = new Label();
-            panelHeader.SuspendLayout();
             SuspendLayout();
             // 
             // panelHeader
             // 
-            panelHeader.BackColor = Color.FromArgb(64, 78, 103);
-            panelHeader.Controls.Add(label1);
+            panelHeader.BackColor = SystemColors.Control;
             panelHeader.Dock = DockStyle.Top;
+            panelHeader.ForeColor = Color.White;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(605, 80);
+            panelHeader.Size = new Size(599, 61);
             panelHeader.TabIndex = 0;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.ForeColor = Color.White;
-            label1.Location = new Point(0, 21);
-            label1.Name = "label1";
-            label1.Size = new Size(297, 38);
-            label1.TabIndex = 0;
-            label1.Text = "QUẢN LÝ BÁN HÀNG";
             // 
             // HeaderControl
             // 
@@ -61,15 +48,12 @@
             BackColor = SystemColors.ControlLight;
             Controls.Add(panelHeader);
             Name = "HeaderControl";
-            Size = new Size(605, 80);
-            panelHeader.ResumeLayout(false);
-            panelHeader.PerformLayout();
+            Size = new Size(599, 61);
             ResumeLayout(false);
         }
 
         #endregion
 
         private Panel panelHeader;
-        private Label label1;
     }
 }

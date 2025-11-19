@@ -12,27 +12,39 @@ namespace BagShopManagement.Views.Controls
         private Button _currentButton = null; // Biến lưu nút đang được chọn
 
         // Màu nền mặc định (Xám xanh)
-        private readonly Color _defaultButtonBack = Color.FromArgb(64, 78, 103);
+        private readonly Color _defaultButtonBack = Color.FromArgb(30, 41, 59);
+
         private readonly Color _defaultButtonText = Color.FromArgb(255, 255, 255); // <-- ĐÃ ĐỔI THÀNH MÀU TRẮNG
 
         // Màu nút ĐANG CHỌN (Xanh)
-        private readonly Color _activeButtonBack = Color.FromArgb(0, 120, 215);
+        private readonly Color _activeButtonBack = Color.FromArgb(0, 123, 255);
+
         private readonly Color _activeButtonText = Color.FromArgb(255, 255, 255);
 
         // === Events của Dev4, Dev6, Dev2, Dev3 (Từ file cơ sở) ===
         public event EventHandler ShowHoaDonNhapClicked;
+
         public event EventHandler ShowBanHangClicked;
+
         public event EventHandler ShowBaoCaoThongKeClicked; // (Dùng cho btnBCTK_Click)
+
         public event EventHandler SanPhamClicked;
+
         public event EventHandler DanhMucClicked;
+
         public event EventHandler ShowQuanLyHoaDonClicked;
+
         public event EventHandler KhachHangClicked;
+
         public event EventHandler NhaCungCapClicked;
+
         public event EventHandler ShowTonKhoClicked;
+
         public event EventHandler ShowKhuyenMaiClicked;
 
         // === Events của Dev1 (Bổ sung) ===
         public event EventHandler ShowEmployeeManagementClicked;
+
         public event EventHandler ShowProfileClicked;
 
         public SideBarControl()
@@ -47,10 +59,9 @@ namespace BagShopManagement.Views.Controls
         private void ApplyInitialStyles()
         {
             // 1. Đặt màu nền chính (Designer của bạn dùng 'panel1')
-            this.panel1.BackColor = _defaultButtonBack;
 
             // 2. Lặp qua các nút trong panel1 (dựa theo Designer.cs của bạn)
-            foreach (Control control in this.panel1.Controls)
+            foreach (Control control in this.tableLayoutPanel1.Controls)
             {
                 if (control is Button button && button.Name != "button1") // Trừ nút DashBoard
                 {
@@ -62,16 +73,14 @@ namespace BagShopManagement.Views.Controls
                     button.FlatStyle = FlatStyle.Flat;
                     button.FlatAppearance.BorderSize = 0;
                     button.FlatAppearance.MouseDownBackColor = _activeButtonBack;
-                    button.FlatAppearance.MouseOverBackColor = Color.FromArgb(75, 90, 115);
+                    button.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
 
                     // === BỔ SUNG MỚI: CĂN LỀ TRÁI ===
-                    button.TextAlign = ContentAlignment.MiddleLeft; // Căn lề trái
-                    button.Padding = new Padding(20, 0, 0, 0); // Thêm 20px lề đệm bên trái
+
                     // === KẾT THÚC BỔ SUNG MỚI ===
                 }
             }
         }
-
 
         // --- Các hàm _Click của nhóm bạn (ĐÃ THÊM LOGIC ĐỔI MÀU) ---
         private void btnHoaDonNhap_Click(object sender, EventArgs e)
@@ -160,7 +169,6 @@ namespace BagShopManagement.Views.Controls
             ShowKhuyenMaiClicked?.Invoke(this, EventArgs.Empty);
         }
 
-
         // === BỔ SUNG: 2 HÀM HELPER (ĐỔI MÀU) ===
 
         // Hàm helper đặt màu Active (Xanh)
@@ -179,6 +187,14 @@ namespace BagShopManagement.Views.Controls
             // SỬA LỖI: Lấy màu từ biến hằng
             button.BackColor = _defaultButtonBack;
             button.ForeColor = _defaultButtonText;
+        }
+
+        private void backgroundWorker1_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
         }
     }
 }
