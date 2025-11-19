@@ -106,6 +106,7 @@
             txtTimKiem.Location = new Point(188, 165);
             txtTimKiem.Multiline = true;
             txtTimKiem.Name = "txtTimKiem";
+            txtTimKiem.PlaceholderText = "Nhập mã nhà cung cấp ...";
             txtTimKiem.Size = new Size(338, 36);
             txtTimKiem.TabIndex = 5;
             // 

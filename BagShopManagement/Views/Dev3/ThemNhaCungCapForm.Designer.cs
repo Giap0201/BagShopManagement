@@ -47,125 +47,141 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(49, 37);
+            label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label1.Location = new Point(71, 28);
             label1.Name = "label1";
-            label1.Size = new Size(63, 20);
+            label1.Size = new Size(75, 23);
             label1.TabIndex = 0;
             label1.Text = "Mã NCC";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(49, 140);
+            label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label2.Location = new Point(71, 189);
             label2.Name = "label2";
-            label2.Size = new Size(65, 20);
+            label2.Size = new Size(76, 23);
             label2.TabIndex = 1;
             label2.Text = "Tên NCC";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(23, 256);
+            label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label3.Location = new Point(71, 349);
             label3.Name = "label3";
-            label3.Size = new Size(97, 20);
+            label3.Size = new Size(112, 23);
             label3.TabIndex = 2;
             label3.Text = "Tên người LH";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(438, 37);
+            label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label4.Location = new Point(71, 268);
             label4.Name = "label4";
-            label4.Size = new Size(59, 20);
+            label4.Size = new Size(67, 23);
             label4.TabIndex = 3;
             label4.Text = "Địa chỉ ";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(462, 140);
+            label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label5.Location = new Point(71, 110);
             label5.Name = "label5";
-            label5.Size = new Size(35, 20);
+            label5.Size = new Size(39, 23);
             label5.TabIndex = 4;
             label5.Text = "SDT";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(451, 249);
+            label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label6.Location = new Point(71, 426);
             label6.Name = "label6";
-            label6.Size = new Size(46, 20);
+            label6.Size = new Size(51, 23);
             label6.TabIndex = 5;
             label6.Text = "Email";
             // 
             // txtMaNCC
             // 
             txtMaNCC.Enabled = false;
-            txtMaNCC.Location = new Point(142, 34);
+            txtMaNCC.Location = new Point(232, 28);
+            txtMaNCC.Multiline = true;
             txtMaNCC.Name = "txtMaNCC";
-            txtMaNCC.Size = new Size(201, 27);
+            txtMaNCC.Size = new Size(318, 37);
             txtMaNCC.TabIndex = 6;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(507, 249);
+            txtEmail.Location = new Point(232, 439);
+            txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
-            txtEmail.Size = new Size(201, 27);
+            txtEmail.Size = new Size(318, 37);
             txtEmail.TabIndex = 7;
             // 
             // txtSoDienThoai
             // 
-            txtSoDienThoai.Location = new Point(517, 133);
+            txtSoDienThoai.Location = new Point(232, 97);
+            txtSoDienThoai.Multiline = true;
             txtSoDienThoai.Name = "txtSoDienThoai";
-            txtSoDienThoai.Size = new Size(201, 27);
+            txtSoDienThoai.Size = new Size(318, 37);
             txtSoDienThoai.TabIndex = 8;
             // 
             // txtDiaChi
             // 
-            txtDiaChi.Location = new Point(517, 34);
+            txtDiaChi.Location = new Point(232, 268);
+            txtDiaChi.Multiline = true;
             txtDiaChi.Name = "txtDiaChi";
-            txtDiaChi.Size = new Size(201, 27);
+            txtDiaChi.Size = new Size(318, 37);
             txtDiaChi.TabIndex = 9;
             // 
             // txtNguoiLienHe
             // 
-            txtNguoiLienHe.Location = new Point(142, 252);
+            txtNguoiLienHe.Location = new Point(232, 349);
+            txtNguoiLienHe.Multiline = true;
             txtNguoiLienHe.Name = "txtNguoiLienHe";
-            txtNguoiLienHe.Size = new Size(201, 27);
+            txtNguoiLienHe.Size = new Size(318, 37);
             txtNguoiLienHe.TabIndex = 10;
             // 
             // txtTenNCC
             // 
-            txtTenNCC.Location = new Point(142, 133);
+            txtTenNCC.Location = new Point(232, 176);
+            txtTenNCC.Multiline = true;
             txtTenNCC.Name = "txtTenNCC";
-            txtTenNCC.Size = new Size(201, 27);
+            txtTenNCC.Size = new Size(318, 37);
             txtTenNCC.TabIndex = 11;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(158, 344);
+            btnSave.BackColor = SystemColors.HotTrack;
+            btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnSave.Location = new Point(107, 558);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(114, 41);
+            btnSave.Size = new Size(157, 54);
             btnSave.TabIndex = 12;
             btnSave.Text = "Lưu ";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(534, 344);
+            btnCancel.BackColor = Color.FromArgb(192, 0, 0);
+            btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnCancel.Location = new Point(373, 558);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(114, 41);
+            btnCancel.Size = new Size(157, 54);
             btnCancel.TabIndex = 13;
             btnCancel.Text = "Hủy";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // ThemNhaCungCapForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(627, 657);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(txtTenNCC);
