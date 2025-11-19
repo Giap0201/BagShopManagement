@@ -43,8 +43,8 @@ namespace BagShopManagement.Views.Dev3
             dgvNCC.Columns["SoDienThoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Auto resize
-            dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgvNCC.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dgvNCC.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
 
@@ -143,12 +143,12 @@ namespace BagShopManagement.Views.Dev3
             btnXoa.Visible = showButtons;
         }
 
-        private void NhaCungCapControl_Click(object sender, EventArgs e)
-        {
-            dgvNCC.ClearSelection();
-            btnSua.Visible = false;
-            btnXoa.Visible = false;
-        }
+        //private void NhaCungCapControl_Click(object sender, EventArgs e)
+        //{
+        //    dgvNCC.ClearSelection();
+        //    btnSua.Visible = false;
+        //    btnXoa.Visible = false;
+        //}
 
         private void groupBox1_Enter(object sender, EventArgs e)
         {
