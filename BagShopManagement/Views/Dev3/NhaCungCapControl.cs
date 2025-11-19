@@ -23,19 +23,45 @@ namespace BagShopManagement.Views.Dev3
             dgvNCC.MultiSelect = false;
             LoadDanhSachNCC();
         }
+        private void SetColumnHeadersNCC()
+        {
+            dgvNCC.Columns["MaNCC"].HeaderText = "Mã NCC";
+            dgvNCC.Columns["TenNCC"].HeaderText = "Tên NCC";
+            dgvNCC.Columns["DiaChi"].HeaderText = "Địa chỉ";
+            dgvNCC.Columns["SoDienThoai"].HeaderText = "Số điện thoại";
+            dgvNCC.Columns["Email"].HeaderText = "Email";
+            dgvNCC.Columns["NguoiLienHe"].HeaderText = "Người liên hệ";
+
+            // Căn giữa header tất cả cột
+            foreach (DataGridViewColumn col in dgvNCC.Columns)
+            {
+                col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            // Căn giữa dữ liệu cho Mã NCC và SĐT
+            dgvNCC.Columns["MaNCC"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dgvNCC.Columns["SoDienThoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Auto resize
+            dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dgvNCC.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+        }
+
 
         private void LoadDanhSachNCC()
         {
             try
             {
-                var list = _controller.GetAll();
+                var list = _controller.GetAll(); // Controller trả về List<NhaCungCap>
                 dgvNCC.DataSource = list;
+                SetColumnHeadersNCC();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi tải nhà cung cấp: {ex.Message}");
             }
         }
+
 
         private void btnTim_Click(object sender, EventArgs e)
         {
@@ -122,6 +148,18 @@ namespace BagShopManagement.Views.Dev3
             dgvNCC.ClearSelection();
             btnSua.Visible = false;
             btnXoa.Visible = false;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnReset_Click(object sender, EventArgs e)
+        {
+            dgvNCC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvNCC.MultiSelect = false;
+            LoadDanhSachNCC();
         }
     }
 }
