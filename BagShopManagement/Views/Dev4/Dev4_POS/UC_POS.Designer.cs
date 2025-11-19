@@ -84,9 +84,9 @@
             pnlTop.Controls.Add(txtTenKH);
             pnlTop.Controls.Add(txtMaKH);
             pnlTop.Controls.Add(lblKh);
-            pnlTop.Location = new Point(0, 0);
+            pnlTop.Location = new Point(164, 30);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(1571, 204);
+            pnlTop.Size = new Size(948, 114);
             pnlTop.TabIndex = 2;
             // 
             // label1
@@ -95,7 +95,7 @@
             label1.ForeColor = Color.FromArgb(51, 51, 51);
             label1.Location = new Point(447, 33);
             label1.Name = "label1";
-            label1.Size = new Size(110, 41);
+            label1.Size = new Size(56, 20);
             label1.TabIndex = 8;
             label1.Text = "Tên KH";
             // 
@@ -106,7 +106,7 @@
             txtMaNV.ForeColor = Color.FromArgb(51, 51, 51);
             txtMaNV.Location = new Point(152, 132);
             txtMaNV.Name = "txtMaNV";
-            txtMaNV.Size = new Size(250, 47);
+            txtMaNV.Size = new Size(250, 27);
             txtMaNV.TabIndex = 0;
             txtMaNV.TextChanged += txtMaNV_TextChanged;
             // 
@@ -116,7 +116,7 @@
             lblNv.ForeColor = Color.FromArgb(51, 51, 51);
             lblNv.Location = new Point(30, 132);
             lblNv.Name = "lblNv";
-            lblNv.Size = new Size(109, 41);
+            lblNv.Size = new Size(54, 20);
             lblNv.TabIndex = 2;
             lblNv.Text = "Mã NV";
             // 
@@ -141,7 +141,7 @@
             txtSDT.ForeColor = Color.FromArgb(51, 51, 51);
             txtSDT.Location = new Point(1114, 33);
             txtSDT.Name = "txtSDT";
-            txtSDT.Size = new Size(250, 47);
+            txtSDT.Size = new Size(250, 27);
             txtSDT.TabIndex = 6;
             // 
             // lblSDT
@@ -150,7 +150,7 @@
             lblSDT.ForeColor = Color.FromArgb(51, 51, 51);
             lblSDT.Location = new Point(944, 36);
             lblSDT.Name = "lblSDT";
-            lblSDT.Size = new Size(117, 41);
+            lblSDT.Size = new Size(60, 20);
             lblSDT.TabIndex = 5;
             lblSDT.Text = "SĐT KH";
             // 
@@ -162,7 +162,7 @@
             txtTenKH.Location = new Point(580, 33);
             txtTenKH.Name = "txtTenKH";
             txtTenKH.ReadOnly = true;
-            txtTenKH.Size = new Size(322, 47);
+            txtTenKH.Size = new Size(322, 27);
             txtTenKH.TabIndex = 4;
             // 
             // txtMaKH
@@ -173,7 +173,7 @@
             txtMaKH.Location = new Point(152, 30);
             txtMaKH.Name = "txtMaKH";
             txtMaKH.ReadOnly = true;
-            txtMaKH.Size = new Size(236, 47);
+            txtMaKH.Size = new Size(236, 27);
             txtMaKH.TabIndex = 1;
             // 
             // lblKh
@@ -182,7 +182,7 @@
             lblKh.ForeColor = Color.FromArgb(51, 51, 51);
             lblKh.Location = new Point(30, 30);
             lblKh.Name = "lblKh";
-            lblKh.Size = new Size(106, 41);
+            lblKh.Size = new Size(54, 20);
             lblKh.TabIndex = 3;
             lblKh.Text = "Mã KH";
             // 
@@ -239,7 +239,7 @@
             cboPhuongThucTT.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản", "Card" });
             cboPhuongThucTT.Location = new Point(20, 852);
             cboPhuongThucTT.Name = "cboPhuongThucTT";
-            cboPhuongThucTT.Size = new Size(286, 53);
+            cboPhuongThucTT.Size = new Size(286, 31);
             cboPhuongThucTT.TabIndex = 8;
             // 
             // lblPhuongThucTT
@@ -450,7 +450,7 @@
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(145, 47);
+            numQty.Size = new Size(145, 27);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -477,7 +477,7 @@
             // 
             pnlRight.BackColor = Color.FromArgb(255, 255, 255);
             pnlRight.Controls.Add(dgvCart);
-            pnlRight.Location = new Point(595, 204);
+            pnlRight.Location = new Point(601, 230);
             pnlRight.Name = "pnlRight";
             pnlRight.Size = new Size(976, 1072);
             pnlRight.TabIndex = 0;

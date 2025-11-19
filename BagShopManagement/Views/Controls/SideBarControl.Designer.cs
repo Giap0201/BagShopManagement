@@ -386,6 +386,7 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.BackColor = Color.FromArgb(15, 23, 42);
             label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Showcard Gothic", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;

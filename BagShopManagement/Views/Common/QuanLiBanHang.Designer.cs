@@ -19,7 +19,6 @@
             panelContent = new Panel();
             mainPanel = new Panel();
             ucPanel = new Panel();
-            headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             panelContent.SuspendLayout();
             mainPanel.SuspendLayout();
             SuspendLayout();
@@ -47,7 +46,6 @@
             // mainPanel
             // 
             mainPanel.Controls.Add(ucPanel);
-            mainPanel.Controls.Add(headerControl1);
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(0, 0);
             mainPanel.Margin = new Padding(1);
@@ -58,19 +56,10 @@
             // ucPanel
             // 
             ucPanel.Dock = DockStyle.Fill;
-            ucPanel.Location = new Point(0, 61);
+            ucPanel.Location = new Point(0, 0);
             ucPanel.Name = "ucPanel";
-            ucPanel.Size = new Size(808, 780);
+            ucPanel.Size = new Size(808, 841);
             ucPanel.TabIndex = 4;
-            // 
-            // headerControl1
-            // 
-            headerControl1.BackColor = SystemColors.Control;
-            headerControl1.Dock = DockStyle.Top;
-            headerControl1.Location = new Point(0, 0);
-            headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(808, 61);
-            headerControl1.TabIndex = 3;
             // 
             // QuanLiBanHang
             // 
@@ -91,7 +80,6 @@
         private BagShopManagement.Views.Controls.SideBarControl sideBarControl;
         private System.Windows.Forms.Panel panelContent;
         private Panel mainPanel;
-        private Controls.HeaderControl headerControl1;
         private Panel ucPanel;
     }
 }
