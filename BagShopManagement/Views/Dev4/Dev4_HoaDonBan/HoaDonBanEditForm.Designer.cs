@@ -66,9 +66,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlTop.Controls.Add(lblGhiChu);
             pnlTop.Controls.Add(txtMaNV);
             pnlTop.Controls.Add(txtMaKH);
-            pnlTop.Controls.Add(lblNV);
-            pnlTop.Controls.Add(lblKH);
-            pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Margin = new Padding(5, 6, 5, 6);
             pnlTop.Name = "pnlTop";
@@ -197,7 +194,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlLeft.BackColor = Color.FromArgb(255, 255, 255);
             pnlLeft.Controls.Add(grpActions);
             pnlLeft.Controls.Add(grpAdd);
-            pnlLeft.Dock = DockStyle.Left;
             pnlLeft.Location = new Point(0, 308);
             pnlLeft.Margin = new Padding(5, 6, 5, 6);
             pnlLeft.Name = "pnlLeft";
@@ -390,8 +386,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             pnlRight.BackColor = Color.FromArgb(255, 255, 255);
             pnlRight.Controls.Add(dgvCart);
-            pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(680, 308);
+            pnlRight.Location = new Point(600, 150);
             pnlRight.Margin = new Padding(5, 6, 5, 6);
             pnlRight.Name = "pnlRight";
             pnlRight.Size = new Size(1659, 1079);
@@ -402,7 +397,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvCart.AllowUserToAddRows = false;
             dgvCart.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvCart.Dock = DockStyle.Fill;
             dgvCart.GridColor = Color.FromArgb(204, 204, 204);
             dgvCart.Location = new Point(0, 0);
             dgvCart.Margin = new Padding(5, 6, 5, 6);

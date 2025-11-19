@@ -84,7 +84,6 @@ namespace BagShopManagement.Views.Dev4
             dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSanPham.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvSanPham.ColumnHeadersHeight = 50;
-            dgvSanPham.Dock = DockStyle.Fill;
             dgvSanPham.GridColor = Color.FromArgb(204, 204, 204);
             dgvSanPham.Location = new Point(0, 100);
             dgvSanPham.MultiSelect = false;
