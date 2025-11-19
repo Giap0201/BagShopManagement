@@ -91,7 +91,7 @@
             // 
             lblTenSP.AutoSize = true;
             lblTenSP.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            lblTenSP.Location = new Point(26, 80);
+            lblTenSP.Location = new Point(25, 80);
             lblTenSP.Margin = new Padding(4, 0, 4, 0);
             lblTenSP.Name = "lblTenSP";
             lblTenSP.Size = new Size(116, 23);
@@ -111,7 +111,7 @@
             // 
             lblGiaNhap.AutoSize = true;
             lblGiaNhap.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            lblGiaNhap.Location = new Point(26, 125);
+            lblGiaNhap.Location = new Point(25, 126);
             lblGiaNhap.Margin = new Padding(4, 0, 4, 0);
             lblGiaNhap.Name = "lblGiaNhap";
             lblGiaNhap.Size = new Size(79, 23);
@@ -133,7 +133,7 @@
             // 
             lblGiaBan.AutoSize = true;
             lblGiaBan.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            lblGiaBan.Location = new Point(26, 171);
+            lblGiaBan.Location = new Point(25, 172);
             lblGiaBan.Margin = new Padding(4, 0, 4, 0);
             lblGiaBan.Name = "lblGiaBan";
             lblGiaBan.Size = new Size(69, 23);
@@ -144,7 +144,7 @@
             // 
             numGiaBan.Cursor = Cursors.Hand;
             numGiaBan.DecimalPlaces = 2;
-            numGiaBan.Location = new Point(163, 169);
+            numGiaBan.Location = new Point(163, 168);
             numGiaBan.Margin = new Padding(4, 3, 4, 3);
             numGiaBan.Maximum = new decimal(new int[] { 99999999, 0, 0, 0 });
             numGiaBan.Name = "numGiaBan";
@@ -155,7 +155,7 @@
             // 
             lblSoLuong.AutoSize = true;
             lblSoLuong.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            lblSoLuong.Location = new Point(25, 217);
+            lblSoLuong.Location = new Point(25, 218);
             lblSoLuong.Margin = new Padding(4, 0, 4, 0);
             lblSoLuong.Name = "lblSoLuong";
             lblSoLuong.Size = new Size(79, 23);
@@ -165,7 +165,7 @@
             // numSoLuong
             // 
             numSoLuong.Cursor = Cursors.Hand;
-            numSoLuong.Location = new Point(163, 215);
+            numSoLuong.Location = new Point(163, 213);
             numSoLuong.Margin = new Padding(4, 3, 4, 3);
             numSoLuong.Maximum = new decimal(new int[] { 999999, 0, 0, 0 });
             numSoLuong.Name = "numSoLuong";
@@ -176,7 +176,7 @@
             // 
             lblMoTa.AutoSize = true;
             lblMoTa.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            lblMoTa.Location = new Point(25, 589);
+            lblMoTa.Location = new Point(25, 586);
             lblMoTa.Margin = new Padding(4, 0, 4, 0);
             lblMoTa.Name = "lblMoTa";
             lblMoTa.Size = new Size(56, 23);
@@ -185,7 +185,7 @@
             // 
             // txtMoTa
             // 
-            txtMoTa.Location = new Point(163, 585);
+            txtMoTa.Location = new Point(163, 580);
             txtMoTa.Margin = new Padding(4, 3, 4, 3);
             txtMoTa.Multiline = true;
             txtMoTa.Name = "txtMoTa";
@@ -225,7 +225,7 @@
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(785, 629);
+            btnCancel.Location = new Point(781, 629);
             btnCancel.Margin = new Padding(4, 3, 4, 3);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(200, 60);
@@ -238,7 +238,7 @@
             // 
             cboLoaiTui.Cursor = Cursors.Hand;
             cboLoaiTui.FlatStyle = FlatStyle.Popup;
-            cboLoaiTui.Location = new Point(163, 264);
+            cboLoaiTui.Location = new Point(163, 258);
             cboLoaiTui.Margin = new Padding(4, 3, 4, 3);
             cboLoaiTui.Name = "cboLoaiTui";
             cboLoaiTui.Size = new Size(341, 31);
@@ -248,7 +248,7 @@
             // 
             cboThuongHieu.Cursor = Cursors.Hand;
             cboThuongHieu.FlatStyle = FlatStyle.Popup;
-            cboThuongHieu.Location = new Point(163, 310);
+            cboThuongHieu.Location = new Point(163, 304);
             cboThuongHieu.Margin = new Padding(4, 3, 4, 3);
             cboThuongHieu.Name = "cboThuongHieu";
             cboThuongHieu.Size = new Size(341, 31);
@@ -258,7 +258,7 @@
             // 
             cboChatLieu.Cursor = Cursors.Hand;
             cboChatLieu.FlatStyle = FlatStyle.Popup;
-            cboChatLieu.Location = new Point(163, 355);
+            cboChatLieu.Location = new Point(163, 350);
             cboChatLieu.Margin = new Padding(4, 3, 4, 3);
             cboChatLieu.Name = "cboChatLieu";
             cboChatLieu.Size = new Size(341, 31);
@@ -268,7 +268,7 @@
             // 
             cboMau.Cursor = Cursors.Hand;
             cboMau.FlatStyle = FlatStyle.Popup;
-            cboMau.Location = new Point(163, 401);
+            cboMau.Location = new Point(163, 396);
             cboMau.Margin = new Padding(4, 3, 4, 3);
             cboMau.Name = "cboMau";
             cboMau.Size = new Size(341, 31);
@@ -278,7 +278,7 @@
             // 
             cboKichThuoc.Cursor = Cursors.Hand;
             cboKichThuoc.FlatStyle = FlatStyle.Popup;
-            cboKichThuoc.Location = new Point(163, 448);
+            cboKichThuoc.Location = new Point(163, 442);
             cboKichThuoc.Margin = new Padding(4, 3, 4, 3);
             cboKichThuoc.Name = "cboKichThuoc";
             cboKichThuoc.Size = new Size(341, 31);
@@ -288,7 +288,7 @@
             // 
             cboNCC.Cursor = Cursors.Hand;
             cboNCC.FlatStyle = FlatStyle.Popup;
-            cboNCC.Location = new Point(163, 494);
+            cboNCC.Location = new Point(163, 488);
             cboNCC.Margin = new Padding(4, 3, 4, 3);
             cboNCC.Name = "cboNCC";
             cboNCC.Size = new Size(341, 31);
@@ -298,7 +298,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label2.Location = new Point(25, 314);
+            label2.Location = new Point(25, 310);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(108, 23);
@@ -309,7 +309,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label3.Location = new Point(25, 359);
+            label3.Location = new Point(25, 356);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(78, 23);
@@ -320,7 +320,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label4.Location = new Point(25, 405);
+            label4.Location = new Point(25, 402);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(45, 23);
@@ -331,7 +331,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label5.Location = new Point(25, 452);
+            label5.Location = new Point(25, 448);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(92, 23);
@@ -342,7 +342,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label6.Location = new Point(25, 498);
+            label6.Location = new Point(25, 494);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(117, 23);
@@ -353,7 +353,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label1.Location = new Point(25, 267);
+            label1.Location = new Point(25, 264);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(66, 23);
@@ -366,7 +366,7 @@
             btnChonAnh.FlatStyle = FlatStyle.Flat;
             btnChonAnh.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             btnChonAnh.ForeColor = Color.White;
-            btnChonAnh.Location = new Point(1014, 629);
+            btnChonAnh.Location = new Point(1013, 629);
             btnChonAnh.Margin = new Padding(4, 3, 4, 3);
             btnChonAnh.Name = "btnChonAnh";
             btnChonAnh.Size = new Size(200, 60);
@@ -377,7 +377,7 @@
             // 
             // txtAnhChinh
             // 
-            txtAnhChinh.Location = new Point(163, 538);
+            txtAnhChinh.Location = new Point(163, 534);
             txtAnhChinh.Margin = new Padding(4, 3, 4, 3);
             txtAnhChinh.Multiline = true;
             txtAnhChinh.Name = "txtAnhChinh";
@@ -397,7 +397,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label7.Location = new Point(25, 542);
+            label7.Location = new Point(25, 540);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(70, 23);

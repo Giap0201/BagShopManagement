@@ -123,7 +123,7 @@
             btnAdd.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnAdd.ForeColor = Color.FromArgb(51, 51, 51);
             btnAdd.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAdd.Location = new Point(17, 82);
+            btnAdd.Location = new Point(17, 76);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(343, 55);
             btnAdd.TabIndex = 3;
@@ -137,7 +137,7 @@
             btnEdit.Cursor = Cursors.Hand;
             btnEdit.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnEdit.ForeColor = Color.FromArgb(51, 51, 51);
-            btnEdit.Location = new Point(17, 143);
+            btnEdit.Location = new Point(17, 139);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(343, 55);
             btnEdit.TabIndex = 4;
@@ -169,7 +169,7 @@
             btnExport.Cursor = Cursors.Hand;
             btnExport.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnExport.ForeColor = Color.FromArgb(51, 51, 51);
-            btnExport.Location = new Point(17, 268);
+            btnExport.Location = new Point(17, 265);
             btnExport.Name = "btnExport";
             btnExport.Size = new Size(343, 55);
             btnExport.TabIndex = 6;
@@ -191,7 +191,7 @@
             btnImport.Cursor = Cursors.Hand;
             btnImport.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnImport.ForeColor = Color.FromArgb(51, 51, 51);
-            btnImport.Location = new Point(17, 204);
+            btnImport.Location = new Point(17, 202);
             btnImport.Name = "btnImport";
             btnImport.Size = new Size(343, 55);
             btnImport.TabIndex = 9;
@@ -233,7 +233,7 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label8.ForeColor = Color.FromArgb(51, 51, 51);
-            label8.Location = new Point(30, 282);
+            label8.Location = new Point(30, 289);
             label8.Name = "label8";
             label8.Size = new Size(87, 23);
             label8.TabIndex = 17;
@@ -244,7 +244,7 @@
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label7.ForeColor = Color.FromArgb(51, 51, 51);
-            label7.Location = new Point(30, 248);
+            label7.Location = new Point(30, 254);
             label7.Name = "label7";
             label7.Size = new Size(117, 23);
             label7.TabIndex = 16;
@@ -255,7 +255,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label6.ForeColor = Color.FromArgb(51, 51, 51);
-            label6.Location = new Point(30, 214);
+            label6.Location = new Point(30, 219);
             label6.Name = "label6";
             label6.Size = new Size(92, 23);
             label6.TabIndex = 15;
@@ -266,7 +266,7 @@
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label5.ForeColor = Color.FromArgb(51, 51, 51);
-            label5.Location = new Point(30, 180);
+            label5.Location = new Point(30, 184);
             label5.Name = "label5";
             label5.Size = new Size(74, 23);
             label5.TabIndex = 14;
@@ -277,7 +277,7 @@
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label4.ForeColor = Color.FromArgb(51, 51, 51);
-            label4.Location = new Point(30, 146);
+            label4.Location = new Point(30, 149);
             label4.Name = "label4";
             label4.Size = new Size(78, 23);
             label4.TabIndex = 13;
@@ -288,7 +288,7 @@
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             label3.ForeColor = Color.FromArgb(51, 51, 51);
-            label3.Location = new Point(30, 112);
+            label3.Location = new Point(30, 114);
             label3.Name = "label3";
             label3.Size = new Size(108, 23);
             label3.TabIndex = 12;
@@ -324,9 +324,9 @@
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             btnRefresh.ForeColor = Color.White;
-            btnRefresh.Location = new Point(230, 322);
+            btnRefresh.Location = new Point(230, 329);
             btnRefresh.Name = "btnRefresh";
-            btnRefresh.Size = new Size(176, 62);
+            btnRefresh.Size = new Size(176, 55);
             btnRefresh.TabIndex = 9;
             btnRefresh.Text = "Làm mới";
             btnRefresh.UseVisualStyleBackColor = false;
@@ -338,10 +338,10 @@
             btnLoc.FlatStyle = FlatStyle.Flat;
             btnLoc.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
             btnLoc.ForeColor = Color.White;
-            btnLoc.Location = new Point(30, 322);
+            btnLoc.Location = new Point(30, 329);
             btnLoc.Margin = new Padding(0);
             btnLoc.Name = "btnLoc";
-            btnLoc.Size = new Size(175, 62);
+            btnLoc.Size = new Size(175, 55);
             btnLoc.TabIndex = 8;
             btnLoc.Text = "Lọc";
             btnLoc.UseVisualStyleBackColor = false;
@@ -354,7 +354,7 @@
             cboTrangThai.Font = new Font("Segoe UI", 10.2F);
             cboTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             cboTrangThai.FormattingEnabled = true;
-            cboTrangThai.Location = new Point(158, 279);
+            cboTrangThai.Location = new Point(158, 286);
             cboTrangThai.Name = "cboTrangThai";
             cboTrangThai.Size = new Size(248, 31);
             cboTrangThai.TabIndex = 7;
@@ -367,7 +367,7 @@
             cboNCC.Font = new Font("Segoe UI", 10.2F);
             cboNCC.ForeColor = Color.FromArgb(51, 51, 51);
             cboNCC.FormattingEnabled = true;
-            cboNCC.Location = new Point(158, 245);
+            cboNCC.Location = new Point(158, 251);
             cboNCC.Name = "cboNCC";
             cboNCC.Size = new Size(248, 31);
             cboNCC.TabIndex = 6;
@@ -380,7 +380,7 @@
             cboKichThuoc.Font = new Font("Segoe UI", 10.2F);
             cboKichThuoc.ForeColor = Color.FromArgb(51, 51, 51);
             cboKichThuoc.FormattingEnabled = true;
-            cboKichThuoc.Location = new Point(158, 211);
+            cboKichThuoc.Location = new Point(158, 216);
             cboKichThuoc.Name = "cboKichThuoc";
             cboKichThuoc.Size = new Size(248, 31);
             cboKichThuoc.TabIndex = 5;
@@ -393,7 +393,7 @@
             cboMau.Font = new Font("Segoe UI", 10.2F);
             cboMau.ForeColor = Color.FromArgb(51, 51, 51);
             cboMau.FormattingEnabled = true;
-            cboMau.Location = new Point(158, 177);
+            cboMau.Location = new Point(158, 181);
             cboMau.Name = "cboMau";
             cboMau.Size = new Size(248, 31);
             cboMau.TabIndex = 4;
@@ -406,7 +406,7 @@
             cboChatLieu.Font = new Font("Segoe UI", 10.2F);
             cboChatLieu.ForeColor = Color.FromArgb(51, 51, 51);
             cboChatLieu.FormattingEnabled = true;
-            cboChatLieu.Location = new Point(158, 143);
+            cboChatLieu.Location = new Point(158, 146);
             cboChatLieu.Name = "cboChatLieu";
             cboChatLieu.Size = new Size(248, 31);
             cboChatLieu.TabIndex = 3;
@@ -419,7 +419,7 @@
             cboThuongHieu.Font = new Font("Segoe UI", 10.2F);
             cboThuongHieu.ForeColor = Color.FromArgb(51, 51, 51);
             cboThuongHieu.FormattingEnabled = true;
-            cboThuongHieu.Location = new Point(158, 109);
+            cboThuongHieu.Location = new Point(158, 111);
             cboThuongHieu.Name = "cboThuongHieu";
             cboThuongHieu.Size = new Size(248, 31);
             cboThuongHieu.TabIndex = 2;
@@ -432,7 +432,7 @@
             cboLoaiTui.Font = new Font("Segoe UI", 10.2F);
             cboLoaiTui.ForeColor = Color.FromArgb(51, 51, 51);
             cboLoaiTui.FormattingEnabled = true;
-            cboLoaiTui.Location = new Point(158, 75);
+            cboLoaiTui.Location = new Point(158, 76);
             cboLoaiTui.Name = "cboLoaiTui";
             cboLoaiTui.Size = new Size(248, 31);
             cboLoaiTui.TabIndex = 1;
