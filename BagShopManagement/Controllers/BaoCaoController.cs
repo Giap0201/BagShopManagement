@@ -55,9 +55,7 @@ namespace BagShopManagement.Controllers
 
         #region === BÁO CÁO NHẬP HÀNG ===
 
-        /// <summary>
-        /// Báo cáo tiền nhập hàng trong khoảng thời gian cụ thể.
-        /// </summary>
+        // Bao cao nhap hang
         public DataTable LayBaoCaoNhapHang(DateTime? tuNgay = null, DateTime? denNgay = null)
         {
             try
@@ -74,9 +72,7 @@ namespace BagShopManagement.Controllers
 
         #region === BÁO CÁO TỒN KHO ===
 
-        /// <summary>
-        /// Báo cáo hàng tồn kho hiện tại (dựa trên SoLuongTon trong bảng SanPham).
-        /// </summary>
+        // Bao cao ton kho hien tai
         public DataTable LayBaoCaoTonKho()
         {
             try
@@ -93,9 +89,7 @@ namespace BagShopManagement.Controllers
 
         #region === BÁO CÁO THEO NHÂN VIÊN ===
 
-        /// <summary>
-        /// Báo cáo doanh thu theo nhân viên bán hàng (lọc theo thời gian).
-        /// </summary>
+        // Bao cao doanh thu theo nhan vien
         public DataTable LayBaoCaoDoanhThuTheoNhanVien(DateTime? tuNgay = null, DateTime? denNgay = null)
         {
             try
@@ -112,9 +106,7 @@ namespace BagShopManagement.Controllers
 
         #region === BÁO CÁO KHÁCH HÀNG ===
 
-        /// <summary>
-        /// Báo cáo top khách hàng thân thiết (TOP N khách chi tiêu cao nhất).
-        /// </summary>
+        //Bao cao khach hang
         public DataTable LayBaoCaoKhachHangThanThiet(int? top = 10)
         {
             try
@@ -131,9 +123,7 @@ namespace BagShopManagement.Controllers
 
         #region === BÁO CÁO SẢN PHẨM ===
 
-        /// <summary>
-        /// Báo cáo top sản phẩm bán chạy (TOP N sản phẩm có doanh thu hoặc số lượng cao nhất).
-        /// </summary>
+        //San pham ban chay nhat
         public DataTable LayBaoCaoSanPhamBanChay(int? top = 10, DateTime? tuNgay = null, DateTime? denNgay = null)
         {
             try
@@ -150,9 +140,7 @@ namespace BagShopManagement.Controllers
 
         #region === BÁO CÁO CHƯƠNG TRÌNH GIẢM GIÁ ===
 
-        /// <summary>
-        /// Báo cáo các chương trình giảm giá đang và đã áp dụng.
-        /// </summary>
+        // chuong trinh giam gia
         public DataTable LayBaoCaoChuongTrinhGiamGia()
         {
             try
