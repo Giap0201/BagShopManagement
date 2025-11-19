@@ -37,43 +37,56 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10.2F);
             label1.Location = new Point(22, 86);
             label1.Name = "label1";
-            label1.Size = new Size(297, 20);
+            label1.Size = new Size(349, 23);
             label1.TabIndex = 0;
             label1.Text = "Nhập tên đăng nhập của bạn để khôi phục: ";
             // 
             // txtTenDangNhap
             // 
-            txtTenDangNhap.Location = new Point(345, 83);
+            txtTenDangNhap.Font = new Font("Segoe UI", 10.2F);
+            txtTenDangNhap.Location = new Point(377, 83);
             txtTenDangNhap.Name = "txtTenDangNhap";
-            txtTenDangNhap.Size = new Size(229, 27);
+            txtTenDangNhap.Size = new Size(229, 30);
             txtTenDangNhap.TabIndex = 1;
             // 
             // txtGuiYeuCau
             // 
+            txtGuiYeuCau.BackColor = SystemColors.Highlight;
+            txtGuiYeuCau.FlatAppearance.BorderSize = 0;
+            txtGuiYeuCau.FlatStyle = FlatStyle.Flat;
+            txtGuiYeuCau.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtGuiYeuCau.ForeColor = Color.White;
             txtGuiYeuCau.Location = new Point(171, 187);
             txtGuiYeuCau.Name = "txtGuiYeuCau";
-            txtGuiYeuCau.Size = new Size(124, 29);
+            txtGuiYeuCau.Size = new Size(140, 42);
             txtGuiYeuCau.TabIndex = 2;
             txtGuiYeuCau.Text = "Gửi Yêu Cầu";
-            txtGuiYeuCau.UseVisualStyleBackColor = true;
+            txtGuiYeuCau.UseVisualStyleBackColor = false;
             txtGuiYeuCau.Click += btnGuiYeuCau_Click;
             // 
             // btnHuy
             // 
+            btnHuy.BackColor = Color.FromArgb(231, 76, 60);
+            btnHuy.FlatAppearance.BorderSize = 0;
+            btnHuy.FlatStyle = FlatStyle.Flat;
+            btnHuy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnHuy.ForeColor = Color.White;
             btnHuy.Location = new Point(345, 187);
             btnHuy.Name = "btnHuy";
-            btnHuy.Size = new Size(94, 29);
+            btnHuy.Size = new Size(94, 42);
             btnHuy.TabIndex = 3;
             btnHuy.Text = "Huỷ";
-            btnHuy.UseVisualStyleBackColor = true;
+            btnHuy.UseVisualStyleBackColor = false;
             btnHuy.Click += btnHuy_Click;
             // 
             // ForgotPasswordForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonFace;
             CancelButton = btnHuy;
             ClientSize = new Size(646, 337);
             Controls.Add(btnHuy);

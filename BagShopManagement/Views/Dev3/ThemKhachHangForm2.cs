@@ -11,7 +11,7 @@ namespace BagShopManagement.Views.Dev3
         private readonly KhachHang _khachHang;
         private readonly bool _isEdit;
 
-        public ThemKhachHangForm2(KhachHangController controller, KhachHang kh = null)
+        public ThemKhachHangForm2(KhachHangController controller, KhachHang kh = null, string soDienThoaiMacDinh = null)
         {
             InitializeComponent();
             _controller = controller;
@@ -27,6 +27,12 @@ namespace BagShopManagement.Views.Dev3
             {
                 this.Text = "Thêm khách hàng mới";
                 txtMaKH.Text = _controller.GenerateNextCode();
+
+                // Tự động điền số điện thoại nếu có
+                if (!string.IsNullOrWhiteSpace(soDienThoaiMacDinh))
+                {
+                    txtSoDienThoai.Text = soDienThoaiMacDinh;
+                }
             }
         }
 
@@ -102,7 +108,7 @@ namespace BagShopManagement.Views.Dev3
                 HoTen = txtHoTen.Text.Trim(),
                 Email = email,
                 DiaChi = txtDiaChi.Text.Trim(),
-                DiemTichLuy = diemTichLuy 
+                DiemTichLuy = diemTichLuy
             };
 
             bool success;
