@@ -17,8 +17,12 @@
 
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             picSanPham = new PictureBox();
             pnlTop = new Panel();
+            label2 = new Label();
             label1 = new Label();
             txtMaNV = new TextBox();
             lblNv = new Label();
@@ -28,7 +32,6 @@
             txtTenKH = new TextBox();
             txtMaKH = new TextBox();
             lblKh = new Label();
-            pnlLeft = new Panel();
             grpAdd = new GroupBox();
             cboPhuongThucTT = new ComboBox();
             lblPhuongThucTT = new Label();
@@ -51,23 +54,21 @@
             numQty = new NumericUpDown();
             lblQty = new Label();
             lblSanPham = new Label();
-            pnlRight = new Panel();
+            label7 = new Label();
             dgvCart = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)picSanPham).BeginInit();
             pnlTop.SuspendLayout();
-            pnlLeft.SuspendLayout();
             grpAdd.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)numQty).BeginInit();
-            pnlRight.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvCart).BeginInit();
             SuspendLayout();
             // 
             // picSanPham
             // 
             picSanPham.BorderStyle = BorderStyle.FixedSingle;
-            picSanPham.Location = new Point(111, 418);
+            picSanPham.Location = new Point(43, 313);
             picSanPham.Name = "picSanPham";
-            picSanPham.Size = new Size(366, 256);
+            picSanPham.Size = new Size(512, 159);
             picSanPham.SizeMode = PictureBoxSizeMode.Zoom;
             picSanPham.TabIndex = 14;
             picSanPham.TabStop = false;
@@ -75,6 +76,7 @@
             // pnlTop
             // 
             pnlTop.BackColor = Color.FromArgb(255, 255, 255);
+            pnlTop.Controls.Add(label2);
             pnlTop.Controls.Add(label1);
             pnlTop.Controls.Add(txtMaNV);
             pnlTop.Controls.Add(lblNv);
@@ -84,29 +86,42 @@
             pnlTop.Controls.Add(txtTenKH);
             pnlTop.Controls.Add(txtMaKH);
             pnlTop.Controls.Add(lblKh);
-            pnlTop.Location = new Point(0, 0);
+            pnlTop.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            pnlTop.ForeColor = Color.FromArgb(54, 54, 54);
+            pnlTop.Location = new Point(43, 50);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(1571, 204);
+            pnlTop.Size = new Size(1476, 160);
             pnlTop.TabIndex = 2;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.ForeColor = Color.FromArgb(51, 51, 51);
+            label2.Location = new Point(3, 9);
+            label2.Name = "label2";
+            label2.Size = new Size(159, 23);
+            label2.TabIndex = 9;
+            label2.Text = "LỌC KHÁCH HÀNG";
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.ForeColor = Color.FromArgb(51, 51, 51);
-            label1.Location = new Point(447, 33);
+            label1.Location = new Point(672, 44);
             label1.Name = "label1";
-            label1.Size = new Size(110, 41);
+            label1.Size = new Size(135, 23);
             label1.TabIndex = 8;
-            label1.Text = "Tên KH";
+            label1.Text = "Tên khách hàng:";
             // 
             // txtMaNV
             // 
             txtMaNV.BackColor = Color.FromArgb(255, 255, 255);
             txtMaNV.BorderStyle = BorderStyle.FixedSingle;
+            txtMaNV.Font = new Font("Segoe UI", 10.2F);
             txtMaNV.ForeColor = Color.FromArgb(51, 51, 51);
-            txtMaNV.Location = new Point(152, 132);
+            txtMaNV.Location = new Point(225, 94);
             txtMaNV.Name = "txtMaNV";
-            txtMaNV.Size = new Size(250, 47);
+            txtMaNV.Size = new Size(236, 30);
             txtMaNV.TabIndex = 0;
             txtMaNV.TextChanged += txtMaNV_TextChanged;
             // 
@@ -114,23 +129,23 @@
             // 
             lblNv.AutoSize = true;
             lblNv.ForeColor = Color.FromArgb(51, 51, 51);
-            lblNv.Location = new Point(30, 132);
+            lblNv.Location = new Point(46, 94);
             lblNv.Name = "lblNv";
-            lblNv.Size = new Size(109, 41);
+            lblNv.Size = new Size(120, 23);
             lblNv.TabIndex = 2;
-            lblNv.Text = "Mã NV";
+            lblNv.Text = "Mã nhân viên:";
             // 
             // btnLoc
             // 
             btnLoc.BackColor = Color.FromArgb(0, 120, 215);
             btnLoc.FlatStyle = FlatStyle.Flat;
-            btnLoc.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            btnLoc.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnLoc.ForeColor = Color.FromArgb(255, 255, 255);
-            btnLoc.Location = new Point(1417, 24);
+            btnLoc.Location = new Point(1287, 76);
             btnLoc.Name = "btnLoc";
-            btnLoc.Size = new Size(147, 62);
+            btnLoc.Size = new Size(147, 55);
             btnLoc.TabIndex = 7;
-            btnLoc.Text = "🔍 Lọc";
+            btnLoc.Text = "🔍 LỌC";
             btnLoc.UseVisualStyleBackColor = false;
             btnLoc.Click += btnLoc_Click;
             // 
@@ -138,62 +153,56 @@
             // 
             txtSDT.BackColor = Color.FromArgb(255, 255, 255);
             txtSDT.BorderStyle = BorderStyle.FixedSingle;
+            txtSDT.Font = new Font("Segoe UI", 10.2F);
             txtSDT.ForeColor = Color.FromArgb(51, 51, 51);
-            txtSDT.Location = new Point(1114, 33);
+            txtSDT.Location = new Point(908, 94);
             txtSDT.Name = "txtSDT";
-            txtSDT.Size = new Size(250, 47);
+            txtSDT.Size = new Size(262, 30);
             txtSDT.TabIndex = 6;
             // 
             // lblSDT
             // 
             lblSDT.AutoSize = true;
             lblSDT.ForeColor = Color.FromArgb(51, 51, 51);
-            lblSDT.Location = new Point(944, 36);
+            lblSDT.Location = new Point(672, 94);
             lblSDT.Name = "lblSDT";
-            lblSDT.Size = new Size(117, 41);
+            lblSDT.Size = new Size(115, 23);
             lblSDT.TabIndex = 5;
-            lblSDT.Text = "SĐT KH";
+            lblSDT.Text = "Số điện thoại:";
             // 
             // txtTenKH
             // 
             txtTenKH.BackColor = Color.FromArgb(255, 255, 255);
             txtTenKH.BorderStyle = BorderStyle.FixedSingle;
+            txtTenKH.Font = new Font("Segoe UI", 10.2F);
             txtTenKH.ForeColor = Color.FromArgb(51, 51, 51);
-            txtTenKH.Location = new Point(580, 33);
+            txtTenKH.Location = new Point(908, 44);
             txtTenKH.Name = "txtTenKH";
             txtTenKH.ReadOnly = true;
-            txtTenKH.Size = new Size(322, 47);
+            txtTenKH.Size = new Size(262, 30);
             txtTenKH.TabIndex = 4;
             // 
             // txtMaKH
             // 
             txtMaKH.BackColor = Color.FromArgb(255, 255, 255);
             txtMaKH.BorderStyle = BorderStyle.FixedSingle;
+            txtMaKH.Font = new Font("Segoe UI", 10.2F);
             txtMaKH.ForeColor = Color.FromArgb(51, 51, 51);
-            txtMaKH.Location = new Point(152, 30);
+            txtMaKH.Location = new Point(225, 44);
             txtMaKH.Name = "txtMaKH";
             txtMaKH.ReadOnly = true;
-            txtMaKH.Size = new Size(236, 47);
+            txtMaKH.Size = new Size(236, 30);
             txtMaKH.TabIndex = 1;
             // 
             // lblKh
             // 
             lblKh.AutoSize = true;
             lblKh.ForeColor = Color.FromArgb(51, 51, 51);
-            lblKh.Location = new Point(30, 30);
+            lblKh.Location = new Point(46, 44);
             lblKh.Name = "lblKh";
-            lblKh.Size = new Size(106, 41);
+            lblKh.Size = new Size(134, 23);
             lblKh.TabIndex = 3;
-            lblKh.Text = "Mã KH";
-            // 
-            // pnlLeft
-            // 
-            pnlLeft.BackColor = Color.FromArgb(240, 240, 240);
-            pnlLeft.Controls.Add(grpAdd);
-            pnlLeft.Location = new Point(0, 204);
-            pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(595, 1072);
-            pnlLeft.TabIndex = 1;
+            lblKh.Text = "Mã khách hàng:";
             // 
             // grpAdd
             // 
@@ -220,75 +229,84 @@
             grpAdd.Controls.Add(numQty);
             grpAdd.Controls.Add(lblQty);
             grpAdd.Controls.Add(lblSanPham);
+            grpAdd.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpAdd.ForeColor = Color.FromArgb(51, 51, 51);
-            grpAdd.Location = new Point(0, 10);
+            grpAdd.Location = new Point(43, 225);
             grpAdd.Name = "grpAdd";
-            grpAdd.Size = new Size(595, 1055);
+            grpAdd.Size = new Size(595, 746);
             grpAdd.TabIndex = 1;
             grpAdd.TabStop = false;
-            grpAdd.Text = "Bán hàng";
+            grpAdd.Text = "BÁN HÀNG";
             // 
             // cboPhuongThucTT
             // 
-            cboPhuongThucTT.BackColor = Color.FromArgb(255, 255, 255);
+            cboPhuongThucTT.BackColor = SystemColors.Control;
             cboPhuongThucTT.DropDownStyle = ComboBoxStyle.DropDownList;
-            cboPhuongThucTT.FlatStyle = FlatStyle.Flat;
             cboPhuongThucTT.Font = new Font("Segoe UI", 10F);
             cboPhuongThucTT.ForeColor = Color.FromArgb(51, 51, 51);
             cboPhuongThucTT.FormattingEnabled = true;
             cboPhuongThucTT.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản", "Card" });
-            cboPhuongThucTT.Location = new Point(20, 852);
+            cboPhuongThucTT.Location = new Point(43, 602);
             cboPhuongThucTT.Name = "cboPhuongThucTT";
-            cboPhuongThucTT.Size = new Size(286, 53);
+            cboPhuongThucTT.Size = new Size(268, 31);
             cboPhuongThucTT.TabIndex = 8;
             // 
             // lblPhuongThucTT
             // 
             lblPhuongThucTT.Font = new Font("Segoe UI", 9.900001F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblPhuongThucTT.ForeColor = Color.FromArgb(51, 51, 51);
-            lblPhuongThucTT.Location = new Point(30, 780);
+            lblPhuongThucTT.Location = new Point(39, 568);
             lblPhuongThucTT.Name = "lblPhuongThucTT";
-            lblPhuongThucTT.Size = new Size(292, 50);
+            lblPhuongThucTT.Size = new Size(292, 27);
             lblPhuongThucTT.TabIndex = 7;
             lblPhuongThucTT.Text = "Phương thức TT:";
             // 
             // btnPrint
             // 
             btnPrint.BackColor = Color.FromArgb(248, 248, 248);
+            btnPrint.Cursor = Cursors.Hand;
             btnPrint.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
+            btnPrint.FlatAppearance.BorderSize = 0;
             btnPrint.FlatStyle = FlatStyle.Flat;
+            btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnPrint.ForeColor = Color.FromArgb(51, 51, 51);
-            btnPrint.Location = new Point(333, 994);
+            btnPrint.Location = new Point(43, 659);
             btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(262, 65);
+            btnPrint.Size = new Size(203, 47);
             btnPrint.TabIndex = 0;
-            btnPrint.Text = "In hóa đơn";
+            btnPrint.Text = "IN HOÁ ĐƠN";
             btnPrint.UseVisualStyleBackColor = false;
             btnPrint.Click += btnPrint_Click;
             // 
             // btnCheckout
             // 
             btnCheckout.BackColor = Color.FromArgb(0, 120, 215);
+            btnCheckout.Cursor = Cursors.Hand;
+            btnCheckout.FlatAppearance.BorderSize = 0;
             btnCheckout.FlatStyle = FlatStyle.Flat;
+            btnCheckout.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnCheckout.ForeColor = Color.FromArgb(255, 255, 255);
-            btnCheckout.Location = new Point(333, 810);
+            btnCheckout.Location = new Point(352, 568);
             btnCheckout.Name = "btnCheckout";
-            btnCheckout.Size = new Size(262, 65);
+            btnCheckout.Size = new Size(203, 65);
             btnCheckout.TabIndex = 1;
-            btnCheckout.Text = "💳 Thanh toán";
+            btnCheckout.Text = "THANH TOÁN";
             btnCheckout.UseVisualStyleBackColor = false;
             btnCheckout.Click += btnCheckout_Click;
             // 
             // btnSaveDraft
             // 
             btnSaveDraft.BackColor = Color.FromArgb(224, 224, 224);
+            btnSaveDraft.Cursor = Cursors.Hand;
+            btnSaveDraft.FlatAppearance.BorderSize = 0;
             btnSaveDraft.FlatStyle = FlatStyle.Flat;
+            btnSaveDraft.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSaveDraft.ForeColor = Color.FromArgb(51, 51, 51);
-            btnSaveDraft.Location = new Point(333, 907);
+            btnSaveDraft.Location = new Point(352, 659);
             btnSaveDraft.Name = "btnSaveDraft";
-            btnSaveDraft.Size = new Size(262, 65);
+            btnSaveDraft.Size = new Size(203, 47);
             btnSaveDraft.TabIndex = 2;
-            btnSaveDraft.Text = "💾 Lưu tạm";
+            btnSaveDraft.Text = "💾 LƯU TẠM";
             btnSaveDraft.UseVisualStyleBackColor = false;
             btnSaveDraft.Click += btnSaveDraft_Click;
             // 
@@ -307,33 +325,34 @@
             // 
             lblKhuyenMaiValue.BackColor = Color.FromArgb(255, 255, 224);
             lblKhuyenMaiValue.BorderStyle = BorderStyle.Fixed3D;
-            lblKhuyenMaiValue.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblKhuyenMaiValue.Font = new Font("Segoe UI", 10.2F);
             lblKhuyenMaiValue.ForeColor = Color.Gray;
-            lblKhuyenMaiValue.Location = new Point(223, 230);
+            lblKhuyenMaiValue.Location = new Point(244, 167);
             lblKhuyenMaiValue.Name = "lblKhuyenMaiValue";
-            lblKhuyenMaiValue.Size = new Size(324, 47);
+            lblKhuyenMaiValue.Size = new Size(311, 36);
             lblKhuyenMaiValue.TabIndex = 16;
             lblKhuyenMaiValue.Text = "0%";
             lblKhuyenMaiValue.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // lblKhuyenMai
             // 
-            lblKhuyenMai.Location = new Point(3, 230);
+            lblKhuyenMai.ImageAlign = ContentAlignment.MiddleLeft;
+            lblKhuyenMai.Location = new Point(39, 160);
             lblKhuyenMai.Name = "lblKhuyenMai";
-            lblKhuyenMai.Size = new Size(188, 59);
+            lblKhuyenMai.Size = new Size(188, 43);
             lblKhuyenMai.TabIndex = 15;
             lblKhuyenMai.Text = "Khuyến mãi:";
-            lblKhuyenMai.TextAlign = ContentAlignment.MiddleRight;
+            lblKhuyenMai.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblGiaSP
             // 
             lblGiaSP.BackColor = SystemColors.Control;
             lblGiaSP.BorderStyle = BorderStyle.Fixed3D;
-            lblGiaSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            lblGiaSP.Font = new Font("Segoe UI", 10.2F);
             lblGiaSP.ForeColor = Color.Green;
-            lblGiaSP.Location = new Point(223, 353);
+            lblGiaSP.Location = new Point(244, 265);
             lblGiaSP.Name = "lblGiaSP";
-            lblGiaSP.Size = new Size(322, 47);
+            lblGiaSP.Size = new Size(311, 34);
             lblGiaSP.TabIndex = 10;
             lblGiaSP.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -341,10 +360,10 @@
             // 
             lblTenSP.BackColor = SystemColors.Control;
             lblTenSP.BorderStyle = BorderStyle.Fixed3D;
-            lblTenSP.Font = new Font("Segoe UI", 10F);
-            lblTenSP.Location = new Point(223, 173);
+            lblTenSP.Font = new Font("Segoe UI", 10.2F);
+            lblTenSP.Location = new Point(244, 118);
             lblTenSP.Name = "lblTenSP";
-            lblTenSP.Size = new Size(322, 44);
+            lblTenSP.Size = new Size(311, 34);
             lblTenSP.TabIndex = 9;
             lblTenSP.TextAlign = ContentAlignment.MiddleLeft;
             lblTenSP.Click += lblTenSP_Click;
@@ -353,91 +372,104 @@
             // 
             lblMaSPValue.BackColor = SystemColors.Control;
             lblMaSPValue.BorderStyle = BorderStyle.Fixed3D;
-            lblMaSPValue.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            lblMaSPValue.Location = new Point(223, 109);
+            lblMaSPValue.Font = new Font("Segoe UI", 10.2F);
+            lblMaSPValue.Location = new Point(244, 73);
             lblMaSPValue.Name = "lblMaSPValue";
-            lblMaSPValue.Size = new Size(238, 54);
+            lblMaSPValue.Size = new Size(311, 34);
             lblMaSPValue.TabIndex = 8;
             lblMaSPValue.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblMaSPLabel
             // 
-            lblMaSPLabel.Location = new Point(30, 110);
+            lblMaSPLabel.ImageAlign = ContentAlignment.MiddleLeft;
+            lblMaSPLabel.Location = new Point(39, 53);
             lblMaSPLabel.Name = "lblMaSPLabel";
-            lblMaSPLabel.Size = new Size(160, 54);
+            lblMaSPLabel.Size = new Size(120, 54);
             lblMaSPLabel.TabIndex = 11;
-            lblMaSPLabel.Text = "Mã SP:";
-            lblMaSPLabel.TextAlign = ContentAlignment.MiddleRight;
+            lblMaSPLabel.Text = "Mã sản phẩm:";
+            lblMaSPLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblTenSPLabel
             // 
-            lblTenSPLabel.Location = new Point(36, 164);
+            lblTenSPLabel.ImageAlign = ContentAlignment.MiddleLeft;
+            lblTenSPLabel.Location = new Point(39, 107);
             lblTenSPLabel.Name = "lblTenSPLabel";
-            lblTenSPLabel.Size = new Size(156, 65);
+            lblTenSPLabel.Size = new Size(156, 50);
             lblTenSPLabel.TabIndex = 12;
-            lblTenSPLabel.Text = "Tên SP:";
-            lblTenSPLabel.TextAlign = ContentAlignment.MiddleRight;
+            lblTenSPLabel.Text = "Tên sản phẩm:";
+            lblTenSPLabel.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblGiaSPLabel
             // 
-            lblGiaSPLabel.Location = new Point(36, 341);
+            lblGiaSPLabel.ImageAlign = ContentAlignment.MiddleLeft;
+            lblGiaSPLabel.Location = new Point(39, 251);
             lblGiaSPLabel.Name = "lblGiaSPLabel";
             lblGiaSPLabel.Size = new Size(158, 59);
             lblGiaSPLabel.TabIndex = 13;
-            lblGiaSPLabel.Text = "Giá SP:";
-            lblGiaSPLabel.TextAlign = ContentAlignment.MiddleRight;
+            lblGiaSPLabel.Text = "Giá sản phẩm:";
+            lblGiaSPLabel.TextAlign = ContentAlignment.MiddleLeft;
             lblGiaSPLabel.Click += lblGiaSPLabel_Click;
             // 
             // btnChonSP
             // 
             btnChonSP.BackColor = Color.FromArgb(0, 120, 215);
+            btnChonSP.Cursor = Cursors.Hand;
             btnChonSP.FlatStyle = FlatStyle.Flat;
             btnChonSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnChonSP.ForeColor = Color.FromArgb(255, 255, 255);
-            btnChonSP.Location = new Point(190, 46);
+            btnChonSP.Location = new Point(244, 19);
             btnChonSP.Name = "btnChonSP";
-            btnChonSP.Size = new Size(357, 50);
+            btnChonSP.Size = new Size(311, 42);
             btnChonSP.TabIndex = 7;
-            btnChonSP.Text = "*** Chọn sản phẩm";
+            btnChonSP.Text = "Chọn sản phẩm";
             btnChonSP.UseVisualStyleBackColor = false;
             btnChonSP.Click += btnChonSP_Click;
             // 
             // btnDelete
             // 
             btnDelete.BackColor = Color.FromArgb(231, 76, 60);
+            btnDelete.Cursor = Cursors.Hand;
+            btnDelete.FlatAppearance.BorderSize = 0;
             btnDelete.FlatStyle = FlatStyle.Flat;
+            btnDelete.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDelete.ForeColor = Color.FromArgb(255, 255, 255);
-            btnDelete.Location = new Point(223, 690);
+            btnDelete.Location = new Point(234, 498);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(130, 61);
+            btnDelete.Size = new Size(130, 43);
             btnDelete.TabIndex = 0;
-            btnDelete.Text = "Xóa";
+            btnDelete.Text = "XOÁ";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
             // btnClear
             // 
             btnClear.BackColor = Color.FromArgb(231, 76, 60);
+            btnClear.Cursor = Cursors.Hand;
+            btnClear.FlatAppearance.BorderSize = 0;
             btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnClear.ForeColor = Color.FromArgb(255, 255, 255);
-            btnClear.Location = new Point(395, 690);
+            btnClear.Location = new Point(405, 498);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(150, 61);
+            btnClear.Size = new Size(150, 43);
             btnClear.TabIndex = 1;
-            btnClear.Text = "Xóa giỏ";
+            btnClear.Text = "XOÁ GIỎ";
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
             // btnAdd
             // 
             btnAdd.BackColor = Color.FromArgb(0, 120, 215);
+            btnAdd.Cursor = Cursors.Hand;
+            btnAdd.FlatAppearance.BorderSize = 0;
             btnAdd.FlatStyle = FlatStyle.Flat;
+            btnAdd.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnAdd.ForeColor = Color.FromArgb(255, 255, 255);
-            btnAdd.Location = new Point(38, 690);
+            btnAdd.Location = new Point(43, 498);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(156, 61);
+            btnAdd.Size = new Size(156, 43);
             btnAdd.TabIndex = 2;
-            btnAdd.Text = "Thêm vào giỏ";
+            btnAdd.Text = "THÊM";
             btnAdd.UseVisualStyleBackColor = false;
             btnAdd.Click += btnAdd_Click;
             // 
@@ -446,75 +478,110 @@
             numQty.BackColor = Color.FromArgb(255, 255, 255);
             numQty.BorderStyle = BorderStyle.FixedSingle;
             numQty.ForeColor = Color.FromArgb(51, 51, 51);
-            numQty.Location = new Point(223, 294);
+            numQty.Location = new Point(244, 221);
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(145, 47);
+            numQty.Size = new Size(311, 30);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // lblQty
             // 
             lblQty.ForeColor = Color.FromArgb(51, 51, 51);
-            lblQty.Location = new Point(49, 296);
+            lblQty.ImageAlign = ContentAlignment.MiddleLeft;
+            lblQty.Location = new Point(39, 206);
             lblQty.Name = "lblQty";
             lblQty.Size = new Size(160, 45);
             lblQty.TabIndex = 4;
             lblQty.Text = "Số lượng:";
+            lblQty.TextAlign = ContentAlignment.MiddleLeft;
             lblQty.Click += lblQty_Click;
             // 
             // lblSanPham
             // 
             lblSanPham.ForeColor = Color.FromArgb(51, 51, 51);
-            lblSanPham.Location = new Point(20, 50);
+            lblSanPham.Location = new Point(39, 29);
             lblSanPham.Name = "lblSanPham";
             lblSanPham.Size = new Size(160, 43);
             lblSanPham.TabIndex = 6;
             lblSanPham.Text = "Sản phẩm:";
             // 
-            // pnlRight
+            // label7
             // 
-            pnlRight.BackColor = Color.FromArgb(255, 255, 255);
-            pnlRight.Controls.Add(dgvCart);
-            pnlRight.Location = new Point(595, 204);
-            pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(976, 1072);
-            pnlRight.TabIndex = 0;
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.ForeColor = Color.FromArgb(54, 54, 54);
+            label7.Location = new Point(685, 9);
+            label7.Name = "label7";
+            label7.Size = new Size(174, 38);
+            label7.TabIndex = 11;
+            label7.Text = "BÁN HÀNG";
             // 
             // dgvCart
             // 
             dgvCart.AllowUserToAddRows = false;
+            dgvCart.AllowUserToDeleteRows = false;
             dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvCart.BackgroundColor = Color.FromArgb(255, 255, 255);
-            dgvCart.ColumnHeadersHeight = 29;
-            dgvCart.GridColor = Color.FromArgb(204, 204, 204);
-            dgvCart.Location = new Point(10, 10);
+            dgvCart.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvCart.BackgroundColor = SystemColors.ControlLight;
+            dgvCart.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvCart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvCart.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvCart.EnableHeadersVisualStyles = false;
+            dgvCart.GridColor = Color.LightGray;
+            dgvCart.Location = new Point(656, 225);
+            dgvCart.MultiSelect = false;
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvCart.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvCart.RowHeadersVisible = false;
             dgvCart.RowHeadersWidth = 51;
-            dgvCart.Size = new Size(976, 1072);
-            dgvCart.TabIndex = 0;
-            dgvCart.CellContentClick += dgvCart_CellContentClick;
+            dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvCart.Size = new Size(863, 746);
+            dgvCart.TabIndex = 12;
+            dgvCart.CellClick += dgvCart_CellContentClick;
             // 
             // UC_POS
             // 
             BackColor = Color.FromArgb(240, 240, 240);
-            Controls.Add(pnlRight);
-            Controls.Add(pnlLeft);
+            Controls.Add(dgvCart);
+            Controls.Add(label7);
+            Controls.Add(grpAdd);
             Controls.Add(pnlTop);
             Name = "UC_POS";
-            Size = new Size(1571, 1276);
+            Size = new Size(1553, 994);
             Load += UC_POS_Load;
             ((System.ComponentModel.ISupportInitialize)picSanPham).EndInit();
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();
-            pnlLeft.ResumeLayout(false);
             grpAdd.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)numQty).EndInit();
-            pnlRight.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dgvCart).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -528,7 +595,6 @@
         private TextBox txtTenKH;
         private TextBox txtSDT;
         private Button btnLoc;
-        private Panel pnlLeft;
         private GroupBox grpAdd;
         private NumericUpDown numQty;
         private Label lblQty;
@@ -548,12 +614,13 @@
         private Button btnSaveDraft;
         private Label lblTotal;
         private Button btnPrint;
-        private Panel pnlRight;
-        private DataGridView dgvCart;
         private Button btnDelete;
         private Label label1;
         private PictureBox picSanPham;
         private Label lblKhuyenMai;
         private Label lblKhuyenMaiValue;
+        private Label label7;
+        private Label label2;
+        private DataGridView dgvCart;
     }
 }
