@@ -113,10 +113,7 @@ namespace BagShopManagement.Repositories.Implementations
             }
         }
 
-        /// <summary>
         /// [TRANSACTION] Cập nhật 1 chi tiết (Số lượng, Đơn giá) (khi đang Tạm lưu).
-        /// Cập nhật lại TongTien của HoaDonNhap cha.
-        /// </summary>
         public bool UpdateDetailInDraft(ChiTietHoaDonNhap chiTiet)
         {
             using var conn = new SqlConnection(_connectionString);

@@ -41,7 +41,7 @@ namespace BagShopManagement.Controllers
 
         #endregion TRUY VAN
 
-        #region === NGHIỆP VỤ CHÍNH (WRITE) ===
+        #region === NGHIỆP VỤ CHÍNH  ===
 
         // Tao hoa don moi o trang thai tam luu
         public string TaoMoiHoaDon(HoaDonNhapRequest request)
@@ -78,7 +78,7 @@ namespace BagShopManagement.Controllers
             _hoaDonNhapService.UpdateDraftInfo(maHDN, request);
         }
 
-        #endregion === NGHIỆP VỤ CHÍNH (WRITE) ===
+        #endregion === NGHIỆP VỤ CHÍNH  ===
 
         #region === NGHIỆP VỤ SỬA CHI TIẾT (KHI TẠM LƯU) ===
 
