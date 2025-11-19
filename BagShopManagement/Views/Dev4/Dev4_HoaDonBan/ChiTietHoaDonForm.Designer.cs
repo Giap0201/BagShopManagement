@@ -50,7 +50,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlHeader.Controls.Add(lblMaNV);
             pnlHeader.Controls.Add(lblMaKH);
             pnlHeader.Controls.Add(lblMaHDB);
-            pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new System.Drawing.Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new System.Drawing.Size(1000, 200);
@@ -142,7 +141,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // pnlMain
             pnlMain.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
             pnlMain.Controls.Add(dgvChiTiet);
-            pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new System.Drawing.Point(0, 200);
             pnlMain.Name = "pnlMain";
             pnlMain.Size = new System.Drawing.Size(1000, 400);
@@ -153,7 +151,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvChiTiet.AllowUserToDeleteRows = false;
             dgvChiTiet.BackgroundColor = System.Drawing.Color.FromArgb(255, 255, 255);
             dgvChiTiet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvChiTiet.Dock = DockStyle.Fill;
             dgvChiTiet.GridColor = System.Drawing.Color.FromArgb(204, 204, 204);
             dgvChiTiet.Name = "dgvChiTiet";
             dgvChiTiet.ReadOnly = true;
@@ -162,7 +159,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.BackColor = System.Drawing.Color.FromArgb(240, 240, 240);
             pnlBottom.Controls.Add(btnClose);
             pnlBottom.Controls.Add(lblTongTienChiTiet);
-            pnlBottom.Dock = DockStyle.Bottom;
             pnlBottom.Location = new System.Drawing.Point(0, 600);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new System.Drawing.Size(1000, 60);
