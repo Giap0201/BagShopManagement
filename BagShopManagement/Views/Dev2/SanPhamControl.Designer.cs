@@ -106,6 +106,7 @@
             // 
             // txtSearch
             // 
+            txtSearch.BackColor = SystemColors.Control;
             txtSearch.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 163);
             txtSearch.ForeColor = Color.FromArgb(51, 51, 51);
             txtSearch.Location = new Point(17, 38);
@@ -201,6 +202,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.BackColor = Color.White;
             groupBox1.Controls.Add(label8);
             groupBox1.Controls.Add(label7);
             groupBox1.Controls.Add(label6);
@@ -348,6 +350,7 @@
             // 
             // cboTrangThai
             // 
+            cboTrangThai.BackColor = SystemColors.Control;
             cboTrangThai.Cursor = Cursors.Hand;
             cboTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             cboTrangThai.FlatStyle = FlatStyle.Popup;
@@ -361,6 +364,7 @@
             // 
             // cboNCC
             // 
+            cboNCC.BackColor = SystemColors.Control;
             cboNCC.Cursor = Cursors.Hand;
             cboNCC.DropDownStyle = ComboBoxStyle.DropDownList;
             cboNCC.FlatStyle = FlatStyle.Popup;
@@ -374,6 +378,7 @@
             // 
             // cboKichThuoc
             // 
+            cboKichThuoc.BackColor = SystemColors.Control;
             cboKichThuoc.Cursor = Cursors.Hand;
             cboKichThuoc.DropDownStyle = ComboBoxStyle.DropDownList;
             cboKichThuoc.FlatStyle = FlatStyle.Popup;
@@ -387,6 +392,7 @@
             // 
             // cboMau
             // 
+            cboMau.BackColor = SystemColors.Control;
             cboMau.Cursor = Cursors.Hand;
             cboMau.DropDownStyle = ComboBoxStyle.DropDownList;
             cboMau.FlatStyle = FlatStyle.Popup;
@@ -400,6 +406,7 @@
             // 
             // cboChatLieu
             // 
+            cboChatLieu.BackColor = SystemColors.Control;
             cboChatLieu.Cursor = Cursors.Hand;
             cboChatLieu.DropDownStyle = ComboBoxStyle.DropDownList;
             cboChatLieu.FlatStyle = FlatStyle.Popup;
@@ -413,6 +420,7 @@
             // 
             // cboThuongHieu
             // 
+            cboThuongHieu.BackColor = SystemColors.Control;
             cboThuongHieu.Cursor = Cursors.Hand;
             cboThuongHieu.DropDownStyle = ComboBoxStyle.DropDownList;
             cboThuongHieu.FlatStyle = FlatStyle.Popup;
@@ -426,6 +434,7 @@
             // 
             // cboLoaiTui
             // 
+            cboLoaiTui.BackColor = SystemColors.Control;
             cboLoaiTui.Cursor = Cursors.Hand;
             cboLoaiTui.DropDownStyle = ComboBoxStyle.DropDownList;
             cboLoaiTui.FlatStyle = FlatStyle.Popup;
@@ -439,6 +448,7 @@
             // 
             // cboGiaBan
             // 
+            cboGiaBan.BackColor = SystemColors.Control;
             cboGiaBan.Cursor = Cursors.Hand;
             cboGiaBan.DropDownStyle = ComboBoxStyle.DropDownList;
             cboGiaBan.FlatStyle = FlatStyle.Popup;
@@ -492,7 +502,7 @@
             // 
             // SanPhamControl
             // 
-            BackColor = SystemColors.Control;
+            BackColor = Color.White;
             Controls.Add(label9);
             Controls.Add(groupBox3);
             Controls.Add(groupBox2);

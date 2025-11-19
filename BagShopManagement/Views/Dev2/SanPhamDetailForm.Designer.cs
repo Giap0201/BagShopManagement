@@ -67,7 +67,9 @@
             // 
             // txtMaSP
             // 
+            txtMaSP.BackColor = SystemColors.Control;
             txtMaSP.Font = new Font("Times New Roman", 12F);
+            txtMaSP.ForeColor = Color.FromArgb(51, 51, 51);
             txtMaSP.Location = new Point(151, 39);
             txtMaSP.Multiline = true;
             txtMaSP.Name = "txtMaSP";
@@ -77,7 +79,9 @@
             // 
             // txtTenSP
             // 
+            txtTenSP.BackColor = SystemColors.Control;
             txtTenSP.Font = new Font("Times New Roman", 12F);
+            txtTenSP.ForeColor = Color.FromArgb(51, 51, 51);
             txtTenSP.Location = new Point(151, 80);
             txtTenSP.Multiline = true;
             txtTenSP.Name = "txtTenSP";
@@ -87,7 +91,9 @@
             // 
             // txtGiaNhap
             // 
+            txtGiaNhap.BackColor = SystemColors.Control;
             txtGiaNhap.Font = new Font("Times New Roman", 12F);
+            txtGiaNhap.ForeColor = Color.FromArgb(51, 51, 51);
             txtGiaNhap.Location = new Point(151, 121);
             txtGiaNhap.Multiline = true;
             txtGiaNhap.Name = "txtGiaNhap";
@@ -97,7 +103,9 @@
             // 
             // txtGiaBan
             // 
+            txtGiaBan.BackColor = SystemColors.Control;
             txtGiaBan.Font = new Font("Times New Roman", 12F);
+            txtGiaBan.ForeColor = Color.FromArgb(51, 51, 51);
             txtGiaBan.Location = new Point(151, 164);
             txtGiaBan.Multiline = true;
             txtGiaBan.Name = "txtGiaBan";
@@ -107,7 +115,9 @@
             // 
             // txtSoLuong
             // 
+            txtSoLuong.BackColor = SystemColors.Control;
             txtSoLuong.Font = new Font("Times New Roman", 12F);
+            txtSoLuong.ForeColor = Color.FromArgb(51, 51, 51);
             txtSoLuong.Location = new Point(151, 205);
             txtSoLuong.Multiline = true;
             txtSoLuong.Name = "txtSoLuong";
@@ -117,7 +127,9 @@
             // 
             // txtMoTa
             // 
+            txtMoTa.BackColor = SystemColors.Control;
             txtMoTa.Font = new Font("Times New Roman", 12F);
+            txtMoTa.ForeColor = Color.FromArgb(51, 51, 51);
             txtMoTa.Location = new Point(151, 575);
             txtMoTa.Multiline = true;
             txtMoTa.Name = "txtMoTa";
@@ -127,7 +139,9 @@
             // 
             // txtLoaiTui
             // 
+            txtLoaiTui.BackColor = SystemColors.Control;
             txtLoaiTui.Font = new Font("Times New Roman", 12F);
+            txtLoaiTui.ForeColor = Color.FromArgb(51, 51, 51);
             txtLoaiTui.Location = new Point(151, 246);
             txtLoaiTui.Multiline = true;
             txtLoaiTui.Name = "txtLoaiTui";
@@ -137,7 +151,9 @@
             // 
             // txtNgayTao
             // 
+            txtNgayTao.BackColor = SystemColors.Control;
             txtNgayTao.Font = new Font("Times New Roman", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            txtNgayTao.ForeColor = Color.FromArgb(51, 51, 51);
             txtNgayTao.Location = new Point(151, 534);
             txtNgayTao.Multiline = true;
             txtNgayTao.Name = "txtNgayTao";
@@ -147,7 +163,9 @@
             // 
             // txtTrangThai
             // 
+            txtTrangThai.BackColor = SystemColors.Control;
             txtTrangThai.Font = new Font("Times New Roman", 12F);
+            txtTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             txtTrangThai.Location = new Point(151, 493);
             txtTrangThai.Multiline = true;
             txtTrangThai.Name = "txtTrangThai";
@@ -157,7 +175,9 @@
             // 
             // txtNCC
             // 
+            txtNCC.BackColor = SystemColors.Control;
             txtNCC.Font = new Font("Times New Roman", 12F);
+            txtNCC.ForeColor = Color.FromArgb(51, 51, 51);
             txtNCC.Location = new Point(151, 452);
             txtNCC.Multiline = true;
             txtNCC.Name = "txtNCC";
@@ -167,7 +187,9 @@
             // 
             // txtKichThuoc
             // 
+            txtKichThuoc.BackColor = SystemColors.Control;
             txtKichThuoc.Font = new Font("Times New Roman", 12F);
+            txtKichThuoc.ForeColor = Color.FromArgb(51, 51, 51);
             txtKichThuoc.Location = new Point(151, 411);
             txtKichThuoc.Multiline = true;
             txtKichThuoc.Name = "txtKichThuoc";
@@ -177,7 +199,9 @@
             // 
             // txtMau
             // 
+            txtMau.BackColor = SystemColors.Control;
             txtMau.Font = new Font("Times New Roman", 12F);
+            txtMau.ForeColor = Color.FromArgb(51, 51, 51);
             txtMau.Location = new Point(151, 369);
             txtMau.Multiline = true;
             txtMau.Name = "txtMau";
@@ -187,7 +211,9 @@
             // 
             // txtChatLieu
             // 
+            txtChatLieu.BackColor = SystemColors.Control;
             txtChatLieu.Font = new Font("Times New Roman", 12F);
+            txtChatLieu.ForeColor = Color.FromArgb(51, 51, 51);
             txtChatLieu.Location = new Point(151, 328);
             txtChatLieu.Multiline = true;
             txtChatLieu.Name = "txtChatLieu";
@@ -197,7 +223,9 @@
             // 
             // txtThuongHieu
             // 
+            txtThuongHieu.BackColor = SystemColors.Control;
             txtThuongHieu.Font = new Font("Times New Roman", 12F);
+            txtThuongHieu.ForeColor = Color.FromArgb(51, 51, 51);
             txtThuongHieu.Location = new Point(151, 287);
             txtThuongHieu.Multiline = true;
             txtThuongHieu.Name = "txtThuongHieu";
@@ -258,6 +286,7 @@
             groupBox1.Controls.Add(txtLoaiTui);
             groupBox1.Controls.Add(txtThuongHieu);
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
             groupBox1.Location = new Point(20, 12);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(481, 737);
@@ -269,6 +298,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label1.ForeColor = Color.FromArgb(51, 51, 51);
             label1.Location = new Point(20, 41);
             label1.Name = "label1";
             label1.Size = new Size(115, 23);
@@ -279,6 +309,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label8.ForeColor = Color.FromArgb(51, 51, 51);
             label8.Location = new Point(20, 533);
             label8.Name = "label8";
             label8.Size = new Size(81, 23);
@@ -289,6 +320,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label9.ForeColor = Color.FromArgb(51, 51, 51);
             label9.Location = new Point(20, 492);
             label9.Name = "label9";
             label9.Size = new Size(87, 23);
@@ -299,6 +331,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label10.ForeColor = Color.FromArgb(51, 51, 51);
             label10.Location = new Point(20, 451);
             label10.Name = "label10";
             label10.Size = new Size(117, 23);
@@ -309,6 +342,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label11.ForeColor = Color.FromArgb(51, 51, 51);
             label11.Location = new Point(20, 410);
             label11.Name = "label11";
             label11.Size = new Size(92, 23);
@@ -319,6 +353,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label12.ForeColor = Color.FromArgb(51, 51, 51);
             label12.Location = new Point(20, 369);
             label12.Name = "label12";
             label12.Size = new Size(74, 23);
@@ -329,6 +364,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label13.ForeColor = Color.FromArgb(51, 51, 51);
             label13.Location = new Point(20, 328);
             label13.Name = "label13";
             label13.Size = new Size(78, 23);
@@ -339,6 +375,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label14.ForeColor = Color.FromArgb(51, 51, 51);
             label14.Location = new Point(20, 287);
             label14.Name = "label14";
             label14.Size = new Size(108, 23);
@@ -349,6 +386,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label7.ForeColor = Color.FromArgb(51, 51, 51);
             label7.Location = new Point(20, 246);
             label7.Name = "label7";
             label7.Size = new Size(66, 23);
@@ -359,6 +397,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label6.ForeColor = Color.FromArgb(51, 51, 51);
             label6.Location = new Point(20, 574);
             label6.Name = "label6";
             label6.Size = new Size(56, 23);
@@ -369,6 +408,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label5.ForeColor = Color.FromArgb(51, 51, 51);
             label5.Location = new Point(20, 205);
             label5.Name = "label5";
             label5.Size = new Size(110, 23);
@@ -379,6 +419,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label4.ForeColor = Color.FromArgb(51, 51, 51);
             label4.Location = new Point(20, 164);
             label4.Name = "label4";
             label4.Size = new Size(69, 23);
@@ -389,6 +430,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label3.ForeColor = Color.FromArgb(51, 51, 51);
             label3.Location = new Point(20, 123);
             label3.Name = "label3";
             label3.Size = new Size(79, 23);
@@ -399,6 +441,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
+            label2.ForeColor = Color.FromArgb(51, 51, 51);
             label2.Location = new Point(20, 82);
             label2.Name = "label2";
             label2.Size = new Size(116, 23);
@@ -409,6 +452,7 @@
             // 
             groupBox2.Controls.Add(picAnhChinh);
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            groupBox2.ForeColor = Color.FromArgb(51, 51, 51);
             groupBox2.Location = new Point(507, 12);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(888, 671);
@@ -420,6 +464,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(1407, 760);
             Controls.Add(groupBox2);
             Controls.Add(groupBox1);
