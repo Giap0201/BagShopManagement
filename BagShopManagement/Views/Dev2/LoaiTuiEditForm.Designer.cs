@@ -6,11 +6,13 @@
         private System.Windows.Forms.Label lblMa;
         private System.Windows.Forms.Label lblTen;
         private System.Windows.Forms.Label lblMoTa;
+        private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox txtMa;
         internal System.Windows.Forms.TextBox txtTen;
         internal System.Windows.Forms.TextBox txtMoTa;
         internal System.Windows.Forms.Button btnSave;
         internal System.Windows.Forms.Button btnCancel;
+        
 
         /// <summary>
         /// Clean up any resources being used.
@@ -25,116 +27,139 @@
             base.Dispose(disposing);
         }
 
+
         private void InitializeComponent()
         {
-            this.lblMa = new System.Windows.Forms.Label();
-            this.lblTen = new System.Windows.Forms.Label();
-            this.lblMoTa = new System.Windows.Forms.Label();
-            this.txtMa = new System.Windows.Forms.TextBox();
-            this.txtTen = new System.Windows.Forms.TextBox();
-            this.txtMoTa = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // Form size and basic props
-            // 
-            this.ClientSize = new System.Drawing.Size(360, 260);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "LoaiTuiEditForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            lblMa = new Label();
+            lblTen = new Label();
+            lblMoTa = new Label();
+            txtMa = new TextBox();
+            txtTen = new TextBox();
+            txtMoTa = new TextBox();
+            btnSave = new Button();
+            btnCancel = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // lblMa
             // 
-            this.lblMa.AutoSize = true;
-            this.lblMa.Location = new System.Drawing.Point(18, 20);
-            this.lblMa.Name = "lblMa";
-            this.lblMa.Size = new System.Drawing.Size(90, 20);
-            this.lblMa.TabIndex = 0;
-            this.lblMa.Text = "Mã loại túi:";
-            // 
-            // txtMa (full width)
-            // 
-            this.txtMa.Location = new System.Drawing.Point(18, 44);
-            this.txtMa.Name = "txtMa";
-            this.txtMa.ReadOnly = true;
-            this.txtMa.Size = new System.Drawing.Size(324, 27);
-            this.txtMa.TabIndex = 1;
+            lblMa.AutoSize = true;
+            lblMa.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblMa.ForeColor = Color.FromArgb(51, 51, 51);
+            lblMa.Location = new Point(86, 88);
+            lblMa.Name = "lblMa";
+            lblMa.Size = new Size(113, 28);
+            lblMa.TabIndex = 0;
+            lblMa.Text = "Mã loại túi:";
             // 
             // lblTen
             // 
-            this.lblTen.AutoSize = true;
-            this.lblTen.Location = new System.Drawing.Point(18, 80);
-            this.lblTen.Name = "lblTen";
-            this.lblTen.Size = new System.Drawing.Size(99, 20);
-            this.lblTen.TabIndex = 2;
-            this.lblTen.Text = "Tên loại túi:*";
-            // 
-            // txtTen (full width)
-            // 
-            this.txtTen.Location = new System.Drawing.Point(18, 104);
-            this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(324, 27);
-            this.txtTen.TabIndex = 3;
+            lblTen.AutoSize = true;
+            lblTen.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblTen.ForeColor = Color.FromArgb(51, 51, 51);
+            lblTen.Location = new Point(86, 192);
+            lblTen.Name = "lblTen";
+            lblTen.Size = new Size(126, 28);
+            lblTen.TabIndex = 2;
+            lblTen.Text = "Tên loại túi:*";
             // 
             // lblMoTa
             // 
-            this.lblMoTa.AutoSize = true;
-            this.lblMoTa.Location = new System.Drawing.Point(18, 140);
-            this.lblMoTa.Name = "lblMoTa";
-            this.lblMoTa.Size = new System.Drawing.Size(55, 20);
-            this.lblMoTa.TabIndex = 4;
-            this.lblMoTa.Text = "Mô tả:";
+            lblMoTa.AutoSize = true;
+            lblMoTa.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblMoTa.ForeColor = Color.FromArgb(51, 51, 51);
+            lblMoTa.Location = new Point(86, 296);
+            lblMoTa.Name = "lblMoTa";
+            lblMoTa.Size = new Size(70, 28);
+            lblMoTa.TabIndex = 4;
+            lblMoTa.Text = "Mô tả:";
             // 
-            // txtMoTa (full width multiline)
+            // txtMa
             // 
-            this.txtMoTa.Location = new System.Drawing.Point(18, 164);
-            this.txtMoTa.Multiline = true;
-            this.txtMoTa.Name = "txtMoTa";
-            this.txtMoTa.Size = new System.Drawing.Size(324, 52);
-            this.txtMoTa.TabIndex = 5;
+            txtMa.Location = new Point(86, 119);
+            txtMa.Multiline = true;
+            txtMa.Name = "txtMa";
+            txtMa.ReadOnly = true;
+            txtMa.Size = new Size(392, 47);
+            txtMa.TabIndex = 1;
             // 
-            // btnCancel (left, grey)
+            // txtTen
             // 
-            this.btnCancel.Location = new System.Drawing.Point(150, 222);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(90, 30);
-            this.btnCancel.TabIndex = 6;
-            this.btnCancel.Text = "Huỷ";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            this.btnCancel.ForeColor = System.Drawing.Color.Black;
+            txtTen.BackColor = SystemColors.Control;
+            txtTen.Location = new Point(86, 223);
+            txtTen.Multiline = true;
+            txtTen.Name = "txtTen";
+            txtTen.Size = new Size(392, 47);
+            txtTen.TabIndex = 3;
             // 
-            // btnSave (right, Material Blue 700)
+            // txtMoTa
             // 
-            this.btnSave.Location = new System.Drawing.Point(264, 222);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(78, 30);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(25, 118, 210); // Material Blue 700
-            this.btnSave.ForeColor = System.Drawing.Color.White;
+            txtMoTa.BackColor = SystemColors.Control;
+            txtMoTa.Location = new Point(86, 327);
+            txtMoTa.Multiline = true;
+            txtMoTa.Name = "txtMoTa";
+            txtMoTa.Size = new Size(392, 80);
+            txtMoTa.TabIndex = 5;
             // 
-            // add controls to form
+            // btnSave
             // 
-            this.Controls.Add(this.lblMa);
-            this.Controls.Add(this.txtMa);
-            this.Controls.Add(this.lblTen);
-            this.Controls.Add(this.txtTen);
-            this.Controls.Add(this.lblMoTa);
-            this.Controls.Add(this.txtMoTa);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            btnSave.BackColor = Color.FromArgb(25, 118, 210);
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(325, 425);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(153, 54);
+            btnSave.TabIndex = 7;
+            btnSave.Text = "Lưu";
+            btnSave.UseVisualStyleBackColor = false;
+            // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.Red;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(86, 425);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(153, 54);
+            btnCancel.TabIndex = 6;
+            btnCancel.Text = "Huỷ";
+            btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            label1.Location = new Point(209, 29);
+            label1.Name = "label1";
+            label1.Size = new Size(146, 38);
+            label1.TabIndex = 8;
+            label1.Text = "TÚI XÁCH";
+            // 
+            // LoaiTuiEditForm
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(558, 520);
+            Controls.Add(label1);
+            Controls.Add(lblMa);
+            Controls.Add(txtMa);
+            Controls.Add(lblTen);
+            Controls.Add(txtTen);
+            Controls.Add(lblMoTa);
+            Controls.Add(txtMoTa);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSave);
+            Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            ForeColor = Color.FromArgb(51, 51, 51);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "LoaiTuiEditForm";
+            StartPosition = FormStartPosition.CenterParent;
+            ResumeLayout(false);
+            PerformLayout();
         }
+
     }
 }

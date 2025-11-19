@@ -8,6 +8,7 @@
         private System.Windows.Forms.Label lblDai;
         private System.Windows.Forms.Label lblRong;
         private System.Windows.Forms.Label lblCao;
+        private System.Windows.Forms.Label label1;
         internal System.Windows.Forms.TextBox txtMa;
         internal System.Windows.Forms.TextBox txtTen;
         internal System.Windows.Forms.NumericUpDown numDai;
@@ -24,171 +25,192 @@
 
         private void InitializeComponent()
         {
-            this.lblMa = new System.Windows.Forms.Label();
-            this.lblTen = new System.Windows.Forms.Label();
-            this.lblDai = new System.Windows.Forms.Label();
-            this.lblRong = new System.Windows.Forms.Label();
-            this.lblCao = new System.Windows.Forms.Label();
-            this.txtMa = new System.Windows.Forms.TextBox();
-            this.txtTen = new System.Windows.Forms.TextBox();
-            this.numDai = new System.Windows.Forms.NumericUpDown();
-            this.numRong = new System.Windows.Forms.NumericUpDown();
-            this.numCao = new System.Windows.Forms.NumericUpDown();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.numDai)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRong)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCao)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // form props
-            // 
-            this.ClientSize = new System.Drawing.Size(380, 300);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "KichThuocEditForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            lblMa = new Label();
+            lblTen = new Label();
+            lblDai = new Label();
+            lblRong = new Label();
+            lblCao = new Label();
+            txtMa = new TextBox();
+            txtTen = new TextBox();
+            numDai = new NumericUpDown();
+            numRong = new NumericUpDown();
+            numCao = new NumericUpDown();
+            btnSave = new Button();
+            btnCancel = new Button();
+            label1 = new Label();
+            ((System.ComponentModel.ISupportInitialize)numDai).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numRong).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)numCao).BeginInit();
+            SuspendLayout();
             // 
             // lblMa
-            //
-            this.lblMa.AutoSize = true;
-            this.lblMa.Location = new System.Drawing.Point(18, 16);
-            this.lblMa.Name = "lblMa";
-            this.lblMa.Size = new System.Drawing.Size(100, 20);
-            this.lblMa.TabIndex = 0;
-            this.lblMa.Text = "Mã kích thước:";
             // 
-            // txtMa
-            // 
-            this.txtMa.Location = new System.Drawing.Point(18, 40);
-            this.txtMa.Name = "txtMa";
-            this.txtMa.ReadOnly = true;
-            this.txtMa.Size = new System.Drawing.Size(344, 27);
-            this.txtMa.TabIndex = 1;
+            lblMa.AutoSize = true;
+            lblMa.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblMa.ForeColor = Color.FromArgb(51, 51, 51);
+            lblMa.Location = new Point(69, 105);
+            lblMa.Name = "lblMa";
+            lblMa.Size = new Size(146, 28);
+            lblMa.TabIndex = 101;
+            lblMa.Text = "Mã kích thước:";
             // 
             // lblTen
             // 
-            this.lblTen.AutoSize = true;
-            this.lblTen.Location = new System.Drawing.Point(18, 76);
-            this.lblTen.Name = "lblTen";
-            this.lblTen.Size = new System.Drawing.Size(107, 20);
-            this.lblTen.TabIndex = 2;
-            this.lblTen.Text = "Tên kích thước:*";
-            // 
-            // txtTen
-            // 
-            this.txtTen.Location = new System.Drawing.Point(18, 100);
-            this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(344, 27);
-            this.txtTen.TabIndex = 3;
+            lblTen.AutoSize = true;
+            lblTen.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblTen.ForeColor = Color.FromArgb(51, 51, 51);
+            lblTen.Location = new Point(69, 185);
+            lblTen.Name = "lblTen";
+            lblTen.Size = new Size(159, 28);
+            lblTen.TabIndex = 103;
+            lblTen.Text = "Tên kích thước:*";
             // 
             // lblDai
             // 
-            this.lblDai.AutoSize = true;
-            this.lblDai.Location = new System.Drawing.Point(18, 136);
-            this.lblDai.Name = "lblDai";
-            this.lblDai.Size = new System.Drawing.Size(37, 20);
-            this.lblDai.TabIndex = 4;
-            this.lblDai.Text = "Dài:";
-            // 
-            // numDai
-            // 
-            this.numDai.DecimalPlaces = 2;
-            this.numDai.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-            this.numDai.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            this.numDai.Location = new System.Drawing.Point(18, 160);
-            this.numDai.Name = "numDai";
-            this.numDai.Size = new System.Drawing.Size(104, 27);
-            this.numDai.TabIndex = 5;
-            this.numDai.ThousandsSeparator = false;
+            lblDai.AutoSize = true;
+            lblDai.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblDai.ForeColor = Color.FromArgb(51, 51, 51);
+            lblDai.Location = new Point(69, 265);
+            lblDai.Name = "lblDai";
+            lblDai.Size = new Size(46, 28);
+            lblDai.TabIndex = 105;
+            lblDai.Text = "Dài:";
             // 
             // lblRong
             // 
-            this.lblRong.AutoSize = true;
-            this.lblRong.Location = new System.Drawing.Point(140, 136);
-            this.lblRong.Name = "lblRong";
-            this.lblRong.Size = new System.Drawing.Size(50, 20);
-            this.lblRong.TabIndex = 6;
-            this.lblRong.Text = "Rộng:";
-            // 
-            // numRong
-            // 
-            this.numRong.DecimalPlaces = 2;
-            this.numRong.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-            this.numRong.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            this.numRong.Location = new System.Drawing.Point(140, 160);
-            this.numRong.Name = "numRong";
-            this.numRong.Size = new System.Drawing.Size(104, 27);
-            this.numRong.TabIndex = 7;
-            this.numRong.ThousandsSeparator = false;
+            lblRong.AutoSize = true;
+            lblRong.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblRong.ForeColor = Color.FromArgb(51, 51, 51);
+            lblRong.Location = new Point(219, 265);
+            lblRong.Name = "lblRong";
+            lblRong.Size = new Size(65, 28);
+            lblRong.TabIndex = 107;
+            lblRong.Text = "Rộng:";
             // 
             // lblCao
             // 
-            this.lblCao.AutoSize = true;
-            this.lblCao.Location = new System.Drawing.Point(262, 136);
-            this.lblCao.Name = "lblCao";
-            this.lblCao.Size = new System.Drawing.Size(40, 20);
-            this.lblCao.TabIndex = 8;
-            this.lblCao.Text = "Cao:";
+            lblCao.AutoSize = true;
+            lblCao.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblCao.ForeColor = Color.FromArgb(51, 51, 51);
+            lblCao.Location = new Point(369, 265);
+            lblCao.Name = "lblCao";
+            lblCao.Size = new Size(51, 28);
+            lblCao.TabIndex = 109;
+            lblCao.Text = "Cao:";
+            // 
+            // txtMa
+            // 
+            txtMa.Location = new Point(69, 135);
+            txtMa.Multiline = true;
+            txtMa.Name = "txtMa";
+            txtMa.ReadOnly = true;
+            txtMa.Size = new Size(420, 40);
+            txtMa.TabIndex = 102;
+            // 
+            // txtTen
+            // 
+            txtTen.BackColor = SystemColors.Control;
+            txtTen.Location = new Point(69, 215);
+            txtTen.Multiline = true;
+            txtTen.Name = "txtTen";
+            txtTen.Size = new Size(420, 40);
+            txtTen.TabIndex = 104;
+            // 
+            // numDai
+            // 
+            numDai.BackColor = SystemColors.Control;
+            numDai.DecimalPlaces = 2;
+            numDai.Location = new Point(69, 295);
+            numDai.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            numDai.Name = "numDai";
+            numDai.Size = new Size(120, 34);
+            numDai.TabIndex = 106;
+            // 
+            // numRong
+            // 
+            numRong.BackColor = SystemColors.Control;
+            numRong.DecimalPlaces = 2;
+            numRong.Location = new Point(219, 295);
+            numRong.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            numRong.Name = "numRong";
+            numRong.Size = new Size(120, 34);
+            numRong.TabIndex = 108;
             // 
             // numCao
             // 
-            this.numCao.DecimalPlaces = 2;
-            this.numCao.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
-            this.numCao.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            this.numCao.Location = new System.Drawing.Point(262, 160);
-            this.numCao.Name = "numCao";
-            this.numCao.Size = new System.Drawing.Size(100, 27);
-            this.numCao.TabIndex = 9;
-            this.numCao.ThousandsSeparator = false;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(170, 230);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(90, 30);
-            this.btnCancel.TabIndex = 10;
-            this.btnCancel.Text = "Huỷ";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            this.btnCancel.ForeColor = System.Drawing.Color.Black;
+            numCao.BackColor = SystemColors.Control;
+            numCao.DecimalPlaces = 2;
+            numCao.Location = new Point(369, 295);
+            numCao.Maximum = new decimal(new int[] { 10000, 0, 0, 0 });
+            numCao.Name = "numCao";
+            numCao.Size = new Size(120, 34);
+            numCao.TabIndex = 110;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(282, 230);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(80, 30);
-            this.btnSave.TabIndex = 11;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(25, 118, 210);
-            this.btnSave.ForeColor = System.Drawing.Color.White;
+            btnSave.BackColor = Color.FromArgb(25, 118, 210);
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(329, 355);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(160, 50);
+            btnSave.TabIndex = 112;
+            btnSave.Text = "Lưu";
+            btnSave.UseVisualStyleBackColor = false;
             // 
-            // add controls
+            // btnCancel
             // 
-            this.Controls.Add(this.lblMa);
-            this.Controls.Add(this.txtMa);
-            this.Controls.Add(this.lblTen);
-            this.Controls.Add(this.txtTen);
-            this.Controls.Add(this.lblDai);
-            this.Controls.Add(this.numDai);
-            this.Controls.Add(this.lblRong);
-            this.Controls.Add(this.numRong);
-            this.Controls.Add(this.lblCao);
-            this.Controls.Add(this.numCao);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-
-            ((System.ComponentModel.ISupportInitialize)(this.numDai)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numRong)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCao)).EndInit();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            btnCancel.BackColor = Color.Red;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(69, 355);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(160, 50);
+            btnCancel.TabIndex = 111;
+            btnCancel.Text = "Huỷ";
+            btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            label1.Location = new Point(186, 33);
+            label1.Name = "label1";
+            label1.Size = new Size(188, 38);
+            label1.TabIndex = 100;
+            label1.Text = "KÍCH THƯỚC";
+            // 
+            // KichThuocEditForm
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(546, 462);
+            Controls.Add(label1);
+            Controls.Add(lblMa);
+            Controls.Add(txtMa);
+            Controls.Add(lblTen);
+            Controls.Add(txtTen);
+            Controls.Add(lblDai);
+            Controls.Add(numDai);
+            Controls.Add(lblRong);
+            Controls.Add(numRong);
+            Controls.Add(lblCao);
+            Controls.Add(numCao);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSave);
+            Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            ForeColor = Color.FromArgb(51, 51, 51);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "KichThuocEditForm";
+            StartPosition = FormStartPosition.CenterParent;
+            ((System.ComponentModel.ISupportInitialize)numDai).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numRong).EndInit();
+            ((System.ComponentModel.ISupportInitialize)numCao).EndInit();
+            ResumeLayout(false);
+            PerformLayout();
         }
     }
 }
