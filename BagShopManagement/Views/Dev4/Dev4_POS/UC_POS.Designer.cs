@@ -84,7 +84,6 @@
             pnlTop.Controls.Add(txtTenKH);
             pnlTop.Controls.Add(txtMaKH);
             pnlTop.Controls.Add(lblKh);
-            pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
             pnlTop.Size = new Size(1571, 204);
@@ -189,9 +188,8 @@
             // 
             // pnlLeft
             // 
-            pnlLeft.BackColor = Color.FromArgb(255, 255, 255);
+            pnlLeft.BackColor = Color.FromArgb(240, 240, 240);
             pnlLeft.Controls.Add(grpAdd);
-            pnlLeft.Dock = DockStyle.Left;
             pnlLeft.Location = new Point(0, 204);
             pnlLeft.Name = "pnlLeft";
             pnlLeft.Size = new Size(595, 1072);
@@ -479,7 +477,6 @@
             // 
             pnlRight.BackColor = Color.FromArgb(255, 255, 255);
             pnlRight.Controls.Add(dgvCart);
-            pnlRight.Dock = DockStyle.Fill;
             pnlRight.Location = new Point(595, 204);
             pnlRight.Name = "pnlRight";
             pnlRight.Size = new Size(976, 1072);
@@ -491,9 +488,8 @@
             dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvCart.ColumnHeadersHeight = 29;
-            dgvCart.Dock = DockStyle.Fill;
             dgvCart.GridColor = Color.FromArgb(204, 204, 204);
-            dgvCart.Location = new Point(0, 0);
+            dgvCart.Location = new Point(10, 10);
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
             dgvCart.RowHeadersWidth = 51;
