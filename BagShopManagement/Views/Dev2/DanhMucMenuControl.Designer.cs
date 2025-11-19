@@ -34,6 +34,7 @@
             btnLoaiTui.FlatStyle = FlatStyle.Flat;
             btnLoaiTui.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnLoaiTui.ForeColor = Color.White;
+            btnLoaiTui.Image = Properties.Resources.tui;
             btnLoaiTui.Location = new Point(13, 171);
             btnLoaiTui.Name = "btnLoaiTui";
             btnLoaiTui.Size = new Size(1538, 116);
@@ -94,7 +95,7 @@
             btnKichThuoc.FlatStyle = FlatStyle.Flat;
             btnKichThuoc.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnKichThuoc.ForeColor = Color.White;
-            btnKichThuoc.Location = new Point(13, 659);
+            btnKichThuoc.Location = new Point(13, 804);
             btnKichThuoc.Name = "btnKichThuoc";
             btnKichThuoc.Size = new Size(1538, 116);
             btnKichThuoc.TabIndex = 4;
@@ -123,7 +124,7 @@
             Controls.Add(btnMauSac);
             Controls.Add(btnKichThuoc);
             Name = "DanhMucMenuControl";
-            Size = new Size(1565, 788);
+            Size = new Size(1565, 998);
             ResumeLayout(false);
             PerformLayout();
         }
