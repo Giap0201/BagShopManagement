@@ -18,88 +18,114 @@
 
         private void InitializeComponent()
         {
-            this.lblMa = new System.Windows.Forms.Label();
-            this.lblTen = new System.Windows.Forms.Label();
-            this.txtMa = new System.Windows.Forms.TextBox();
-            this.txtTen = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-
-            this.SuspendLayout();
-            // 
-            // form
-            // 
-            this.ClientSize = new System.Drawing.Size(350, 250);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "MauSacEditForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            lblMa = new Label();
+            lblTen = new Label();
+            txtMa = new TextBox();
+            txtTen = new TextBox();
+            btnSave = new Button();
+            btnCancel = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // lblMa
             // 
-            this.lblMa.AutoSize = true;
-            this.lblMa.Location = new System.Drawing.Point(18, 20);
-            this.lblMa.Name = "lblMa";
-            this.lblMa.Size = new System.Drawing.Size(40, 20);
-            this.lblMa.TabIndex = 0;
-            this.lblMa.Text = "Mã:";
-            // 
-            // txtMa
-            // 
-            this.txtMa.Location = new System.Drawing.Point(18, 44);
-            this.txtMa.Name = "txtMa";
-            this.txtMa.ReadOnly = true;
-            this.txtMa.Size = new System.Drawing.Size(314, 27);
-            this.txtMa.TabIndex = 1;
+            lblMa.AutoSize = true;
+            lblMa.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblMa.ForeColor = Color.FromArgb(51, 51, 51);
+            lblMa.Location = new Point(84, 87);
+            lblMa.Name = "lblMa";
+            lblMa.Size = new Size(91, 28);
+            lblMa.TabIndex = 0;
+            lblMa.Text = "Mã màu:";
             // 
             // lblTen
             // 
-            this.lblTen.AutoSize = true;
-            this.lblTen.Location = new System.Drawing.Point(18, 84);
-            this.lblTen.Name = "lblTen";
-            this.lblTen.Size = new System.Drawing.Size(90, 20);
-            this.lblTen.TabIndex = 2;
-            this.lblTen.Text = "Tên màu:*";
+            lblTen.AutoSize = true;
+            lblTen.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblTen.ForeColor = Color.FromArgb(51, 51, 51);
+            lblTen.Location = new Point(84, 178);
+            lblTen.Name = "lblTen";
+            lblTen.Size = new Size(104, 28);
+            lblTen.TabIndex = 2;
+            lblTen.Text = "Tên màu:*";
+            // 
+            // txtMa
+            // 
+            txtMa.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            txtMa.ForeColor = Color.FromArgb(51, 51, 51);
+            txtMa.Location = new Point(84, 118);
+            txtMa.Multiline = true;
+            txtMa.Name = "txtMa";
+            txtMa.ReadOnly = true;
+            txtMa.Size = new Size(392, 47);
+            txtMa.TabIndex = 1;
             // 
             // txtTen
             // 
-            this.txtTen.Location = new System.Drawing.Point(18, 108);
-            this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(314, 27);
-            this.txtTen.TabIndex = 3;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(164, 180);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(90, 30);
-            this.btnCancel.TabIndex = 4;
-            this.btnCancel.Text = "Huỷ";
-            this.btnCancel.UseVisualStyleBackColor = true;
+            txtTen.BackColor = SystemColors.Control;
+            txtTen.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 163);
+            txtTen.Location = new Point(84, 209);
+            txtTen.Multiline = true;
+            txtTen.Name = "txtTen";
+            txtTen.Size = new Size(392, 47);
+            txtTen.TabIndex = 3;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(268, 180);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(64, 30);
-            this.btnSave.TabIndex = 5;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(25, 118, 210);
-            this.btnSave.ForeColor = System.Drawing.Color.White;
+            btnSave.BackColor = Color.FromArgb(25, 118, 210);
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(323, 292);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(153, 54);
+            btnSave.TabIndex = 5;
+            btnSave.Text = "Lưu";
+            btnSave.UseVisualStyleBackColor = false;
             // 
-            // add controls
+            // btnCancel
             // 
-            this.Controls.Add(this.lblMa);
-            this.Controls.Add(this.txtMa);
-            this.Controls.Add(this.lblTen);
-            this.Controls.Add(this.txtTen);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            btnCancel.BackColor = Color.Red;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(84, 292);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(153, 54);
+            btnCancel.TabIndex = 4;
+            btnCancel.Text = "Huỷ";
+            btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            label1.ForeColor = Color.FromArgb(51, 51, 51);
+            label1.Location = new Point(204, 29);
+            label1.Name = "label1";
+            label1.Size = new Size(145, 38);
+            label1.TabIndex = 6;
+            label1.Text = "MÀU SẮC";
+            // 
+            // MauSacEditForm
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(560, 376);
+            Controls.Add(label1);
+            Controls.Add(lblMa);
+            Controls.Add(txtMa);
+            Controls.Add(lblTen);
+            Controls.Add(txtTen);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSave);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "MauSacEditForm";
+            StartPosition = FormStartPosition.CenterParent;
+            ResumeLayout(false);
+            PerformLayout();
         }
+        private Label label1;
     }
 }
