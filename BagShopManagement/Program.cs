@@ -50,6 +50,7 @@ namespace BagShopManagement
 
                     // === CHẠY LOGINFORM ĐẦU TIÊN ===
                     var loginForm = provider.GetRequiredService<LoginForm>();
+
                     Application.Run(loginForm);
                 }
                 catch (Exception ex)

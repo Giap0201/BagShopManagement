@@ -17,9 +17,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlFilter = new Panel();
             btnRefresh = new Button();
             btnFilter = new Button();
@@ -78,7 +78,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnRefresh.FlatStyle = FlatStyle.Flat;
             btnRefresh.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnRefresh.ForeColor = Color.FromArgb(51, 51, 51);
-            btnRefresh.Location = new Point(1243, 126);
+            btnRefresh.Location = new Point(1262, 137);
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(181, 51);
             btnRefresh.TabIndex = 12;
@@ -94,9 +94,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnFilter.FlatStyle = FlatStyle.Flat;
             btnFilter.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnFilter.ForeColor = Color.White;
-            btnFilter.Location = new Point(1243, 20);
+            btnFilter.Location = new Point(1011, 137);
             btnFilter.Name = "btnFilter";
-            btnFilter.Size = new Size(181, 46);
+            btnFilter.Size = new Size(168, 51);
             btnFilter.TabIndex = 11;
             btnFilter.Text = "LỌC";
             btnFilter.UseVisualStyleBackColor = false;
@@ -108,7 +108,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             cmbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTrangThai.Font = new Font("Segoe UI", 10.2F);
             cmbTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
-            cmbTrangThai.Location = new Point(1143, 72);
+            cmbTrangThai.Location = new Point(1243, 72);
             cmbTrangThai.Name = "cmbTrangThai";
             cmbTrangThai.Size = new Size(200, 31);
             cmbTrangThai.TabIndex = 10;
@@ -117,7 +117,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             lblTrangThai.AutoSize = true;
             lblTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
-            lblTrangThai.Location = new Point(1023, 70);
+            lblTrangThai.Location = new Point(1088, 75);
             lblTrangThai.Name = "lblTrangThai";
             lblTrangThai.Size = new Size(91, 23);
             lblTrangThai.TabIndex = 9;
@@ -129,7 +129,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             txtMaNV.BorderStyle = BorderStyle.FixedSingle;
             txtMaNV.Font = new Font("Segoe UI", 10.2F);
             txtMaNV.ForeColor = Color.FromArgb(51, 51, 51);
-            txtMaNV.Location = new Point(762, 84);
+            txtMaNV.Location = new Point(707, 68);
             txtMaNV.Name = "txtMaNV";
             txtMaNV.Size = new Size(200, 30);
             txtMaNV.TabIndex = 8;
@@ -138,7 +138,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             lblMaNV.AutoSize = true;
             lblMaNV.ForeColor = Color.FromArgb(51, 51, 51);
-            lblMaNV.Location = new Point(613, 72);
+            lblMaNV.Location = new Point(538, 75);
             lblMaNV.Name = "lblMaNV";
             lblMaNV.Size = new Size(120, 23);
             lblMaNV.TabIndex = 7;
@@ -148,7 +148,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             lblToDate.AutoSize = true;
             lblToDate.ForeColor = Color.FromArgb(51, 51, 51);
-            lblToDate.Location = new Point(87, 136);
+            lblToDate.Location = new Point(56, 143);
             lblToDate.Name = "lblToDate";
             lblToDate.Size = new Size(88, 23);
             lblToDate.TabIndex = 6;
@@ -159,7 +159,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             lblFromDate.AutoSize = true;
             lblFromDate.ForeColor = Color.FromArgb(51, 51, 51);
-            lblFromDate.Location = new Point(87, 65);
+            lblFromDate.Location = new Point(56, 75);
             lblFromDate.Name = "lblFromDate";
             lblFromDate.Size = new Size(77, 23);
             lblFromDate.TabIndex = 5;
@@ -169,7 +169,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             dtpToDate.Font = new Font("Segoe UI", 10.2F);
             dtpToDate.Format = DateTimePickerFormat.Short;
-            dtpToDate.Location = new Point(196, 136);
+            dtpToDate.Location = new Point(186, 137);
             dtpToDate.Name = "dtpToDate";
             dtpToDate.Size = new Size(200, 30);
             dtpToDate.TabIndex = 4;
@@ -178,7 +178,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             dtpFromDate.Font = new Font("Segoe UI", 10.2F);
             dtpFromDate.Format = DateTimePickerFormat.Short;
-            dtpFromDate.Location = new Point(196, 65);
+            dtpFromDate.Location = new Point(186, 72);
             dtpFromDate.Name = "dtpFromDate";
             dtpFromDate.Size = new Size(200, 30);
             dtpFromDate.TabIndex = 3;
@@ -187,7 +187,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             chkFilterTrangThai.AutoSize = true;
             chkFilterTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
-            chkFilterTrangThai.Location = new Point(1023, 25);
+            chkFilterTrangThai.Location = new Point(1088, 14);
             chkFilterTrangThai.Name = "chkFilterTrangThai";
             chkFilterTrangThai.Size = new Size(178, 27);
             chkFilterTrangThai.TabIndex = 2;
@@ -197,7 +197,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             chkFilterNV.AutoSize = true;
             chkFilterNV.ForeColor = Color.FromArgb(51, 51, 51);
-            chkFilterNV.Location = new Point(613, 14);
+            chkFilterNV.Location = new Point(538, 14);
             chkFilterNV.Name = "chkFilterNV";
             chkFilterNV.Size = new Size(179, 27);
             chkFilterNV.TabIndex = 1;
@@ -207,7 +207,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             chkFilterDate.AutoSize = true;
             chkFilterDate.ForeColor = Color.FromArgb(51, 51, 51);
-            chkFilterDate.Location = new Point(109, 14);
+            chkFilterDate.Location = new Point(56, 14);
             chkFilterDate.Name = "chkFilterDate";
             chkFilterDate.Size = new Size(141, 27);
             chkFilterDate.TabIndex = 0;
@@ -309,37 +309,37 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvHoaDon.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvHoaDon.BackgroundColor = SystemColors.ControlLight;
             dgvHoaDon.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.DodgerBlue;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = Color.DodgerBlue;
-            dataGridViewCellStyle4.SelectionForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvHoaDon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvHoaDon.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvHoaDon.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvHoaDon.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvHoaDon.DefaultCellStyle = dataGridViewCellStyle2;
             dgvHoaDon.EnableHeadersVisualStyles = false;
             dgvHoaDon.GridColor = Color.LightGray;
             dgvHoaDon.Location = new Point(38, 311);
             dgvHoaDon.MultiSelect = false;
             dgvHoaDon.Name = "dgvHoaDon";
             dgvHoaDon.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvHoaDon.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvHoaDon.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvHoaDon.RowHeadersVisible = false;
             dgvHoaDon.RowHeadersWidth = 51;
             dgvHoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
