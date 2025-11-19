@@ -136,5 +136,15 @@ namespace BagShopManagement.Views.Dev1
             txtMatKhauMoi.Text = "";
             txtXacNhanMoi.Text = "";
         }
+
+        private void txtTenDangNhap_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtXacNhanMoi_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

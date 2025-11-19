@@ -24,5 +24,6 @@ namespace BagShopManagement.Services.Interfaces
         /// [TRANSACTION] Cập nhật Nhân viên và Tài khoản.
         /// </summary>
         bool UpdateNhanVien(UpdateNhanVienRequest request);
+        IEnumerable<NhanVienResponse> SearchNhanVien(string keyword);
     }
 }

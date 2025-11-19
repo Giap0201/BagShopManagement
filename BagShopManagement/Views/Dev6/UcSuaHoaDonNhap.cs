@@ -3,6 +3,7 @@ using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
+using BagShopManagement.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -396,6 +397,37 @@ namespace BagShopManagement.Views.Dev6
             btnSuaChiTietHDN.Enabled = isDraft;
             btnXoaChiTietHDN.Enabled = isDraft;
             btnThemChiTietHDN.Enabled = isDraft;
+        }
+
+        // In hoa don khi sua
+        private void btnInHDN_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var hd = _controller.LayChiTietHoaDon(txtMaHDN.Text);
+                if (hd == null || hd.ChiTiet == null || !hd.ChiTiet.Any())
+                {
+                    MessageBox.Show("Hóa đơn trống, không thể in!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+                using var sfd = new SaveFileDialog
+                {
+                    Filter = "File Excel|*.xlsx",
+                    FileName = $"PhieuNhap_{hd.MaHDN}.xlsx",
+                    Title = "Xuất phiếu nhập hàng"
+                };
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    ExcelHelper.XuatPhieuNhapHang(sfd.FileName, hd);
+                    MessageBox.Show("Xuất phiếu thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo { FileName = sfd.FileName, UseShellExecute = true });
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xuất phiếu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

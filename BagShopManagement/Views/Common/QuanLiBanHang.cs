@@ -1,22 +1,15 @@
-﻿// === Using của nhóm bạn (Dev2, 3, 4, 6) ===
-using BagShopManagement.Views.Controls;
+﻿using BagShopManagement.Views.Controls;
 using BagShopManagement.Views.Dev2;
 using BagShopManagement.Views.Dev3;
-using BagShopManagement.Views.Dev4;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using BagShopManagement.Views.Dev4.Dev4_HoaDonBan;
 using BagShopManagement.Views.Dev6;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Windows.Forms;
-using BagShopManagement.Views.Controls;
 using BagShopManagement.Views.Dev5;
 
 // === BỔ SUNG CÁC USING CHO DEV1 ===
-using BagShopManagement.Views; // Cần cho LoginForm
 using BagShopManagement.Views.Dev1; // Cần cho ucProfile, ucEmployeeManagement
 using BagShopManagement.Utils; // Cần cho UserContext
-using System.Linq; // Cần cho UserContext.MaQuyenList.Contains()
 
 namespace BagShopManagement.Views.Common
 {
@@ -44,7 +37,7 @@ namespace BagShopManagement.Views.Common
                 // BỔ SUNG: Đóng Form con (nếu đang hiển thị) trước khi mở UC
                 if (_currentChildForm != null)
                 {
-                    mainPanel.Controls.Remove(_currentChildForm);
+                    ucPanel.Controls.Remove(_currentChildForm);
                     _currentChildForm.Dispose();
                     _currentChildForm = null;
                 }
@@ -54,11 +47,11 @@ namespace BagShopManagement.Views.Common
 
                 if (_currentControl != null)
                 {
-                    mainPanel.Controls.Remove(_currentControl);
+                    ucPanel.Controls.Remove(_currentControl);
                     _currentControl.Dispose();
                 }
 
-                mainPanel.Controls.Add(newControl);
+                ucPanel.Controls.Add(newControl);
                 _currentControl = newControl;
             }
             catch (Exception ex)
@@ -86,7 +79,7 @@ namespace BagShopManagement.Views.Common
                 // BỔ SUNG: Đóng UC (nếu đang hiển thị) trước khi mở Form
                 if (_currentControl != null)
                 {
-                    mainPanel.Controls.Remove(_currentControl);
+                    ucPanel.Controls.Remove(_currentControl);
                     _currentControl.Dispose();
                     _currentControl = null;
                 }
@@ -94,7 +87,7 @@ namespace BagShopManagement.Views.Common
                 // Đóng form cũ nếu có
                 if (_currentChildForm != null)
                 {
-                    mainPanel.Controls.Remove(_currentChildForm);
+                    ucPanel.Controls.Remove(_currentChildForm);
                     _currentChildForm.Dispose();
                     _currentChildForm = null;
                 }
@@ -103,7 +96,7 @@ namespace BagShopManagement.Views.Common
                 form.TopLevel = false;
                 form.FormBorderStyle = FormBorderStyle.None;
                 form.Dock = DockStyle.Fill;
-                mainPanel.Controls.Add(form);
+                ucPanel.Controls.Add(form);
                 _currentChildForm = form;
                 form.Show();
             }
@@ -134,32 +127,26 @@ namespace BagShopManagement.Views.Common
             // tsslUserInfo.Text = $"Người dùng: {UserContext.HoTen} ({UserContext.MaVaiTro})";
 
             // === BƯỚC 3: GÁN SỰ KIỆN CHO SIDEBAR (HỢP NHẤT) ===
-
             // (Giả sử instance của SideBarControl tên là 'sideBarControl')
 
-            // Dev5 Events (Đã có)
+            // Dev5 Events
             sideBarControl.ShowTonKhoClicked += (s, ev) => ShowUserControl<TonKhoControl>();
             sideBarControl.ShowKhuyenMaiClicked += (s, ev) => ShowUserControl<PromotionControl>();
 
-            // Dev6 Events (Đã có)
+            // Dev6 Events
             sideBarControl.ShowHoaDonNhapClicked += (s, ev) => ShowUserControl<ucHoaDonNhapList>();
             sideBarControl.ShowBaoCaoThongKeClicked += (s, ev) => ShowUserControl<ucBaoCaoThongKe>();
 
-            // Dev4 Events (Đã có)
+            // Dev4 Events
             sideBarControl.ShowBanHangClicked += (s, ev) => ShowUserControl<UC_POS>();
-
-            // Dev4 - Hóa đơn bán (Quản lý hóa đơn)
             sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
 
-            // Dev2 Events (Đã có)
-            sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
-            sideBarControl.ShowQuanLyHoaDonClicked += (s, ev) => ShowUserControl<UC_HoaDonBan>();
-
-            // Dev3 Events (Đã có)
+            // Dev3 Events
             sideBarControl.NhaCungCapClicked += (s, ev) => ShowUserControl<NhaCungCapControl>();
             sideBarControl.KhachHangClicked += (s, ev) => ShowUserControl<KhachHangControl>();
 
-            // Dev2 - Danh mục (Đã có)
+            // Dev2 Events
+            sideBarControl.SanPhamClicked += (s, ev) => ShowUserControl<SanPhamControl>();
             sideBarControl.DanhMucClicked += (s, e) =>
             {
                 ShowUserControl<DanhMucMenuControl>();
@@ -174,37 +161,46 @@ namespace BagShopManagement.Views.Common
             };
 
             // === Dev1 Events (BỔ SUNG) ===
-            // (Bạn cần thêm 2 sự kiện 'ShowProfileClicked' và 'ShowEmployeeManagementClicked'
-            // vào file SideBarControl.cs của nhóm bạn)
-
-            // Gắn sự kiện "Tài khoản" (Profile)
             sideBarControl.ShowProfileClicked += (s, ev) => ShowUserControl<ucProfile>();
-
-            // Gắn sự kiện "Nhân viên" (Employee Management)
             sideBarControl.ShowEmployeeManagementClicked += (s, ev) => ShowUserControl<ucEmployeeManagement>();
 
-            // === BƯỚC 4: XỬ LÝ PHÂN QUYỀN (BỔ SUNG TỪ DEV1) ===
-            // (Bạn cần đặt các nút trong SideBarControl là 'public'
-            // bằng cách chọn nút -> Properties -> Modifiers -> Public)
-
-            // TẠM THỜI COMMENT ĐỂ TEST
-            /*
+            // === BƯỚC 4: XỬ LÝ PHÂN QUYỀN (DỰA TRÊN image_e2d1dc.png) ===
+            //
+            // LƯU Ý: Code này YÊU CẦU các nút trong 'SideBarControl.Designer.cs'
+            // phải được đặt là 'public' (chọn nút -> Properties -> Modifiers -> Public)
+            //
             if (UserContext.MaQuyenList != null)
             {
-                // (Giả sử tên nút là btnNhanVien và btnTaiKhoan)
+                // (Giả sử tên các nút khớp với hình ảnh)
 
-                // Phân quyền nút "Nhân viên"
-                // (Dựa theo image_174f61.png, 'Quản lý nhân viên' là Q005)
+                // Q001: Quản lý sản phẩm (Sản phẩm, Danh mục)
+                sideBarControl.btnSanPham.Enabled = UserContext.MaQuyenList.Contains("Q001");
+                sideBarControl.btnDanhMuc.Enabled = UserContext.MaQuyenList.Contains("Q001");
+
+                // Q002: Quản lý hóa đơn (Bán hàng, Hóa đơn bán)
+                sideBarControl.btnBanHang.Enabled = UserContext.MaQuyenList.Contains("Q002");
+                sideBarControl.btnHoaDonBan.Enabled = UserContext.MaQuyenList.Contains("Q002");
+
+                // Q003: Quản lý nhập hàng (Nhà cung cấp, Tồn kho, Hóa đơn nhập)
+                sideBarControl.btnNCC.Enabled = UserContext.MaQuyenList.Contains("Q003");
+                sideBarControl.btnTonKho.Enabled = UserContext.MaQuyenList.Contains("Q003");
+                sideBarControl.btnHoaDonNhap.Enabled = UserContext.MaQuyenList.Contains("Q003");
+
+                // Q004: Quản lý khách hàng
+                sideBarControl.btnKhachHang.Enabled = UserContext.MaQuyenList.Contains("Q004");
+
+                // Q005: Quản lý nhân viên (Dev1)
                 sideBarControl.btnNhanVien.Enabled = UserContext.MaQuyenList.Contains("Q005");
 
-                // Nút "Tài khoản" (Profile) luôn luôn bật
+                // Q006: Xem báo cáo
+                sideBarControl.btnBCTK.Enabled = UserContext.MaQuyenList.Contains("Q006");
+
+                // "Tài khoản" (Profile) luôn luôn bật
                 sideBarControl.btnTaiKhoan.Enabled = true;
 
-                // (Các Dev khác có thể thêm logic phân quyền của họ ở đây)
-                // sideBarControl.btnSanPham.Enabled = UserContext.MaQuyenList.Contains("Q001");
-                // ...
+                // (Nút "Khuyến Mãi" không có trong bảng Quyen, tạm thời gán theo Q001)
+                sideBarControl.btnKhuyenMai.Enabled = UserContext.MaQuyenList.Contains("Q001");
             }
-            */
         }
 
         // --- (Các hàm load trống của nhóm bạn, giữ nguyên) ---
