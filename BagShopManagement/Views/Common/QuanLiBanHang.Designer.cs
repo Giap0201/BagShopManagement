@@ -15,30 +15,23 @@
 
         private void InitializeComponent()
         {
-            headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             sideBarControl = new BagShopManagement.Views.Controls.SideBarControl();
             panelContent = new Panel();
             mainPanel = new Panel();
+            ucPanel = new Panel();
+            headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
             panelContent.SuspendLayout();
+            mainPanel.SuspendLayout();
             SuspendLayout();
-            // 
-            // headerControl1
-            // 
-            headerControl1.BackColor = SystemColors.ControlLight;
-            headerControl1.Dock = DockStyle.Top;
-            headerControl1.Location = new Point(0, 0);
-            headerControl1.Margin = new Padding(6);
-            headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1159, 76);
-            headerControl1.TabIndex = 0;
             // 
             // sideBarControl
             // 
+            sideBarControl.BackColor = Color.FromArgb(30, 41, 59);
             sideBarControl.Dock = DockStyle.Left;
-            sideBarControl.Location = new Point(0, 76);
+            sideBarControl.Location = new Point(0, 0);
             sideBarControl.Margin = new Padding(6);
             sideBarControl.Name = "sideBarControl";
-            sideBarControl.Size = new Size(336, 765);
+            sideBarControl.Size = new Size(351, 841);
             sideBarControl.TabIndex = 1;
             sideBarControl.Load += sideBarControl_Load;
             // 
@@ -46,19 +39,38 @@
             // 
             panelContent.Controls.Add(mainPanel);
             panelContent.Dock = DockStyle.Fill;
-            panelContent.Location = new Point(336, 76);
+            panelContent.Location = new Point(351, 0);
             panelContent.Name = "panelContent";
-            panelContent.Size = new Size(823, 765);
+            panelContent.Size = new Size(808, 841);
             panelContent.TabIndex = 2;
             // 
             // mainPanel
             // 
+            mainPanel.Controls.Add(ucPanel);
+            mainPanel.Controls.Add(headerControl1);
             mainPanel.Dock = DockStyle.Fill;
             mainPanel.Location = new Point(0, 0);
             mainPanel.Margin = new Padding(1);
             mainPanel.Name = "mainPanel";
-            mainPanel.Size = new Size(823, 765);
+            mainPanel.Size = new Size(808, 841);
             mainPanel.TabIndex = 0;
+            // 
+            // ucPanel
+            // 
+            ucPanel.Dock = DockStyle.Fill;
+            ucPanel.Location = new Point(0, 61);
+            ucPanel.Name = "ucPanel";
+            ucPanel.Size = new Size(808, 780);
+            ucPanel.TabIndex = 4;
+            // 
+            // headerControl1
+            // 
+            headerControl1.BackColor = SystemColors.Control;
+            headerControl1.Dock = DockStyle.Top;
+            headerControl1.Location = new Point(0, 0);
+            headerControl1.Name = "headerControl1";
+            headerControl1.Size = new Size(808, 61);
+            headerControl1.TabIndex = 3;
             // 
             // QuanLiBanHang
             // 
@@ -67,19 +79,19 @@
             ClientSize = new Size(1159, 841);
             Controls.Add(panelContent);
             Controls.Add(sideBarControl);
-            Controls.Add(headerControl1);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "QuanLiBanHang";
             Text = "Quản lý bán hàng - Bag Shop Management";
             WindowState = FormWindowState.Maximized;
             Load += QuanLiBanHang_Load;
             panelContent.ResumeLayout(false);
+            mainPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
-
-        private BagShopManagement.Views.Controls.HeaderControl headerControl1;
         private BagShopManagement.Views.Controls.SideBarControl sideBarControl;
         private System.Windows.Forms.Panel panelContent;
         private Panel mainPanel;
+        private Controls.HeaderControl headerControl1;
+        private Panel ucPanel;
     }
 }
