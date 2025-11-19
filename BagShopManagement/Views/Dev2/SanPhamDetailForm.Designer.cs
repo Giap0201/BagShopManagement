@@ -279,7 +279,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label8.Location = new Point(20, 536);
+            label8.Location = new Point(20, 533);
             label8.Name = "label8";
             label8.Size = new Size(81, 23);
             label8.TabIndex = 29;
@@ -289,7 +289,7 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label9.Location = new Point(20, 495);
+            label9.Location = new Point(20, 492);
             label9.Name = "label9";
             label9.Size = new Size(87, 23);
             label9.TabIndex = 28;
@@ -299,7 +299,7 @@
             // 
             label10.AutoSize = true;
             label10.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label10.Location = new Point(20, 454);
+            label10.Location = new Point(20, 451);
             label10.Name = "label10";
             label10.Size = new Size(117, 23);
             label10.TabIndex = 27;
@@ -309,7 +309,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label11.Location = new Point(20, 413);
+            label11.Location = new Point(20, 410);
             label11.Name = "label11";
             label11.Size = new Size(92, 23);
             label11.TabIndex = 26;
@@ -319,7 +319,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label12.Location = new Point(20, 371);
+            label12.Location = new Point(20, 369);
             label12.Name = "label12";
             label12.Size = new Size(74, 23);
             label12.TabIndex = 25;
@@ -329,7 +329,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label13.Location = new Point(20, 330);
+            label13.Location = new Point(20, 328);
             label13.Name = "label13";
             label13.Size = new Size(78, 23);
             label13.TabIndex = 24;
@@ -339,7 +339,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label14.Location = new Point(20, 289);
+            label14.Location = new Point(20, 287);
             label14.Name = "label14";
             label14.Size = new Size(108, 23);
             label14.TabIndex = 23;
@@ -349,7 +349,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label7.Location = new Point(20, 248);
+            label7.Location = new Point(20, 246);
             label7.Name = "label7";
             label7.Size = new Size(66, 23);
             label7.TabIndex = 22;
@@ -359,7 +359,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label6.Location = new Point(20, 577);
+            label6.Location = new Point(20, 574);
             label6.Name = "label6";
             label6.Size = new Size(56, 23);
             label6.TabIndex = 21;
@@ -369,7 +369,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label5.Location = new Point(20, 207);
+            label5.Location = new Point(20, 205);
             label5.Name = "label5";
             label5.Size = new Size(110, 23);
             label5.TabIndex = 20;
@@ -379,7 +379,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label4.Location = new Point(20, 166);
+            label4.Location = new Point(20, 164);
             label4.Name = "label4";
             label4.Size = new Size(69, 23);
             label4.TabIndex = 19;
