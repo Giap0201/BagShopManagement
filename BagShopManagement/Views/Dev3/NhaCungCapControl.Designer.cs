@@ -28,7 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dgvNCC = new DataGridView();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             btnTim = new Button();
             btnThem = new Button();
             btnSua = new Button();
@@ -37,29 +39,18 @@
             groupBox1 = new GroupBox();
             btnReset = new Button();
             groupBox2 = new GroupBox();
+            dgvNCC = new DataGridView();
             label1 = new Label();
-            ((System.ComponentModel.ISupportInitialize)dgvNCC).BeginInit();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvNCC).BeginInit();
             SuspendLayout();
-            // 
-            // dgvNCC
-            // 
-            dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dgvNCC.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvNCC.Location = new Point(6, 34);
-            dgvNCC.Name = "dgvNCC";
-            dgvNCC.ReadOnly = true;
-            dgvNCC.RowHeadersWidth = 51;
-            dgvNCC.Size = new Size(913, 454);
-            dgvNCC.TabIndex = 0;
-            dgvNCC.SelectionChanged += dgvNCC_SelectionChanged;
             // 
             // btnTim
             // 
             btnTim.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTim.ForeColor = Color.FromArgb(51, 51, 51);
-            btnTim.Location = new Point(64, 41);
+            btnTim.Location = new Point(67, 165);
             btnTim.Name = "btnTim";
             btnTim.Size = new Size(125, 36);
             btnTim.TabIndex = 1;
@@ -69,6 +60,7 @@
             // 
             // btnThem
             // 
+            btnThem.BackColor = SystemColors.ActiveCaption;
             btnThem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThem.ForeColor = Color.FromArgb(51, 51, 51);
             btnThem.Location = new Point(136, 112);
@@ -76,7 +68,7 @@
             btnThem.Size = new Size(175, 64);
             btnThem.TabIndex = 2;
             btnThem.Text = "Thêm mới";
-            btnThem.UseVisualStyleBackColor = true;
+            btnThem.UseVisualStyleBackColor = false;
             btnThem.Click += btnThemMoi_Click;
             // 
             // btnSua
@@ -111,20 +103,19 @@
             // 
             txtTimKiem.BackColor = Color.White;
             txtTimKiem.ForeColor = Color.Black;
-            txtTimKiem.Location = new Point(186, 41);
+            txtTimKiem.Location = new Point(188, 165);
             txtTimKiem.Multiline = true;
             txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(239, 36);
+            txtTimKiem.Size = new Size(338, 36);
             txtTimKiem.TabIndex = 5;
             // 
             // groupBox1
             // 
             groupBox1.Controls.Add(btnReset);
             groupBox1.Controls.Add(btnSua);
-            groupBox1.Controls.Add(txtTimKiem);
             groupBox1.Controls.Add(btnXoa);
             groupBox1.Controls.Add(btnThem);
-            groupBox1.Controls.Add(btnTim);
+            groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(67, 227);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(482, 494);
@@ -135,25 +126,73 @@
             // 
             // btnReset
             // 
+            btnReset.BackColor = SystemColors.InactiveCaption;
             btnReset.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnReset.ForeColor = Color.FromArgb(51, 51, 51);
-            btnReset.Location = new Point(136, 216);
+            btnReset.Location = new Point(136, 212);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(175, 64);
             btnReset.TabIndex = 6;
             btnReset.Text = "Làm mới";
-            btnReset.UseVisualStyleBackColor = true;
+            btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
             // groupBox2
             // 
             groupBox2.Controls.Add(dgvNCC);
+            groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.Location = new Point(555, 227);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(925, 494);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Danh sách nhà cung cấp";
+            // 
+            // dgvNCC
+            // 
+            dgvNCC.AllowUserToAddRows = false;
+            dgvNCC.AllowUserToDeleteRows = false;
+            dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvNCC.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dgvNCC.BackgroundColor = SystemColors.ControlLight;
+            dgvNCC.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvNCC.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvNCC.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvNCC.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvNCC.EnableHeadersVisualStyles = false;
+            dgvNCC.GridColor = Color.LightGray;
+            dgvNCC.Location = new Point(6, 26);
+            dgvNCC.MultiSelect = false;
+            dgvNCC.Name = "dgvNCC";
+            dgvNCC.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvNCC.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dgvNCC.RowHeadersVisible = false;
+            dgvNCC.RowHeadersWidth = 51;
+            dgvNCC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvNCC.Size = new Size(905, 462);
+            dgvNCC.TabIndex = 9;
+            dgvNCC.SelectionChanged += dgvNCC_SelectionChanged;
             // 
             // label1
             // 
@@ -171,22 +210,20 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(label1);
             Controls.Add(groupBox2);
+            Controls.Add(txtTimKiem);
             Controls.Add(groupBox1);
+            Controls.Add(btnTim);
             Name = "NhaCungCapControl";
             Size = new Size(1509, 846);
             Load += NhaCungCapControl_Load;
-            Click += NhaCungCapControl_Click;
-            ((System.ComponentModel.ISupportInitialize)dgvNCC).EndInit();
             groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dgvNCC).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private DataGridView dgvNCC;
         private Button btnTim;
         private Button btnThem;
         private Button btnSua;
@@ -196,5 +233,6 @@
         private GroupBox groupBox2;
         private Button btnReset;
         private Label label1;
+        private DataGridView dgvNCC;
     }
 }
