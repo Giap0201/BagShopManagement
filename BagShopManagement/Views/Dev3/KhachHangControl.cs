@@ -69,11 +69,6 @@ namespace BagShopManagement.Views.Dev3
             LoadDanhSachKH();
         }
 
-        private void dgvKhachHang_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
-        }
-
         private void btnTim_Click(object sender, EventArgs e)
         {
             if (txtTimKhachHang.Text.Length == 0)
@@ -120,27 +115,26 @@ namespace BagShopManagement.Views.Dev3
         {
             if (dgvKhachHang.Rows.Count == 0) return;
 
-            bool showButtons = false;
+            
 
             if (dgvKhachHang.SelectedRows.Count == 1)
             {
                 if (!dgvKhachHang.SelectedRows[0].IsNewRow)
                 {
-                    showButtons = true;
+                    btnSua.Enabled = true;
+                    btnXoa.Enabled = true;
                 }
             }
 
-            btnSua.Visible = showButtons;
-            btnXoa.Visible = showButtons;
         }
 
-        private void KhachHangControl_Click(object sender, EventArgs e)
-        {
+        //private void KhachHangControl_Click(object sender, EventArgs e)
+        //{
 
-            dgvKhachHang.ClearSelection();
-            btnSua.Visible = false;
-            btnXoa.Visible = false;
-        }
+        //    dgvKhachHang.ClearSelection();
+        //    btnSua.Visible = false;
+        //    btnXoa.Visible = false;
+        //}
 
         private void btnXoa_Click(object sender, EventArgs e)
         {
@@ -239,6 +233,11 @@ namespace BagShopManagement.Views.Dev3
             dgvKhachHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvKhachHang.MultiSelect = false;
             LoadDanhSachKH();
+        }
+
+        private void dgvKhachHang_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

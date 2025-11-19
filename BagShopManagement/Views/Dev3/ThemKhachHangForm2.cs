@@ -103,7 +103,7 @@ namespace BagShopManagement.Views.Dev3
 
             var kh = new KhachHang
             {
-                MaKH = _controller.GenerateNextCode(),
+                MaKH = txtMaKH.Text.Trim(),
                 SoDienThoai = soDienThoai,
                 HoTen = txtHoTen.Text.Trim(),
                 Email = email,
