@@ -36,7 +36,6 @@ namespace BagShopManagement.Views.Dev4
             pnlTop.Controls.Add(btnSearch);
             pnlTop.Controls.Add(txtSearch);
             pnlTop.Controls.Add(lblSearch);
-            pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
             pnlTop.Size = new Size(1400, 100);
@@ -102,8 +101,7 @@ namespace BagShopManagement.Views.Dev4
             pnlBottom.BackColor = Color.FromArgb(255, 255, 255);
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnSelect);
-            pnlBottom.Dock = DockStyle.Bottom;
-            pnlBottom.Location = new Point(0, 700);
+            pnlBottom.Location = new Point(0, 522);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(1400, 100);
             pnlBottom.TabIndex = 2;
