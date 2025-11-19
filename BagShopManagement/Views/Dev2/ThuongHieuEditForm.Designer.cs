@@ -20,113 +20,136 @@
 
         private void InitializeComponent()
         {
-            this.lblMa = new System.Windows.Forms.Label();
-            this.lblTen = new System.Windows.Forms.Label();
-            this.lblQuocGia = new System.Windows.Forms.Label();
-            this.txtMa = new System.Windows.Forms.TextBox();
-            this.txtTen = new System.Windows.Forms.TextBox();
-            this.txtQuocGia = new System.Windows.Forms.TextBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
-            this.SuspendLayout();
-            // 
-            // form props
-            // 
-            this.ClientSize = new System.Drawing.Size(360, 260);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.MaximizeBox = false;
-            this.MinimizeBox = false;
-            this.Name = "ThuongHieuEditForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            lblMa = new Label();
+            lblTen = new Label();
+            lblQuocGia = new Label();
+            txtMa = new TextBox();
+            txtTen = new TextBox();
+            txtQuocGia = new TextBox();
+            btnSave = new Button();
+            btnCancel = new Button();
+            label1 = new Label();
+            SuspendLayout();
             // 
             // lblMa
             // 
-            this.lblMa.AutoSize = true;
-            this.lblMa.Location = new System.Drawing.Point(18, 18);
-            this.lblMa.Name = "lblMa";
-            this.lblMa.Size = new System.Drawing.Size(104, 20);
-            this.lblMa.TabIndex = 0;
-            this.lblMa.Text = "Mã thương hiệu:";
-            // 
-            // txtMa
-            // 
-            this.txtMa.Location = new System.Drawing.Point(18, 42);
-            this.txtMa.Name = "txtMa";
-            this.txtMa.ReadOnly = true;
-            this.txtMa.Size = new System.Drawing.Size(324, 27);
-            this.txtMa.TabIndex = 1;
+            lblMa.AutoSize = true;
+            lblMa.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblMa.ForeColor = Color.FromArgb(51, 51, 51);
+            lblMa.Location = new Point(86, 88);
+            lblMa.Name = "lblMa";
+            lblMa.Size = new Size(164, 28);
+            lblMa.TabIndex = 0;
+            lblMa.Text = "Mã thương hiệu:";
             // 
             // lblTen
             // 
-            this.lblTen.AutoSize = true;
-            this.lblTen.Location = new System.Drawing.Point(18, 78);
-            this.lblTen.Name = "lblTen";
-            this.lblTen.Size = new System.Drawing.Size(116, 20);
-            this.lblTen.TabIndex = 2;
-            this.lblTen.Text = "Tên thương hiệu:*";
-            // 
-            // txtTen
-            // 
-            this.txtTen.Location = new System.Drawing.Point(18, 102);
-            this.txtTen.Name = "txtTen";
-            this.txtTen.Size = new System.Drawing.Size(324, 27);
-            this.txtTen.TabIndex = 3;
+            lblTen.AutoSize = true;
+            lblTen.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblTen.ForeColor = Color.FromArgb(51, 51, 51);
+            lblTen.Location = new Point(86, 186);
+            lblTen.Name = "lblTen";
+            lblTen.Size = new Size(177, 28);
+            lblTen.TabIndex = 2;
+            lblTen.Text = "Tên thương hiệu:*";
             // 
             // lblQuocGia
             // 
-            this.lblQuocGia.AutoSize = true;
-            this.lblQuocGia.Location = new System.Drawing.Point(18, 138);
-            this.lblQuocGia.Name = "lblQuocGia";
-            this.lblQuocGia.Size = new System.Drawing.Size(72, 20);
-            this.lblQuocGia.TabIndex = 4;
-            this.lblQuocGia.Text = "Quốc gia:";
+            lblQuocGia.AutoSize = true;
+            lblQuocGia.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            lblQuocGia.ForeColor = Color.FromArgb(51, 51, 51);
+            lblQuocGia.Location = new Point(86, 289);
+            lblQuocGia.Name = "lblQuocGia";
+            lblQuocGia.Size = new Size(98, 28);
+            lblQuocGia.TabIndex = 4;
+            lblQuocGia.Text = "Quốc gia:";
+            // 
+            // txtMa
+            // 
+            txtMa.Location = new Point(86, 119);
+            txtMa.Multiline = true;
+            txtMa.Name = "txtMa";
+            txtMa.ReadOnly = true;
+            txtMa.Size = new Size(392, 47);
+            txtMa.TabIndex = 1;
+            // 
+            // txtTen
+            // 
+            txtTen.BackColor = SystemColors.Control;
+            txtTen.Location = new Point(86, 217);
+            txtTen.Multiline = true;
+            txtTen.Name = "txtTen";
+            txtTen.Size = new Size(392, 47);
+            txtTen.TabIndex = 3;
             // 
             // txtQuocGia
             // 
-            this.txtQuocGia.Location = new System.Drawing.Point(18, 162);
-            this.txtQuocGia.Name = "txtQuocGia";
-            this.txtQuocGia.Size = new System.Drawing.Size(324, 27);
-            this.txtQuocGia.TabIndex = 5;
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Location = new System.Drawing.Point(150, 222);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(90, 30);
-            this.btnCancel.TabIndex = 6;
-            this.btnCancel.Text = "Huỷ";
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnCancel.FlatAppearance.BorderSize = 0;
-            this.btnCancel.BackColor = System.Drawing.Color.FromArgb(238, 238, 238);
-            this.btnCancel.ForeColor = System.Drawing.Color.Black;
+            txtQuocGia.BackColor = SystemColors.Control;
+            txtQuocGia.Location = new Point(86, 320);
+            txtQuocGia.Multiline = true;
+            txtQuocGia.Name = "txtQuocGia";
+            txtQuocGia.Size = new Size(392, 47);
+            txtQuocGia.TabIndex = 5;
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(264, 222);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(78, 30);
-            this.btnSave.TabIndex = 7;
-            this.btnSave.Text = "Lưu";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnSave.FlatAppearance.BorderSize = 0;
-            this.btnSave.BackColor = System.Drawing.Color.FromArgb(25, 118, 210);
-            this.btnSave.ForeColor = System.Drawing.Color.White;
+            btnSave.BackColor = Color.FromArgb(25, 118, 210);
+            btnSave.FlatAppearance.BorderSize = 0;
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(325, 394);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(153, 54);
+            btnSave.TabIndex = 7;
+            btnSave.Text = "Lưu";
+            btnSave.UseVisualStyleBackColor = false;
             // 
-            // add controls
+            // btnCancel
             // 
-            this.Controls.Add(this.lblMa);
-            this.Controls.Add(this.txtMa);
-            this.Controls.Add(this.lblTen);
-            this.Controls.Add(this.txtTen);
-            this.Controls.Add(this.lblQuocGia);
-            this.Controls.Add(this.txtQuocGia);
-            this.Controls.Add(this.btnCancel);
-            this.Controls.Add(this.btnSave);
-
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            btnCancel.BackColor = Color.Red;
+            btnCancel.FlatAppearance.BorderSize = 0;
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(86, 394);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(153, 54);
+            btnCancel.TabIndex = 6;
+            btnCancel.Text = "Huỷ";
+            btnCancel.UseVisualStyleBackColor = false;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
+            label1.Location = new Point(179, 28);
+            label1.Name = "label1";
+            label1.Size = new Size(213, 38);
+            label1.TabIndex = 8;
+            label1.Text = "THƯƠNG HIỆU";
+            // 
+            // ThuongHieuEditForm
+            // 
+            BackColor = Color.White;
+            ClientSize = new Size(558, 467);
+            Controls.Add(label1);
+            Controls.Add(lblMa);
+            Controls.Add(txtMa);
+            Controls.Add(lblTen);
+            Controls.Add(txtTen);
+            Controls.Add(lblQuocGia);
+            Controls.Add(txtQuocGia);
+            Controls.Add(btnCancel);
+            Controls.Add(btnSave);
+            Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            ForeColor = Color.FromArgb(51, 51, 51);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            MaximizeBox = false;
+            MinimizeBox = false;
+            Name = "ThuongHieuEditForm";
+            StartPosition = FormStartPosition.CenterParent;
+            ResumeLayout(false);
+            PerformLayout();
         }
+        private Label label1;
     }
 }

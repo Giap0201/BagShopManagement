@@ -74,6 +74,7 @@
             // 
             // txtSearch
             // 
+            txtSearch.BackColor = SystemColors.Control;
             txtSearch.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             txtSearch.ForeColor = Color.FromArgb(51, 51, 51);
             txtSearch.Location = new Point(19, 29);
@@ -197,6 +198,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             Controls.Add(label1);
             Controls.Add(groupBox);
             Controls.Add(groupBox1);
