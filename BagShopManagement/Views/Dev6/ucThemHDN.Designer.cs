@@ -21,11 +21,11 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            txtNhanVien = new TextBox();
             cboTrangThai = new ComboBox();
             label3 = new Label();
             txtGhiChu = new TextBox();
             dtpNgayNhap = new DateTimePicker();
-            cboNhanVien = new ComboBox();
             cboNhaCungCap = new ComboBox();
             label6 = new Label();
             label5 = new Label();
@@ -69,11 +69,11 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.White;
+            groupBox1.Controls.Add(txtNhanVien);
             groupBox1.Controls.Add(cboTrangThai);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(txtGhiChu);
             groupBox1.Controls.Add(dtpNgayNhap);
-            groupBox1.Controls.Add(cboNhanVien);
             groupBox1.Controls.Add(cboNhaCungCap);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label5);
@@ -90,6 +90,17 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN CHUNG";
+            // 
+            // txtNhanVien
+            // 
+            txtNhanVien.BackColor = SystemColors.Control;
+            txtNhanVien.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNhanVien.ForeColor = Color.FromArgb(54, 54, 54);
+            txtNhanVien.Location = new Point(1180, 116);
+            txtNhanVien.Name = "txtNhanVien";
+            txtNhanVien.ReadOnly = true;
+            txtNhanVien.Size = new Size(200, 30);
+            txtNhanVien.TabIndex = 17;
             // 
             // cboTrangThai
             // 
@@ -117,7 +128,7 @@
             txtGhiChu.Cursor = Cursors.Hand;
             txtGhiChu.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtGhiChu.ForeColor = Color.FromArgb(54, 54, 54);
-            txtGhiChu.Location = new Point(685, 109);
+            txtGhiChu.Location = new Point(685, 116);
             txtGhiChu.Name = "txtGhiChu";
             txtGhiChu.Size = new Size(200, 30);
             txtGhiChu.TabIndex = 6;
@@ -133,17 +144,6 @@
             dtpNgayNhap.Size = new Size(200, 30);
             dtpNgayNhap.TabIndex = 7;
             dtpNgayNhap.ValueChanged += dtpNgayNhap_ValueChanged;
-            // 
-            // cboNhanVien
-            // 
-            cboNhanVien.BackColor = SystemColors.Window;
-            cboNhanVien.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cboNhanVien.ForeColor = Color.FromArgb(54, 54, 54);
-            cboNhanVien.Location = new Point(1179, 108);
-            cboNhanVien.Name = "cboNhanVien";
-            cboNhanVien.Size = new Size(200, 31);
-            cboNhanVien.TabIndex = 8;
-            cboNhanVien.SelectedIndexChanged += cboNhanVien_SelectedIndexChanged;
             // 
             // cboNhaCungCap
             // 
@@ -600,7 +600,6 @@
         private TextBox txtMaHDN;
         private Label label1;
         private ComboBox cboNhaCungCap;
-        private ComboBox cboNhanVien;
         private DateTimePicker dtpNgayNhap;
         private TextBox txtGhiChu;
         private ComboBox cboTrangThai;
@@ -637,5 +636,6 @@
         private Label label7;
         private TextBox txtThanhTien;
         private BindingSource bindingSource1;
+        private TextBox txtNhanVien;
     }
 }

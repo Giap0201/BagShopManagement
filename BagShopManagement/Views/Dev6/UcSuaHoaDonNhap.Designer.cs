@@ -17,16 +17,16 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
+            txtNhanVien = new TextBox();
             cboTrangThai = new ComboBox();
             label3 = new Label();
             txtGhiChu = new TextBox();
             dtpNgayNhap = new DateTimePicker();
             btnTamLuuHDN = new Button();
-            cboNhanVien = new ComboBox();
             cboNhaCungCap = new ComboBox();
             label6 = new Label();
             label5 = new Label();
@@ -65,12 +65,12 @@
             // groupBox1
             // 
             groupBox1.BackColor = Color.White;
+            groupBox1.Controls.Add(txtNhanVien);
             groupBox1.Controls.Add(cboTrangThai);
             groupBox1.Controls.Add(label3);
             groupBox1.Controls.Add(txtGhiChu);
             groupBox1.Controls.Add(dtpNgayNhap);
             groupBox1.Controls.Add(btnTamLuuHDN);
-            groupBox1.Controls.Add(cboNhanVien);
             groupBox1.Controls.Add(cboNhaCungCap);
             groupBox1.Controls.Add(label6);
             groupBox1.Controls.Add(label5);
@@ -87,6 +87,17 @@
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN CHUNG";
+            // 
+            // txtNhanVien
+            // 
+            txtNhanVien.BackColor = SystemColors.Control;
+            txtNhanVien.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNhanVien.ForeColor = Color.FromArgb(54, 54, 54);
+            txtNhanVien.Location = new Point(1181, 121);
+            txtNhanVien.Name = "txtNhanVien";
+            txtNhanVien.ReadOnly = true;
+            txtNhanVien.Size = new Size(200, 30);
+            txtNhanVien.TabIndex = 17;
             // 
             // cboTrangThai
             // 
@@ -146,16 +157,6 @@
             btnTamLuuHDN.Text = "LƯU";
             btnTamLuuHDN.UseVisualStyleBackColor = false;
             btnTamLuuHDN.Click += btnCapNhatHDN_Click;
-            // 
-            // cboNhanVien
-            // 
-            cboNhanVien.BackColor = SystemColors.Window;
-            cboNhanVien.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cboNhanVien.ForeColor = Color.FromArgb(54, 54, 54);
-            cboNhanVien.Location = new Point(1180, 120);
-            cboNhanVien.Name = "cboNhanVien";
-            cboNhanVien.Size = new Size(200, 31);
-            cboNhanVien.TabIndex = 8;
             // 
             // cboNhaCungCap
             // 
@@ -432,24 +433,24 @@
             dgvChiTiet.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvChiTiet.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvChiTiet.BackgroundColor = SystemColors.Control;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvChiTiet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvChiTiet.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvChiTiet.ColumnHeadersHeight = 29;
             dgvChiTiet.Cursor = Cursors.Hand;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.FromArgb(54, 54, 54);
-            dataGridViewCellStyle2.SelectionBackColor = Color.DodgerBlue;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = Color.FromArgb(54, 54, 54);
+            dataGridViewCellStyle5.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvChiTiet.DefaultCellStyle = dataGridViewCellStyle5;
             dgvChiTiet.EnableHeadersVisualStyles = false;
             dgvChiTiet.GridColor = Color.LightGray;
             dgvChiTiet.Location = new Point(37, 47);
@@ -457,14 +458,14 @@
             dgvChiTiet.Name = "dgvChiTiet";
             dgvChiTiet.ReadOnly = true;
             dgvChiTiet.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = Color.DodgerBlue;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvChiTiet.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvChiTiet.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvChiTiet.RowHeadersVisible = false;
             dgvChiTiet.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             dgvChiTiet.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -545,7 +546,6 @@
         private TextBox txtMaHDN;
         private Label label1;
         private ComboBox cboNhaCungCap;
-        private ComboBox cboNhanVien;
         private DateTimePicker dtpNgayNhap;
         private TextBox txtGhiChu;
         private ComboBox cboTrangThai;
@@ -578,5 +578,6 @@
         private Label label7;
         private TextBox txtThanhTien;
         private BindingSource bindingSource1;
+        private TextBox txtNhanVien;
     }
 }
