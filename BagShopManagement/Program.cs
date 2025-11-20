@@ -149,7 +149,7 @@ namespace BagShopManagement
             services.AddTransient<POSController>();
             services.AddTransient<HoaDonBanController>();
             services.AddTransient<HoaDonNhapController>();
-            services.AddTransient<BaoCaoController>();
+            //services.AddTransient<BaoCaoController>();
             services.AddTransient<ChatLieuController>();
             services.AddTransient<KichThuocController>();
             services.AddTransient<LoaiTuiController>();
