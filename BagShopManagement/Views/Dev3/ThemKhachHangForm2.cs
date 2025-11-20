@@ -35,6 +35,25 @@ namespace BagShopManagement.Views.Dev3
                 }
             }
         }
+        private void ThemKhachHangForm2_load (object sender, EventArgs e)
+        {
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox)
+                {
+                    c.KeyDown += MoveNextOnEnter;
+                }
+            }
+        }
+
+        private void MoveNextOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
 
         private void LoadKhachHangToForm(KhachHang kh)
         {

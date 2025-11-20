@@ -47,60 +47,60 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label1.Location = new Point(71, 28);
+            label1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label1.Location = new Point(75, 37);
             label1.Name = "label1";
-            label1.Size = new Size(75, 23);
+            label1.Size = new Size(84, 28);
             label1.TabIndex = 0;
             label1.Text = "Mã NCC";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label2.Location = new Point(71, 189);
+            label2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label2.Location = new Point(75, 201);
             label2.Name = "label2";
-            label2.Size = new Size(76, 23);
+            label2.Size = new Size(88, 28);
             label2.TabIndex = 1;
             label2.Text = "Tên NCC";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label3.Location = new Point(71, 349);
+            label3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label3.Location = new Point(75, 365);
             label3.Name = "label3";
-            label3.Size = new Size(112, 23);
+            label3.Size = new Size(134, 28);
             label3.TabIndex = 2;
             label3.Text = "Tên người LH";
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label4.Location = new Point(71, 268);
+            label4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label4.Location = new Point(75, 283);
             label4.Name = "label4";
-            label4.Size = new Size(67, 23);
+            label4.Size = new Size(79, 28);
             label4.TabIndex = 3;
             label4.Text = "Địa chỉ ";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label5.Location = new Point(71, 110);
+            label5.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label5.Location = new Point(75, 119);
             label5.Name = "label5";
-            label5.Size = new Size(39, 23);
+            label5.Size = new Size(47, 28);
             label5.TabIndex = 4;
             label5.Text = "SDT";
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            label6.Location = new Point(71, 426);
+            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            label6.Location = new Point(75, 447);
             label6.Name = "label6";
-            label6.Size = new Size(51, 23);
+            label6.Size = new Size(60, 28);
             label6.TabIndex = 5;
             label6.Text = "Email";
             // 
@@ -111,47 +111,47 @@
             txtMaNCC.Multiline = true;
             txtMaNCC.Name = "txtMaNCC";
             txtMaNCC.Size = new Size(318, 37);
-            txtMaNCC.TabIndex = 6;
+            txtMaNCC.TabIndex = 0;
             // 
             // txtEmail
             // 
-            txtEmail.Location = new Point(232, 439);
+            txtEmail.Location = new Point(232, 438);
             txtEmail.Multiline = true;
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(318, 37);
-            txtEmail.TabIndex = 7;
+            txtEmail.TabIndex = 5;
             // 
             // txtSoDienThoai
             // 
-            txtSoDienThoai.Location = new Point(232, 97);
+            txtSoDienThoai.Location = new Point(232, 110);
             txtSoDienThoai.Multiline = true;
             txtSoDienThoai.Name = "txtSoDienThoai";
             txtSoDienThoai.Size = new Size(318, 37);
-            txtSoDienThoai.TabIndex = 8;
+            txtSoDienThoai.TabIndex = 1;
             // 
             // txtDiaChi
             // 
-            txtDiaChi.Location = new Point(232, 268);
+            txtDiaChi.Location = new Point(232, 274);
             txtDiaChi.Multiline = true;
             txtDiaChi.Name = "txtDiaChi";
             txtDiaChi.Size = new Size(318, 37);
-            txtDiaChi.TabIndex = 9;
+            txtDiaChi.TabIndex = 3;
             // 
             // txtNguoiLienHe
             // 
-            txtNguoiLienHe.Location = new Point(232, 349);
+            txtNguoiLienHe.Location = new Point(232, 356);
             txtNguoiLienHe.Multiline = true;
             txtNguoiLienHe.Name = "txtNguoiLienHe";
             txtNguoiLienHe.Size = new Size(318, 37);
-            txtNguoiLienHe.TabIndex = 10;
+            txtNguoiLienHe.TabIndex = 4;
             // 
             // txtTenNCC
             // 
-            txtTenNCC.Location = new Point(232, 176);
+            txtTenNCC.Location = new Point(232, 192);
             txtTenNCC.Multiline = true;
             txtTenNCC.Name = "txtTenNCC";
             txtTenNCC.Size = new Size(318, 37);
-            txtTenNCC.TabIndex = 11;
+            txtTenNCC.TabIndex = 2;
             // 
             // btnSave
             // 
@@ -160,7 +160,7 @@
             btnSave.Location = new Point(107, 558);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(157, 54);
-            btnSave.TabIndex = 12;
+            btnSave.TabIndex = 6;
             btnSave.Text = "Lưu ";
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
@@ -198,6 +198,7 @@
             Controls.Add(label1);
             Name = "ThemNhaCungCapForm";
             Text = "ThemNhaCungCapForm";
+            Load += ThemNhaCungCapForm_Load;
             ResumeLayout(false);
             PerformLayout();
         }
