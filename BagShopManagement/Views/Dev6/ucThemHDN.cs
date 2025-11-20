@@ -24,7 +24,6 @@ namespace BagShopManagement.Views.Dev6
     public partial class ucThemHDN : UserControl
     {
         private MaHoaDonGenerator _maHoaDonGenerator;
-        private HoaDonNhapController _controller;
         private INhaCungCapRepository _nhaCungCapRepo;
         private INhanVienRepository _nhanVienRepo;
         private ISanPhamRepository _sanPhamRepo;
@@ -477,7 +476,7 @@ namespace BagShopManagement.Views.Dev6
             try
             {
                 var request = GetHoaDonNhapRequest();
-                string result = _controller.TaoMoiHoaDon(request);
+                string result = _service.CreateDraftHoaDonNhap(request);
                 MessageBox.Show($"Tạo hóa đơn nháp thành công!\nMã: {result}",
                     "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -532,7 +531,7 @@ namespace BagShopManagement.Views.Dev6
 
             try
             {
-                _controller.DuyetHoaDon(maHDN);
+                _service.ApproveHoaDonNhap(maHDN);
                 //SetHoaDonStatus(TrangThaiHoaDonNhap.HoatDong);
                 //dtpNgayDuyet.Value = DateTime.Now;
                 HelperHoaDonDaDuyet();
