@@ -1,5 +1,5 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Services.Interfaces;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -12,12 +12,12 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class KichThuocControl : UserControl
     {
-        private readonly KichThuocController _controller;
+        private readonly IKichThuocService _service;
 
-        public KichThuocControl(KichThuocController controller)
+        public KichThuocControl(IKichThuocService service)
         {
             InitializeComponent();
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
 
             this.Load += KichThuocControl_Load;
         }
@@ -75,7 +75,7 @@ namespace BagShopManagement.Views.Dev2
         {
             try
             {
-                dgvKichThuoc.DataSource = _controller.GetAll();
+                dgvKichThuoc.DataSource = _service.GetAll();
             }
             catch (Exception ex)
             {
@@ -93,7 +93,7 @@ namespace BagShopManagement.Views.Dev2
             {
                 try
                 {
-                    dgvKichThuoc.DataSource = _controller.Search(kw);
+                    dgvKichThuoc.DataSource = _service.Search(kw);
                 }
                 catch (Exception ex)
                 {
@@ -105,7 +105,7 @@ namespace BagShopManagement.Views.Dev2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var f = new KichThuocEditForm(_controller))
+            using (var f = new KichThuocEditForm(_service))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -117,7 +117,7 @@ namespace BagShopManagement.Views.Dev2
             if (dgvKichThuoc.CurrentRow == null) return;
             if (dgvKichThuoc.CurrentRow.DataBoundItem is not KichThuoc model) return;
 
-            using (var f = new KichThuocEditForm(_controller, model))
+            using (var f = new KichThuocEditForm(_service, model))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -134,7 +134,7 @@ namespace BagShopManagement.Views.Dev2
             {
                 try
                 {
-                    var ok = _controller.Delete(model.MaKichThuoc);
+                    var ok = _service.Delete(model.MaKichThuoc);
                     if (ok) LoadData();
                     else MessageBox.Show("Xóa thất bại. Có thể bản ghi đang được tham chiếu.",
                         "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -152,7 +152,7 @@ namespace BagShopManagement.Views.Dev2
             if (e.RowIndex < 0) return;
             if (dgvKichThuoc.Rows[e.RowIndex].DataBoundItem is not KichThuoc model) return;
 
-            using (var f = new KichThuocEditForm(_controller, model))
+            using (var f = new KichThuocEditForm(_service, model))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -217,7 +217,7 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                var existingList = _controller.GetAll() ?? new List<KichThuoc>();
+                var existingList = _service.GetAll() ?? new List<KichThuoc>();
                 int lastRow = ws.Dimension.End.Row;
                 int inserted = 0, updated = 0, skipped = 0;
 
@@ -262,19 +262,19 @@ namespace BagShopManagement.Views.Dev2
                         existing.ChieuDai = dai;
                         existing.ChieuRong = rong;
                         existing.ChieuCao = cao;
-                        if (_controller.Update(existing)) updated++; else skipped++;
+                        if (_service.Update(existing)) updated++; else skipped++;
                     }
                     else
                     {
                         var newItem = new KichThuoc
                         {
-                            MaKichThuoc = _controller.GenerateNextCode(),
+                            MaKichThuoc = _service.GenerateNextCode(),
                             TenKichThuoc = ten,
                             ChieuDai = dai,
                             ChieuRong = rong,
                             ChieuCao = cao
                         };
-                        if (_controller.Add(newItem))
+                        if (_service.Add(newItem))
                         {
                             inserted++;
                             existingList.Add(newItem);
@@ -305,7 +305,7 @@ namespace BagShopManagement.Views.Dev2
                 };
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
-                var list = (dgvKichThuoc.DataSource as List<KichThuoc>) ?? _controller.GetAll();
+                var list = (dgvKichThuoc.DataSource as List<KichThuoc>) ?? _service.GetAll();
                 if (list == null || list.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo");

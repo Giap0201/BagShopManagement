@@ -1,5 +1,4 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Services.Interfaces;
@@ -11,16 +10,16 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class SanPhamEditForm : Form
     {
-        private readonly SanPhamController _controller;
+        private readonly ISanPhamService _service;
         private readonly SanPham _sanPham;
         private readonly bool _isEdit;
         private readonly IDanhMucService _danhMucService = new DanhMucService(new DanhMucRepository());
         private string _selectedImagePath;
 
-        public SanPhamEditForm(SanPhamController controller, SanPham sp = null)
+        public SanPhamEditForm(ISanPhamService service, SanPham sp = null)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
             _sanPham = sp;
             _isEdit = sp != null;
             Load += SanPhamEditForm_Load;
@@ -33,7 +32,7 @@ namespace BagShopManagement.Views.Dev2
             if (_isEdit)
                 LoadSanPhamToForm(_sanPham);
             else
-                txtMaSP.Text = _controller.GenerateNextCode();
+                txtMaSP.Text = _service.GenerateNextCode();
         }
 
         private void LoadAllDanhMuc()
@@ -142,7 +141,7 @@ namespace BagShopManagement.Views.Dev2
                 sp.AnhChinh = txtAnhChinh.Text.Trim();
             }
 
-            bool success = _isEdit ? _controller.Update(sp) : _controller.Add(sp);
+            bool success = _isEdit ? _service.Update(sp) : _service.Add(sp);
 
             if (success)
             {
