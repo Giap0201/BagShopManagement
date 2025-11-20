@@ -50,6 +50,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlHeader.Controls.Add(lblMaNV);
             pnlHeader.Controls.Add(lblMaKH);
             pnlHeader.Controls.Add(lblMaHDB);
+            pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new System.Drawing.Point(0, 0);
             pnlHeader.Name = "pnlHeader";
             pnlHeader.Size = new System.Drawing.Size(1000, 200);
@@ -57,7 +58,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
             // lblMaHDB
             lblMaHDB.AutoSize = true;
-            lblMaHDB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            lblMaHDB.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             lblMaHDB.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             lblMaHDB.Location = new System.Drawing.Point(20, 20);
             lblMaHDB.Name = "lblMaHDB";
@@ -94,7 +95,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
             // lblTongTien
             lblTongTien.AutoSize = true;
-            lblTongTien.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            lblTongTien.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             lblTongTien.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
             lblTongTien.Location = new System.Drawing.Point(300, 80);
             lblTongTien.Name = "lblTongTien";
@@ -130,6 +131,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblGhiChu.Text = "Ghi chú:";
 
             // txtGhiChu
+            txtGhiChu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtGhiChu.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
             txtGhiChu.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             txtGhiChu.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
@@ -141,6 +143,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // pnlMain
             pnlMain.BackColor = System.Drawing.Color.FromArgb(255, 255, 255);
             pnlMain.Controls.Add(dgvChiTiet);
+            pnlMain.Dock = DockStyle.Fill;
             pnlMain.Location = new System.Drawing.Point(0, 200);
             pnlMain.Name = "pnlMain";
             pnlMain.Size = new System.Drawing.Size(1000, 400);
@@ -151,6 +154,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvChiTiet.AllowUserToDeleteRows = false;
             dgvChiTiet.BackgroundColor = System.Drawing.Color.FromArgb(255, 255, 255);
             dgvChiTiet.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvChiTiet.Dock = DockStyle.Fill;
             dgvChiTiet.GridColor = System.Drawing.Color.FromArgb(204, 204, 204);
             dgvChiTiet.Name = "dgvChiTiet";
             dgvChiTiet.ReadOnly = true;
@@ -159,6 +163,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.BackColor = System.Drawing.Color.FromArgb(240, 240, 240);
             pnlBottom.Controls.Add(btnClose);
             pnlBottom.Controls.Add(lblTongTienChiTiet);
+            pnlBottom.Dock = DockStyle.Bottom;
             pnlBottom.Location = new System.Drawing.Point(0, 600);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new System.Drawing.Size(1000, 60);
@@ -166,7 +171,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
             // lblTongTienChiTiet
             lblTongTienChiTiet.AutoSize = true;
-            lblTongTienChiTiet.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            lblTongTienChiTiet.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             lblTongTienChiTiet.ForeColor = System.Drawing.Color.FromArgb(68, 68, 68);
             lblTongTienChiTiet.Location = new System.Drawing.Point(20, 20);
             lblTongTienChiTiet.Name = "lblTongTienChiTiet";
@@ -175,6 +180,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTongTienChiTiet.Text = "Tổng thành tiền:";
 
             // btnClose
+            btnClose.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnClose.BackColor = System.Drawing.Color.FromArgb(224, 224, 224);
             btnClose.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             btnClose.ForeColor = System.Drawing.Color.FromArgb(51, 51, 51);
