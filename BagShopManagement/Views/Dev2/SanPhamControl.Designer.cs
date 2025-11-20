@@ -82,7 +82,7 @@
             dgvSanPham.ColumnHeadersHeight = 40;
             dgvSanPham.EnableHeadersVisualStyles = false;
             dgvSanPham.GridColor = SystemColors.Control;
-            dgvSanPham.Location = new Point(19, 497);
+            dgvSanPham.Location = new Point(32, 530);
             dgvSanPham.Name = "dgvSanPham";
             dgvSanPham.ReadOnly = true;
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -100,7 +100,7 @@
             dataGridViewCellStyle3.SelectionBackColor = SystemColors.MenuHighlight;
             dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
             dgvSanPham.RowsDefaultCellStyle = dataGridViewCellStyle3;
-            dgvSanPham.Size = new Size(1519, 382);
+            dgvSanPham.Size = new Size(1488, 399);
             dgvSanPham.TabIndex = 0;
             dgvSanPham.CellDoubleClick += dgvSanPham_CellDoubleClick;
             // 
@@ -182,7 +182,7 @@
             // 
             picAnhChinh.Location = new Point(15, 26);
             picAnhChinh.Name = "picAnhChinh";
-            picAnhChinh.Size = new Size(653, 358);
+            picAnhChinh.Size = new Size(622, 358);
             picAnhChinh.TabIndex = 7;
             picAnhChinh.TabStop = false;
             // 
@@ -223,7 +223,7 @@
             groupBox1.Controls.Add(cboGiaBan);
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
-            groupBox1.Location = new Point(19, 93);
+            groupBox1.Location = new Point(32, 126);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(444, 398);
             groupBox1.TabIndex = 10;
@@ -470,7 +470,7 @@
             groupBox2.Controls.Add(btnEdit);
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox2.ForeColor = Color.FromArgb(51, 51, 51);
-            groupBox2.Location = new Point(469, 93);
+            groupBox2.Location = new Point(482, 126);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(377, 398);
             groupBox2.TabIndex = 11;
@@ -482,9 +482,9 @@
             groupBox3.Controls.Add(picAnhChinh);
             groupBox3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox3.ForeColor = Color.FromArgb(51, 51, 51);
-            groupBox3.Location = new Point(852, 93);
+            groupBox3.Location = new Point(865, 126);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(686, 398);
+            groupBox3.Size = new Size(655, 398);
             groupBox3.TabIndex = 12;
             groupBox3.TabStop = false;
             groupBox3.Text = "Ảnh";
@@ -494,7 +494,7 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             label9.ForeColor = Color.FromArgb(51, 51, 51);
-            label9.Location = new Point(624, 34);
+            label9.Location = new Point(622, 43);
             label9.Name = "label9";
             label9.Size = new Size(342, 38);
             label9.TabIndex = 13;
@@ -510,7 +510,7 @@
             Controls.Add(dgvSanPham);
             Margin = new Padding(0);
             Name = "SanPhamControl";
-            Size = new Size(1555, 894);
+            Size = new Size(1555, 948);
             Load += SanPhamControl_Load;
             ((System.ComponentModel.ISupportInitialize)dgvSanPham).EndInit();
             ((System.ComponentModel.ISupportInitialize)picAnhChinh).EndInit();
