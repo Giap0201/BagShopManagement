@@ -27,9 +27,9 @@ namespace BagShopManagement.Repositories.Implementations
         }
 
         private NhanVien MapToNhanVien(IDataRecord reader)
-            {
+        {
             return new NhanVien
-                {
+            {
                 MaNV = reader["MaNV"].ToString(),
                 HoTen = reader["HoTen"].ToString(),
                 ChucVu = reader["ChucVu"] != DBNull.Value ? reader["ChucVu"].ToString() : null,
@@ -38,7 +38,7 @@ namespace BagShopManagement.Repositories.Implementations
                 NgayVaoLam = Convert.ToDateTime(reader["NgayVaoLam"]),
                 TrangThai = Convert.ToBoolean(reader["TrangThai"])
             };
-            }
+        }
 
         // Helper Map cho DTO
         private NhanVienResponse MapToNhanVienResponse(IDataRecord reader)
@@ -59,7 +59,6 @@ namespace BagShopManagement.Repositories.Implementations
             };
         }
 
-
         public NhanVien GetById(string maNV)
         {
             string sql = "SELECT * FROM NhanVien WHERE MaNV = @MaNV";
@@ -77,7 +76,7 @@ namespace BagShopManagement.Repositories.Implementations
             var list = new List<NhanVienResponse>();
             // Câu query JOIN 3 bảng
             string sql = @"
-                SELECT 
+                SELECT
                     nv.MaNV, nv.HoTen, nv.ChucVu, nv.SoDienThoai, nv.Email,
                     tk.TenDangNhap,
                     tk.TrangThai AS TrangThaiTK,
@@ -109,8 +108,8 @@ namespace BagShopManagement.Repositories.Implementations
             // Logic sinh mã: Lấy mã LỚN NHẤT hiện tại
             // Dùng CAST(SUBSTRING(...) AS INT) để sắp xếp theo SỐ
             string sql = $@"
-                SELECT MAX(CAST(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH}) AS INT)) 
-                FROM NhanVien 
+                SELECT MAX(CAST(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH}) AS INT))
+                FROM NhanVien
                 WHERE MaNV LIKE '{PREFIX}%' AND ISNUMERIC(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH})) = 1";
 
             var result = ExecuteScalar(sql); // Trả về số lớn nhất (ví dụ: 9) hoặc NULL
@@ -185,11 +184,11 @@ namespace BagShopManagement.Repositories.Implementations
         public void Update(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran)
         {
             string sql = @"
-                UPDATE NhanVien 
-                SET HoTen = @HoTen, 
-                    ChucVu = @ChucVu, 
-                    SoDienThoai = @SoDienThoai, 
-                    Email = @Email, 
+                UPDATE NhanVien
+                SET HoTen = @HoTen,
+                    ChucVu = @ChucVu,
+                    SoDienThoai = @SoDienThoai,
+                    Email = @Email,
                     TrangThai = @TrangThai
                 WHERE MaNV = @MaNV";
 
@@ -207,7 +206,7 @@ namespace BagShopManagement.Repositories.Implementations
 
         public List<NhanVien> GetAll()
         {
-            string query = "SELECT MaNV, HoTen FROM NhanVien WHERE TrangThai = 1 ORDER BY HoTen";
+            string query = "SELECT NhanVien.MaNV, HoTen FROM NhanVien JOIN TaiKhoan tk on tk.MaNV = NhanVien.MaNV WHERE tk.TrangThai = 1 ORDER BY HoTen";
             DataTable dt = base.ExecuteQuery(query);
 
             var list = new List<NhanVien>();
@@ -227,7 +226,7 @@ namespace BagShopManagement.Repositories.Implementations
             var list = new List<NhanVienResponse>();
             // Câu lệnh SQL JOIN và tìm kiếm trên nhiều cột
             string sql = @"
-                SELECT 
+                SELECT
                     nv.MaNV, nv.HoTen, nv.ChucVu, nv.SoDienThoai, nv.Email,
                     tk.TenDangNhap,
                     tk.TrangThai AS TrangThaiTK,
@@ -236,7 +235,7 @@ namespace BagShopManagement.Repositories.Implementations
                 FROM NhanVien nv
                 JOIN TaiKhoan tk ON nv.MaNV = tk.MaNV
                 LEFT JOIN VaiTro vt ON tk.MaVaiTro = vt.MaVaiTro
-                WHERE 
+                WHERE
                     nv.MaNV LIKE @keyword OR
                     nv.HoTen LIKE @keyword OR
                     tk.TenDangNhap LIKE @keyword OR
