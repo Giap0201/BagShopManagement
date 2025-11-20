@@ -36,7 +36,6 @@ namespace BagShopManagement.Repositories.Implementations
                 SoDienThoai = reader["SoDienThoai"] != DBNull.Value ? reader["SoDienThoai"].ToString() : null,
                 Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : null,
                 NgayVaoLam = Convert.ToDateTime(reader["NgayVaoLam"]),
-                TrangThai = Convert.ToBoolean(reader["TrangThai"])
             };
         }
 
@@ -165,8 +164,8 @@ namespace BagShopManagement.Repositories.Implementations
         public void Add(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran)
         {
             string sql = @"
-                INSERT INTO NhanVien (MaNV, HoTen, ChucVu, SoDienThoai, Email, NgayVaoLam, TrangThai)
-                VALUES (@MaNV, @HoTen, @ChucVu, @SoDienThoai, @Email, @NgayVaoLam, @TrangThai)";
+                INSERT INTO NhanVien (MaNV, HoTen, ChucVu, SoDienThoai, Email, NgayVaoLam)
+                VALUES (@MaNV, @HoTen, @ChucVu, @SoDienThoai, @Email, @NgayVaoLam)";
 
             using var cmd = new SqlCommand(sql, conn, tran);
 
@@ -176,7 +175,6 @@ namespace BagShopManagement.Repositories.Implementations
             cmd.Parameters.AddWithValue("@SoDienThoai", nhanVien.SoDienThoai ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Email", nhanVien.Email ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@NgayVaoLam", nhanVien.NgayVaoLam);
-            cmd.Parameters.AddWithValue("@TrangThai", nhanVien.TrangThai);
 
             cmd.ExecuteNonQuery();
         }
@@ -184,12 +182,11 @@ namespace BagShopManagement.Repositories.Implementations
         public void Update(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran)
         {
             string sql = @"
-                UPDATE NhanVien
-                SET HoTen = @HoTen,
-                    ChucVu = @ChucVu,
-                    SoDienThoai = @SoDienThoai,
-                    Email = @Email,
-                    TrangThai = @TrangThai
+                UPDATE NhanVien 
+                SET HoTen = @HoTen, 
+                    ChucVu = @ChucVu, 
+                    SoDienThoai = @SoDienThoai, 
+                    Email = @Email
                 WHERE MaNV = @MaNV";
 
             using var cmd = new SqlCommand(sql, conn, tran);
@@ -198,7 +195,6 @@ namespace BagShopManagement.Repositories.Implementations
             cmd.Parameters.AddWithValue("@ChucVu", nhanVien.ChucVu ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@SoDienThoai", nhanVien.SoDienThoai ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Email", nhanVien.Email ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@TrangThai", nhanVien.TrangThai);
             cmd.Parameters.AddWithValue("@MaNV", nhanVien.MaNV);
 
             cmd.ExecuteNonQuery();

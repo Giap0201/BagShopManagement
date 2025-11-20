@@ -14,6 +14,5 @@ namespace BagShopManagement.Models
         public string? SoDienThoai { get; set; }
         public string? Email { get; set; }
         public DateTime NgayVaoLam { get; set; }
-        public bool TrangThai { get; set; }//1 or 0
     }
 }
