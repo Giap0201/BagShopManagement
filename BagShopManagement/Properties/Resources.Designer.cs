@@ -73,6 +73,16 @@ namespace BagShopManagement.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap brand {
+            get {
+                object obj = ResourceManager.GetObject("brand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap category__1_ {
             get {
                 object obj = ResourceManager.GetObject("category (1)", resourceCulture);
@@ -86,6 +96,16 @@ namespace BagShopManagement.Properties {
         internal static System.Drawing.Bitmap category__1_1 {
             get {
                 object obj = ResourceManager.GetObject("category (1)1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap ChatLieu {
+            get {
+                object obj = ResourceManager.GetObject("ChatLieu", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -136,6 +156,46 @@ namespace BagShopManagement.Properties {
         internal static System.Drawing.Bitmap khuyen_mai {
             get {
                 object obj = ResourceManager.GetObject("khuyen mai", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loaitui {
+            get {
+                object obj = ResourceManager.GetObject("loaitui", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loaitui1 {
+            get {
+                object obj = ResourceManager.GetObject("loaitui1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap loaitui2 {
+            get {
+                object obj = ResourceManager.GetObject("loaitui2", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Mau {
+            get {
+                object obj = ResourceManager.GetObject("Mau", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -216,6 +276,16 @@ namespace BagShopManagement.Properties {
         internal static System.Drawing.Bitmap sanpham1 {
             get {
                 object obj = ResourceManager.GetObject("sanpham1", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Size {
+            get {
+                object obj = ResourceManager.GetObject("Size", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
