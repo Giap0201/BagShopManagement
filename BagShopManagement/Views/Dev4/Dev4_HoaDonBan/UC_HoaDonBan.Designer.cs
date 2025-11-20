@@ -49,6 +49,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             //
             // pnlFilter
             //
+            pnlFilter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlFilter.BackColor = Color.FromArgb(255, 255, 255);
             pnlFilter.Controls.Add(btnRefresh);
             pnlFilter.Controls.Add(btnFilter);
@@ -215,6 +216,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             //
             // pnlBottom
             //
+            pnlBottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlBottom.BackColor = Color.White;
             pnlBottom.Controls.Add(btnDelete);
             pnlBottom.Controls.Add(btnCancel);
@@ -292,6 +294,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             //
             // lblTotal
             //
+            lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotal.AutoSize = true;
             lblTotal.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTotal.ForeColor = Color.FromArgb(54, 54, 54);
@@ -305,6 +308,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             //
             dgvHoaDon.AllowUserToAddRows = false;
             dgvHoaDon.AllowUserToDeleteRows = false;
+            dgvHoaDon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvHoaDon.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvHoaDon.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvHoaDon.BackgroundColor = SystemColors.ControlLight;
