@@ -10,6 +10,10 @@ namespace BagShopManagement.Views.Dev4
     public partial class ChonSanPhamForm : Form
     {
         private readonly SanPhamRepository _sanPhamRepo;
+        private readonly LoaiTuiRepository _loaiTuiRepo;
+        private readonly ThuongHieuRepository _thuongHieuRepo;
+        private readonly ChatLieuRepository _chatLieuRepo;
+        private readonly KichThuocRepository _kichThuocRepo;
         private List<SanPham> _allProducts;
         public SanPham? SelectedProduct { get; private set; }
 
@@ -17,6 +21,10 @@ namespace BagShopManagement.Views.Dev4
         {
             InitializeComponent();
             _sanPhamRepo = new SanPhamRepository();
+            _loaiTuiRepo = new LoaiTuiRepository();
+            _thuongHieuRepo = new ThuongHieuRepository();
+            _chatLieuRepo = new ChatLieuRepository();
+            _kichThuocRepo = new KichThuocRepository();
             _allProducts = new List<SanPham>();
         }
 
@@ -41,7 +49,7 @@ namespace BagShopManagement.Views.Dev4
                 HeaderText = "Mã SP",
                 DataPropertyName = "MaSP",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 15F,
+                FillWeight = 10F,
                 Name = "MaSP"
             });
 
@@ -50,8 +58,44 @@ namespace BagShopManagement.Views.Dev4
                 HeaderText = "Tên sản phẩm",
                 DataPropertyName = "TenSP",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 35F,
+                FillWeight = 25F,
                 Name = "TenSP"
+            });
+
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Loại túi",
+                DataPropertyName = "TenLoaiTui",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 12F,
+                Name = "TenLoaiTui"
+            });
+
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Thương hiệu",
+                DataPropertyName = "TenThuongHieu",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 13F,
+                Name = "TenThuongHieu"
+            });
+
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Chất liệu",
+                DataPropertyName = "TenChatLieu",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 12F,
+                Name = "TenChatLieu"
+            });
+
+            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                HeaderText = "Kích thước",
+                DataPropertyName = "TenKichThuoc",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                FillWeight = 10F,
+                Name = "TenKichThuoc"
             });
 
             dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
@@ -59,7 +103,7 @@ namespace BagShopManagement.Views.Dev4
                 HeaderText = "Giá bán",
                 DataPropertyName = "GiaBan",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 15F,
+                FillWeight = 10F,
                 Name = "GiaBan",
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
@@ -73,31 +117,12 @@ namespace BagShopManagement.Views.Dev4
                 HeaderText = "Tồn kho",
                 DataPropertyName = "SoLuongTon",
                 AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 12F,
+                FillWeight = 8F,
                 Name = "SoLuongTon",
                 DefaultCellStyle = new DataGridViewCellStyle
                 {
                     Alignment = DataGridViewContentAlignment.MiddleCenter
                 }
-            });
-
-            // Cột URL ảnh
-            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Ảnh",
-                DataPropertyName = "AnhChinh",
-                Name = "AnhSP",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 23F
-            });
-
-            dgvSanPham.Columns.Add(new DataGridViewTextBoxColumn
-            {
-                HeaderText = "Loại túi",
-                DataPropertyName = "MaLoaiTui",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
-                FillWeight = 13F,
-                Name = "MaLoaiTui"
             });
         }
 
@@ -116,8 +141,30 @@ namespace BagShopManagement.Views.Dev4
                     ).ToList();
                 }
 
-                // Chỉ hiển thị sản phẩm còn tồn kho
-                var displayList = _allProducts.Where(sp => sp.SoLuongTon > 0).ToList();
+                // Chỉ hiển thị sản phẩm còn tồn kho và join với các bảng
+                var displayList = _allProducts
+                    .Where(sp => sp.SoLuongTon > 0)
+                    .Select(sp => new
+                    {
+                        sp.MaSP,
+                        sp.TenSP,
+                        TenLoaiTui = !string.IsNullOrEmpty(sp.MaLoaiTui)
+                            ? _loaiTuiRepo.GetById(sp.MaLoaiTui)?.TenLoaiTui ?? "N/A"
+                            : "N/A",
+                        TenThuongHieu = !string.IsNullOrEmpty(sp.MaThuongHieu)
+                            ? _thuongHieuRepo.GetById(sp.MaThuongHieu)?.TenThuongHieu ?? "N/A"
+                            : "N/A",
+                        TenChatLieu = !string.IsNullOrEmpty(sp.MaChatLieu)
+                            ? _chatLieuRepo.GetById(sp.MaChatLieu)?.TenChatLieu ?? "N/A"
+                            : "N/A",
+                        TenKichThuoc = !string.IsNullOrEmpty(sp.MaKichThuoc)
+                            ? _kichThuocRepo.GetById(sp.MaKichThuoc)?.TenKichThuoc ?? "N/A"
+                            : "N/A",
+                        sp.GiaBan,
+                        sp.SoLuongTon,
+                        SanPham = sp // Giữ lại object gốc để có thể lấy ra khi chọn
+                    })
+                    .ToList();
 
                 dgvSanPham.DataSource = null;
                 dgvSanPham.DataSource = displayList;
@@ -152,7 +199,14 @@ namespace BagShopManagement.Views.Dev4
                 return;
             }
 
-            SelectedProduct = dgvSanPham.SelectedRows[0].DataBoundItem as SanPham;
+            var selectedRow = dgvSanPham.SelectedRows[0].DataBoundItem;
+
+            // Lấy property SanPham từ anonymous object
+            var sanPhamProperty = selectedRow.GetType().GetProperty("SanPham");
+            if (sanPhamProperty != null)
+            {
+                SelectedProduct = sanPhamProperty.GetValue(selectedRow) as SanPham;
+            }
 
             if (SelectedProduct == null)
             {

@@ -75,6 +75,7 @@
             // 
             // pnlTop
             // 
+            pnlTop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlTop.BackColor = Color.FromArgb(255, 255, 255);
             pnlTop.Controls.Add(label2);
             pnlTop.Controls.Add(label1);
@@ -99,7 +100,7 @@
             label2.ForeColor = Color.FromArgb(51, 51, 51);
             label2.Location = new Point(3, 9);
             label2.Name = "label2";
-            label2.Size = new Size(159, 23);
+            label2.Size = new Size(315, 46);
             label2.TabIndex = 9;
             label2.Text = "LỌC KHÁCH HÀNG";
             // 
@@ -109,7 +110,7 @@
             label1.ForeColor = Color.FromArgb(51, 51, 51);
             label1.Location = new Point(672, 44);
             label1.Name = "label1";
-            label1.Size = new Size(135, 23);
+            label1.Size = new Size(270, 46);
             label1.TabIndex = 8;
             label1.Text = "Tên khách hàng:";
             // 
@@ -121,7 +122,7 @@
             txtMaNV.ForeColor = Color.FromArgb(51, 51, 51);
             txtMaNV.Location = new Point(225, 94);
             txtMaNV.Name = "txtMaNV";
-            txtMaNV.Size = new Size(236, 30);
+            txtMaNV.Size = new Size(236, 53);
             txtMaNV.TabIndex = 0;
             txtMaNV.TextChanged += txtMaNV_TextChanged;
             // 
@@ -131,7 +132,7 @@
             lblNv.ForeColor = Color.FromArgb(51, 51, 51);
             lblNv.Location = new Point(46, 94);
             lblNv.Name = "lblNv";
-            lblNv.Size = new Size(120, 23);
+            lblNv.Size = new Size(237, 46);
             lblNv.TabIndex = 2;
             lblNv.Text = "Mã nhân viên:";
             // 
@@ -157,7 +158,7 @@
             txtSDT.ForeColor = Color.FromArgb(51, 51, 51);
             txtSDT.Location = new Point(908, 94);
             txtSDT.Name = "txtSDT";
-            txtSDT.Size = new Size(262, 30);
+            txtSDT.Size = new Size(262, 53);
             txtSDT.TabIndex = 6;
             // 
             // lblSDT
@@ -166,7 +167,7 @@
             lblSDT.ForeColor = Color.FromArgb(51, 51, 51);
             lblSDT.Location = new Point(672, 94);
             lblSDT.Name = "lblSDT";
-            lblSDT.Size = new Size(115, 23);
+            lblSDT.Size = new Size(232, 46);
             lblSDT.TabIndex = 5;
             lblSDT.Text = "Số điện thoại:";
             // 
@@ -179,7 +180,7 @@
             txtTenKH.Location = new Point(908, 44);
             txtTenKH.Name = "txtTenKH";
             txtTenKH.ReadOnly = true;
-            txtTenKH.Size = new Size(262, 30);
+            txtTenKH.Size = new Size(262, 53);
             txtTenKH.TabIndex = 4;
             // 
             // txtMaKH
@@ -191,7 +192,7 @@
             txtMaKH.Location = new Point(225, 44);
             txtMaKH.Name = "txtMaKH";
             txtMaKH.ReadOnly = true;
-            txtMaKH.Size = new Size(236, 30);
+            txtMaKH.Size = new Size(236, 53);
             txtMaKH.TabIndex = 1;
             // 
             // lblKh
@@ -200,12 +201,13 @@
             lblKh.ForeColor = Color.FromArgb(51, 51, 51);
             lblKh.Location = new Point(46, 44);
             lblKh.Name = "lblKh";
-            lblKh.Size = new Size(134, 23);
+            lblKh.Size = new Size(265, 46);
             lblKh.TabIndex = 3;
             lblKh.Text = "Mã khách hàng:";
             // 
             // grpAdd
             // 
+            grpAdd.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             grpAdd.BackColor = Color.FromArgb(255, 255, 255);
             grpAdd.Controls.Add(cboPhuongThucTT);
             grpAdd.Controls.Add(lblPhuongThucTT);
@@ -248,7 +250,7 @@
             cboPhuongThucTT.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản", "Card" });
             cboPhuongThucTT.Location = new Point(43, 602);
             cboPhuongThucTT.Name = "cboPhuongThucTT";
-            cboPhuongThucTT.Size = new Size(268, 31);
+            cboPhuongThucTT.Size = new Size(268, 53);
             cboPhuongThucTT.TabIndex = 8;
             // 
             // lblPhuongThucTT
@@ -482,7 +484,7 @@
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(311, 30);
+            numQty.Size = new Size(311, 53);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -514,7 +516,7 @@
             label7.ForeColor = Color.FromArgb(54, 54, 54);
             label7.Location = new Point(685, 9);
             label7.Name = "label7";
-            label7.Size = new Size(174, 38);
+            label7.Size = new Size(341, 74);
             label7.TabIndex = 11;
             label7.Text = "BÁN HÀNG";
             // 
@@ -522,6 +524,7 @@
             // 
             dgvCart.AllowUserToAddRows = false;
             dgvCart.AllowUserToDeleteRows = false;
+            dgvCart.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvCart.BackgroundColor = SystemColors.ControlLight;
@@ -572,7 +575,7 @@
             Controls.Add(grpAdd);
             Controls.Add(pnlTop);
             Name = "UC_POS";
-            Size = new Size(1553, 994);
+            Size = new Size(1553, 1008);
             Load += UC_POS_Load;
             ((System.ComponentModel.ISupportInitialize)picSanPham).EndInit();
             pnlTop.ResumeLayout(false);

@@ -45,6 +45,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblMaSP = new Label();
             pnlRight = new Panel();
             dgvCart = new DataGridView();
+            label1 = new Label();
+            label2 = new Label();
             pnlTop.SuspendLayout();
             pnlLeft.SuspendLayout();
             grpActions.SuspendLayout();
@@ -58,6 +60,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // pnlTop
             // 
             pnlTop.BackColor = Color.FromArgb(255, 255, 255);
+            pnlTop.Controls.Add(label2);
+            pnlTop.Controls.Add(label1);
             pnlTop.Controls.Add(cboTrangThai);
             pnlTop.Controls.Add(lblTrangThai);
             pnlTop.Controls.Add(txtPhuongThucTT);
@@ -66,10 +70,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlTop.Controls.Add(lblGhiChu);
             pnlTop.Controls.Add(txtMaNV);
             pnlTop.Controls.Add(txtMaKH);
+            pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Margin = new Padding(5, 6, 5, 6);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(2339, 308);
+            pnlTop.Size = new Size(2339, 271);
             pnlTop.TabIndex = 0;
             // 
             // cboTrangThai
@@ -79,10 +84,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             cboTrangThai.FlatStyle = FlatStyle.Flat;
             cboTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             cboTrangThai.FormattingEnabled = true;
-            cboTrangThai.Items.AddRange(new object[] {
-            "Nháp",
-            "Đã thanh toán",
-            "Đã hủy"});
+            cboTrangThai.Items.AddRange(new object[] { "Nháp", "Đã thanh toán", "Đã hủy" });
             cboTrangThai.Location = new Point(1355, 199);
             cboTrangThai.Margin = new Padding(5, 6, 5, 6);
             cboTrangThai.Name = "cboTrangThai";
@@ -96,7 +98,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTrangThai.Location = new Point(1103, 205);
             lblTrangThai.Margin = new Padding(5, 0, 5, 0);
             lblTrangThai.Name = "lblTrangThai";
-            lblTrangThai.Size = new Size(158, 41);
+            lblTrangThai.Size = new Size(155, 41);
             lblTrangThai.TabIndex = 8;
             lblTrangThai.Text = "Trạng thái:";
             // 
@@ -194,10 +196,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlLeft.BackColor = Color.FromArgb(255, 255, 255);
             pnlLeft.Controls.Add(grpActions);
             pnlLeft.Controls.Add(grpAdd);
-            pnlLeft.Location = new Point(0, 308);
+            pnlLeft.Dock = DockStyle.Left;
+            pnlLeft.Location = new Point(0, 271);
             pnlLeft.Margin = new Padding(5, 6, 5, 6);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(680, 1079);
+            pnlLeft.Size = new Size(680, 1116);
             pnlLeft.TabIndex = 1;
             // 
             // grpActions
@@ -250,7 +253,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // lblTotal
             // 
             lblTotal.AutoSize = true;
-            lblTotal.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            lblTotal.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             lblTotal.ForeColor = Color.Red;
             lblTotal.Location = new Point(34, 287);
             lblTotal.Margin = new Padding(5, 0, 5, 0);
@@ -386,10 +389,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             pnlRight.BackColor = Color.FromArgb(255, 255, 255);
             pnlRight.Controls.Add(dgvCart);
-            pnlRight.Location = new Point(600, 150);
+            pnlRight.Dock = DockStyle.Fill;
+            pnlRight.Location = new Point(680, 271);
             pnlRight.Margin = new Padding(5, 6, 5, 6);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(1659, 1079);
+            pnlRight.Size = new Size(1659, 1116);
             pnlRight.TabIndex = 2;
             // 
             // dgvCart
@@ -397,14 +401,33 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvCart.AllowUserToAddRows = false;
             dgvCart.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvCart.Dock = DockStyle.Fill;
             dgvCart.GridColor = Color.FromArgb(204, 204, 204);
             dgvCart.Location = new Point(0, 0);
             dgvCart.Margin = new Padding(5, 6, 5, 6);
             dgvCart.Name = "dgvCart";
             dgvCart.RowHeadersWidth = 102;
-            dgvCart.Size = new Size(1659, 1079);
+            dgvCart.Size = new Size(1659, 1116);
             dgvCart.TabIndex = 0;
             dgvCart.CellEndEdit += dgvCart_CellEndEdit;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(68, 41);
+            label1.Name = "label1";
+            label1.Size = new Size(205, 41);
+            label1.TabIndex = 10;
+            label1.Text = "KHÁCH HÀNG";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(1071, 37);
+            label2.Name = "label2";
+            label2.Size = new Size(228, 41);
+            label2.TabIndex = 11;
+            label2.Text = "MÃ NHÂN VIÊN";
             // 
             // HoaDonBanEditForm
             // 
@@ -464,6 +487,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private Button btnCancel;
         private Panel pnlRight;
         private DataGridView dgvCart;
+        private Label label2;
+        private Label label1;
     }
 }
 

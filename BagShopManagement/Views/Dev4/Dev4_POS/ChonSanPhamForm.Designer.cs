@@ -36,6 +36,7 @@ namespace BagShopManagement.Views.Dev4
             pnlTop.Controls.Add(btnSearch);
             pnlTop.Controls.Add(txtSearch);
             pnlTop.Controls.Add(lblSearch);
+            pnlTop.Dock = DockStyle.Top;
             pnlTop.Location = new Point(0, 0);
             pnlTop.Name = "pnlTop";
             pnlTop.Size = new Size(1400, 100);
@@ -43,6 +44,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             // btnSearch
             // 
+            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSearch.BackColor = Color.FromArgb(248, 248, 248);
             btnSearch.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
             btnSearch.FlatStyle = FlatStyle.Flat;
@@ -57,6 +59,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             // txtSearch
             // 
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSearch.BackColor = Color.FromArgb(255, 255, 255);
             txtSearch.BorderStyle = BorderStyle.FixedSingle;
             txtSearch.ForeColor = Color.FromArgb(51, 51, 51);
@@ -73,7 +76,7 @@ namespace BagShopManagement.Views.Dev4
             lblSearch.ForeColor = Color.FromArgb(51, 51, 51);
             lblSearch.Location = new Point(30, 31);
             lblSearch.Name = "lblSearch";
-            lblSearch.Size = new Size(195, 41);
+            lblSearch.Size = new Size(187, 41);
             lblSearch.TabIndex = 0;
             lblSearch.Text = "Tìm kiếm SP:";
             // 
@@ -84,6 +87,7 @@ namespace BagShopManagement.Views.Dev4
             dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvSanPham.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvSanPham.ColumnHeadersHeight = 50;
+            dgvSanPham.Dock = DockStyle.Fill;
             dgvSanPham.GridColor = Color.FromArgb(204, 204, 204);
             dgvSanPham.Location = new Point(0, 100);
             dgvSanPham.MultiSelect = false;
@@ -100,6 +104,7 @@ namespace BagShopManagement.Views.Dev4
             pnlBottom.BackColor = Color.FromArgb(255, 255, 255);
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnSelect);
+            pnlBottom.Dock = DockStyle.Bottom;
             pnlBottom.Location = new Point(0, 522);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(1400, 100);
@@ -136,7 +141,7 @@ namespace BagShopManagement.Views.Dev4
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(240, 240, 240);
-            ClientSize = new Size(1400, 800);
+            ClientSize = new Size(1401, 706);
             Controls.Add(dgvSanPham);
             Controls.Add(pnlBottom);
             Controls.Add(pnlTop);
