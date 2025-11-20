@@ -1,9 +1,16 @@
 ﻿using BagShopManagement.Controllers;
 using BagShopManagement.Models;
 using BagShopManagement.Views.Dev3;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
+using System.IO;
+using System.Drawing;
+
 
 namespace BagShopManagement.Views.Dev3
 {
@@ -43,8 +50,8 @@ namespace BagShopManagement.Views.Dev3
             dgvNCC.Columns["SoDienThoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             // Auto resize
-            dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-            dgvNCC.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            //dgvNCC.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            //dgvNCC.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
 
@@ -143,11 +150,59 @@ namespace BagShopManagement.Views.Dev3
             btnXoa.Visible = showButtons;
         }
 
-        private void NhaCungCapControl_Click(object sender, EventArgs e)
+        //private void NhaCungCapControl_Click(object sender, EventArgs e)
+        //{
+        //    dgvNCC.ClearSelection();
+        //    btnSua.Visible = false;
+        //    btnXoa.Visible = false;
+        //}
+        private void ExportExcel_EPPlus(DataGridView dgv)
         {
-            dgvNCC.ClearSelection();
-            btnSua.Visible = false;
-            btnXoa.Visible = false;
+            if (dgv.Rows.Count == 0)
+            {
+                MessageBox.Show("Không có dữ liệu để xuất!", "Thông báo");
+                return;
+            }
+
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Filter = "Excel file|*.xlsx";
+            sfd.FileName = "NhaCungCap.xlsx";
+
+            if (sfd.ShowDialog() != DialogResult.OK)
+                return;
+
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+
+            using (ExcelPackage pkg = new ExcelPackage())
+            {
+                var ws = pkg.Workbook.Worksheets.Add("NhaCungCap");
+
+                // HEADER
+                for (int i = 0; i < dgv.Columns.Count; i++)
+                {
+                    ws.Cells[1, i + 1].Value = dgv.Columns[i].HeaderText;
+                    ws.Cells[1, i + 1].Style.Font.Bold = true;
+                    ws.Cells[1, i + 1].Style.Fill.PatternType = ExcelFillStyle.Solid;
+                    ws.Cells[1, i + 1].Style.Fill.BackgroundColor.SetColor(Color.LightGray);
+                    ws.Cells[1, i + 1].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                }
+
+                // DATA
+                for (int i = 0; i < dgv.Rows.Count; i++)
+                {
+                    for (int j = 0; j < dgv.Columns.Count; j++)
+                    {
+                        ws.Cells[i + 2, j + 1].Value = dgv.Rows[i].Cells[j].Value?.ToString();
+                    }
+                }
+
+                ws.Cells.AutoFitColumns();
+
+                // Lưu file
+                pkg.SaveAs(new FileInfo(sfd.FileName));
+            }
+
+            MessageBox.Show("Xuất Excel thành công!", "Thành công");
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
@@ -160,6 +215,11 @@ namespace BagShopManagement.Views.Dev3
             dgvNCC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvNCC.MultiSelect = false;
             LoadDanhSachNCC();
+        }
+
+        private void btnXuatExcel_Click(object sender, EventArgs e)
+        {
+            ExportExcel_EPPlus(dgvNCC);
         }
     }
 }
