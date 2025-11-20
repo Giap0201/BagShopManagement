@@ -37,6 +37,7 @@
             btnXoa = new Button();
             txtTimKiem = new TextBox();
             groupBox1 = new GroupBox();
+            btnXuatExcel = new Button();
             btnReset = new Button();
             groupBox2 = new GroupBox();
             dgvNCC = new DataGridView();
@@ -63,7 +64,7 @@
             btnThem.BackColor = SystemColors.ActiveCaption;
             btnThem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThem.ForeColor = Color.FromArgb(51, 51, 51);
-            btnThem.Location = new Point(136, 112);
+            btnThem.Location = new Point(107, 32);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(175, 64);
             btnThem.TabIndex = 2;
@@ -74,29 +75,29 @@
             // btnSua
             // 
             btnSua.BackColor = Color.FromArgb(224, 224, 224);
+            btnSua.Enabled = false;
             btnSua.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSua.ForeColor = Color.FromArgb(51, 51, 51);
-            btnSua.Location = new Point(136, 413);
+            btnSua.Location = new Point(107, 317);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(175, 64);
             btnSua.TabIndex = 3;
             btnSua.Text = "Sửa ";
             btnSua.UseVisualStyleBackColor = false;
-            btnSua.Visible = false;
             btnSua.Click += btnSua_Click;
             // 
             // btnXoa
             // 
             btnXoa.BackColor = Color.FromArgb(231, 76, 60);
+            btnXoa.Enabled = false;
             btnXoa.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnXoa.ForeColor = Color.White;
-            btnXoa.Location = new Point(136, 317);
+            btnXoa.Location = new Point(107, 222);
             btnXoa.Name = "btnXoa";
             btnXoa.Size = new Size(175, 64);
             btnXoa.TabIndex = 4;
             btnXoa.Text = "Xóa";
             btnXoa.UseVisualStyleBackColor = false;
-            btnXoa.Visible = false;
             btnXoa.Click += btnXoa_Click;
             // 
             // txtTimKiem
@@ -112,6 +113,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(btnXuatExcel);
             groupBox1.Controls.Add(btnReset);
             groupBox1.Controls.Add(btnSua);
             groupBox1.Controls.Add(btnXoa);
@@ -125,12 +127,25 @@
             groupBox1.Text = "thao tác";
             groupBox1.Enter += groupBox1_Enter;
             // 
+            // btnXuatExcel
+            // 
+            btnXuatExcel.BackColor = Color.FromArgb(128, 128, 255);
+            btnXuatExcel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnXuatExcel.ForeColor = Color.White;
+            btnXuatExcel.Location = new Point(107, 412);
+            btnXuatExcel.Name = "btnXuatExcel";
+            btnXuatExcel.Size = new Size(175, 64);
+            btnXuatExcel.TabIndex = 7;
+            btnXuatExcel.Text = "Xuất Excel";
+            btnXuatExcel.UseVisualStyleBackColor = false;
+            btnXuatExcel.Click += btnXuatExcel_Click;
+            // 
             // btnReset
             // 
             btnReset.BackColor = SystemColors.InactiveCaption;
             btnReset.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnReset.ForeColor = Color.FromArgb(51, 51, 51);
-            btnReset.Location = new Point(136, 212);
+            btnReset.Location = new Point(107, 127);
             btnReset.Name = "btnReset";
             btnReset.Size = new Size(175, 64);
             btnReset.TabIndex = 6;
@@ -235,5 +250,6 @@
         private Button btnReset;
         private Label label1;
         private DataGridView dgvNCC;
+        private Button btnXuatExcel;
     }
 }
