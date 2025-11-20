@@ -63,7 +63,6 @@ namespace BagShopManagement.Services.Implementations
                 SoDienThoai = request.SoDienThoai,
                 Email = request.Email,
                 NgayVaoLam = DateTime.Now,
-                TrangThai = request.TrangThaiNV
             };
 
             var taiKhoan = new TaiKhoan
@@ -116,7 +115,6 @@ namespace BagShopManagement.Services.Implementations
                 ChucVu = request.ChucVu,
                 SoDienThoai = request.SoDienThoai,
                 Email = request.Email,
-                TrangThai = request.TrangThaiNV
                 // NgayVaoLam không cập nhật
             };
 
