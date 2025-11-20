@@ -3,6 +3,7 @@ using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
+using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,21 +15,21 @@ namespace BagShopManagement.Views.Dev6
 {
     public partial class ucSuaHoaDonNhap : UserControl
     {
-        private readonly HoaDonNhapController _controller;
+        private readonly IHoaDonNhapService _service;
         private readonly INhanVienRepository _nhanVienRepo;
         private readonly INhaCungCapRepository _nhaCungCapRepo;
         private readonly ISanPhamRepository _sanPhamRepo;
         private readonly IServiceProvider _serviceProvider;
 
         public ucSuaHoaDonNhap(
-            HoaDonNhapController controller,
+            IHoaDonNhapService service,
             INhanVienRepository nhanVienRepo,
             INhaCungCapRepository nhaCungCapRepo,
             ISanPhamRepository sanPhamRepo,
             IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
             _nhanVienRepo = nhanVienRepo;
             _nhaCungCapRepo = nhaCungCapRepo;
             _sanPhamRepo = sanPhamRepo;
@@ -199,7 +200,7 @@ namespace BagShopManagement.Views.Dev6
                     NgayNhap = dtpNgayNhap.Value
                 };
 
-                _controller.CapNhatThongTinHoaDon(txtMaHDN.Text, req);
+                _service.UpdateDraftInfo(txtMaHDN.Text, req);
                 MessageBox.Show("Cập nhật thông tin hóa đơn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -258,7 +259,7 @@ namespace BagShopManagement.Views.Dev6
                     ThanhTien = thanhTien
                 };
 
-                _controller.ThemChiTiet(maHDN, req);
+                _service.AddDetailToDraft(maHDN, req);
                 ReloadChiTiet(maHDN);
                 MessageBox.Show("Thêm chi tiết hóa đơn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -300,7 +301,7 @@ namespace BagShopManagement.Views.Dev6
                     ThanhTien = decimal.Parse(txtThanhTien.Text.Trim())
                 };
 
-                _controller.SuaChiTiet(maHDN, maSPCu, req);
+                _service.UpdateDetailInDraft(maHDN, maSPCu, req);
                 ReloadChiTiet(maHDN);
                 MessageBox.Show("Sửa chi tiết thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -332,7 +333,7 @@ namespace BagShopManagement.Views.Dev6
 
             try
             {
-                _controller.XoaChiTiet(maHDN, maSP);
+                _service.DeleteDetailFromDraft(maHDN, maSP);
                 ReloadChiTiet(maHDN);
                 MessageBox.Show("Xóa chi tiết thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -382,7 +383,7 @@ namespace BagShopManagement.Views.Dev6
         // reload chi tiet hoa don
         private void ReloadChiTiet(string maHDN)
         {
-            var res = _controller.LayChiTietHoaDon(maHDN);
+            var res = _service.GetHoaDonNhapDetail(maHDN);
             dgvChiTiet.DataSource = null;
             dgvChiTiet.DataSource = res.ChiTiet;
             FormatGrid();
@@ -404,7 +405,7 @@ namespace BagShopManagement.Views.Dev6
         {
             try
             {
-                var hd = _controller.LayChiTietHoaDon(txtMaHDN.Text);
+                var hd = _service.GetHoaDonNhapDetail(txtMaHDN.Text);
                 if (hd == null || hd.ChiTiet == null || !hd.ChiTiet.Any())
                 {
                     MessageBox.Show("Hóa đơn trống, không thể in!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
