@@ -43,12 +43,11 @@ namespace BagShopManagement.Views.Dev6
             txtMaHDN.Text = response.MaHDN;
             txtMaHDN.ReadOnly = true;
             cboNhaCungCap.SelectedValue = response.MaNCC;
-            cboNhanVien.SelectedValue = response.MaNV;
             dtpNgayNhap.Value = response.NgayNhap ?? DateTime.Now;
             txtGhiChu.Text = response.GhiChu ?? string.Empty;
             cboTrangThai.SelectedValue = (byte)response.TrangThai;
             cboTrangThai.Enabled = false;
-
+            txtNhanVien.Text = response.TenNV;
             dgvChiTiet.DataSource = null;
             dgvChiTiet.DataSource = response.ChiTiet;
             FormatGrid();
@@ -61,7 +60,6 @@ namespace BagShopManagement.Views.Dev6
         {
             LoadTrangThaiCombobox();
             LoadComboBoxNhaCungCap();
-            LoadComboBoxNhanVien();
             LoadComboBoxSanPham();
         }
 
@@ -100,16 +98,6 @@ namespace BagShopManagement.Views.Dev6
             EnableSearchableComboBox(cboNhaCungCap, list.Select(x => x.TenNCC));
         }
 
-        // load nhan vien
-        private void LoadComboBoxNhanVien()
-        {
-            var list = _nhanVienRepo.GetAll();
-            cboNhanVien.DataSource = list;
-            cboNhanVien.DisplayMember = "HoTen";
-            cboNhanVien.ValueMember = "MaNV";
-            EnableSearchableComboBox(cboNhanVien, list.Select(x => x.HoTen));
-        }
-
         // load san pham
         private void LoadComboBoxSanPham()
         {
@@ -131,9 +119,9 @@ namespace BagShopManagement.Views.Dev6
                 return false;
             }
 
-            if (cboNhanVien.SelectedValue == null)
+            if (txtNhanVien.Text == null)
             {
-                errorProvider1.SetError(cboNhanVien, "Vui lòng chọn nhân viên");
+                errorProvider1.SetError(txtNhanVien, "Sai nhân viên");
                 return false;
             }
 
@@ -195,7 +183,7 @@ namespace BagShopManagement.Views.Dev6
                 var req = new HoaDonNhapInfoUpdateRequest
                 {
                     MaNCC = cboNhaCungCap.SelectedValue.ToString(),
-                    MaNV = cboNhanVien.SelectedValue.ToString(),
+                    MaNV = UserContext.MaNV,
                     GhiChu = txtGhiChu.Text.Trim(),
                     NgayNhap = dtpNgayNhap.Value
                 };

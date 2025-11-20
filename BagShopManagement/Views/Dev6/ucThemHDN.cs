@@ -59,6 +59,7 @@ namespace BagShopManagement.Views.Dev6
             txtThanhTien.ReadOnly = true;
             txtMaHDN.ReadOnly = true;
             cboTrangThai.Enabled = false;
+            txtNhanVien.Text = UserContext.HoTen;
         }
 
         // Cau hinh hien thi bang du lieu chi tiet
@@ -90,7 +91,6 @@ namespace BagShopManagement.Views.Dev6
         {
             LoadTrangThaiComboBox();
             LoadComboBoxNhaCungCap();
-            LoadComboBoxNhanVien();
             LoadComboBoxSanPham();
         }
 
@@ -137,23 +137,6 @@ namespace BagShopManagement.Views.Dev6
             }
         }
 
-        // load nhan vien vao combobox
-        private void LoadComboBoxNhanVien()
-        {
-            try
-            {
-                var list = _nhanVienRepo.GetAll();
-                cboNhanVien.DataSource = list;
-                cboNhanVien.DisplayMember = "HoTen";
-                cboNhanVien.ValueMember = "MaNV";
-                EnableSearchableComboBox(cboNhanVien, list.Select(x => x.HoTen).ToList());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi tải danh sách NV: {ex.Message}");
-            }
-        }
-
         // load san pham vao combobox
         private void LoadComboBoxSanPham()
         {
@@ -175,7 +158,6 @@ namespace BagShopManagement.Views.Dev6
         {
             dtpNgayNhap.Value = DateTime.Now;
             cboNhaCungCap.SelectedIndex = -1;
-            cboNhanVien.SelectedIndex = -1;
             txtGhiChu.Clear();
             cboTrangThai.SelectedIndex = 0;
             lblTongTien.Text = "0";
@@ -188,14 +170,6 @@ namespace BagShopManagement.Views.Dev6
             txtDonGia.Clear();
             txtThanhTien.Clear();
         }
-
-        //private void NgayDuyet_NgayHuy()
-        //{
-        //    dtpNgayDuyet.Visible = false;
-        //    dtpNgayHuy.Visible = false;
-        //    lblNgayDuyet.Visible = false;
-        //    lblNgayHuy.Visible = false;
-        //}
 
         // Validate input chi tiet
         private bool ValidateChiTietInput()
@@ -413,9 +387,9 @@ namespace BagShopManagement.Views.Dev6
                 errorProvider1.SetError(cboNhaCungCap, "Vui lòng chọn nhà cung cấp");
                 return false;
             }
-            if (cboNhanVien.SelectedValue == null)
+            if (txtNhanVien.Text == null)
             {
-                errorProvider1.SetError(cboNhanVien, "Vui lòng chọn nhân viên");
+                errorProvider1.SetError(txtNhanVien, "Nhân viên không hợp lệ");
                 return false;
             }
             return true;
@@ -494,7 +468,7 @@ namespace BagShopManagement.Views.Dev6
                 MaHDN = txtMaHDN.Text.Trim(),
                 NgayNhap = dtpNgayNhap.Value,
                 MaNCC = cboNhaCungCap.SelectedValue?.ToString(),
-                MaNV = cboNhanVien.SelectedValue?.ToString(),
+                MaNV = UserContext.MaNV,
                 TrangThai = TrangThaiHoaDonNhap.TamLuu,
                 GhiChu = txtGhiChu.Text.Trim(),
                 ChiTiet = _listChiTiets.Select(ct => new ChiTietHDNRequest
@@ -576,7 +550,7 @@ namespace BagShopManagement.Views.Dev6
                             MaHDN = txtMaHDN.Text.Trim(),
                             NgayNhap = dtpNgayNhap.Value,
                             TenNCC = cboNhaCungCap.Text,
-                            TenNV = cboNhanVien.Text,
+                            TenNV = UserContext.HoTen,
                             GhiChu = txtGhiChu.Text.Trim(),
                             ChiTiet = _listChiTiets
                         };
