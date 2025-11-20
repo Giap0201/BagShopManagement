@@ -36,8 +36,11 @@
             btnThem = new Button();
             btnLamMoi = new Button();
             dgvNhanVien = new DataGridView();
+            label1 = new Label();
+            panel1 = new Panel();
             pnlToolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvNhanVien).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // pnlToolbar
@@ -50,7 +53,7 @@
             pnlToolbar.Controls.Add(btnThem);
             pnlToolbar.Controls.Add(btnLamMoi);
             pnlToolbar.Dock = DockStyle.Top;
-            pnlToolbar.Location = new Point(0, 0);
+            pnlToolbar.Location = new Point(0, 101);
             pnlToolbar.Name = "pnlToolbar";
             pnlToolbar.Size = new Size(985, 166);
             pnlToolbar.TabIndex = 1;
@@ -146,28 +149,51 @@
             dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvNhanVien.Dock = DockStyle.Fill;
-            dgvNhanVien.Location = new Point(0, 166);
+            dgvNhanVien.Location = new Point(30, 30);
             dgvNhanVien.MultiSelect = false;
             dgvNhanVien.Name = "dgvNhanVien";
             dgvNhanVien.ReadOnly = true;
             dgvNhanVien.RowHeadersWidth = 51;
             dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvNhanVien.Size = new Size(985, 454);
+            dgvNhanVien.Size = new Size(925, 293);
             dgvNhanVien.TabIndex = 2;
             dgvNhanVien.CellFormatting += dgvNhanVien_CellFormatting;
+            // 
+            // label1
+            // 
+            label1.Dock = DockStyle.Top;
+            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(0, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(985, 101);
+            label1.TabIndex = 6;
+            label1.Text = "DANH SÁCH NHÂN VIÊN";
+            label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(dgvNhanVien);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 267);
+            panel1.Name = "panel1";
+            panel1.Padding = new Padding(30);
+            panel1.Size = new Size(985, 353);
+            panel1.TabIndex = 7;
             // 
             // ucEmployeeManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(dgvNhanVien);
+            Controls.Add(panel1);
             Controls.Add(pnlToolbar);
+            Controls.Add(label1);
             Name = "ucEmployeeManagement";
             Size = new Size(985, 620);
             Load += ucEmployeeManagement_Load;
             pnlToolbar.ResumeLayout(false);
             pnlToolbar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvNhanVien).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -180,5 +206,7 @@
         private Button btnThem;
         private Button btnLamMoi;
         private DataGridView dgvNhanVien;
+        private Label label1;
+        private Panel panel1;
     }
 }
