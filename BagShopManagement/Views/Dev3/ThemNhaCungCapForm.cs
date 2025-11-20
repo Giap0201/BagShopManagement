@@ -17,6 +17,7 @@ namespace BagShopManagement.Views.Dev3
             _controller = controller;
             _ncc = ncc;
             _isEdit = ncc != null;
+            this.StartPosition = FormStartPosition.CenterParent;
 
             if (_isEdit)
             {
