@@ -2,14 +2,7 @@ using BagShopManagement.Controllers;
 using BagShopManagement.DTOs;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Implementations;
-using BagShopManagement.Services.Implementations;
-using BagShopManagement.DataAccess;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Forms;
-using static BagShopManagement.DataAccess.DataAccessBase;
 
 namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 {
@@ -19,6 +12,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private readonly HoaDonBanController _controller;
         private readonly HoaDonBanRepository _hoaDonRepo;
         private readonly SanPhamRepository _sanPhamRepo;
+        private readonly KhachHangRepository _khachHangRepo;
         private readonly List<CartItem> _cart = new List<CartItem>();
 
         public HoaDonBanEditForm(string maHDB, HoaDonBanController controller)
@@ -28,6 +22,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             _controller = controller;
             _hoaDonRepo = new HoaDonBanRepository();
             _sanPhamRepo = new SanPhamRepository();
+            _khachHangRepo = new KhachHangRepository();
         }
 
         private void HoaDonBanEditForm_Load(object sender, EventArgs e)
@@ -62,12 +57,15 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                     case 1:
                         cboTrangThai.SelectedIndex = 0; // Nháp
                         break;
+
                     case 2:
                         cboTrangThai.SelectedIndex = 1; // Đã thanh toán
                         break;
+
                     case 3:
                         cboTrangThai.SelectedIndex = 2; // Đã hủy
                         break;
+
                     default:
                         cboTrangThai.SelectedIndex = 0;
                         break;
@@ -390,37 +388,32 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         /// </summary>
         private string? ValidateMaKH(string? maKH)
         {
-            // Nếu rỗng hoặc null, trả về null (khách lẻ)
+            // 1. Nếu rỗng hoặc null, trả về null (khách lẻ) - Giữ nguyên logic cũ
             if (string.IsNullOrWhiteSpace(maKH))
                 return null;
 
-            // Kiểm tra MaKH có tồn tại trong bảng KhachHang không
             try
             {
-                using var conn = new SqlConnection(DataAccessBase.GetConnectionString());
-                conn.Open();
-                using var cmd = new SqlCommand("SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH", conn);
-                cmd.Parameters.Add(new SqlParameter("@MaKH", maKH.Trim()));
+                // 2. Gọi hàm GetKhachHang đã viết ở trên
+                // Hàm này sẽ trả về chuỗi mã KH nếu tìm thấy, hoặc null nếu không thấy
+                string? result = _khachHangRepo.GetKhachHang(maKH);
 
-                var result = cmd.ExecuteScalar();
                 if (result != null)
                 {
-                    int count = Convert.ToInt32(result);
-                    if (count > 0)
-                    {
-                        // MaKH tồn tại, trả về giá trị
-                        return maKH.Trim();
-                    }
+                    // Tìm thấy -> Trả về mã đã trim
+                    return result;
                 }
-
-                // MaKH không tồn tại, trả về null (xử lý như khách lẻ)
-                MessageBox.Show($"Mã khách hàng '{maKH}' không tồn tại. Hệ thống sẽ xử lý như khách lẻ.",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return null;
+                else
+                {
+                    // Không tìm thấy (result == null) -> Thông báo UI
+                    MessageBox.Show($"Mã khách hàng '{maKH}' không tồn tại. Hệ thống sẽ xử lý như khách lẻ.",
+                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return null;
+                }
             }
             catch (Exception ex)
             {
-                // Nếu có lỗi khi check, trả về null để tránh lỗi foreign key
+                // 3. Xử lý lỗi ngoại lệ (nếu hàm GetKhachHang ném lỗi)
                 MessageBox.Show($"Lỗi khi kiểm tra mã khách hàng: {ex.Message}. Hệ thống sẽ xử lý như khách lẻ.",
                     "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return null;

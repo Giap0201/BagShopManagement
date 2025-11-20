@@ -7,7 +7,6 @@ using System.Configuration; // Cần thiết để đọc connection string
 using System.Data; // Cần thiết cho DataTable và DataRow
 
 // Đảm bảo namespace này khớp với BaseRepository của bạn
-using BagShopManagement.DataAccess;
 
 namespace BagShopManagement.Repositories.Implementations
 {

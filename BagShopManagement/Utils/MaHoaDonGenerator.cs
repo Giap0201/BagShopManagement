@@ -1,4 +1,4 @@
-﻿using BagShopManagement.DataAccess;
+﻿using BagShopManagement.Repositories;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;

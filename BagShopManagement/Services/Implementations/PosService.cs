@@ -3,11 +3,6 @@ using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
-using BagShopManagement.DataAccess;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BagShopManagement.Services.Implementations
 {
