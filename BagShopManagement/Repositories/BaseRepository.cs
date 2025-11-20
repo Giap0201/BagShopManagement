@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Data;
 
-namespace BagShopManagement.DataAccess
+namespace BagShopManagement.Repositories
 {
     public abstract class BaseRepository
     {

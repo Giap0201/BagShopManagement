@@ -1,5 +1,4 @@
 ﻿using BagShopManagement.Controllers;
-using BagShopManagement.DataAccess;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Utils;
@@ -485,7 +484,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             }
         }
 
-
         private void RefreshCartGrid()
         {
             try
@@ -525,8 +523,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 RefreshCartGrid();
             }
         }
-
-
 
         private void btnSaveDraft_Click(object sender, EventArgs e)
         {
@@ -719,27 +715,22 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void txtMaNV_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void lblGiaSPLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void lblTenSP_Click(object sender, EventArgs e)
         {
-
         }
 
         private void lblQty_Click(object sender, EventArgs e)
         {
-
         }
     }
 }

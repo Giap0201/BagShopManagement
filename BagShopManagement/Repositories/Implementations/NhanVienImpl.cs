@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.DTOs.Responses;
+﻿using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
@@ -10,7 +9,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
+using DataAccessBase = BagShopManagement.Repositories.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
