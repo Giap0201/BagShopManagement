@@ -94,7 +94,7 @@ namespace BagShopManagement.Views.Dev3
         {
             using (var frm = new ThemNhaCungCapForm(_controller))
             {
-                if (frm.ShowDialog() == DialogResult.OK)
+                if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     dgvNCC.DataSource = _controller.GetAll();
                 }
@@ -106,7 +106,7 @@ namespace BagShopManagement.Views.Dev3
             var ncc = (NhaCungCap)dgvNCC.CurrentRow.DataBoundItem;
             using (var frm = new ThemNhaCungCapForm(_controller, ncc))
             {
-                if (frm.ShowDialog() == DialogResult.OK)
+                if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     dgvNCC.DataSource = _controller.GetAll();
                 }
@@ -139,15 +139,14 @@ namespace BagShopManagement.Views.Dev3
 
         private void dgvNCC_SelectionChanged(object sender, EventArgs e)
         {
-            bool showButtons = false;
+ 
 
             if (dgvNCC.SelectedRows.Count == 1 && !dgvNCC.SelectedRows[0].IsNewRow)
             {
-                showButtons = true;
+                btnXoa.Enabled = true;
+                btnSua.Enabled = true;
             }
 
-            btnSua.Visible = showButtons;
-            btnXoa.Visible = showButtons;
         }
 
         //private void NhaCungCapControl_Click(object sender, EventArgs e)

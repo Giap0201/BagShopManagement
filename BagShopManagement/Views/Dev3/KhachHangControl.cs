@@ -93,7 +93,7 @@ namespace BagShopManagement.Views.Dev3
         {
             using (var frm = new ThemKhachHangForm2(_controller))
             {
-                if (frm.ShowDialog() == DialogResult.OK)
+                if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     dgvKhachHang.DataSource = _controller.GetAll();
                 }
@@ -105,7 +105,7 @@ namespace BagShopManagement.Views.Dev3
             var kh = (KhachHang)dgvKhachHang.CurrentRow.DataBoundItem;
             using (var frm = new ThemKhachHangForm2(_controller, kh))
             {
-                if (frm.ShowDialog() == DialogResult.OK)
+                if (frm.ShowDialog(this) == DialogResult.OK)
                 {
                     dgvKhachHang.DataSource = _controller.GetAll();
                 }
