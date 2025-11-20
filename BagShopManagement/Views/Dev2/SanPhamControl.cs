@@ -1,5 +1,4 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Services.Interfaces;
 using OfficeOpenXml;
 using System;
@@ -9,20 +8,21 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using BagShopManagement.Services;
 
 namespace BagShopManagement.Views.Dev2
 {
     public partial class SanPhamControl : UserControl
     {
-        private readonly SanPhamController _controller;
+        private readonly ISanPhamService _service;
         private readonly IDanhMucService _danhMucService;
         private List<SanPham> _list;
 
         // ✅ Inject controller & service qua constructor (phù hợp DI)
-        public SanPhamControl(SanPhamController controller, IDanhMucService danhMucService)
+        public SanPhamControl(ISanPhamService service, IDanhMucService danhMucService)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
             _danhMucService = danhMucService;
 
             this.Load += SanPhamControl_Load;
@@ -81,7 +81,7 @@ namespace BagShopManagement.Views.Dev2
 
         private void LoadData()
         {
-            _list = _controller.GetAll();
+            _list = _service.GetAll();
 
             dgvSanPham.AutoGenerateColumns = false;
             dgvSanPham.Columns.Clear();
@@ -203,7 +203,7 @@ namespace BagShopManagement.Views.Dev2
         // ================= CRUD & IMPORT/EXPORT giữ nguyên =================
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var f = new SanPhamEditForm(_controller))
+            using (var f = new SanPhamEditForm(_service))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -214,10 +214,10 @@ namespace BagShopManagement.Views.Dev2
         {
             if (dgvSanPham.CurrentRow == null) return;
             var ma = dgvSanPham.CurrentRow.Cells["MaSP"].Value?.ToString();
-            var sp = _controller.GetAll().Find(x => x.MaSP == ma);
+            var sp = _service.GetAll().Find(x => x.MaSP == ma);
             if (sp == null) return;
 
-            using (var f = new SanPhamEditForm(_controller, sp))
+            using (var f = new SanPhamEditForm(_service, sp))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -232,7 +232,7 @@ namespace BagShopManagement.Views.Dev2
 
             if (MessageBox.Show($"Xóa sản phẩm {ma}?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
-                _controller.Delete(ma);
+                _service.Delete(ma);
                 LoadData();
             }
         }
@@ -240,7 +240,7 @@ namespace BagShopManagement.Views.Dev2
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             string kw = txtSearch.Text.Trim();
-            dgvSanPham.DataSource = string.IsNullOrEmpty(kw) ? _list : _controller.Search(kw);
+            dgvSanPham.DataSource = string.IsNullOrEmpty(kw) ? _list : _service.Search(kw);
         }
 
         private void dgvSanPham_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -358,7 +358,7 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                var list = _controller.GetAll();
+                var list = _service.GetAll();
                 int lastRow = ws.Dimension.End.Row;
                 int inserted = 0, updated = 0, skipped = 0;
 
@@ -386,13 +386,13 @@ namespace BagShopManagement.Views.Dev2
                         if (headers.ContainsKey("MoTa"))
                             existing.MoTa = ws.Cells[r, headers["MoTa"]].Text;
 
-                        _controller.Update(existing);
+                        _service.Update(existing);
                         updated++;
                         continue;
                     }
 
                     // ===== INSERT =====
-                    string newCode = _controller.GenerateNextCode();
+                    string newCode = _service.GenerateNextCode();
 
                     var sp = new SanPham
                     {
@@ -419,7 +419,7 @@ namespace BagShopManagement.Views.Dev2
                         NgayTao = DateTime.Now
                     };
 
-                    if (_controller.Add(sp))
+                    if (_service.Add(sp))
                     {
                         inserted++;
                         list.Add(sp);

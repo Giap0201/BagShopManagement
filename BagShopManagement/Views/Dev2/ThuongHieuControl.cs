@@ -1,5 +1,4 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Services.Interfaces;
 using OfficeOpenXml;
 using System;
@@ -12,12 +11,12 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class ThuongHieuControl : UserControl
     {
-        private readonly ThuongHieuController _controller;
+        private readonly IThuongHieuService _service;
 
-        public ThuongHieuControl(ThuongHieuController controller)
+        public ThuongHieuControl(IThuongHieuService service)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
 
             // Wire events
             this.Load += ThuongHieuControl_Load;
@@ -41,19 +40,19 @@ namespace BagShopManagement.Views.Dev2
 
         private void LoadData()
         {
-            try { dgvThuongHieu.DataSource = _controller.GetAll(); }
+            try { dgvThuongHieu.DataSource = _service.GetAll(); }
             catch (Exception ex) { MessageBox.Show("Lỗi khi tải dữ liệu: " + ex.Message, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error); }
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
             var kw = txtSearch.Text?.Trim();
-            dgvThuongHieu.DataSource = string.IsNullOrEmpty(kw) ? _controller.GetAll() : _controller.Search(kw);
+            dgvThuongHieu.DataSource = string.IsNullOrEmpty(kw) ? _service.GetAll() : _service.Search(kw);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using var f = new ThuongHieuEditForm(_controller);
+            using var f = new ThuongHieuEditForm(_service);
             if (f.ShowDialog() == DialogResult.OK) LoadData();
         }
 
@@ -61,7 +60,7 @@ namespace BagShopManagement.Views.Dev2
         {
             if (dgvThuongHieu.CurrentRow?.DataBoundItem is not ThuongHieu model) return;
 
-            using var f = new ThuongHieuEditForm(_controller, model);
+            using var f = new ThuongHieuEditForm(_service, model);
             if (f.ShowDialog() == DialogResult.OK) LoadData();
         }
 
@@ -72,7 +71,7 @@ namespace BagShopManagement.Views.Dev2
 
             try
             {
-                if (_controller.Delete(model.MaThuongHieu)) LoadData();
+                if (_service.Delete(model.MaThuongHieu)) LoadData();
                 else MessageBox.Show("Xóa thất bại. Có thể bản ghi đang được tham chiếu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             catch (Exception ex)
@@ -86,7 +85,7 @@ namespace BagShopManagement.Views.Dev2
             if (e.RowIndex < 0) return;
             if (dgvThuongHieu.Rows[e.RowIndex].DataBoundItem is not ThuongHieu model) return;
 
-            using var f = new ThuongHieuEditForm(_controller, model);
+            using var f = new ThuongHieuEditForm(_service, model);
             if (f.ShowDialog() == DialogResult.OK) LoadData();
         }
 
@@ -154,7 +153,7 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                var existingList = _controller.GetAll() ?? new List<ThuongHieu>();
+                var existingList = _service.GetAll() ?? new List<ThuongHieu>();
                 int inserted = 0, updated = 0, skipped = 0;
 
                 for (int r = headerRow + 1; r <= lastRow; r++)
@@ -184,7 +183,7 @@ namespace BagShopManagement.Views.Dev2
                     {
                         existing.TenThuongHieu = ten;
                         existing.QuocGia = qg;
-                        if (_controller.Update(existing))
+                        if (_service.Update(existing))
                             updated++;
                         else skipped++;
                     }
@@ -192,11 +191,11 @@ namespace BagShopManagement.Views.Dev2
                     {
                         var newItem = new ThuongHieu
                         {
-                            MaThuongHieu = _controller.GenerateNextCode(),
+                            MaThuongHieu = _service.GenerateNextCode(),
                             TenThuongHieu = ten,
                             QuocGia = qg
                         };
-                        if (_controller.Add(newItem))
+                        if (_service.Add(newItem))
                         {
                             inserted++;
                             existingList.Add(newItem);
@@ -228,7 +227,7 @@ namespace BagShopManagement.Views.Dev2
                 };
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
-                var list = (dgvThuongHieu.DataSource as List<ThuongHieu>) ?? _controller.GetAll();
+                var list = (dgvThuongHieu.DataSource as List<ThuongHieu>) ?? _service.GetAll();
                 if (list == null || list.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu để xuất.");
