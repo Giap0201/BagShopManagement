@@ -35,22 +35,22 @@
             txtHoTen = new TextBox();
             txtTenDangNhap = new TextBox();
             txtChucVu = new TextBox();
-            label6 = new Label();
-            label5 = new Label();
-            label4 = new Label();
-            label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
+            lblVaiTro = new Label();
+            lblTen = new Label();
+            lblSDT = new Label();
+            lblEmail = new Label();
+            lblChucVu = new Label();
+            lblHoTen = new Label();
             grpDoiMatKhau = new GroupBox();
             btnLamMoi = new Button();
             btnDoiMatKhau = new Button();
             txtXacNhanMoi = new TextBox();
             txtMatKhauMoi = new TextBox();
             txtMatKhauCu = new TextBox();
-            label9 = new Label();
-            label8 = new Label();
-            label7 = new Label();
-            label10 = new Label();
+            lblXacNhanMatKhau = new Label();
+            lblMatKhauMoi = new Label();
+            lblMatKhauCu = new Label();
+            lblTitle = new Label();
             grpThongTin.SuspendLayout();
             grpDoiMatKhau.SuspendLayout();
             SuspendLayout();
@@ -64,12 +64,12 @@
             grpThongTin.Controls.Add(txtHoTen);
             grpThongTin.Controls.Add(txtTenDangNhap);
             grpThongTin.Controls.Add(txtChucVu);
-            grpThongTin.Controls.Add(label6);
-            grpThongTin.Controls.Add(label5);
-            grpThongTin.Controls.Add(label4);
-            grpThongTin.Controls.Add(label3);
-            grpThongTin.Controls.Add(label2);
-            grpThongTin.Controls.Add(label1);
+            grpThongTin.Controls.Add(lblVaiTro);
+            grpThongTin.Controls.Add(lblTen);
+            grpThongTin.Controls.Add(lblSDT);
+            grpThongTin.Controls.Add(lblEmail);
+            grpThongTin.Controls.Add(lblChucVu);
+            grpThongTin.Controls.Add(lblHoTen);
             grpThongTin.FlatStyle = FlatStyle.Flat;
             grpThongTin.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpThongTin.ForeColor = Color.FromArgb(54, 54, 54);
@@ -147,59 +147,59 @@
             txtChucVu.Size = new Size(295, 30);
             txtChucVu.TabIndex = 17;
             // 
-            // label6
+            // lblVaiTro
             // 
-            label6.AutoSize = true;
-            label6.Location = new Point(785, 208);
-            label6.Name = "label6";
-            label6.Size = new Size(64, 23);
-            label6.TabIndex = 5;
-            label6.Text = "Vai trò:";
+            lblVaiTro.AutoSize = true;
+            lblVaiTro.Location = new Point(785, 208);
+            lblVaiTro.Name = "lblVaiTro";
+            lblVaiTro.Size = new Size(64, 23);
+            lblVaiTro.TabIndex = 5;
+            lblVaiTro.Text = "Vai trò:";
             // 
-            // label5
+            // lblTen
             // 
-            label5.AutoSize = true;
-            label5.Location = new Point(785, 127);
-            label5.Name = "label5";
-            label5.Size = new Size(128, 23);
-            label5.TabIndex = 4;
-            label5.Text = "Tên đăng nhập:";
+            lblTen.AutoSize = true;
+            lblTen.Location = new Point(785, 127);
+            lblTen.Name = "lblTen";
+            lblTen.Size = new Size(128, 23);
+            lblTen.TabIndex = 4;
+            lblTen.Text = "Tên đăng nhập:";
             // 
-            // label4
+            // lblSDT
             // 
-            label4.AutoSize = true;
-            label4.Location = new Point(785, 54);
-            label4.Name = "label4";
-            label4.Size = new Size(115, 23);
-            label4.TabIndex = 3;
-            label4.Text = "Số điện thoại:";
+            lblSDT.AutoSize = true;
+            lblSDT.Location = new Point(785, 54);
+            lblSDT.Name = "lblSDT";
+            lblSDT.Size = new Size(115, 23);
+            lblSDT.TabIndex = 3;
+            lblSDT.Text = "Số điện thoại:";
             // 
-            // label3
+            // lblEmail
             // 
-            label3.AutoSize = true;
-            label3.Location = new Point(97, 204);
-            label3.Name = "label3";
-            label3.Size = new Size(55, 23);
-            label3.TabIndex = 2;
-            label3.Text = "Email:";
+            lblEmail.AutoSize = true;
+            lblEmail.Location = new Point(97, 204);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(55, 23);
+            lblEmail.TabIndex = 2;
+            lblEmail.Text = "Email:";
             // 
-            // label2
+            // lblChucVu
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(97, 130);
-            label2.Name = "label2";
-            label2.Size = new Size(78, 23);
-            label2.TabIndex = 1;
-            label2.Text = "Chức vụ:";
+            lblChucVu.AutoSize = true;
+            lblChucVu.Location = new Point(97, 130);
+            lblChucVu.Name = "lblChucVu";
+            lblChucVu.Size = new Size(78, 23);
+            lblChucVu.TabIndex = 1;
+            lblChucVu.Text = "Chức vụ:";
             // 
-            // label1
+            // lblHoTen
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(97, 54);
-            label1.Name = "label1";
-            label1.Size = new Size(72, 23);
-            label1.TabIndex = 0;
-            label1.Text = "Họ tên: ";
+            lblHoTen.AutoSize = true;
+            lblHoTen.Location = new Point(97, 54);
+            lblHoTen.Name = "lblHoTen";
+            lblHoTen.Size = new Size(72, 23);
+            lblHoTen.TabIndex = 0;
+            lblHoTen.Text = "Họ tên: ";
             // 
             // grpDoiMatKhau
             // 
@@ -209,9 +209,9 @@
             grpDoiMatKhau.Controls.Add(txtXacNhanMoi);
             grpDoiMatKhau.Controls.Add(txtMatKhauMoi);
             grpDoiMatKhau.Controls.Add(txtMatKhauCu);
-            grpDoiMatKhau.Controls.Add(label9);
-            grpDoiMatKhau.Controls.Add(label8);
-            grpDoiMatKhau.Controls.Add(label7);
+            grpDoiMatKhau.Controls.Add(lblXacNhanMatKhau);
+            grpDoiMatKhau.Controls.Add(lblMatKhauMoi);
+            grpDoiMatKhau.Controls.Add(lblMatKhauCu);
             grpDoiMatKhau.FlatStyle = FlatStyle.Flat;
             grpDoiMatKhau.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpDoiMatKhau.ForeColor = Color.FromArgb(54, 54, 54);
@@ -283,49 +283,49 @@
             txtMatKhauCu.Size = new Size(303, 30);
             txtMatKhauCu.TabIndex = 3;
             // 
-            // label9
+            // lblXacNhanMatKhau
             // 
-            label9.AutoSize = true;
-            label9.Location = new Point(58, 209);
-            label9.Name = "label9";
-            label9.Size = new Size(198, 23);
-            label9.TabIndex = 2;
-            label9.Text = "Xác nhận mật khẩu mới:";
+            lblXacNhanMatKhau.AutoSize = true;
+            lblXacNhanMatKhau.Location = new Point(58, 209);
+            lblXacNhanMatKhau.Name = "lblXacNhanMatKhau";
+            lblXacNhanMatKhau.Size = new Size(198, 23);
+            lblXacNhanMatKhau.TabIndex = 2;
+            lblXacNhanMatKhau.Text = "Xác nhận mật khẩu mới:";
             // 
-            // label8
+            // lblMatKhauMoi
             // 
-            label8.AutoSize = true;
-            label8.Location = new Point(58, 138);
-            label8.Name = "label8";
-            label8.Size = new Size(122, 23);
-            label8.TabIndex = 1;
-            label8.Text = "Mật khẩu mới:";
+            lblMatKhauMoi.AutoSize = true;
+            lblMatKhauMoi.Location = new Point(58, 138);
+            lblMatKhauMoi.Name = "lblMatKhauMoi";
+            lblMatKhauMoi.Size = new Size(122, 23);
+            lblMatKhauMoi.TabIndex = 1;
+            lblMatKhauMoi.Text = "Mật khẩu mới:";
             // 
-            // label7
+            // lblMatKhauCu
             // 
-            label7.AutoSize = true;
-            label7.Location = new Point(58, 69);
-            label7.Name = "label7";
-            label7.Size = new Size(111, 23);
-            label7.TabIndex = 0;
-            label7.Text = "Mật khẩu cũ:";
+            lblMatKhauCu.AutoSize = true;
+            lblMatKhauCu.Location = new Point(58, 69);
+            lblMatKhauCu.Name = "lblMatKhauCu";
+            lblMatKhauCu.Size = new Size(111, 23);
+            lblMatKhauCu.TabIndex = 0;
+            lblMatKhauCu.Text = "Mật khẩu cũ:";
             // 
-            // label10
+            // lblTitle
             // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.ForeColor = Color.FromArgb(54, 54, 54);
-            label10.Location = new Point(636, 14);
-            label10.Name = "label10";
-            label10.Size = new Size(351, 38);
-            label10.TabIndex = 10;
-            label10.Text = "THÔNG TIN TÀI KHOẢN";
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.ForeColor = Color.FromArgb(54, 54, 54);
+            lblTitle.Location = new Point(636, 14);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(351, 38);
+            lblTitle.TabIndex = 10;
+            lblTitle.Text = "THÔNG TIN TÀI KHOẢN";
             // 
             // ucProfile
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(label10);
+            Controls.Add(lblTitle);
             Controls.Add(grpDoiMatKhau);
             Controls.Add(grpThongTin);
             Name = "ucProfile";
@@ -347,22 +347,22 @@
         private TextBox txtSoDienThoai;
         private TextBox txtTenDangNhap;
         private TextBox txtChucVu;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private Label label2;
-        private Label label1;
+        private Label lblVaiTro;
+        private Label lblTen;
+        private Label lblSDT;
+        private Label lblEmail;
+        private Label lblChucVu;
+        private Label lblHoTen;
         private GroupBox grpDoiMatKhau;
         private Button btnDoiMatKhau;
         private TextBox txtXacNhanMoi;
         private TextBox txtMatKhauMoi;
         private TextBox txtMatKhauCu;
-        private Label label9;
-        private Label label8;
-        private Label label7;
+        private Label lblXacNhanMatKhau;
+        private Label lblMatKhauMoi;
+        private Label lblMatKhauCu;
         private Button btnLamMoi;
-        private Label label10;
+        private Label lblTitle;
         //private TextBox txtHoTen;
     }
 }

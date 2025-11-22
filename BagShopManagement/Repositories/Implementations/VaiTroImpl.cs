@@ -13,74 +13,73 @@ namespace BagShopManagement.Repositories.Implementations
 {
     public class VaiTroImpl : BaseRepository, IVaiTroRepository
     {
-        private readonly string _connectionString;
-
-        public VaiTroImpl()
-        {
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            if (string.IsNullOrEmpty(_connectionString))
-            {
-                throw new ConfigurationErrorsException("Không tìm thấy chuỗi kết nối 'MyConnectionString' trong file App.config.");
-            }
-        }
+        // Không cần Constructor đọc chuỗi kết nối nữa, BaseRepository đã lo.
 
         /// <summary>
-        /// Hàm helper để chuyển đổi IDataRecord (từ SqlDataReader) thành VaiTro.
+        /// Hàm helper chuyển đổi DataRow thành object VaiTro
         /// </summary>
-        private VaiTro MapToVaiTro(IDataRecord reader)
+        private VaiTro MapToVaiTro(DataRow row)
         {
             return new VaiTro
             {
-                MaVaiTro = reader["MaVaiTro"].ToString(),
-                TenVaiTro = reader["TenVaiTro"].ToString(),
-                MoTa = reader["MoTa"] != DBNull.Value ? reader["MoTa"].ToString() : null
+                MaVaiTro = row["MaVaiTro"].ToString(),
+                TenVaiTro = row["TenVaiTro"].ToString(),
+                // Kiểm tra null an toàn cho cột MoTa
+                MoTa = row["MoTa"] != DBNull.Value ? row["MoTa"].ToString() : null
             };
         }
 
         public VaiTro GetById(string maVaiTro)
         {
-            string sql = "SELECT * FROM VaiTro WHERE MaVaiTro = @MaVaiTro";
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@MaVaiTro", maVaiTro);
+            string query = "SELECT * FROM VaiTro WHERE MaVaiTro = @MaVaiTro";
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            return reader.Read() ? MapToVaiTro(reader) : null;
+            // Sử dụng ExecuteQuery từ BaseRepository
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@MaVaiTro", SqlDbType.VarChar) { Value = maVaiTro }
+            };
+
+            DataTable dt = ExecuteQuery(query, parameters);
+
+            if (dt.Rows.Count > 0)
+            {
+                return MapToVaiTro(dt.Rows[0]);
+            }
+
+            return null;
         }
 
         public List<VaiTro> GetAll()
         {
             var list = new List<VaiTro>();
-            string sql = "SELECT * FROM VaiTro";
+            string query = "SELECT * FROM VaiTro";
 
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
+            // Sử dụng ExecuteQuery từ BaseRepository
+            DataTable dt = ExecuteQuery(query);
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            foreach (DataRow row in dt.Rows)
             {
-                list.Add(MapToVaiTro(reader));
+                list.Add(MapToVaiTro(row));
             }
+
             return list;
         }
 
         public bool Add(VaiTro vaiTro)
         {
-            string sql = @"
-                INSERT INTO VaiTro (MaVaiTro, TenVaiTro, MoTa)
-                VALUES (@MaVaiTro, @TenVaiTro, @MoTa)";
+            string query = @"INSERT INTO VaiTro (MaVaiTro, TenVaiTro, MoTa)
+                             VALUES (@MaVaiTro, @TenVaiTro, @MoTa)";
 
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
+            // Sử dụng ExecuteNonQuery từ BaseRepository
+            SqlParameter[] parameters =
+            {
+                new SqlParameter("@MaVaiTro", SqlDbType.VarChar) { Value = vaiTro.MaVaiTro },
+                new SqlParameter("@TenVaiTro", SqlDbType.NVarChar) { Value = vaiTro.TenVaiTro },
+                // Xử lý null cho tham số
+                new SqlParameter("@MoTa", SqlDbType.NVarChar) { Value = (object)vaiTro.MoTa ?? DBNull.Value }
+            };
 
-            cmd.Parameters.AddWithValue("@MaVaiTro", vaiTro.MaVaiTro);
-            cmd.Parameters.AddWithValue("@TenVaiTro", vaiTro.TenVaiTro);
-            cmd.Parameters.AddWithValue("@MoTa", (object)vaiTro.MoTa ?? DBNull.Value);
-
-            conn.Open();
-            int rowsAffected = cmd.ExecuteNonQuery();
+            int rowsAffected = ExecuteNonQuery(query, parameters);
             return rowsAffected > 0;
         }
     }

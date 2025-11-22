@@ -13,36 +13,22 @@ namespace BagShopManagement.Repositories.Implementations
 {
     public class QuyenImpl : BaseRepository, IQuyenRepository
     {
-        private readonly string _connectionString;
-
-        public QuyenImpl()
-        {
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
-            if (string.IsNullOrEmpty(_connectionString))
-            {
-                throw new ConfigurationErrorsException("Không tìm thấy chuỗi kết nối 'MyConnectionString' trong file App.config.");
-            }
-        }
-
-        /// <summary>
-        /// Hàm helper để chuyển đổi IDataRecord (từ SqlDataReader) thành Quyen.
-        /// </summary>
-        private Quyen MapToQuyen(IDataRecord reader)
+        // Helper map dữ liệu từ DataRow
+        private Quyen MapToQuyen(DataRow row)
         {
             return new Quyen
             {
-                MaQuyen = reader["MaQuyen"].ToString(),
-                TenQuyen = reader["TenQuyen"].ToString(),
-                MoTa = reader["MoTa"] != DBNull.Value ? reader["MoTa"].ToString() : null
+                MaQuyen = row["MaQuyen"].ToString(),
+                TenQuyen = row["TenQuyen"].ToString(),
+                // Kiểm tra DBNull an toàn
+                MoTa = row["MoTa"] != DBNull.Value ? row["MoTa"].ToString() : null
             };
         }
 
-        /// <summary>
-        /// Lấy danh sách quyền dựa trên MaVaiTro, yêu cầu JOIN 2 bảng.
-        /// </summary>
         public List<Quyen> GetQuyenByMaVaiTro(string maVaiTro)
         {
             var list = new List<Quyen>();
+
             // Câu lệnh SQL JOIN bảng Quyen và bảng VaiTro_Quyen
             string sql = @"
                 SELECT Q.MaQuyen, Q.TenQuyen, Q.MoTa
@@ -50,16 +36,19 @@ namespace BagShopManagement.Repositories.Implementations
                 INNER JOIN VaiTro_Quyen AS VTQ ON Q.MaQuyen = VTQ.MaQuyen
                 WHERE VTQ.MaVaiTro = @MaVaiTro";
 
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@MaVaiTro", maVaiTro);
-
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            SqlParameter[] parameters =
             {
-                list.Add(MapToQuyen(reader));
+                new SqlParameter("@MaVaiTro", maVaiTro)
+            };
+
+            // Gọi hàm từ BaseRepository
+            DataTable dt = ExecuteQuery(sql, parameters);
+
+            foreach (DataRow row in dt.Rows)
+            {
+                list.Add(MapToQuyen(row));
             }
+
             return list;
         }
 
@@ -68,15 +57,14 @@ namespace BagShopManagement.Repositories.Implementations
             var list = new List<Quyen>();
             string sql = "SELECT * FROM Quyen";
 
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
+            // Gọi hàm từ BaseRepository
+            DataTable dt = ExecuteQuery(sql);
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            foreach (DataRow row in dt.Rows)
             {
-                list.Add(MapToQuyen(reader));
+                list.Add(MapToQuyen(row));
             }
+
             return list;
         }
     }
