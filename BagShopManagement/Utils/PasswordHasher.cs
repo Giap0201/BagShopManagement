@@ -48,8 +48,6 @@ namespace BagShopManagement.Utils
             // Băm mật khẩu người dùng nhập vào
             string hashOfInput = Hash(password);
 
-            MessageBox.Show($"Hash of input: {hashOfInput}\nStored hash: {hashedPassword}");
-
             // So sánh (không phân biệt chữ hoa/thường) chuỗi hash vừa tạo với chuỗi hash trong DB
             return StringComparer.OrdinalIgnoreCase.Compare(hashOfInput, hashedPassword) == 0;
         }

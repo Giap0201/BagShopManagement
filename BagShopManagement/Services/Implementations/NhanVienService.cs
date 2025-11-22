@@ -18,9 +18,6 @@ namespace BagShopManagement.Services.Implementations
     {
         private readonly INhanVienRepository _nhanVienRepo;
         private readonly ITaiKhoanRepository _taiKhoanRepo;
-        // IVaiTroRepository không cần thiết ở đây vì NhanVienImpl đã JOIN sẵn
-
-        private readonly string _connectionString;
 
         public NhanVienService(
             INhanVienRepository nhanVienRepo,
@@ -28,32 +25,25 @@ namespace BagShopManagement.Services.Implementations
         {
             _nhanVienRepo = nhanVienRepo;
             _taiKhoanRepo = taiKhoanRepo;
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"].ConnectionString;
         }
 
-        /// <summary>
-        /// Lấy danh sách nhân viên (đã JOIN) để hiển thị.
-        /// </summary>
-        public IEnumerable<NhanVienResponse> GetAllNhanVien()
+        public List<NhanVienResponse> GetAllNhanVien()
         {
-            // Đã tối ưu ở NhanVienImpl, chỉ cần gọi 1 phương thức
+            // Repository đã trả về List<NhanVienResponse>, không cần cast
             return _nhanVienRepo.GetAllForDisplay();
         }
 
-        /// <summary>
-        /// [TRANSACTION] Tạo mới Nhân viên và Tài khoản.
-        /// </summary>
         public bool CreateNhanVien(CreateNhanVienRequest request)
         {
-            // 1. Kiểm tra nghiệp vụ
+            // 1. Validate nghiệp vụ
             if (_taiKhoanRepo.ExistsByTenDangNhap(request.TenDangNhap))
             {
                 throw new Exception($"Tên đăng nhập '{request.TenDangNhap}' đã tồn tại.");
             }
 
             // 2. Chuẩn bị dữ liệu
-            string maNV = _nhanVienRepo.GetNextMaNV(); // Lấy mã NV mới
-            string hashedPassword = PasswordHasher.Hash(request.MatKhau); // Băm mật khẩu
+            string maNV = _nhanVienRepo.GetNextMaNV();
+            string hashedPassword = PasswordHasher.Hash(request.MatKhau);
 
             var nhanVien = new NhanVien
             {
@@ -74,102 +64,69 @@ namespace BagShopManagement.Services.Implementations
                 TrangThai = request.TrangThaiTK
             };
 
-            // 3. Quản lý Transaction
-            // Service sẽ tự mở connection và tạo transaction
-            using (var conn = new SqlConnection(_connectionString))
+            try
             {
-                conn.Open();
-                using (var tran = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        // Truyền conn và tran xuống Repository
-                        _nhanVienRepo.Add(nhanVien, conn, tran);
-                        _taiKhoanRepo.Add(taiKhoan, conn, tran);
+                // 3. Gọi Repository (Tuần tự, không Transaction thủ công)
+                _nhanVienRepo.Add(nhanVien);
+                _taiKhoanRepo.Add(taiKhoan);
 
-                        // Nếu cả 2 thành công
-                        tran.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        // Nếu 1 trong 2 lỗi, hủy bỏ tất cả
-                        tran.Rollback();
-                        // Ném lỗi ra ngoài để Controller xử lý
-                        throw new Exception("Tạo nhân viên thất bại. Dữ liệu đã được hoàn tác. Lỗi: " + ex.Message);
-                    }
-                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Tạo nhân viên thất bại: " + ex.Message);
             }
         }
 
-        /// <summary>
-        /// [TRANSACTION] Cập nhật Nhân viên và Tài khoản.
-        /// </summary>
         public bool UpdateNhanVien(UpdateNhanVienRequest request)
         {
-            // 1. Chuẩn bị dữ liệu
-            var nhanVien = new NhanVien
-            {
-                MaNV = request.MaNV,
-                HoTen = request.HoTen,
-                ChucVu = request.ChucVu,
-                SoDienThoai = request.SoDienThoai,
-                Email = request.Email,
-                // NgayVaoLam không cập nhật
-            };
-
-            // Lấy Tên đăng nhập từ MaNV để cập nhật đúng TaiKhoan
+            // 1. Tìm tài khoản cũ để lấy TenDangNhap
             var existingTaiKhoan = _taiKhoanRepo.GetByMaNV(request.MaNV);
             if (existingTaiKhoan == null)
             {
                 throw new Exception($"Lỗi dữ liệu: Không tìm thấy tài khoản cho Mã NV {request.MaNV}");
             }
 
+            // 2. Chuẩn bị dữ liệu update
+            var nhanVien = new NhanVien
+            {
+                MaNV = request.MaNV,
+                HoTen = request.HoTen,
+                ChucVu = request.ChucVu,
+                SoDienThoai = request.SoDienThoai,
+                Email = request.Email
+            };
+
             var taiKhoan = new TaiKhoan
             {
                 TenDangNhap = existingTaiKhoan.TenDangNhap, // Key để update
                 MaVaiTro = request.MaVaiTro,
-                TrangThai = request.TrangThaiTK
-                // MatKhau và MaNV không cập nhật ở đây
+                TrangThai = request.TrangThaiTK,
+                MaNV = request.MaNV
             };
 
-            // 2. Quản lý Transaction
-            using (var conn = new SqlConnection(_connectionString))
+            try
             {
-                conn.Open();
-                using (var tran = conn.BeginTransaction())
-                {
-                    try
-                    {
-                        // Truyền conn và tran xuống Repository
-                        _nhanVienRepo.Update(nhanVien, conn, tran);
-                        _taiKhoanRepo.Update(taiKhoan, conn, tran); // Update TaiKhoan bằng TenDangNhap
+                // 3. Gọi Repository cập nhật
+                _nhanVienRepo.Update(nhanVien);
+                _taiKhoanRepo.Update(taiKhoan);
 
-                        // Nếu cả 2 thành công
-                        tran.Commit();
-                        return true;
-                    }
-                    catch (Exception ex)
-                    {
-                        // Nếu 1 trong 2 lỗi, hủy bỏ tất cả
-                        tran.Rollback();
-                        throw new Exception("Cập nhật nhân viên thất bại. Dữ liệu đã được hoàn tác. Lỗi: " + ex.Message);
-                    }
-                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cập nhật nhân viên thất bại: " + ex.Message);
             }
         }
-        public IEnumerable<NhanVienResponse> SearchNhanVien(string keyword)
+
+        public List<NhanVienResponse> SearchNhanVien(string keyword)
         {
-            // Nếu người dùng không nhập gì (hoặc xóa hết) và bấm tìm
-            // thì trả về toàn bộ danh sách
             if (string.IsNullOrWhiteSpace(keyword))
             {
                 return GetAllNhanVien();
             }
 
-            // Thêm ký tự '%' để tìm kiếm (LIKE %keyword%)
             string formattedKeyword = $"%{keyword.Trim()}%";
-
             return _nhanVienRepo.Search(formattedKeyword);
         }
     }
