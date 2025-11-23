@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            label1 = new Label();
+            lblTitle = new Label();
             txtTenDangNhap = new TextBox();
             txtGuiYeuCau = new Button();
             btnHuy = new Button();
             SuspendLayout();
             // 
-            // label1
+            // lblTitle
             // 
-            label1.AutoSize = true;
-            label1.Font = new Font("Segoe UI", 10.2F);
-            label1.Location = new Point(22, 86);
-            label1.Name = "label1";
-            label1.Size = new Size(349, 23);
-            label1.TabIndex = 0;
-            label1.Text = "Nhập tên đăng nhập của bạn để khôi phục: ";
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 10.2F);
+            lblTitle.Location = new Point(22, 86);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(349, 23);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Nhập tên đăng nhập của bạn để khôi phục: ";
             // 
             // txtTenDangNhap
             // 
@@ -92,7 +92,7 @@
             Controls.Add(btnHuy);
             Controls.Add(txtGuiYeuCau);
             Controls.Add(txtTenDangNhap);
-            Controls.Add(label1);
+            Controls.Add(lblTitle);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Name = "ForgotPasswordForm";
             StartPosition = FormStartPosition.CenterParent;
@@ -103,7 +103,7 @@
 
         #endregion
 
-        private Label label1;
+        private Label lblTitle;
         private TextBox txtTenDangNhap;
         private Button txtGuiYeuCau;
         private Button btnHuy;

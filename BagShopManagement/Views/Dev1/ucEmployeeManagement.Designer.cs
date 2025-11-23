@@ -36,11 +36,11 @@
             btnThem = new Button();
             btnLamMoi = new Button();
             dgvNhanVien = new DataGridView();
-            label1 = new Label();
-            panel1 = new Panel();
+            lblTitle = new Label();
+            pnlContainer = new Panel();
             pnlToolbar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvNhanVien).BeginInit();
-            panel1.SuspendLayout();
+            pnlContainer.SuspendLayout();
             SuspendLayout();
             // 
             // pnlToolbar
@@ -159,41 +159,41 @@
             dgvNhanVien.TabIndex = 2;
             dgvNhanVien.CellFormatting += dgvNhanVien_CellFormatting;
             // 
-            // label1
+            // lblTitle
             // 
-            label1.Dock = DockStyle.Top;
-            label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(0, 0);
-            label1.Name = "label1";
-            label1.Size = new Size(985, 101);
-            label1.TabIndex = 6;
-            label1.Text = "DANH SÁCH NHÂN VIÊN";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            lblTitle.Dock = DockStyle.Top;
+            lblTitle.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitle.Location = new Point(0, 0);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(985, 101);
+            lblTitle.TabIndex = 6;
+            lblTitle.Text = "DANH SÁCH NHÂN VIÊN";
+            lblTitle.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel1
+            // pnlContainer
             // 
-            panel1.Controls.Add(dgvNhanVien);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 267);
-            panel1.Name = "panel1";
-            panel1.Padding = new Padding(30);
-            panel1.Size = new Size(985, 353);
-            panel1.TabIndex = 7;
+            pnlContainer.Controls.Add(dgvNhanVien);
+            pnlContainer.Dock = DockStyle.Fill;
+            pnlContainer.Location = new Point(0, 267);
+            pnlContainer.Name = "pnlContainer";
+            pnlContainer.Padding = new Padding(30);
+            pnlContainer.Size = new Size(985, 353);
+            pnlContainer.TabIndex = 7;
             // 
             // ucEmployeeManagement
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(panel1);
+            Controls.Add(pnlContainer);
             Controls.Add(pnlToolbar);
-            Controls.Add(label1);
+            Controls.Add(lblTitle);
             Name = "ucEmployeeManagement";
             Size = new Size(985, 620);
             Load += ucEmployeeManagement_Load;
             pnlToolbar.ResumeLayout(false);
             pnlToolbar.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvNhanVien).EndInit();
-            panel1.ResumeLayout(false);
+            pnlContainer.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -206,7 +206,7 @@
         private Button btnThem;
         private Button btnLamMoi;
         private DataGridView dgvNhanVien;
-        private Label label1;
-        private Panel panel1;
+        private Label lblTitle;
+        private Panel pnlContainer;
     }
 }
