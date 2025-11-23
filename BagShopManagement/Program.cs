@@ -148,12 +148,6 @@ namespace BagShopManagement
             services.AddTransient<NhaCungCapController>();
             services.AddTransient<POSController>();
             services.AddTransient<HoaDonBanController>();
-            services.AddTransient<ChatLieuController>();
-            services.AddTransient<KichThuocController>();
-            services.AddTransient<LoaiTuiController>();
-            services.AddTransient<MauSacController>();
-            services.AddTransient<SanPhamController>();
-            services.AddTransient<ThuongHieuController>();
 
             // === Đăng ký Controllers - Dev1 (Bổ sung) ===
             services.AddTransient<LoginController>();

@@ -1,5 +1,4 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Services.Interfaces;
 using OfficeOpenXml;
 using System;
@@ -12,14 +11,14 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class LoaiTuiControl : UserControl
     {
-        private readonly LoaiTuiController _controller;
+        private readonly ILoaiTuiService _service;
 
         // Inject Controller (đã có sẵn Service bên trong)
-        public LoaiTuiControl(LoaiTuiController controller)
+        public LoaiTuiControl(ILoaiTuiService service)
         {
             InitializeComponent();
 
-            _controller = controller;
+            _service = service;
 
             // Wire events an toàn
             this.Load += LoaiTuiControl_Load;
@@ -64,7 +63,7 @@ namespace BagShopManagement.Views.Dev2
         {
             try
             {
-                dgvLoaiTui.DataSource = _controller.GetAll();
+                dgvLoaiTui.DataSource = _service.GetAll();
             }
             catch (Exception ex)
             {
@@ -81,7 +80,7 @@ namespace BagShopManagement.Views.Dev2
             {
                 try
                 {
-                    dgvLoaiTui.DataSource = _controller.Search(kw);
+                    dgvLoaiTui.DataSource = _service.Search(kw);
                 }
                 catch (Exception ex)
                 {
@@ -92,7 +91,7 @@ namespace BagShopManagement.Views.Dev2
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var f = new LoaiTuiEditForm(_controller))
+            using (var f = new LoaiTuiEditForm(_service))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -105,7 +104,7 @@ namespace BagShopManagement.Views.Dev2
             var model = dgvLoaiTui.CurrentRow.DataBoundItem as DanhMucLoaiTui;
             if (model == null) return;
 
-            using (var f = new LoaiTuiEditForm(_controller, model))
+            using (var f = new LoaiTuiEditForm(_service, model))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -122,7 +121,7 @@ namespace BagShopManagement.Views.Dev2
             {
                 try
                 {
-                    var ok = _controller.Delete(model.MaLoaiTui);
+                    var ok = _service.Delete(model.MaLoaiTui);
                     if (ok) LoadData();
                     else MessageBox.Show("Xóa thất bại. Bản ghi có thể đang được tham chiếu.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
@@ -139,7 +138,7 @@ namespace BagShopManagement.Views.Dev2
             var model = dgvLoaiTui.Rows[e.RowIndex].DataBoundItem as DanhMucLoaiTui;
             if (model == null) return;
 
-            using (var f = new LoaiTuiEditForm(_controller, model))
+            using (var f = new LoaiTuiEditForm(_service, model))
             {
                 if (f.ShowDialog() == DialogResult.OK) LoadData();
             }
@@ -196,7 +195,7 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                var existingList = _controller.GetAll() ?? new List<DanhMucLoaiTui>();
+                var existingList = _service.GetAll() ?? new List<DanhMucLoaiTui>();
                 int inserted = 0, updated = 0, skipped = 0;
 
                 for (int r = headerRow + 1; r <= lastRow; r++)
@@ -229,18 +228,18 @@ namespace BagShopManagement.Views.Dev2
                     {
                         existing.TenLoaiTui = ten;
                         existing.MoTa = mota;
-                        if (_controller.Update(existing)) updated++; else skipped++;
+                        if (_service.Update(existing)) updated++; else skipped++;
                     }
                     else
                     {
                         // Thêm mới
                         var newItem = new DanhMucLoaiTui
                         {
-                            MaLoaiTui = _controller.GenerateNextCode(),
+                            MaLoaiTui = _service.GenerateNextCode(),
                             TenLoaiTui = ten,
                             MoTa = mota
                         };
-                        if (_controller.Add(newItem))
+                        if (_service.Add(newItem))
                         {
                             inserted++;
                             existingList.Add(newItem);
@@ -271,7 +270,7 @@ namespace BagShopManagement.Views.Dev2
                 };
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
-                var list = (dgvLoaiTui.DataSource as List<DanhMucLoaiTui>) ?? _controller.GetAll();
+                var list = (dgvLoaiTui.DataSource as List<DanhMucLoaiTui>) ?? _service.GetAll();
                 if (list == null || list.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo");

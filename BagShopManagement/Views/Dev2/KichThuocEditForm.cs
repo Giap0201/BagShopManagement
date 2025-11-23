@@ -1,5 +1,5 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Services.Interfaces;
 using System;
 using System.Globalization;
 using System.Windows.Forms;
@@ -8,14 +8,14 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class KichThuocEditForm : Form
     {
-        private readonly KichThuocController _controller;
+        private readonly IKichThuocService _service;
         private readonly KichThuoc _model;
         private readonly bool _isEdit;
 
-        public KichThuocEditForm(KichThuocController controller, KichThuoc model = null)
+        public KichThuocEditForm(IKichThuocService service, KichThuoc model = null)
         {
             InitializeComponent();
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _model = model;
             _isEdit = model != null;
 
@@ -38,7 +38,7 @@ namespace BagShopManagement.Views.Dev2
             }
             else
             {
-                try { txtMa.Text = _controller.GenerateNextCode(); }
+                try { txtMa.Text = _service.GenerateNextCode(); }
                 catch { txtMa.Text = "KT001"; }
 
                 txtMa.ReadOnly = true;
@@ -69,7 +69,7 @@ namespace BagShopManagement.Views.Dev2
             bool ok;
             try
             {
-                ok = _isEdit ? _controller.Update(obj) : _controller.Add(obj);
+                ok = _isEdit ? _service.Update(obj) : _service.Add(obj);
             }
             catch (Exception ex)
             {
