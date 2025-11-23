@@ -46,6 +46,13 @@ namespace BagShopManagement.Views.Controls
                 // Bật lại sự kiện
                 dgvDanhSachCTGG.SelectionChanged += DgvDanhSachCTGG_SelectionChanged;
 
+                dgvDanhSachCTGG.Columns["MaCTGG"].HeaderText = "Mã CTGG";
+                dgvDanhSachCTGG.Columns["TenChuongTrinh"].HeaderText = "Tên chương trình";
+                dgvDanhSachCTGG.Columns["MoTa"].HeaderText = "Mô tả";
+                dgvDanhSachCTGG.Columns["NgayBatDau"].HeaderText = "Ngày bắt đầu";
+                dgvDanhSachCTGG.Columns["NgayKetThuc"].HeaderText = "Ngày kết thúc";
+                dgvDanhSachCTGG.Columns["TrangThai"].HeaderText = "Trạng thái";
+
                 ClearInputs();
             }
             catch (Exception ex)
@@ -139,7 +146,7 @@ namespace BagShopManagement.Views.Controls
                 return;
             }
 
-           
+
 
             string maCanXoa = txtMaCTGG.Text;
             string tenCanXoa = txtTenCT.Text;
@@ -183,5 +190,6 @@ namespace BagShopManagement.Views.Controls
             cmbTrangThai.DisplayMember = "DisplayText";
             cmbTrangThai.ValueMember = "Value";
         }
+
     }
 }
