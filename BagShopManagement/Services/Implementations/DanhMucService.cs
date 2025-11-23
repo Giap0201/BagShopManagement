@@ -21,10 +21,5 @@ namespace BagShopManagement.Services.Implementations
 
         public DataTable GetAll(string tableName) => _repo.GetAll(tableName);
 
-        public int ImportFromExcel(ExcelWorksheet ws, string tableName)
-        {
-            return _repo.ImportFromExcel(ws, tableName);
-        }
-
     }
 }
