@@ -3,6 +3,7 @@ using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
+using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -15,19 +16,19 @@ namespace BagShopManagement.Views.Dev6
 {
     public partial class ucHoaDonNhapList : UserControl
     {
-        private readonly HoaDonNhapController _controller;
         private readonly INhaCungCapRepository _nccRepo;
         private readonly INhanVienRepository _nvRepo;
         private readonly IServiceProvider _provider;
+        private readonly IHoaDonNhapService _service;
 
         public ucHoaDonNhapList(
-            HoaDonNhapController controller,
+           IHoaDonNhapService service,
             INhaCungCapRepository nccRepo,
             INhanVienRepository nvRepo,
             IServiceProvider provider)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
             _nccRepo = nccRepo;
             _nvRepo = nvRepo;
             _provider = provider;
@@ -49,13 +50,11 @@ namespace BagShopManagement.Views.Dev6
             }
         }
 
-        #region === LOAD DATA ===
-
         public void LoadData()
         {
             try
             {
-                var danhSach = _controller.LayDanhSachHoaDon();
+                var danhSach = _service.GetAllHoaDonNhap();
                 foreach (var hd in danhSach)
                 {
                     if (!hd.NgayDuyet.HasValue) hd.NgayDuyet = null;
@@ -142,7 +141,7 @@ namespace BagShopManagement.Views.Dev6
         {
             try
             {
-                var list = _controller.GetAll();
+                var list = _service.GetAll();
                 list.Insert(0, new HoaDonNhap { MaHDN = "--Tất cả--" });
                 cmbSearchMaHDN.DataSource = list;
                 cmbSearchMaHDN.DisplayMember = "MaHDN";
@@ -191,10 +190,6 @@ namespace BagShopManagement.Views.Dev6
             }
         }
 
-        #endregion === LOAD DATA ===
-
-        #region === UI/SELECTION ===
-
         private void dgvDanhSach_SelectionChanged(object sender, EventArgs e)
         {
             if (dgvDanhSach.CurrentRow?.DataBoundItem is HoaDonNhapResponse item)
@@ -236,10 +231,6 @@ namespace BagShopManagement.Views.Dev6
             dtpDenNgay.Checked = false;
         }
 
-        #endregion === UI/SELECTION ===
-
-        #region === BUTTON HANDLER ===
-
         private void btnThem_Click(object sender, EventArgs e)
         {
             var uc = _provider.GetRequiredService<ucThemHDN>();
@@ -264,7 +255,7 @@ namespace BagShopManagement.Views.Dev6
             if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item) return;
             try
             {
-                var full = _controller.LayChiTietHoaDon(item.MaHDN);
+                var full = _service.GetHoaDonNhapDetail(item.MaHDN);
                 if (full == null)
                 {
                     MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -285,7 +276,7 @@ namespace BagShopManagement.Views.Dev6
             if (dgvDanhSach.CurrentRow?.DataBoundItem is not HoaDonNhapResponse item) return;
             try
             {
-                var full = _controller.LayChiTietHoaDon(item.MaHDN);
+                var full = _service.GetHoaDonNhapDetail(item.MaHDN);
                 if (full == null)
                 {
                     MessageBox.Show("Không tìm thấy hoá đơn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -311,7 +302,7 @@ namespace BagShopManagement.Views.Dev6
             {
                 try
                 {
-                    _controller.HuyHoaDon(item.MaHDN);
+                    _service.CancelHoaDonNhap(item.MaHDN);
                     MessageBox.Show("Đã hủy thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData();
                 }
@@ -326,7 +317,7 @@ namespace BagShopManagement.Views.Dev6
             {
                 try
                 {
-                    _controller.DuyetHoaDon(item.MaHDN);
+                    _service.ApproveHoaDonNhap(item.MaHDN);
                     MessageBox.Show("Duyệt thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     LoadData();
                 }
@@ -345,7 +336,7 @@ namespace BagShopManagement.Views.Dev6
                 DateTime? tuNgay = dtpTuNgay.Checked ? dtpTuNgay.Value.Date : null;
                 DateTime? denNgay = dtpDenNgay.Checked ? dtpDenNgay.Value.Date : null;
 
-                var ds = _controller.TimKiemHoaDon(ma, tuNgay, denNgay, maNCC, maNV,
+                var ds = _service.Search(ma, tuNgay, denNgay, maNCC, maNV,
                     tt.HasValue ? (TrangThaiHoaDonNhap?)tt.Value : null);
 
                 dgvDanhSach.DataSource = ds;
@@ -366,8 +357,6 @@ namespace BagShopManagement.Views.Dev6
                 cmbSearchMaHDN.Text = dgvDanhSach.Rows[e.RowIndex].Cells["MaHDN"].Value.ToString();
         }
 
-        #endregion === BUTTON HANDLER ===
-
         // IN 1 PHIẾU NHẬP
         private void btnInHoaDon_Click(object sender, EventArgs e)
         {
@@ -379,7 +368,7 @@ namespace BagShopManagement.Views.Dev6
 
             try
             {
-                var hd = _controller.LayChiTietHoaDon(item.MaHDN);
+                var hd = _service.GetHoaDonNhapDetail(item.MaHDN);
                 if (hd == null || hd.ChiTiet == null || !hd.ChiTiet.Any())
                 {
                     MessageBox.Show("Hóa đơn trống, không thể in!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);

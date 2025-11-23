@@ -11,12 +11,13 @@ namespace BagShopManagement.Views.Dev3
         private readonly KhachHang _khachHang;
         private readonly bool _isEdit;
 
-        public ThemKhachHangForm2(KhachHangController controller, KhachHang kh = null)
+        public ThemKhachHangForm2(KhachHangController controller, KhachHang kh = null, string soDienThoaiMacDinh = null)
         {
             InitializeComponent();
             _controller = controller;
             _khachHang = kh;
             _isEdit = kh != null;
+            this.StartPosition = FormStartPosition.CenterParent;
 
             if (_isEdit)
             {
@@ -27,6 +28,31 @@ namespace BagShopManagement.Views.Dev3
             {
                 this.Text = "Thêm khách hàng mới";
                 txtMaKH.Text = _controller.GenerateNextCode();
+
+                // Tự động điền số điện thoại nếu có
+                if (!string.IsNullOrWhiteSpace(soDienThoaiMacDinh))
+                {
+                    txtSoDienThoai.Text = soDienThoaiMacDinh;
+                }
+            }
+        }
+        private void ThemKhachHangForm2_load (object sender, EventArgs e)
+        {
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox)
+                {
+                    c.KeyDown += MoveNextOnEnter;
+                }
+            }
+        }
+
+        private void MoveNextOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                this.SelectNextControl((Control)sender, true, true, true, true);
             }
         }
 
@@ -97,12 +123,12 @@ namespace BagShopManagement.Views.Dev3
 
             var kh = new KhachHang
             {
-                MaKH = _controller.GenerateNextCode(),
+                MaKH = txtMaKH.Text.Trim(),
                 SoDienThoai = soDienThoai,
                 HoTen = txtHoTen.Text.Trim(),
                 Email = email,
                 DiaChi = txtDiaChi.Text.Trim(),
-                DiemTichLuy = diemTichLuy 
+                DiemTichLuy = diemTichLuy
             };
 
             bool success;

@@ -13,17 +13,21 @@ namespace BagShopManagement.Services.Interfaces
         /// <summary>
         /// Lấy danh sách nhân viên (đã JOIN) để hiển thị.
         /// </summary>
-        IEnumerable<NhanVienResponse> GetAllNhanVien();
+        List<NhanVienResponse> GetAllNhanVien();
 
         /// <summary>
-        /// [TRANSACTION] Tạo mới Nhân viên và Tài khoản.
+        /// Tạo mới Nhân viên và Tài khoản.
         /// </summary>
         bool CreateNhanVien(CreateNhanVienRequest request);
 
         /// <summary>
-        /// [TRANSACTION] Cập nhật Nhân viên và Tài khoản.
+        /// Cập nhật Nhân viên và Tài khoản.
         /// </summary>
         bool UpdateNhanVien(UpdateNhanVienRequest request);
-        IEnumerable<NhanVienResponse> SearchNhanVien(string keyword);
+
+        /// <summary>
+        /// Tìm kiếm nhân viên.
+        /// </summary>
+        List<NhanVienResponse> SearchNhanVien(string keyword);
     }
 }

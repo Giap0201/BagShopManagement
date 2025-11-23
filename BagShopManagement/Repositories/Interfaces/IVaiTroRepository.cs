@@ -22,6 +22,11 @@ namespace BagShopManagement.Repositories.Interfaces
         /// <returns>Danh sách các vai trò.</returns>
         List<VaiTro> GetAll();
 
+        /// <summary>
+        /// Thêm mới một vai trò.
+        /// </summary>
+        /// <param name="vaiTro">Đối tượng vai trò.</param>
+        /// <returns>True nếu thêm thành công.</returns>
         bool Add(VaiTro vaiTro);
     }
 }

@@ -1,4 +1,6 @@
 ﻿using BagShopManagement.Controllers;
+using BagShopManagement.Services.Implementations;
+using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
 using System;
 using System.Data;
@@ -11,14 +13,14 @@ namespace BagShopManagement.Views.Dev6
 {
     public partial class ucBaoCaoThongKe : UserControl
     {
-        private readonly BaoCaoController _controller;
         private DataTable _currentData;
         private string _currentReportType = "doanhthu";
+        private readonly IBaoCaoService _service;
 
-        public ucBaoCaoThongKe(BaoCaoController controller)
+        public ucBaoCaoThongKe(IBaoCaoService service)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
         }
 
         private void ucBaoCaoThongKe_Load(object sender, EventArgs e)
@@ -83,13 +85,13 @@ namespace BagShopManagement.Views.Dev6
                 DateTime toDate = dtpDenNgay.Value.Date;
                 _currentData = _currentReportType switch
                 {
-                    "doanhthu" => _controller.LayBaoCaoDoanhThuTheoNgay(fromDate, toDate),
-                    "nhaphang" => _controller.LayBaoCaoNhapHang(fromDate, toDate),
-                    "tonkho" => _controller.LayBaoCaoTonKho(),
-                    "nhanvien" => _controller.LayBaoCaoDoanhThuTheoNhanVien(fromDate, toDate),
-                    "khachhang" => _controller.LayBaoCaoKhachHangThanThiet(10),
-                    "sanpham" => _controller.LayBaoCaoSanPhamBanChay(10, fromDate, toDate),
-                    "giamgia" => _controller.LayBaoCaoChuongTrinhGiamGia(),
+                    "doanhthu" => _service.LayBaoCaoDoanhThuTheoNgay(fromDate, toDate),
+                    "nhaphang" => _service.LayBaoCaoNhapHang(fromDate, toDate),
+                    "tonkho" => _service.LayBaoCaoTonKho(),
+                    "nhanvien" => _service.LayBaoCaoDoanhThuTheoNhanVien(fromDate, toDate),
+                    "khachhang" => _service.LayBaoCaoKhachHangThanThiet(10),
+                    "sanpham" => _service.LayBaoCaoSanPhamBanChay(10, fromDate, toDate),
+                    "giamgia" => _service.LayBaoCaoChuongTrinhGiamGia(),
                     _ => null
                 };
 

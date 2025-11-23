@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
@@ -14,143 +13,91 @@ namespace BagShopManagement.Repositories.Implementations
 {
     public class TaiKhoanImpl : BaseRepository, ITaiKhoanRepository
     {
-        private readonly string _connectionString;
-
-        public TaiKhoanImpl()
-        {
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"]?.ConnectionString;
-            if (string.IsNullOrEmpty(_connectionString))
-            {
-                throw new ConfigurationErrorsException("Không tìm thấy chuỗi kết nối 'MyConnectionString'.");
-            }
-        }
-
-        private TaiKhoan MapToTaiKhoan(IDataRecord reader)
+        // Helper map dữ liệu
+        private TaiKhoan MapToTaiKhoan(DataRow row)
         {
             return new TaiKhoan
             {
-                TenDangNhap = reader["TenDangNhap"].ToString(),
-                MatKhau = reader["MatKhau"].ToString(),
-                MaNV = reader["MaNV"] != DBNull.Value ? reader["MaNV"].ToString() : null,
-                MaVaiTro = reader["MaVaiTro"] != DBNull.Value ? reader["MaVaiTro"].ToString() : null,
-                TrangThai = Convert.ToBoolean(reader["TrangThai"])
+                TenDangNhap = row["TenDangNhap"].ToString(),
+                MatKhau = row["MatKhau"].ToString(),
+                // Kiểm tra DBNull
+                MaNV = row["MaNV"] != DBNull.Value ? row["MaNV"].ToString() : null,
+
+                // SỬA LỖI TẠI ĐÂY: Chuyển sang ToString() thay vì Convert.ToInt32()
+                // Vì Model TaiKhoan đang định nghĩa MaVaiTro là string
+                MaVaiTro = row["MaVaiTro"] != DBNull.Value ? row["MaVaiTro"].ToString() : null,
+
+                TrangThai = Convert.ToBoolean(row["TrangThai"])
             };
         }
 
         public TaiKhoan GetByTenDangNhap(string tenDangNhap)
         {
-            string sql = "SELECT * FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap";
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@TenDangNhap", tenDangNhap);
+            string query = "SELECT * FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap";
+            SqlParameter[] p = { new SqlParameter("@TenDangNhap", tenDangNhap) };
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            return reader.Read() ? MapToTaiKhoan(reader) : null;
+            DataTable dt = ExecuteQuery(query, p);
+            return dt.Rows.Count > 0 ? MapToTaiKhoan(dt.Rows[0]) : null;
         }
 
         public TaiKhoan GetByMaNV(string maNV)
         {
-            string sql = "SELECT * FROM TaiKhoan WHERE MaNV = @MaNV";
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@MaNV", maNV);
+            string query = "SELECT * FROM TaiKhoan WHERE MaNV = @MaNV";
+            SqlParameter[] p = { new SqlParameter("@MaNV", maNV) };
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            return reader.Read() ? MapToTaiKhoan(reader) : null;
+            DataTable dt = ExecuteQuery(query, p);
+            return dt.Rows.Count > 0 ? MapToTaiKhoan(dt.Rows[0]) : null;
         }
 
         public bool UpdatePassword(string tenDangNhap, string newHashedPassword)
         {
-            string sql = "UPDATE TaiKhoan SET MatKhau = @MatKhau WHERE TenDangNhap = @TenDangNhap";
-            int rowsAffected = ExecuteNonQuery(sql,
+            string query = "UPDATE TaiKhoan SET MatKhau = @MatKhau WHERE TenDangNhap = @TenDangNhap";
+            int rows = ExecuteNonQuery(query,
                 new SqlParameter("@MatKhau", newHashedPassword),
-                new SqlParameter("@TenDangNhap", tenDangNhap)
-            );
-            return rowsAffected > 0;
+                new SqlParameter("@TenDangNhap", tenDangNhap));
+            return rows > 0;
         }
 
         public bool ExistsByTenDangNhap(string tenDangNhap)
         {
-            string sql = "SELECT COUNT(1) FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap";
-            var result = ExecuteScalar(sql, new SqlParameter("@TenDangNhap", tenDangNhap));
-            return Convert.ToInt32(result) > 0;
+            string query = "SELECT COUNT(1) FROM TaiKhoan WHERE TenDangNhap = @TenDangNhap";
+            object result = ExecuteScalar(query, new SqlParameter("@TenDangNhap", tenDangNhap));
+            return result != null && Convert.ToInt32(result) > 0;
         }
 
-        // --- Phiên bản không transaction (tự quản lý connection) ---
         public void Add(TaiKhoan taiKhoan)
         {
-            using var conn = new SqlConnection(_connectionString);
-            conn.Open();
-            // Bắt đầu transaction cục bộ
-            using var tran = conn.BeginTransaction();
-            try
+            string query = @"INSERT INTO TaiKhoan (TenDangNhap, MatKhau, MaNV, MaVaiTro, TrangThai) 
+                             VALUES (@User, @Pass, @MaNV, @Role, @Status)";
+
+            SqlParameter[] parameters =
             {
-                Add(taiKhoan, conn, tran);
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
+                new SqlParameter("@User", taiKhoan.TenDangNhap),
+                new SqlParameter("@Pass", taiKhoan.MatKhau),
+                new SqlParameter("@MaNV", (object)taiKhoan.MaNV ?? DBNull.Value),
+                // MaVaiTro giờ là string, nên truyền trực tiếp hoặc DBNull nếu null
+                new SqlParameter("@Role", (object)taiKhoan.MaVaiTro ?? DBNull.Value),
+                new SqlParameter("@Status", taiKhoan.TrangThai)
+            };
+
+            ExecuteNonQuery(query, parameters);
         }
 
         public void Update(TaiKhoan taiKhoan)
         {
-            using var conn = new SqlConnection(_connectionString);
-            conn.Open();
-            // Bắt đầu transaction cục bộ
-            using var tran = conn.BeginTransaction();
-            try
+            string query = @"UPDATE TaiKhoan 
+                             SET MaVaiTro = @Role, TrangThai = @Status, MaNV = @MaNV
+                             WHERE TenDangNhap = @User";
+
+            SqlParameter[] parameters =
             {
-                Update(taiKhoan, conn, tran);
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
-        }
+                new SqlParameter("@Role", (object)taiKhoan.MaVaiTro ?? DBNull.Value),
+                new SqlParameter("@Status", taiKhoan.TrangThai),
+                new SqlParameter("@MaNV", (object)taiKhoan.MaNV ?? DBNull.Value),
+                new SqlParameter("@User", taiKhoan.TenDangNhap)
+            };
 
-
-        // --- PHIÊN BẢN TRANSACTION (dùng chung connection & transaction) ---
-
-        public void Add(TaiKhoan taiKhoan, SqlConnection conn, SqlTransaction tran)
-        {
-            string sql = @"
-                INSERT INTO TaiKhoan (TenDangNhap, MatKhau, MaNV, MaVaiTro, TrangThai)
-                VALUES (@TenDangNhap, @MatKhau, @MaNV, @MaVaiTro, @TrangThai)";
-
-            // Dùng connection và transaction được truyền vào
-            using var cmd = new SqlCommand(sql, conn, tran);
-
-            cmd.Parameters.AddWithValue("@TenDangNhap", taiKhoan.TenDangNhap);
-            cmd.Parameters.AddWithValue("@MatKhau", taiKhoan.MatKhau);
-            cmd.Parameters.AddWithValue("@MaNV", taiKhoan.MaNV ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@MaVaiTro", taiKhoan.MaVaiTro ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@TrangThai", taiKhoan.TrangThai);
-
-            cmd.ExecuteNonQuery();
-        }
-
-        public void Update(TaiKhoan taiKhoan, SqlConnection conn, SqlTransaction tran)
-        {
-            string sql = @"
-                UPDATE TaiKhoan 
-                SET MaVaiTro = @MaVaiTro, TrangThai = @TrangThai
-                WHERE TenDangNhap = @TenDangNhap";
-
-            // Dùng connection và transaction được truyền vào
-            using var cmd = new SqlCommand(sql, conn, tran);
-
-            cmd.Parameters.AddWithValue("@MaVaiTro", taiKhoan.MaVaiTro ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@TrangThai", taiKhoan.TrangThai);
-            cmd.Parameters.AddWithValue("@TenDangNhap", taiKhoan.TenDangNhap);
-
-            cmd.ExecuteNonQuery();
+            ExecuteNonQuery(query, parameters);
         }
     }
 }

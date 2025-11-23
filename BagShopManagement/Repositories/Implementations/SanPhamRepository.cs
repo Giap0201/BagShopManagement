@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
@@ -78,10 +77,10 @@ VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh, @MaLoai
         public bool Update(SanPham sp)
         {
             string q = @"UPDATE SanPham SET
-TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
-MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu,
-MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC,
-TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
+            TenSP=@TenSP, GiaNhap=@GiaNhap, GiaBan=@GiaBan, SoLuongTon=@SoLuongTon,
+            MoTa=@MoTa, AnhChinh=@AnhChinh, MaLoaiTui=@MaLoaiTui, MaThuongHieu=@MaThuongHieu,
+            MaChatLieu=@MaChatLieu, MaMau=@MaMau, MaKichThuoc=@MaKichThuoc, MaNCC=@MaNCC,
+            TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
             var p = new[]
             {
                 new SqlParameter("@TenSP", sp.TenSP),
@@ -147,7 +146,7 @@ TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
         public List<SanPham> GetAvailableProducts(string maCTGG)
         {
             var list = new List<SanPham>();
-            string query = @"SELECT s.MaSP, s.TenSP, s.SoLuongTon 
+            string query = @"SELECT s.MaSP, s.TenSP, s.SoLuongTon
                              FROM SanPham s
                              WHERE s.MaSP NOT IN (SELECT ct.MaSP FROM ChiTietGiamGia ct WHERE ct.MaCTGG = @MaCTGG)";
 
@@ -191,7 +190,5 @@ TrangThai=@TrangThai, NgayTao=@NgayTao WHERE MaSP=@MaSP";
                 new SqlParameter("@MaSP", maSP)
             );
         }
-
-
     }
 }

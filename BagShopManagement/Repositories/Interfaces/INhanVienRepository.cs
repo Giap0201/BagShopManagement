@@ -14,24 +14,26 @@ namespace BagShopManagement.Repositories.Interfaces
         NhanVien GetById(string maNV);
 
         /// <summary>
-        /// Lấy danh sách nhân viên đầy đủ (JOIN 3 bảng) để hiển thị.
+        /// Lấy danh sách nhân viên đầy đủ (JOIN 3 bảng) để hiển thị lên Grid.
         /// </summary>
         List<NhanVienResponse> GetAllForDisplay();
 
         /// <summary>
-        /// Lấy Mã Nhân Viên tiếp theo (ví dụ: NV005 -> NV006).
+        /// Lấy Mã Nhân Viên tiếp theo (tự động tăng dạng chuỗi NV0000001).
         /// </summary>
         string GetNextMaNV();
 
-        // --- Phiên bản không transaction ---
         void Add(NhanVien nhanVien);
         void Update(NhanVien nhanVien);
 
-        // --- PHIÊN BẢN TRANSACTION ---
-        void Add(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran);
-        void Update(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran);
-
+        /// <summary>
+        /// Lấy danh sách nhân viên (thường dùng cho ComboBox hoặc tra cứu đơn giản).
+        /// </summary>
         List<NhanVien> GetAll();
+
+        /// <summary>
+        /// Tìm kiếm nhân viên theo từ khóa.
+        /// </summary>
         List<NhanVienResponse> Search(string formattedKeyword);
     }
 }

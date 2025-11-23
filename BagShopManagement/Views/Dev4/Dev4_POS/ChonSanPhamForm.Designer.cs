@@ -32,6 +32,7 @@ namespace BagShopManagement.Views.Dev4
             // 
             // pnlTop
             // 
+            pnlTop.BackColor = Color.FromArgb(255, 255, 255);
             pnlTop.Controls.Add(btnSearch);
             pnlTop.Controls.Add(txtSearch);
             pnlTop.Controls.Add(lblSearch);
@@ -43,16 +44,25 @@ namespace BagShopManagement.Views.Dev4
             // 
             // btnSearch
             // 
+            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnSearch.BackColor = Color.FromArgb(248, 248, 248);
+            btnSearch.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
+            btnSearch.FlatStyle = FlatStyle.Flat;
+            btnSearch.ForeColor = Color.FromArgb(51, 51, 51);
             btnSearch.Location = new Point(1200, 25);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(150, 50);
             btnSearch.TabIndex = 2;
             btnSearch.Text = "🔍 Tìm kiếm";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.UseVisualStyleBackColor = false;
             btnSearch.Click += btnSearch_Click;
             // 
             // txtSearch
             // 
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtSearch.BackColor = Color.FromArgb(255, 255, 255);
+            txtSearch.BorderStyle = BorderStyle.FixedSingle;
+            txtSearch.ForeColor = Color.FromArgb(51, 51, 51);
             txtSearch.Location = new Point(250, 25);
             txtSearch.Name = "txtSearch";
             txtSearch.PlaceholderText = "Nhập mã hoặc tên sản phẩm...";
@@ -63,9 +73,10 @@ namespace BagShopManagement.Views.Dev4
             // lblSearch
             // 
             lblSearch.AutoSize = true;
+            lblSearch.ForeColor = Color.FromArgb(51, 51, 51);
             lblSearch.Location = new Point(30, 31);
             lblSearch.Name = "lblSearch";
-            lblSearch.Size = new Size(195, 41);
+            lblSearch.Size = new Size(187, 41);
             lblSearch.TabIndex = 0;
             lblSearch.Text = "Tìm kiếm SP:";
             // 
@@ -74,8 +85,10 @@ namespace BagShopManagement.Views.Dev4
             dgvSanPham.AllowUserToAddRows = false;
             dgvSanPham.AllowUserToDeleteRows = false;
             dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSanPham.BackgroundColor = Color.FromArgb(255, 255, 255);
             dgvSanPham.ColumnHeadersHeight = 50;
             dgvSanPham.Dock = DockStyle.Fill;
+            dgvSanPham.GridColor = Color.FromArgb(204, 204, 204);
             dgvSanPham.Location = new Point(0, 100);
             dgvSanPham.MultiSelect = false;
             dgvSanPham.Name = "dgvSanPham";
@@ -88,28 +101,33 @@ namespace BagShopManagement.Views.Dev4
             // 
             // pnlBottom
             // 
+            pnlBottom.BackColor = Color.FromArgb(255, 255, 255);
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnSelect);
             pnlBottom.Dock = DockStyle.Bottom;
-            pnlBottom.Location = new Point(0, 700);
+            pnlBottom.Location = new Point(0, 522);
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(1400, 100);
             pnlBottom.TabIndex = 2;
             // 
             // btnCancel
             // 
+            btnCancel.BackColor = Color.FromArgb(224, 224, 224);
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.ForeColor = Color.FromArgb(51, 51, 51);
             btnCancel.Location = new Point(750, 25);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(200, 60);
             btnCancel.TabIndex = 1;
             btnCancel.Text = "Hủy";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
             // 
             // btnSelect
             // 
-            btnSelect.BackColor = Color.FromArgb(0, 122, 204);
-            btnSelect.ForeColor = Color.White;
+            btnSelect.BackColor = Color.FromArgb(0, 120, 215);
+            btnSelect.FlatStyle = FlatStyle.Flat;
+            btnSelect.ForeColor = Color.FromArgb(255, 255, 255);
             btnSelect.Location = new Point(450, 25);
             btnSelect.Name = "btnSelect";
             btnSelect.Size = new Size(200, 60);
@@ -122,7 +140,8 @@ namespace BagShopManagement.Views.Dev4
             // 
             AutoScaleDimensions = new SizeF(17F, 41F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1400, 800);
+            BackColor = Color.FromArgb(240, 240, 240);
+            ClientSize = new Size(1401, 706);
             Controls.Add(dgvSanPham);
             Controls.Add(pnlBottom);
             Controls.Add(pnlTop);

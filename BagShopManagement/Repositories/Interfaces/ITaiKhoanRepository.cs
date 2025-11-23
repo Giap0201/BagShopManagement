@@ -12,33 +12,25 @@ namespace BagShopManagement.Repositories.Interfaces
     {
         TaiKhoan GetByTenDangNhap(string tenDangNhap);
         TaiKhoan GetByMaNV(string maNV);
+
+        /// <summary>
+        /// Đổi mật khẩu.
+        /// </summary>
         bool UpdatePassword(string tenDangNhap, string newHashedPassword);
 
         /// <summary>
-        /// Thêm tài khoản mới (không transaction).
+        /// Kiểm tra tồn tại.
+        /// </summary>
+        bool ExistsByTenDangNhap(string tenDangNhap);
+
+        /// <summary>
+        /// Thêm tài khoản mới.
         /// </summary>
         void Add(TaiKhoan taiKhoan);
 
         /// <summary>
-        /// Cập nhật tài khoản (không transaction).
+        /// Cập nhật thông tin tài khoản.
         /// </summary>
         void Update(TaiKhoan taiKhoan);
-
-        // --- PHIÊN BẢN TRANSACTION ---
-
-        /// <summary>
-        /// Thêm tài khoản mới như một phần của Transaction.
-        /// </summary>
-        void Add(TaiKhoan taiKhoan, SqlConnection conn, SqlTransaction tran);
-
-        /// <summary>
-        /// Cập nhật tài khoản như một phần của Transaction.
-        /// </summary>
-        void Update(TaiKhoan taiKhoan, SqlConnection conn, SqlTransaction tran);
-
-        /// <summary>
-        /// Kiểm tra Tên đăng nhập đã tồn tại chưa.
-        /// </summary>
-        bool ExistsByTenDangNhap(string tenDangNhap);
     }
 }

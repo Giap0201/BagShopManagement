@@ -17,6 +17,7 @@ namespace BagShopManagement.Views.Dev3
             _controller = controller;
             _ncc = ncc;
             _isEdit = ncc != null;
+            this.StartPosition = FormStartPosition.CenterParent;
 
             if (_isEdit)
             {
@@ -29,6 +30,26 @@ namespace BagShopManagement.Views.Dev3
                 txtMaNCC.Text = _controller.GenerateNextCode();
             }
         }
+        private void ThemNhaCungCapForm_Load(object sender, EventArgs e)
+        {
+            foreach (Control c in this.Controls)
+            {
+                if (c is TextBox)
+                {
+                    c.KeyDown += MoveNextOnEnter;
+                }
+            }
+        }
+
+        private void MoveNextOnEnter(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+                this.SelectNextControl((Control)sender, true, true, true, true);
+            }
+        }
+
 
         private void LoadNCCToForm(NhaCungCap ncc)
         {

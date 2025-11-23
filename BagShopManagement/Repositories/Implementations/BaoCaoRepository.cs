@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.Repositories.Interfaces;
+﻿using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
 using System.Data;
@@ -19,7 +18,7 @@ namespace BagShopManagement.Repositories.Implementations
                     COUNT(MaHDB) AS SoHoaDon,
                     SUM(TongTien) AS TongDoanhThu
                 FROM HoaDonBan
-                WHERE TrangThaiHD = 1
+                WHERE TrangThaiHD = 2
                   AND NgayBan >= @TuNgay
                   AND NgayBan < DATEADD(DAY, 1, @DenNgay)
                 GROUP BY CAST(NgayBan AS date)
@@ -43,7 +42,7 @@ namespace BagShopManagement.Repositories.Implementations
                     COUNT(MaHDB) AS SoHoaDon,
                     SUM(TongTien) AS TongDoanhThu
                 FROM HoaDonBan
-                WHERE TrangThaiHD = 1
+                WHERE TrangThaiHD = 2
                   AND (@Nam IS NULL OR YEAR(NgayBan) = @Nam)
                 GROUP BY YEAR(NgayBan), MONTH(NgayBan)
                 ORDER BY YEAR(NgayBan), MONTH(NgayBan);";
@@ -59,7 +58,7 @@ namespace BagShopManagement.Repositories.Implementations
                     COUNT(MaHDB) AS SoHoaDon,
                     SUM(TongTien) AS TongDoanhThu
                 FROM HoaDonBan
-                WHERE TrangThaiHD = 1
+                WHERE TrangThaiHD = 2
                 GROUP BY YEAR(NgayBan)
                 ORDER BY YEAR(NgayBan);";
 
@@ -125,7 +124,7 @@ namespace BagShopManagement.Repositories.Implementations
                     SUM(hdb.TongTien) AS TongDoanhThu
                 FROM HoaDonBan hdb
                 INNER JOIN NhanVien nv ON hdb.MaNV = nv.MaNV
-                WHERE hdb.TrangThaiHD = 1
+                WHERE hdb.TrangThaiHD = 2
                   AND hdb.NgayBan >= @TuNgay
                   AND hdb.NgayBan < DATEADD(DAY, 1, @DenNgay)
                 GROUP BY nv.MaNV, nv.HoTen
@@ -150,7 +149,7 @@ namespace BagShopManagement.Repositories.Implementations
                     SUM(hdb.TongTien) AS TongChiTieu
                 FROM HoaDonBan hdb
                 INNER JOIN KhachHang kh ON hdb.MaKH = kh.MaKH
-                WHERE hdb.TrangThaiHD = 1
+                WHERE hdb.TrangThaiHD = 2
                 GROUP BY kh.MaKH, kh.HoTen
                 ORDER BY TongChiTieu DESC;";
 
@@ -173,7 +172,7 @@ namespace BagShopManagement.Repositories.Implementations
                 INNER JOIN HoaDonBan hdb ON ct.MaHDB = hdb.MaHDB
                 INNER JOIN SanPham sp ON ct.MaSP = sp.MaSP
                 LEFT JOIN ThuongHieu th ON sp.MaThuongHieu = th.MaThuongHieu
-                WHERE hdb.TrangThaiHD = 1
+                WHERE hdb.TrangThaiHD = 2
                   AND hdb.NgayBan >= @TuNgay
                   AND hdb.NgayBan < DATEADD(DAY, 1, @DenNgay)
                 GROUP BY sp.MaSP, sp.TenSP, th.TenThuongHieu

@@ -50,6 +50,7 @@ namespace BagShopManagement
 
                     // === CHẠY LOGINFORM ĐẦU TIÊN ===
                     var loginForm = provider.GetRequiredService<LoginForm>();
+
                     Application.Run(loginForm);
                 }
                 catch (Exception ex)
@@ -147,8 +148,6 @@ namespace BagShopManagement
             services.AddTransient<NhaCungCapController>();
             services.AddTransient<POSController>();
             services.AddTransient<HoaDonBanController>();
-            services.AddTransient<HoaDonNhapController>();
-            services.AddTransient<BaoCaoController>();
             services.AddTransient<ChatLieuController>();
             services.AddTransient<KichThuocController>();
             services.AddTransient<LoaiTuiController>();
@@ -204,7 +203,6 @@ namespace BagShopManagement
             services.AddTransient<NhaCungCapControl>();
             services.AddTransient<ThemKhachHangForm2>();
             services.AddTransient<ThemNhaCungCapForm>();
-            services.AddTransient<POSForm>();
             services.AddTransient<HoaDonBanForm>();
             services.AddTransient<UC_POS>();
             services.AddTransient<UC_HoaDonBan>();

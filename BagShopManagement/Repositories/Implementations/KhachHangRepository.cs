@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess; // Namespace của BaseRepository (DataTable)
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using System;
@@ -38,7 +37,7 @@ namespace BagShopManagement.Repositories.Implementations
                 object result = base.ExecuteScalar(query, parameters);
 
                 if (result != null && result != DBNull.Value)
-    {
+                {
                     return Convert.ToInt32(result) > 0;
                 }
                 return false;
@@ -50,7 +49,7 @@ namespace BagShopManagement.Repositories.Implementations
             }
         }
 
-         public List<KhachHang> GetAll()
+        public List<KhachHang> GetAll()
         {
             string query = "SELECT * FROM KhachHang";
             DataTable dt = ExecuteQuery(query);
@@ -73,6 +72,26 @@ namespace BagShopManagement.Repositories.Implementations
             return MapKhachHang(dt.Rows[0]);
         }
 
+        public string? GetKhachHang(string? maKH)
+        {
+            if (string.IsNullOrEmpty(maKH))
+            {
+                return null;
+            }
+            string query = "SELECT COUNT(*) FROM KhachHang WHERE MaKH = @MaKH";
+            SqlParameter p = new SqlParameter("@MaKH", maKH);
+            DataTable dt = ExecuteQuery(query, p);
+            if (dt.Rows.Count > 0)
+            {
+                int count = Convert.ToInt32(dt.Rows[0][0]);
+                if (count > 0)
+                {
+                    return maKH.Trim();
+                }
+            }
+            return null;
+        }
+
         public int Add(KhachHang kh)
         {
             string query = @"INSERT INTO KhachHang (MaKH, HoTen, SoDienThoai, Email, DiaChi, DiemTichLuy)
@@ -89,8 +108,8 @@ namespace BagShopManagement.Repositories.Implementations
 
         public int Update(KhachHang kh)
         {
-            string query = @"UPDATE KhachHang 
-                             SET HoTen=@HoTen, SoDienThoai=@SoDienThoai, Email=@Email, 
+            string query = @"UPDATE KhachHang
+                             SET HoTen=@HoTen, SoDienThoai=@SoDienThoai, Email=@Email,
                                  DiaChi=@DiaChi, DiemTichLuy=@DiemTichLuy
                              WHERE MaKH=@MaKH";
             return ExecuteNonQuery(query,
@@ -128,7 +147,7 @@ namespace BagShopManagement.Repositories.Implementations
 
         public List<KhachHang> Search(string ten, string sdt, string email)
         {
-            string query = @"SELECT * FROM KhachHang 
+            string query = @"SELECT * FROM KhachHang
                              WHERE (@HoTen IS NULL OR HoTen LIKE '%' + @HoTen + '%')
                                AND (@SoDienThoai IS NULL OR SoDienThoai LIKE '%' + @SoDienThoai + '%')
                                AND (@Email IS NULL OR Email LIKE '%' + @Email + '%')";
@@ -167,7 +186,5 @@ namespace BagShopManagement.Repositories.Implementations
             var obj = dt.Rows[0]["MaxCode"];
             return obj == DBNull.Value ? null : obj.ToString();
         }
-
     }
 }
-

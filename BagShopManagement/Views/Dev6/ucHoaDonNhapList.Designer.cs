@@ -80,9 +80,9 @@
             groupBox1.Controls.Add(label1);
             groupBox1.Font = new Font("Segoe UI Semibold", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
-            groupBox1.Location = new Point(53, 81);
+            groupBox1.Location = new Point(42, 81);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1481, 196);
+            groupBox1.Size = new Size(1492, 211);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "TÌM KIẾM";
@@ -93,7 +93,7 @@
             dtpDenNgay.CalendarMonthBackground = Color.FromArgb(252, 252, 252);
             dtpDenNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpDenNgay.Format = DateTimePickerFormat.Short;
-            dtpDenNgay.Location = new Point(751, 84);
+            dtpDenNgay.Location = new Point(757, 92);
             dtpDenNgay.Name = "dtpDenNgay";
             dtpDenNgay.Size = new Size(227, 30);
             dtpDenNgay.TabIndex = 11;
@@ -105,7 +105,7 @@
             dtpTuNgay.Cursor = Cursors.Hand;
             dtpTuNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpTuNgay.Format = DateTimePickerFormat.Short;
-            dtpTuNgay.Location = new Point(269, 84);
+            dtpTuNgay.Location = new Point(275, 92);
             dtpTuNgay.Name = "dtpTuNgay";
             dtpTuNgay.Size = new Size(227, 30);
             dtpTuNgay.TabIndex = 10;
@@ -117,7 +117,7 @@
             cmbSearchNhanVien.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchNhanVien.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchNhanVien.FormattingEnabled = true;
-            cmbSearchNhanVien.Location = new Point(751, 30);
+            cmbSearchNhanVien.Location = new Point(757, 38);
             cmbSearchNhanVien.Name = "cmbSearchNhanVien";
             cmbSearchNhanVien.Size = new Size(227, 31);
             cmbSearchNhanVien.TabIndex = 9;
@@ -129,7 +129,7 @@
             cmbSearchTrangThai.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchTrangThai.FormattingEnabled = true;
-            cmbSearchTrangThai.Location = new Point(751, 140);
+            cmbSearchTrangThai.Location = new Point(757, 148);
             cmbSearchTrangThai.Name = "cmbSearchTrangThai";
             cmbSearchTrangThai.Size = new Size(227, 31);
             cmbSearchTrangThai.TabIndex = 8;
@@ -142,7 +142,7 @@
             btnLamMoi.FlatAppearance.MouseOverBackColor = Color.DarkGray;
             btnLamMoi.FlatStyle = FlatStyle.Flat;
             btnLamMoi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLamMoi.Location = new Point(1070, 115);
+            btnLamMoi.Location = new Point(1070, 124);
             btnLamMoi.Name = "btnLamMoi";
             btnLamMoi.Size = new Size(132, 39);
             btnLamMoi.TabIndex = 1;
@@ -157,7 +157,7 @@
             cmbSearchNCC.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchNCC.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchNCC.FormattingEnabled = true;
-            cmbSearchNCC.Location = new Point(269, 139);
+            cmbSearchNCC.Location = new Point(275, 147);
             cmbSearchNCC.Name = "cmbSearchNCC";
             cmbSearchNCC.Size = new Size(227, 31);
             cmbSearchNCC.TabIndex = 7;
@@ -171,7 +171,7 @@
             btnTimKiem.FlatStyle = FlatStyle.Flat;
             btnTimKiem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTimKiem.ForeColor = Color.White;
-            btnTimKiem.Location = new Point(1070, 38);
+            btnTimKiem.Location = new Point(1070, 46);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(132, 39);
             btnTimKiem.TabIndex = 0;
@@ -186,7 +186,7 @@
             cmbSearchMaHDN.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchMaHDN.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchMaHDN.FormattingEnabled = true;
-            cmbSearchMaHDN.Location = new Point(269, 30);
+            cmbSearchMaHDN.Location = new Point(275, 38);
             cmbSearchMaHDN.Name = "cmbSearchMaHDN";
             cmbSearchMaHDN.Size = new Size(227, 31);
             cmbSearchMaHDN.TabIndex = 6;
@@ -195,7 +195,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(611, 38);
+            label6.Location = new Point(617, 46);
             label6.Name = "label6";
             label6.Size = new Size(89, 23);
             label6.TabIndex = 5;
@@ -205,7 +205,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(611, 143);
+            label5.Location = new Point(617, 151);
             label5.Name = "label5";
             label5.Size = new Size(87, 23);
             label5.TabIndex = 4;
@@ -215,7 +215,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(20, 142);
+            label4.Location = new Point(26, 150);
             label4.Name = "label4";
             label4.Size = new Size(117, 23);
             label4.TabIndex = 3;
@@ -225,7 +225,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(611, 91);
+            label3.Location = new Point(617, 99);
             label3.Name = "label3";
             label3.Size = new Size(84, 23);
             label3.TabIndex = 2;
@@ -235,7 +235,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(20, 91);
+            label2.Location = new Point(26, 99);
             label2.Name = "label2";
             label2.Size = new Size(73, 23);
             label2.TabIndex = 1;
@@ -245,7 +245,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(20, 38);
+            label1.Location = new Point(26, 46);
             label1.Name = "label1";
             label1.Size = new Size(148, 23);
             label1.TabIndex = 0;
@@ -294,7 +294,7 @@
             btnXuatExel.FlatStyle = FlatStyle.Flat;
             btnXuatExel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXuatExel.ForeColor = Color.FromArgb(51, 51, 51);
-            btnXuatExel.Location = new Point(1402, 846);
+            btnXuatExel.Location = new Point(1402, 876);
             btnXuatExel.Name = "btnXuatExel";
             btnXuatExel.Size = new Size(132, 39);
             btnXuatExel.TabIndex = 6;
@@ -362,7 +362,7 @@
             btnThem.FlatStyle = FlatStyle.Flat;
             btnThem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnThem.ForeColor = Color.White;
-            btnThem.Location = new Point(1223, 846);
+            btnThem.Location = new Point(1223, 876);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(132, 39);
             btnThem.TabIndex = 2;
@@ -397,7 +397,7 @@
             dgvDanhSach.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDanhSach.EnableHeadersVisualStyles = false;
             dgvDanhSach.GridColor = Color.LightGray;
-            dgvDanhSach.Location = new Point(53, 381);
+            dgvDanhSach.Location = new Point(42, 407);
             dgvDanhSach.MultiSelect = false;
             dgvDanhSach.Name = "dgvDanhSach";
             dgvDanhSach.ReadOnly = true;
@@ -412,7 +412,7 @@
             dgvDanhSach.RowHeadersVisible = false;
             dgvDanhSach.RowHeadersWidth = 51;
             dgvDanhSach.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDanhSach.Size = new Size(1481, 446);
+            dgvDanhSach.Size = new Size(1492, 448);
             dgvDanhSach.TabIndex = 8;
             dgvDanhSach.CellClick += dgvDanhSach_CellClick;
             dgvDanhSach.SelectionChanged += dgvDanhSach_SelectionChanged;
@@ -421,7 +421,8 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(663, 28);
+            label7.ForeColor = Color.FromArgb(54, 54, 54);
+            label7.Location = new Point(663, 21);
             label7.Name = "label7";
             label7.Size = new Size(374, 38);
             label7.TabIndex = 9;
@@ -435,9 +436,9 @@
             panel1.Controls.Add(btnDuyet);
             panel1.Controls.Add(btnInHoaDon);
             panel1.Controls.Add(btnHuy);
-            panel1.Location = new Point(53, 293);
+            panel1.Location = new Point(42, 314);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1481, 67);
+            panel1.Size = new Size(1492, 67);
             panel1.TabIndex = 10;
             // 
             // ucHoaDonNhapList
@@ -451,7 +452,7 @@
             Controls.Add(btnXuatExel);
             Controls.Add(btnThem);
             Name = "ucHoaDonNhapList";
-            Size = new Size(1598, 936);
+            Size = new Size(1598, 970);
             Load += ucHoaDonNhapList_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

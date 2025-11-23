@@ -3,6 +3,7 @@ using BagShopManagement.DTOs.Requests;
 using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models.Enums;
 using BagShopManagement.Repositories.Interfaces;
+using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -14,21 +15,21 @@ namespace BagShopManagement.Views.Dev6
 {
     public partial class ucSuaHoaDonNhap : UserControl
     {
-        private readonly HoaDonNhapController _controller;
+        private readonly IHoaDonNhapService _service;
         private readonly INhanVienRepository _nhanVienRepo;
         private readonly INhaCungCapRepository _nhaCungCapRepo;
         private readonly ISanPhamRepository _sanPhamRepo;
         private readonly IServiceProvider _serviceProvider;
 
         public ucSuaHoaDonNhap(
-            HoaDonNhapController controller,
+            IHoaDonNhapService service,
             INhanVienRepository nhanVienRepo,
             INhaCungCapRepository nhaCungCapRepo,
             ISanPhamRepository sanPhamRepo,
             IServiceProvider serviceProvider)
         {
             InitializeComponent();
-            _controller = controller;
+            _service = service;
             _nhanVienRepo = nhanVienRepo;
             _nhaCungCapRepo = nhaCungCapRepo;
             _sanPhamRepo = sanPhamRepo;
@@ -42,12 +43,11 @@ namespace BagShopManagement.Views.Dev6
             txtMaHDN.Text = response.MaHDN;
             txtMaHDN.ReadOnly = true;
             cboNhaCungCap.SelectedValue = response.MaNCC;
-            cboNhanVien.SelectedValue = response.MaNV;
             dtpNgayNhap.Value = response.NgayNhap ?? DateTime.Now;
             txtGhiChu.Text = response.GhiChu ?? string.Empty;
             cboTrangThai.SelectedValue = (byte)response.TrangThai;
             cboTrangThai.Enabled = false;
-
+            txtNhanVien.Text = response.TenNV;
             dgvChiTiet.DataSource = null;
             dgvChiTiet.DataSource = response.ChiTiet;
             FormatGrid();
@@ -60,7 +60,6 @@ namespace BagShopManagement.Views.Dev6
         {
             LoadTrangThaiCombobox();
             LoadComboBoxNhaCungCap();
-            LoadComboBoxNhanVien();
             LoadComboBoxSanPham();
         }
 
@@ -99,16 +98,6 @@ namespace BagShopManagement.Views.Dev6
             EnableSearchableComboBox(cboNhaCungCap, list.Select(x => x.TenNCC));
         }
 
-        // load nhan vien
-        private void LoadComboBoxNhanVien()
-        {
-            var list = _nhanVienRepo.GetAll();
-            cboNhanVien.DataSource = list;
-            cboNhanVien.DisplayMember = "HoTen";
-            cboNhanVien.ValueMember = "MaNV";
-            EnableSearchableComboBox(cboNhanVien, list.Select(x => x.HoTen));
-        }
-
         // load san pham
         private void LoadComboBoxSanPham()
         {
@@ -130,9 +119,9 @@ namespace BagShopManagement.Views.Dev6
                 return false;
             }
 
-            if (cboNhanVien.SelectedValue == null)
+            if (txtNhanVien.Text == null)
             {
-                errorProvider1.SetError(cboNhanVien, "Vui lòng chọn nhân viên");
+                errorProvider1.SetError(txtNhanVien, "Sai nhân viên");
                 return false;
             }
 
@@ -194,12 +183,12 @@ namespace BagShopManagement.Views.Dev6
                 var req = new HoaDonNhapInfoUpdateRequest
                 {
                     MaNCC = cboNhaCungCap.SelectedValue.ToString(),
-                    MaNV = cboNhanVien.SelectedValue.ToString(),
+                    MaNV = UserContext.MaNV,
                     GhiChu = txtGhiChu.Text.Trim(),
                     NgayNhap = dtpNgayNhap.Value
                 };
 
-                _controller.CapNhatThongTinHoaDon(txtMaHDN.Text, req);
+                _service.UpdateDraftInfo(txtMaHDN.Text, req);
                 MessageBox.Show("Cập nhật thông tin hóa đơn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
@@ -230,39 +219,89 @@ namespace BagShopManagement.Views.Dev6
             cboSanPham.Focus();
         }
 
-        // luu chi tiet moi
+        // Hàm này chỉ thực hiện lưu thông tin chung, trả về true nếu thành công
+        private bool CapNhatThongTinChung(bool showMessage = false)
+        {
+            if (!ValidateThongTinChung()) return false;
+
+            try
+            {
+                var req = new HoaDonNhapInfoUpdateRequest
+                {
+                    MaNCC = cboNhaCungCap.SelectedValue.ToString(),
+                    MaNV = UserContext.MaNV,
+                    GhiChu = txtGhiChu.Text.Trim(),
+                    NgayNhap = dtpNgayNhap.Value
+                };
+                _service.UpdateDraftInfo(txtMaHDN.Text, req);
+
+                // Chỉ hiện thông báo khi người dùng bấm nút "Lưu thông tin chung" (nếu có)
+                // Còn khi bấm Thêm/Sửa sản phẩm thì lưu âm thầm.
+                if (showMessage)
+                {
+                    MessageBox.Show("Cập nhật thông tin chung thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi cập nhật thông tin chung: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        // Hàm gom nhóm việc lấy dữ liệu từ giao diện để tránh viết lại code
+        private ChiTietHDNRequest? GetChiTietFromUI()
+        {
+            if (!ValidateChiTietInput()) return null;
+
+            try
+            {
+                int soLuong = int.Parse(txtSoLuong.Text.Trim());
+                decimal donGia = decimal.Parse(txtDonGia.Text.Trim());
+                decimal thanhTien = soLuong * donGia;
+
+                return new ChiTietHDNRequest
+                {
+                    MaSP = cboSanPham.SelectedValue.ToString(),
+                    SoLuong = soLuong,
+                    DonGia = donGia,
+                    ThanhTien = thanhTien
+                };
+            }
+            catch
+            {
+                MessageBox.Show("Dữ liệu số lượng hoặc đơn giá không hợp lệ.", "Lỗi định dạng", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+        }
+
         private void btnLuuChiTietHDN_Click(object sender, EventArgs e)
         {
-            if (!ValidateChiTietInput()) return;
+            if (!CapNhatThongTinChung(showMessage: false)) return;
+
+            var req = GetChiTietFromUI();
+            if (req == null) return;
 
             string maHDN = txtMaHDN.Text.Trim();
-            string maSP = cboSanPham.SelectedValue.ToString();
-            int soLuong = int.Parse(txtSoLuong.Text.Trim());
-            decimal donGia = decimal.Parse(txtDonGia.Text.Trim());
-            decimal thanhTien = soLuong * donGia;
 
             var danhSachHienTai = dgvChiTiet.DataSource as List<ChiTietHDNResponse>;
-            if (danhSachHienTai != null && danhSachHienTai.Any(x => x.MaSP == maSP))
+            if (danhSachHienTai != null && danhSachHienTai.Any(x => x.MaSP == req.MaSP))
             {
-                MessageBox.Show("Sản phẩm này đã tồn tại trong hóa đơn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show($"Sản phẩm [{req.MaSP}] đã có trong hóa đơn. Vui lòng dùng chức năng Sửa.",
+                    "Trùng lặp", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
             try
             {
-                var req = new ChiTietHDNRequest
-                {
-                    MaSP = maSP,
-                    SoLuong = soLuong,
-                    DonGia = donGia,
-                    ThanhTien = thanhTien
-                };
+                _service.AddDetailToDraft(maHDN, req);
 
-                _controller.ThemChiTiet(maHDN, req);
                 ReloadChiTiet(maHDN);
-                MessageBox.Show("Thêm chi tiết hóa đơn thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Thêm sản phẩm thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                btnThemChiTietHDN.PerformClick(); // Reset form nhập
+                // Reset form nhập để nhập tiếp
+                btnThemChiTietHDN.PerformClick();
             }
             catch (Exception ex)
             {
@@ -270,39 +309,41 @@ namespace BagShopManagement.Views.Dev6
             }
         }
 
-        // sua chi tiet
         private void btnSuaChiTietHDN_Click(object sender, EventArgs e)
         {
-            if (!ValidateChiTietInput()) return;
             if (dgvChiTiet.CurrentRow == null)
             {
-                MessageBox.Show("Vui lòng chọn dòng cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Vui lòng chọn dòng sản phẩm cần sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
+            if (!CapNhatThongTinChung(showMessage: false)) return;
+
+            // 3. Lấy dữ liệu mới từ UI
+            var req = GetChiTietFromUI();
+            if (req == null) return;
+
+            // 4. Xác nhận hành động Sửa (Sửa thì nên hỏi lại cho chắc)
             string maHDN = txtMaHDN.Text.Trim();
-            string maSPCu = dgvChiTiet.CurrentRow.Cells["MaSP"].Value.ToString();
+            string maSPCu = dgvChiTiet.CurrentRow.Cells["MaSP"].Value.ToString(); // Lấy mã gốc từ Grid đề phòng người dùng đổi mã SP trên combo box
 
-            if (MessageBox.Show(
-                    $"Bạn có muốn sửa thông tin sản phẩm [{maSPCu}] không?",
-                    "Xác nhận sửa",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question) != DialogResult.Yes)
+            if (MessageBox.Show($"Bạn có chắc muốn cập nhật thông tin cho sản phẩm [{maSPCu}] không?",
+                     "Xác nhận sửa", MessageBoxButtons.YesNo, MessageBoxIcon.Question) != DialogResult.Yes)
+            {
                 return;
+            }
 
+            // 5. Gọi Service cập nhật
             try
             {
-                var req = new ChiTietHDNRequest
-                {
-                    MaSP = maSPCu,
-                    SoLuong = int.Parse(txtSoLuong.Text.Trim()),
-                    DonGia = decimal.Parse(txtDonGia.Text.Trim()),
-                    ThanhTien = decimal.Parse(txtThanhTien.Text.Trim())
-                };
+                // Lưu ý: req.MaSP lúc này là mã lấy từ ComboBox.
+                // Nếu nghiệp vụ cho phép đổi sản phẩm A thành B thì dùng req.MaSP.
+                // Nếu chỉ cho sửa số lượng/giá của SP cũ thì nên gán lại req.MaSP = maSPCu;
 
-                _controller.SuaChiTiet(maHDN, maSPCu, req);
+                _service.UpdateDetailInDraft(maHDN, maSPCu, req);
+
                 ReloadChiTiet(maHDN);
-                MessageBox.Show("Sửa chi tiết thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Cập nhật chi tiết thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception ex)
             {
@@ -332,7 +373,7 @@ namespace BagShopManagement.Views.Dev6
 
             try
             {
-                _controller.XoaChiTiet(maHDN, maSP);
+                _service.DeleteDetailFromDraft(maHDN, maSP);
                 ReloadChiTiet(maHDN);
                 MessageBox.Show("Xóa chi tiết thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
@@ -382,7 +423,7 @@ namespace BagShopManagement.Views.Dev6
         // reload chi tiet hoa don
         private void ReloadChiTiet(string maHDN)
         {
-            var res = _controller.LayChiTietHoaDon(maHDN);
+            var res = _service.GetHoaDonNhapDetail(maHDN);
             dgvChiTiet.DataSource = null;
             dgvChiTiet.DataSource = res.ChiTiet;
             FormatGrid();
@@ -404,7 +445,7 @@ namespace BagShopManagement.Views.Dev6
         {
             try
             {
-                var hd = _controller.LayChiTietHoaDon(txtMaHDN.Text);
+                var hd = _service.GetHoaDonNhapDetail(txtMaHDN.Text);
                 if (hd == null || hd.ChiTiet == null || !hd.ChiTiet.Any())
                 {
                     MessageBox.Show("Hóa đơn trống, không thể in!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);

@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.Repositories.Interfaces;
+﻿using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
 using OfficeOpenXml;
 using System;
@@ -34,7 +33,7 @@ namespace BagShopManagement.Repositories.Implementations
                     values.Add($"'{worksheet.Cells[row, col].Text.Replace("'", "''")}'");
 
                 string query = $"INSERT INTO {tableName} ({string.Join(",", columns)}) VALUES ({string.Join(",", values)})";
-                inserted += DataAccessBase.ExecuteNonQuery(query);
+                inserted += ExecuteNonQuery(query);
             }
 
             return inserted;

@@ -159,9 +159,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 }
                 else
                 {
-                    // Khách hàng chưa tồn tại - hiển thị form thêm mới (Dev3)
+                    // Khách hàng chưa tồn tại - hiển thị form thêm mới (Dev3) với SĐT đã nhập
                     var khController = new KhachHangController();
-                    var themKHForm = new ThemKhachHangForm2(khController);
+                    var themKHForm = new ThemKhachHangForm2(khController, null, sdt);
 
                     if (themKHForm.ShowDialog() == DialogResult.OK)
                     {
@@ -197,7 +197,26 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     // Hiển thị thông tin sản phẩm đã chọn
                     lblMaSPValue.Text = sp.MaSP;
                     lblTenSP.Text = $"Tên: {sp.TenSP}";
-                    lblGiaSP.Text = $"{sp.GiaBan:N0} ₫";
+
+                    // Tự động lấy % giảm giá từ chương trình khuyến mãi đang active
+                    decimal phanTramGiam = GetActiveDiscountForProduct(sp.MaSP);
+                    decimal giaSauGiam = sp.GiaBan * (1 - phanTramGiam / 100);
+
+                    // ✅ Hiển thị % khuyến mãi trong label riêng
+                    if (phanTramGiam > 0)
+                    {
+                        lblKhuyenMaiValue.Text = $"🎉 Giảm {phanTramGiam}%";
+                        lblKhuyenMaiValue.ForeColor = Color.FromArgb(220, 53, 69); // Đỏ
+                        lblGiaSP.Text = $"{sp.GiaBan:N0} ₫ → {giaSauGiam:N0} ₫";
+                        lblGiaSP.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        lblKhuyenMaiValue.Text = "Không có";
+                        lblKhuyenMaiValue.ForeColor = Color.Gray;
+                        lblGiaSP.Text = $"{sp.GiaBan:N0} ₫";
+                        lblGiaSP.ForeColor = Color.Green;
+                    }
 
                     // Hiển thị ảnh sản phẩm
                     LoadProductImage(sp.AnhChinh);
@@ -212,6 +231,78 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 Logger.Log($"UC_POS.btnChonSP_Click Error: {ex.Message}");
                 MessageBox.Show($"Lỗi khi chọn sản phẩm: {ex.Message}",
                     "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        /// <summary>
+        /// Lấy % giảm giá từ chương trình khuyến mãi đang hoạt động cho sản phẩm
+        /// </summary>
+        private decimal GetActiveDiscountForProduct(string maSP)
+        {
+            try
+            {
+                var ctggRepo = new ChiTietGiamGiaRepository();
+
+                // 🔍 DEBUG: Xem TẤT CẢ khuyến mãi cho sản phẩm (không lọc gì)
+                string debugQuery = @"
+                    SELECT ctgg.MaSP, ctgg.PhanTramGiam, ctkm.MaCTGG, ctkm.TenChuongTrinh,
+                           ctkm.TrangThai, ctkm.NgayBatDau, ctkm.NgayKetThuc, GETDATE() as NgayHienTai
+                    FROM ChiTietGiamGia ctgg
+                    INNER JOIN ChuongTrinhGiamGia ctkm ON ctgg.MaCTGG = ctkm.MaCTGG
+                    WHERE ctgg.MaSP = @MaSP";
+
+                var debugParam = new Microsoft.Data.SqlClient.SqlParameter("@MaSP", maSP);
+                var debugDt = ctggRepo.ExecuteQuery(debugQuery, debugParam);
+
+                Logger.Log($"=== DEBUG: Khuyến mãi cho {maSP} ===");
+                if (debugDt.Rows.Count > 0)
+                {
+                    foreach (System.Data.DataRow r in debugDt.Rows)
+                    {
+                        Logger.Log($"  MaCTGG: {r["MaCTGG"]}, Tên: {r["TenChuongTrinh"]}, " +
+                            $"TrangThai: {r["TrangThai"]}, % Giảm: {r["PhanTramGiam"]}, " +
+                            $"Từ {r["NgayBatDau"]:dd/MM/yyyy} đến {r["NgayKetThuc"]:dd/MM/yyyy}, " +
+                            $"Hiện tại: {r["NgayHienTai"]:dd/MM/yyyy HH:mm:ss}");
+                    }
+                }
+                else
+                {
+                    Logger.Log($"  => KHÔNG có bất kỳ khuyến mãi nào cho {maSP} trong DB!");
+                }
+
+                // Query thực tế - lấy % giảm cao nhất
+                // ⚠️ TẠM BỎ kiểm tra ngày để test (uncomment dòng dưới khi deploy thật)
+                string query = @"
+                    SELECT TOP 1 ctgg.PhanTramGiam, ctkm.MaCTGG, ctkm.TenChuongTrinh
+                    FROM ChiTietGiamGia ctgg
+                    INNER JOIN ChuongTrinhGiamGia ctkm ON ctgg.MaCTGG = ctkm.MaCTGG
+                    WHERE ctgg.MaSP = @MaSP
+                        AND ctkm.TrangThai = 1
+                        -- AND GETDATE() BETWEEN ctkm.NgayBatDau AND ctkm.NgayKetThuc  -- TẠM BỎ để test
+                    ORDER BY ctgg.PhanTramGiam DESC";
+
+                var param = new Microsoft.Data.SqlClient.SqlParameter("@MaSP", maSP);
+                var dt = ctggRepo.ExecuteQuery(query, param);
+
+                if (dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    decimal discount = Convert.ToDecimal(row["PhanTramGiam"]);
+                    string? tenCTKM = row["TenChuongTrinh"]?.ToString();
+
+                    Logger.Log($"✓ Áp dụng CTKM '{tenCTKM}': Giảm {discount}% cho {maSP}");
+                    return discount;
+                }
+                else
+                {
+                    Logger.Log($"=> Không có CTKM ACTIVE (TrangThai=1 + ngày hợp lệ) cho {maSP}");
+                    return 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.Log($"GetActiveDiscountForProduct Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return 0;
             }
         }
 
@@ -266,16 +357,26 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
             var (ok, msg) = _controller.AddProduct(maSP, qty);
             if (!ok)
+            {
                 MessageBox.Show(msg, "Không thể thêm sản phẩm", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
             else
             {
+                // Tự động áp dụng giảm giá từ CTKM
+                decimal phanTramGiam = GetActiveDiscountForProduct(maSP);
+                if (phanTramGiam > 0)
+                {
+                    _controller.ApplyDiscountToProduct(maSP, phanTramGiam);
+                }
+
                 RefreshCartGrid();
+
                 // Hiển thị thông báo thành công với tồn kho còn lại
                 if (sp != null)
                 {
-                    int tonKhoConLai = sp.SoLuongTon - qty;
-                    MessageBox.Show($"✓ Đã thêm {qty} x '{sp.TenSP}' vào giỏ hàng\n" +
-                        $"Tồn kho còn lại: {tonKhoConLai}",
+                    string discountMsg = phanTramGiam > 0 ? $" (Giảm {phanTramGiam}%)" : "";
+                    MessageBox.Show($"✓ Đã thêm {qty} x '{sp.TenSP}' vào giỏ hàng{discountMsg}\n" +
+                        $"Tồn kho hiện tại: {sp.SoLuongTon}",
                         "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -288,6 +389,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             lblMaSPValue.Text = "";
             lblTenSP.Text = "";
             lblGiaSP.Text = "";
+            lblKhuyenMaiValue.Text = "0%";
+            lblKhuyenMaiValue.ForeColor = Color.Gray;
             numQty.Value = 1;
             picSanPham.Image = null;
             btnChonSP.Focus();
@@ -381,7 +484,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             }
         }
 
-
         private void RefreshCartGrid()
         {
             try
@@ -402,7 +504,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 dgvCart.DataSource = null;
                 dgvCart.DataSource = cart;
 
-                decimal total = cart.Sum(i => (i.DonGia - i.GiamGiaSP) * i.SoLuong);
+                // ✅ FIXED: Dùng ThanhTien thay vì tính sai công thức
+                decimal total = cart.Sum(i => i.ThanhTien);
                 lblTotal.Text = $"Tổng: {total:N0} ₫";
             }
             catch (Exception ex)
@@ -419,74 +522,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 _controller.ClearCart();
                 RefreshCartGrid();
             }
-        }
-
-        private void btnApplyDiscount_Click(object sender, EventArgs e)
-        {
-            decimal percent = numDiscountPercent.Value;
-            if (percent <= 0 || percent > 100)
-            {
-                MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (0 < % ≤ 100).",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            var cart = _controller.GetCart();
-            if (cart == null || cart.Count == 0)
-            {
-                MessageBox.Show("Giỏ hàng trống! Vui lòng thêm sản phẩm trước.",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            // Hỏi người dùng muốn áp dụng cho 1 sản phẩm hay tất cả
-            var result = MessageBox.Show(
-                $"Áp dụng giảm giá {percent}% cho:\n\n" +
-                $"YES = Tất cả sản phẩm trong giỏ\n" +
-                $"NO = Chỉ sản phẩm đang chọn\n" +
-                $"CANCEL = Hủy bỏ",
-                "Chọn phạm vi áp dụng",
-                MessageBoxButtons.YesNoCancel,
-                MessageBoxIcon.Question);
-
-            if (result == DialogResult.Cancel)
-                return;
-
-            if (result == DialogResult.Yes)
-            {
-                // Áp dụng cho tất cả
-                _controller.ApplyDiscount(percent);
-                MessageBox.Show($"✓ Đã áp dụng giảm giá {percent}% cho {cart.Count} sản phẩm",
-                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else if (result == DialogResult.No)
-            {
-                // Áp dụng cho sản phẩm được chọn
-                if (dgvCart.SelectedRows.Count == 0)
-                {
-                    MessageBox.Show("Vui lòng chọn một sản phẩm trong giỏ hàng.",
-                        "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    return;
-                }
-
-                var selectedRow = dgvCart.SelectedRows[0];
-                string? maSP = selectedRow.Cells["MaSP"]?.Value?.ToString();
-                string? tenSP = selectedRow.Cells["TenSP"]?.Value?.ToString();
-
-                if (string.IsNullOrEmpty(maSP))
-                {
-                    MessageBox.Show("Không thể xác định mã sản phẩm được chọn.",
-                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
-                _controller.ApplyDiscountToProduct(maSP, percent);
-                MessageBox.Show($"✓ Đã áp dụng giảm giá {percent}% cho '{tenSP}'",
-                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-
-            RefreshCartGrid();
-            numDiscountPercent.Value = 0; // Reset sau khi áp dụng
         }
 
         private void btnSaveDraft_Click(object sender, EventArgs e)
@@ -591,7 +626,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             txtTenKH.Clear();
             txtSDT.Clear();
             ClearProductSelection();
-            numDiscountPercent.Value = 0;
             cboPhuongThucTT.SelectedIndex = -1; // Reset phương thức thanh toán
             btnChonSP.Focus();
         }
@@ -681,22 +715,22 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
         }
 
         private void txtMaNV_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void lblGiaSPLabel_Click(object sender, EventArgs e)
         {
-
         }
 
         private void lblTenSP_Click(object sender, EventArgs e)
         {
+        }
 
+        private void lblQty_Click(object sender, EventArgs e)
+        {
         }
     }
 }

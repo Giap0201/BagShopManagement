@@ -3,11 +3,6 @@ using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using BagShopManagement.Services.Interfaces;
 using BagShopManagement.Utils;
-using BagShopManagement.DataAccess;
-using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace BagShopManagement.Services.Implementations
 {
@@ -97,7 +92,18 @@ namespace BagShopManagement.Services.Implementations
             var item = _cart.FirstOrDefault(i => string.Equals(i.MaSP, maSP, StringComparison.OrdinalIgnoreCase));
             if (item != null)
             {
-                item.GiamGiaSP = Math.Round(item.DonGia * (percent / 100m), 2);
+                // ✅ Tính giảm giá trên TỔNG TIỀN (DonGia * SoLuong), không phải 1 đơn vị
+                decimal tongTien = item.DonGia * item.SoLuong;
+                item.GiamGiaSP = Math.Round(tongTien * (percent / 100m), 2);
+
+                Logger.Log($"✓ ApplyDiscount: {maSP}, Qty: {item.SoLuong}, " +
+                    $"DonGia: {item.DonGia:N0}, % Giảm: {percent}%, " +
+                    $"TongTien: {tongTien:N0}, GiamGiaSP: {item.GiamGiaSP:N0}, " +
+                    $"ThanhTien: {item.ThanhTien:N0}");
+            }
+            else
+            {
+                Logger.Log($"⚠ ApplyDiscount: Product {maSP} not found in cart");
             }
         }
 

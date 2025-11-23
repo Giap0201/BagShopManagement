@@ -1,5 +1,4 @@
-﻿using BagShopManagement.DataAccess;
-using BagShopManagement.DTOs.Responses;
+﻿using BagShopManagement.DTOs.Responses;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Interfaces;
 using Microsoft.Data.SqlClient;
@@ -10,208 +9,152 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using DataAccessBase = BagShopManagement.DataAccess.BaseRepository;
+using DataAccessBase = BagShopManagement.Repositories.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
     public class NhanVienImpl : BaseRepository, INhanVienRepository
     {
-        private readonly string _connectionString;
-
-        public NhanVienImpl()
+        // --- MAPPERS ---
+        private NhanVien MapToNhanVien(DataRow row)
         {
-            _connectionString = ConfigurationManager.ConnectionStrings["MyConnectionString"]?.ConnectionString;
-            if (string.IsNullOrEmpty(_connectionString))
+            return new NhanVien
             {
-                throw new ConfigurationErrorsException("Không tìm thấy chuỗi kết nối 'MyConnectionString'.");
-            }
+                MaNV = row["MaNV"].ToString(),
+                HoTen = row["HoTen"].ToString(),
+                ChucVu = row["ChucVu"] != DBNull.Value ? row["ChucVu"].ToString() : null,
+                SoDienThoai = row["SoDienThoai"] != DBNull.Value ? row["SoDienThoai"].ToString() : null,
+                Email = row["Email"] != DBNull.Value ? row["Email"].ToString() : null,
+                NgayVaoLam = Convert.ToDateTime(row["NgayVaoLam"]),
+            };
         }
 
-        private NhanVien MapToNhanVien(IDataRecord reader)
-            {
-            return new NhanVien
-                {
-                MaNV = reader["MaNV"].ToString(),
-                HoTen = reader["HoTen"].ToString(),
-                ChucVu = reader["ChucVu"] != DBNull.Value ? reader["ChucVu"].ToString() : null,
-                SoDienThoai = reader["SoDienThoai"] != DBNull.Value ? reader["SoDienThoai"].ToString() : null,
-                Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : null,
-                NgayVaoLam = Convert.ToDateTime(reader["NgayVaoLam"]),
-                TrangThai = Convert.ToBoolean(reader["TrangThai"])
-            };
-            }
-
-        // Helper Map cho DTO
-        private NhanVienResponse MapToNhanVienResponse(IDataRecord reader)
+        private NhanVienResponse MapToNhanVienResponse(DataRow row)
         {
             return new NhanVienResponse
             {
-                MaNV = reader["MaNV"].ToString(),
-                HoTen = reader["HoTen"].ToString(),
-                ChucVu = reader["ChucVu"] != DBNull.Value ? reader["ChucVu"].ToString() : null,
-                SoDienThoai = reader["SoDienThoai"] != DBNull.Value ? reader["SoDienThoai"].ToString() : null,
-                Email = reader["Email"] != DBNull.Value ? reader["Email"].ToString() : null,
+                MaNV = row["MaNV"].ToString(),
+                HoTen = row["HoTen"].ToString(),
+                ChucVu = row["ChucVu"] != DBNull.Value ? row["ChucVu"].ToString() : null,
+                SoDienThoai = row["SoDienThoai"] != DBNull.Value ? row["SoDienThoai"].ToString() : null,
+                Email = row["Email"] != DBNull.Value ? row["Email"].ToString() : null,
 
-                // Từ JOIN
-                TenDangNhap = reader["TenDangNhap"].ToString(),
-                MaVaiTro = reader["MaVaiTro"] != DBNull.Value ? reader["MaVaiTro"].ToString() : null,
-                TenVaiTro = reader["TenVaiTro"] != DBNull.Value ? reader["TenVaiTro"].ToString() : null,
-                TrangThaiTK = Convert.ToBoolean(reader["TrangThaiTK"])
+                // Từ JOIN TaiKhoan & VaiTro
+                TenDangNhap = row["TenDangNhap"] != DBNull.Value ? row["TenDangNhap"].ToString() : "",
+                MaVaiTro = row["MaVaiTro"] != DBNull.Value ? row["MaVaiTro"].ToString() : null,
+                TenVaiTro = row["TenVaiTro"] != DBNull.Value ? row["TenVaiTro"].ToString() : null,
+                TrangThaiTK = row["TrangThaiTK"] != DBNull.Value && Convert.ToBoolean(row["TrangThaiTK"])
             };
         }
 
+        // --- CRUD METHODS ---
 
         public NhanVien GetById(string maNV)
         {
-            string sql = "SELECT * FROM NhanVien WHERE MaNV = @MaNV";
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-            cmd.Parameters.AddWithValue("@MaNV", maNV);
+            string query = "SELECT * FROM NhanVien WHERE MaNV = @MaNV";
+            SqlParameter[] p = { new SqlParameter("@MaNV", maNV) };
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            return reader.Read() ? MapToNhanVien(reader) : null;
+            DataTable dt = ExecuteQuery(query, p);
+            return dt.Rows.Count > 0 ? MapToNhanVien(dt.Rows[0]) : null;
         }
 
         public List<NhanVienResponse> GetAllForDisplay()
         {
             var list = new List<NhanVienResponse>();
-            // Câu query JOIN 3 bảng
-            string sql = @"
-                SELECT 
+            // Sử dụng LEFT JOIN để vẫn hiện nhân viên dù chưa có tài khoản
+            string query = @"
+                SELECT
                     nv.MaNV, nv.HoTen, nv.ChucVu, nv.SoDienThoai, nv.Email,
                     tk.TenDangNhap,
                     tk.TrangThai AS TrangThaiTK,
                     vt.MaVaiTro,
                     vt.TenVaiTro
                 FROM NhanVien nv
-                JOIN TaiKhoan tk ON nv.MaNV = tk.MaNV
+                LEFT JOIN TaiKhoan tk ON nv.MaNV = tk.MaNV
                 LEFT JOIN VaiTro vt ON tk.MaVaiTro = vt.MaVaiTro";
 
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            DataTable dt = ExecuteQuery(query);
+            foreach (DataRow row in dt.Rows)
             {
-                list.Add(MapToNhanVienResponse(reader));
+                list.Add(MapToNhanVienResponse(row));
             }
             return list;
         }
 
-        // --- HÀM GetNextMaNV (GEN MÃ 7 SỐ) ---
         public string GetNextMaNV()
         {
-            // Cấu hình: 7 chữ số (0000001 -> 9999999), Tiền tố "NV"
             const int PADDING_LENGTH = 7;
             const string PREFIX = "NV";
 
-            // Logic sinh mã: Lấy mã LỚN NHẤT hiện tại
-            // Dùng CAST(SUBSTRING(...) AS INT) để sắp xếp theo SỐ
-            string sql = $@"
-                SELECT MAX(CAST(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH}) AS INT)) 
-                FROM NhanVien 
+            // Lấy phần số của mã nhân viên lớn nhất hiện tại
+            string query = $@"
+                SELECT MAX(CAST(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH}) AS INT))
+                FROM NhanVien
                 WHERE MaNV LIKE '{PREFIX}%' AND ISNUMERIC(SUBSTRING(MaNV, {PREFIX.Length + 1}, {PADDING_LENGTH})) = 1";
 
-            var result = ExecuteScalar(sql); // Trả về số lớn nhất (ví dụ: 9) hoặc NULL
+            object result = ExecuteScalar(query);
 
-            int nextNum = 1; // Mặc định là 1 (cho trường hợp bảng rỗng)
-
+            int nextNum = 1;
             if (result != null && result != DBNull.Value)
             {
-                nextNum = Convert.ToInt32(result) + 1; // Lấy số lớn nhất + 1
+                nextNum = Convert.ToInt32(result) + 1;
             }
 
-            // Trả về mã mới với padding 7 số
-            // ví dụ: "NV" + 1.ToString("D7") -> "NV0000001"
+            // Format thành chuỗi (ví dụ: NV0000005)
             return PREFIX + nextNum.ToString($"D{PADDING_LENGTH}");
         }
 
-        // --- Phiên bản không transaction ---
         public void Add(NhanVien nhanVien)
         {
-            using var conn = new SqlConnection(_connectionString);
-            conn.Open();
-            using var tran = conn.BeginTransaction();
-            try
+            string query = @"INSERT INTO NhanVien (MaNV, HoTen, ChucVu, SoDienThoai, Email, NgayVaoLam) 
+                             VALUES (@MaNV, @HoTen, @ChucVu, @SoDienThoai, @Email, @NgayVaoLam)";
+
+            SqlParameter[] parameters =
             {
-                Add(nhanVien, conn, tran);
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
+                new SqlParameter("@MaNV", nhanVien.MaNV),
+                new SqlParameter("@HoTen", nhanVien.HoTen),
+                new SqlParameter("@ChucVu", (object)nhanVien.ChucVu ?? DBNull.Value),
+                new SqlParameter("@SoDienThoai", (object)nhanVien.SoDienThoai ?? DBNull.Value),
+                new SqlParameter("@Email", (object)nhanVien.Email ?? DBNull.Value),
+                new SqlParameter("@NgayVaoLam", nhanVien.NgayVaoLam)
+            };
+
+            ExecuteNonQuery(query, parameters);
         }
 
         public void Update(NhanVien nhanVien)
         {
-            using var conn = new SqlConnection(_connectionString);
-            conn.Open();
-            using var tran = conn.BeginTransaction();
-            try
+            string query = @"UPDATE NhanVien 
+                             SET HoTen = @HoTen, 
+                                 ChucVu = @ChucVu, 
+                                 SoDienThoai = @SoDienThoai, 
+                                 Email = @Email
+                             WHERE MaNV = @MaNV";
+
+            SqlParameter[] parameters =
             {
-                Update(nhanVien, conn, tran);
-                tran.Commit();
-            }
-            catch
-            {
-                tran.Rollback();
-                throw;
-            }
-        }
+                new SqlParameter("@HoTen", nhanVien.HoTen),
+                new SqlParameter("@ChucVu", (object)nhanVien.ChucVu ?? DBNull.Value),
+                new SqlParameter("@SoDienThoai", (object)nhanVien.SoDienThoai ?? DBNull.Value),
+                new SqlParameter("@Email", (object)nhanVien.Email ?? DBNull.Value),
+                new SqlParameter("@MaNV", nhanVien.MaNV)
+            };
 
-        // --- PHIÊN BẢN TRANSACTION ---
-        public void Add(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran)
-        {
-            string sql = @"
-                INSERT INTO NhanVien (MaNV, HoTen, ChucVu, SoDienThoai, Email, NgayVaoLam, TrangThai)
-                VALUES (@MaNV, @HoTen, @ChucVu, @SoDienThoai, @Email, @NgayVaoLam, @TrangThai)";
-
-            using var cmd = new SqlCommand(sql, conn, tran);
-
-            cmd.Parameters.AddWithValue("@MaNV", nhanVien.MaNV);
-            cmd.Parameters.AddWithValue("@HoTen", nhanVien.HoTen);
-            cmd.Parameters.AddWithValue("@ChucVu", nhanVien.ChucVu ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@SoDienThoai", nhanVien.SoDienThoai ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@Email", nhanVien.Email ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@NgayVaoLam", nhanVien.NgayVaoLam);
-            cmd.Parameters.AddWithValue("@TrangThai", nhanVien.TrangThai);
-
-            cmd.ExecuteNonQuery();
-        }
-
-        public void Update(NhanVien nhanVien, SqlConnection conn, SqlTransaction tran)
-        {
-            string sql = @"
-                UPDATE NhanVien 
-                SET HoTen = @HoTen, 
-                    ChucVu = @ChucVu, 
-                    SoDienThoai = @SoDienThoai, 
-                    Email = @Email, 
-                    TrangThai = @TrangThai
-                WHERE MaNV = @MaNV";
-
-            using var cmd = new SqlCommand(sql, conn, tran);
-
-            cmd.Parameters.AddWithValue("@HoTen", nhanVien.HoTen);
-            cmd.Parameters.AddWithValue("@ChucVu", nhanVien.ChucVu ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@SoDienThoai", nhanVien.SoDienThoai ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@Email", nhanVien.Email ?? (object)DBNull.Value);
-            cmd.Parameters.AddWithValue("@TrangThai", nhanVien.TrangThai);
-            cmd.Parameters.AddWithValue("@MaNV", nhanVien.MaNV);
-
-            cmd.ExecuteNonQuery();
+            ExecuteNonQuery(query, parameters);
         }
 
         public List<NhanVien> GetAll()
         {
-            string query = "SELECT MaNV, HoTen FROM NhanVien WHERE TrangThai = 1 ORDER BY HoTen";
-            DataTable dt = base.ExecuteQuery(query);
+            // Giữ nguyên logic cũ của bạn: Chỉ lấy nhân viên có tài khoản Active (cho dropdown)
+            string query = @"SELECT NhanVien.MaNV, HoTen 
+                             FROM NhanVien 
+                             JOIN TaiKhoan tk on tk.MaNV = NhanVien.MaNV 
+                             WHERE tk.TrangThai = 1 
+                             ORDER BY HoTen";
 
+            DataTable dt = ExecuteQuery(query);
             var list = new List<NhanVien>();
+
             foreach (DataRow row in dt.Rows)
             {
                 list.Add(new NhanVien
@@ -226,18 +169,17 @@ namespace BagShopManagement.Repositories.Implementations
         public List<NhanVienResponse> Search(string formattedKeyword)
         {
             var list = new List<NhanVienResponse>();
-            // Câu lệnh SQL JOIN và tìm kiếm trên nhiều cột
-            string sql = @"
-                SELECT 
+            string query = @"
+                SELECT
                     nv.MaNV, nv.HoTen, nv.ChucVu, nv.SoDienThoai, nv.Email,
                     tk.TenDangNhap,
                     tk.TrangThai AS TrangThaiTK,
                     vt.MaVaiTro,
                     vt.TenVaiTro
                 FROM NhanVien nv
-                JOIN TaiKhoan tk ON nv.MaNV = tk.MaNV
+                LEFT JOIN TaiKhoan tk ON nv.MaNV = tk.MaNV
                 LEFT JOIN VaiTro vt ON tk.MaVaiTro = vt.MaVaiTro
-                WHERE 
+                WHERE
                     nv.MaNV LIKE @keyword OR
                     nv.HoTen LIKE @keyword OR
                     tk.TenDangNhap LIKE @keyword OR
@@ -245,17 +187,12 @@ namespace BagShopManagement.Repositories.Implementations
                     nv.Email LIKE @keyword OR
                     vt.TenVaiTro LIKE @keyword";
 
-            using var conn = new SqlConnection(_connectionString);
-            using var cmd = new SqlCommand(sql, conn);
-            // Thêm tham số @keyword (ví dụ: "%admin%")
-            cmd.Parameters.AddWithValue("@keyword", formattedKeyword);
+            SqlParameter[] p = { new SqlParameter("@keyword", formattedKeyword) };
 
-            conn.Open();
-            using var reader = cmd.ExecuteReader();
-            while (reader.Read())
+            DataTable dt = ExecuteQuery(query, p);
+            foreach (DataRow row in dt.Rows)
             {
-                // Tái sử dụng hàm MapToNhanVienResponse
-                list.Add(MapToNhanVienResponse(reader));
+                list.Add(MapToNhanVienResponse(row));
             }
             return list;
         }

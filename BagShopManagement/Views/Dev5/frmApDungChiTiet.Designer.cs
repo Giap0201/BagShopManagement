@@ -71,7 +71,7 @@
             pnlTopInfo.Dock = DockStyle.Top;
             pnlTopInfo.Location = new Point(0, 0);
             pnlTopInfo.Name = "pnlTopInfo";
-            pnlTopInfo.Size = new Size(1549, 71);
+            pnlTopInfo.Size = new Size(905, 71);
             pnlTopInfo.TabIndex = 0;
             // 
             // lblTenChuongTrinh
@@ -91,7 +91,7 @@
             panel1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             panel1.Location = new Point(0, 624);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1549, 87);
+            panel1.Size = new Size(905, 87);
             panel1.TabIndex = 1;
             // 
             // btnHuỵChonKM
@@ -122,7 +122,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(1549, 553);
+            tableLayoutPanel1.Size = new Size(905, 357);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // pnlLeft
@@ -133,7 +133,7 @@
             pnlLeft.Dock = DockStyle.Fill;
             pnlLeft.Location = new Point(3, 3);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(640, 547);
+            pnlLeft.Size = new Size(318, 351);
             pnlLeft.TabIndex = 0;
             // 
             // dgvKhoSanPham
@@ -155,7 +155,7 @@
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 23);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(640, 125);
+            groupBox1.Size = new Size(318, 125);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Tìm kiếm";
@@ -205,9 +205,9 @@
             pnlCenter.Controls.Add(nudPhanTramGiam);
             pnlCenter.Controls.Add(label1);
             pnlCenter.Dock = DockStyle.Fill;
-            pnlCenter.Location = new Point(649, 3);
+            pnlCenter.Location = new Point(327, 3);
             pnlCenter.Name = "pnlCenter";
-            pnlCenter.Size = new Size(250, 547);
+            pnlCenter.Size = new Size(250, 351);
             pnlCenter.TabIndex = 1;
             // 
             // btnXoa
@@ -259,9 +259,9 @@
             pnlRight.Controls.Add(groupBox2);
             pnlRight.Controls.Add(label5);
             pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(905, 3);
+            pnlRight.Location = new Point(583, 3);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(641, 547);
+            pnlRight.Size = new Size(319, 351);
             pnlRight.TabIndex = 2;
             // 
             // dgvSanPhamApDung
@@ -282,7 +282,7 @@
             groupBox2.Dock = DockStyle.Top;
             groupBox2.Location = new Point(0, 23);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(641, 125);
+            groupBox2.Size = new Size(319, 125);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Tìm kiếm";
@@ -330,7 +330,7 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1549, 711);
+            ClientSize = new Size(905, 515);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
             Controls.Add(pnlTopInfo);
