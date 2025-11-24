@@ -48,15 +48,5 @@ namespace BagShopManagement.Views.Dev5
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void nudSoLuongMoi_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
