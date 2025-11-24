@@ -157,6 +157,7 @@
             // 
             btnSave.BackColor = SystemColors.HotTrack;
             btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnSave.ForeColor = Color.Transparent;
             btnSave.Location = new Point(107, 558);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(157, 54);
@@ -169,6 +170,7 @@
             // 
             btnCancel.BackColor = Color.FromArgb(192, 0, 0);
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnCancel.ForeColor = SystemColors.ButtonHighlight;
             btnCancel.Location = new Point(373, 558);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(157, 54);

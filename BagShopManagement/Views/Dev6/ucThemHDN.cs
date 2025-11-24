@@ -60,6 +60,7 @@ namespace BagShopManagement.Views.Dev6
             txtMaHDN.ReadOnly = true;
             cboTrangThai.Enabled = false;
             txtNhanVien.Text = UserContext.HoTen;
+            txtMaHDN.Text = _maHoaDonGenerator.GenerateNewMaHDN(dtpNgayNhap.Value);
         }
 
         // Cau hinh hien thi bang du lieu chi tiet

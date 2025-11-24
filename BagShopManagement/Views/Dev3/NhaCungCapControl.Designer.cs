@@ -61,7 +61,7 @@
             // 
             // btnThem
             // 
-            btnThem.BackColor = SystemColors.ActiveCaption;
+            btnThem.BackColor = Color.LightGray;
             btnThem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThem.ForeColor = Color.FromArgb(51, 51, 51);
             btnThem.Location = new Point(107, 32);
@@ -74,7 +74,7 @@
             // 
             // btnSua
             // 
-            btnSua.BackColor = Color.FromArgb(224, 224, 224);
+            btnSua.BackColor = Color.LightGray;
             btnSua.Enabled = false;
             btnSua.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSua.ForeColor = Color.FromArgb(51, 51, 51);
@@ -124,12 +124,12 @@
             groupBox1.Size = new Size(482, 494);
             groupBox1.TabIndex = 6;
             groupBox1.TabStop = false;
-            groupBox1.Text = "thao tác";
+            groupBox1.Text = "Thao tác";
             groupBox1.Enter += groupBox1_Enter;
             // 
             // btnXuatExcel
             // 
-            btnXuatExcel.BackColor = Color.FromArgb(128, 128, 255);
+            btnXuatExcel.BackColor = SystemColors.Highlight;
             btnXuatExcel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnXuatExcel.ForeColor = Color.White;
             btnXuatExcel.Location = new Point(107, 412);
@@ -142,7 +142,7 @@
             // 
             // btnReset
             // 
-            btnReset.BackColor = SystemColors.InactiveCaption;
+            btnReset.BackColor = Color.LightGray;
             btnReset.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnReset.ForeColor = Color.FromArgb(51, 51, 51);
             btnReset.Location = new Point(107, 127);
@@ -159,7 +159,7 @@
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.Location = new Point(555, 227);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(925, 494);
+            groupBox2.Size = new Size(951, 494);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Danh sách nhà cung cấp";
@@ -206,7 +206,7 @@
             dgvNCC.RowHeadersVisible = false;
             dgvNCC.RowHeadersWidth = 51;
             dgvNCC.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvNCC.Size = new Size(905, 462);
+            dgvNCC.Size = new Size(939, 462);
             dgvNCC.TabIndex = 9;
             dgvNCC.SelectionChanged += dgvNCC_SelectionChanged;
             // 

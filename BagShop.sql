@@ -94,7 +94,6 @@ CREATE TABLE NhanVien (
     ChucVu NVARCHAR(50),
     SoDienThoai VARCHAR(15),
     Email NVARCHAR(100),
-    MatKhau NVARCHAR(50) NOT NULL, -- Mật khẩu đơn giản
     NgayVaoLam DATETIME DEFAULT GETDATE(),
     TrangThai BIT DEFAULT 1 -- 1: Hoạt động, 0: Nghỉ
 );

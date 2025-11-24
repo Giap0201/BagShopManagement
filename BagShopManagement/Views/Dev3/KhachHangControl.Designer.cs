@@ -73,7 +73,7 @@
             // 
             btnThemMoi.BackColor = SystemColors.Highlight;
             btnThemMoi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnThemMoi.ForeColor = Color.FromArgb(51, 51, 51);
+            btnThemMoi.ForeColor = Color.White;
             btnThemMoi.Location = new Point(67, 241);
             btnThemMoi.Name = "btnThemMoi";
             btnThemMoi.Size = new Size(197, 60);
@@ -84,6 +84,7 @@
             // 
             // btnSua
             // 
+            btnSua.BackColor = Color.LightGray;
             btnSua.Enabled = false;
             btnSua.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSua.ForeColor = Color.FromArgb(51, 51, 51);
@@ -92,7 +93,7 @@
             btnSua.Size = new Size(197, 60);
             btnSua.TabIndex = 4;
             btnSua.Text = "Sửa";
-            btnSua.UseVisualStyleBackColor = true;
+            btnSua.UseVisualStyleBackColor = false;
             btnSua.Click += btnSua_Click;
             // 
             // btnXoa
@@ -111,7 +112,7 @@
             // 
             // btnXuatExcel
             // 
-            btnXuatExcel.BackColor = SystemColors.ActiveCaption;
+            btnXuatExcel.BackColor = Color.LightGray;
             btnXuatExcel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXuatExcel.ForeColor = Color.Black;
             btnXuatExcel.Location = new Point(67, 532);
@@ -150,7 +151,7 @@
             // 
             // btnReset
             // 
-            btnReset.BackColor = SystemColors.InactiveCaption;
+            btnReset.BackColor = Color.LightGray;
             btnReset.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnReset.ForeColor = Color.FromArgb(51, 51, 51);
             btnReset.Location = new Point(67, 144);
