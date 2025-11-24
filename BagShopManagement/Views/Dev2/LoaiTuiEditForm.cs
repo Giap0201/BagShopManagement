@@ -1,5 +1,5 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -7,15 +7,15 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class LoaiTuiEditForm : Form
     {
-        private readonly LoaiTuiController _controller;
+        private readonly ILoaiTuiService _service;
         private readonly DanhMucLoaiTui _model;
         private readonly bool _isEdit;
 
-        public LoaiTuiEditForm(LoaiTuiController controller, DanhMucLoaiTui model = null)
+        public LoaiTuiEditForm(ILoaiTuiService service, DanhMucLoaiTui model = null)
         {
             InitializeComponent();
 
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _model = model;
             _isEdit = model != null;
 
@@ -34,7 +34,7 @@ namespace BagShopManagement.Views.Dev2
                 // Add mode: auto-generate mã và disable editing mã
                 try
                 {
-                    txtMa.Text = _controller.GenerateNextCode();
+                    txtMa.Text = _service.GenerateNextCode();
                 }
                 catch
                 {
@@ -78,7 +78,7 @@ namespace BagShopManagement.Views.Dev2
             bool ok;
             try
             {
-                ok = _isEdit ? _controller.Update(obj) : _controller.Add(obj);
+                ok = _isEdit ? _service.Update(obj) : _service.Add(obj);
             }
             catch (Exception ex)
             {

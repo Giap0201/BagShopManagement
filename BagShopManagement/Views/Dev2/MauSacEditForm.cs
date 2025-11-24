@@ -1,5 +1,5 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Services.Interfaces;
 using System;
 using System.Windows.Forms;
 
@@ -7,14 +7,14 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class MauSacEditForm : Form
     {
-        private readonly MauSacController _controller;
+        private readonly IMauSacService _service;
         private readonly MauSac _model;
         private readonly bool _isEdit;
 
-        public MauSacEditForm(MauSacController controller, MauSac model = null)
+        public MauSacEditForm(IMauSacService service, MauSac model = null)
         {
             InitializeComponent();
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
             _model = model;
             _isEdit = model != null;
 
@@ -32,7 +32,7 @@ namespace BagShopManagement.Views.Dev2
             }
             else
             {
-                try { txtMa.Text = _controller.GenerateNextCode(); }
+                try { txtMa.Text = _service.GenerateNextCode(); }
                 catch { txtMa.Text = "MS001"; }
                 txtMa.ReadOnly = true;
                 this.Text = "Thêm Màu sắc";
@@ -59,7 +59,7 @@ namespace BagShopManagement.Views.Dev2
             bool ok;
             try
             {
-                ok = _isEdit ? _controller.Update(obj) : _controller.Add(obj);
+                ok = _isEdit ? _service.Update(obj) : _service.Add(obj);
             }
             catch (Exception ex)
             {

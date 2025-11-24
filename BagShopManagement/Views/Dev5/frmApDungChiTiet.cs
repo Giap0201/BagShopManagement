@@ -193,5 +193,10 @@ namespace BagShopManagement.Views.Controls
         {
 
         }
+
+        private void btnXacNhanKM_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

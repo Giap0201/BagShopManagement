@@ -11,8 +11,5 @@ namespace BagShopManagement.Services.Interfaces
     public interface IDanhMucService
     {
         DataTable GetAll(string tableName);
-        //int ImportDanhMuc(string tableName, DataTable data);
-
-        int ImportFromExcel(ExcelWorksheet worksheet, string tableName);
     }
 }

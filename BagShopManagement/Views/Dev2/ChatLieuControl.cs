@@ -1,5 +1,5 @@
-﻿using BagShopManagement.Controllers;
-using BagShopManagement.Models;
+﻿using BagShopManagement.Models;
+using BagShopManagement.Services.Interfaces;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
@@ -11,12 +11,12 @@ namespace BagShopManagement.Views.Dev2
 {
     public partial class ChatLieuControl : UserControl
     {
-        private readonly ChatLieuController _controller;
+        private readonly IChatLieuService _service;
 
-        public ChatLieuControl(ChatLieuController controller)
+        public ChatLieuControl(IChatLieuService service)
         {
             InitializeComponent();
-            _controller = controller ?? throw new ArgumentNullException(nameof(controller));
+            _service = service ?? throw new ArgumentNullException(nameof(service));
 
             // Wire sự kiện an toàn
             this.Load += ChatLieuControl_Load;
@@ -62,7 +62,7 @@ namespace BagShopManagement.Views.Dev2
         {
             try
             {
-                dgvChatLieu.DataSource = _controller.GetAll();
+                dgvChatLieu.DataSource = _service.GetAll();
             }
             catch (Exception ex)
             {
@@ -83,7 +83,7 @@ namespace BagShopManagement.Views.Dev2
 
             try
             {
-                dgvChatLieu.DataSource = _controller.Search(keyword);
+                dgvChatLieu.DataSource = _service.Search(keyword);
             }
             catch (Exception ex)
             {
@@ -95,7 +95,7 @@ namespace BagShopManagement.Views.Dev2
         // ====== CRUD ======
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var f = new ChatLieuEditForm(_controller))
+            using (var f = new ChatLieuEditForm(_service))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -107,7 +107,7 @@ namespace BagShopManagement.Views.Dev2
             if (dgvChatLieu.CurrentRow == null) return;
             if (dgvChatLieu.CurrentRow.DataBoundItem is not ChatLieu model) return;
 
-            using (var f = new ChatLieuEditForm(_controller, model))
+            using (var f = new ChatLieuEditForm(_service, model))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -124,7 +124,7 @@ namespace BagShopManagement.Views.Dev2
             {
                 try
                 {
-                    if (_controller.Delete(model.MaChatLieu))
+                    if (_service.Delete(model.MaChatLieu))
                         LoadData();
                     else
                         MessageBox.Show("Xóa thất bại. Có thể bản ghi đang được tham chiếu.",
@@ -143,7 +143,7 @@ namespace BagShopManagement.Views.Dev2
             if (e.RowIndex < 0) return;
             if (dgvChatLieu.Rows[e.RowIndex].DataBoundItem is not ChatLieu model) return;
 
-            using (var f = new ChatLieuEditForm(_controller, model))
+            using (var f = new ChatLieuEditForm(_service, model))
             {
                 if (f.ShowDialog() == DialogResult.OK)
                     LoadData();
@@ -222,7 +222,7 @@ namespace BagShopManagement.Views.Dev2
                     return;
                 }
 
-                var existingList = _controller.GetAll() ?? new List<ChatLieu>();
+                var existingList = _service.GetAll() ?? new List<ChatLieu>();
                 int lastRow = ws.Dimension.End.Row;
 
                 // =======================
@@ -259,7 +259,7 @@ namespace BagShopManagement.Views.Dev2
                         existing.TenChatLieu = ten;
                         existing.MoTa = mota;
 
-                        if (_controller.Update(existing)) updated++;
+                        if (_service.Update(existing)) updated++;
                         else skipped++;
                     }
                     else
@@ -267,12 +267,12 @@ namespace BagShopManagement.Views.Dev2
                         // Thêm mới
                         var newItem = new ChatLieu
                         {
-                            MaChatLieu = _controller.GenerateNextCode(),
+                            MaChatLieu = _service.GenerateNextCode(),
                             TenChatLieu = ten,
                             MoTa = mota
                         };
 
-                        if (_controller.Add(newItem))
+                        if (_service.Add(newItem))
                         {
                             inserted++;
                             existingList.Add(newItem);
@@ -308,7 +308,7 @@ namespace BagShopManagement.Views.Dev2
                 };
                 if (sfd.ShowDialog() != DialogResult.OK) return;
 
-                var list = (dgvChatLieu.DataSource as List<ChatLieu>) ?? _controller.GetAll();
+                var list = (dgvChatLieu.DataSource as List<ChatLieu>) ?? _service.GetAll();
                 if (list == null || list.Count == 0)
                 {
                     MessageBox.Show("Không có dữ liệu để xuất.", "Thông báo");

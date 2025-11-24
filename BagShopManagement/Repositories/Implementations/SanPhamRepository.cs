@@ -167,21 +167,6 @@ VALUES (@MaSP, @TenSP, @GiaNhap, @GiaBan, @SoLuongTon, @MoTa, @AnhChinh, @MaLoai
             return list;
         }
 
-        //public SanPham GetById(string maSP)
-        //{
-        //    string query = "SELECT MaSP, TenSP, SoLuongTon FROM SanPham WHERE MaSP = @MaSP";
-        //    var dt = ExecuteQuery(query, new SqlParameter("@MaSP", maSP));
-        //    if (dt.Rows.Count == 0) return null;
-
-        //    var row = dt.Rows[0];
-        //    return new SanPham
-        //    {
-        //        MaSP = row["MaSP"].ToString(),
-        //        TenSP = row["TenSP"].ToString(),
-        //        SoLuongTon = Convert.ToInt32(row["SoLuongTon"])
-        //    };
-        //}
-
         public void UpdateSoLuong(string maSP, int soLuongMoi)
         {
             string query = "UPDATE SanPham SET SoLuongTon = @SoLuongMoi WHERE MaSP = @MaSP";

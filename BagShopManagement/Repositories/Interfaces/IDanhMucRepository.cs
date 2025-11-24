@@ -12,7 +12,5 @@ namespace BagShopManagement.Repositories.Interfaces
     {
         DataTable GetAll(string tableName);
 
-        //int ImportDanhMuc(string tableName, DataTable data);
-        int ImportFromExcel(ExcelWorksheet worksheet, string tableName);
     }
 }
