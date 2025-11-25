@@ -2,6 +2,7 @@ using BagShopManagement.Controllers;
 using BagShopManagement.DTOs;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Implementations;
+using BagShopManagement.Views.Dev4.Dev4_POS;
 using Microsoft.Data.SqlClient;
 
 namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
@@ -176,14 +177,40 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTotal.Text = $"Tổng: {total:N0} ₫";
         }
 
+        private void btnChonSP_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var chonSPForm = new ChonSanPhamForm();
+                if (chonSPForm.ShowDialog() == DialogResult.OK && chonSPForm.SelectedProduct != null)
+                {
+                    var sp = chonSPForm.SelectedProduct;
+
+                    // Hiển thị thông tin sản phẩm đã chọn
+                    lblMaSPValue.Text = sp.MaSP;
+                    lblTenSP.Text = sp.TenSP;
+                    lblGiaSP.Text = $"{sp.GiaBan:N0} ₫";
+
+                    // Focus vào số lượng
+                    numQty.Focus();
+                    numQty.Select(0, numQty.Text.Length);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi chọn sản phẩm: {ex.Message}",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            var maSP = txtMaSP.Text.Trim();
+            var maSP = lblMaSPValue.Text.Trim();
             int qty = (int)numQty.Value;
 
             if (string.IsNullOrWhiteSpace(maSP))
             {
-                MessageBox.Show("Vui lòng nhập mã sản phẩm!", "Thiếu thông tin",
+                MessageBox.Show("Vui lòng chọn sản phẩm!", "Thiếu thông tin",
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
@@ -223,9 +250,15 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             }
 
             RefreshCartGrid();
-            txtMaSP.Clear();
+            ClearProductSelection();
             numQty.Value = 1;
-            txtMaSP.Focus();
+        }
+
+        private void ClearProductSelection()
+        {
+            lblMaSPValue.Text = "";
+            lblTenSP.Text = "";
+            lblGiaSP.Text = "";
         }
 
         private void btnRemove_Click(object sender, EventArgs e)
@@ -239,8 +272,19 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
             var selectedRow = dgvCart.SelectedRows[0];
             var maSP = selectedRow.Cells["MaSP"].Value?.ToString();
+            var tenSP = selectedRow.Cells["TenSP"].Value?.ToString();
 
             if (string.IsNullOrEmpty(maSP))
+                return;
+
+            // Xác nhận trước khi xóa
+            var confirmResult = MessageBox.Show(
+                $"Bạn có chắc chắn muốn xóa sản phẩm '{tenSP}' khỏi giỏ hàng?",
+                "Xác nhận xóa",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmResult != DialogResult.Yes)
                 return;
 
             var item = _cart.FirstOrDefault(c => c.MaSP == maSP);
@@ -248,6 +292,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             {
                 _cart.Remove(item);
                 RefreshCartGrid();
+                MessageBox.Show("Đã xóa sản phẩm khỏi giỏ hàng!", "Thành công",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -284,6 +330,18 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // Xác nhận trước khi lưu
+            var confirmResult = MessageBox.Show(
+                $"Bạn có chắc chắn muốn lưu các thay đổi cho hóa đơn '{_maHDB}'?\n" +
+                $"Tổng tiền: {_cart.Sum(i => i.ThanhTien):N0} ₫\n" +
+                $"Số sản phẩm: {_cart.Count}",
+                "Xác nhận lưu",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (confirmResult != DialogResult.Yes)
+                return;
 
             try
             {
