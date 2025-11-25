@@ -297,23 +297,23 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             }
         }
 
-        private void btnApplyDiscount_Click(object sender, EventArgs e)
-        {
-            decimal percent = numDiscountPercent.Value;
-            if (percent <= 0)
-            {
-                MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (> 0).",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+        //private void btnApplyDiscount_Click(object sender, EventArgs e)
+        //{
+        //    decimal percent = numDiscountPercent.Value;
+        //    if (percent <= 0)
+        //    {
+        //        MessageBox.Show("Vui lòng nhập phần trăm giảm giá hợp lệ (> 0).",
+        //            "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        //        return;
+        //    }
 
-            foreach (var item in _cart)
-            {
-                item.GiamGiaSP = Math.Round(item.DonGia * (percent / 100m), 2);
-            }
+        //    foreach (var item in _cart)
+        //    {
+        //        item.GiamGiaSP = Math.Round(item.DonGia * (percent / 100m), 2);
+        //    }
 
-            RefreshCartGrid();
-        }
+        //    RefreshCartGrid();
+        //}
 
         private void btnSave_Click(object sender, EventArgs e)
         {

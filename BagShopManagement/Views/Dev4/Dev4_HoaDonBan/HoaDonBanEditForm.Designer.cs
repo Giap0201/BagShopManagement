@@ -67,9 +67,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlHeader.Controls.Add(lblHeader);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
-            pnlHeader.Margin = new Padding(6);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(3400, 164);
+            pnlHeader.Size = new Size(1475, 80);
             pnlHeader.TabIndex = 0;
             // 
             // lblHeader
@@ -78,10 +77,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblHeader.AutoSize = true;
             lblHeader.Font = new Font("Segoe UI Black", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblHeader.ForeColor = Color.FromArgb(54, 54, 54);
-            lblHeader.Location = new Point(72, 41);
-            lblHeader.Margin = new Padding(6, 0, 6, 0);
+            lblHeader.Location = new Point(749, 21);
             lblHeader.Name = "lblHeader";
-            lblHeader.Size = new Size(851, 81);
+            lblHeader.Size = new Size(425, 41);
             lblHeader.TabIndex = 0;
             lblHeader.Text = "CHỈNH SỬA HOÁ ĐƠN BÁN";
             // 
@@ -99,11 +97,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlTop.Controls.Add(lblNV);
             pnlTop.Controls.Add(lblKH);
             pnlTop.Dock = DockStyle.Top;
-            pnlTop.Location = new Point(0, 164);
-            pnlTop.Margin = new Padding(11, 12, 11, 12);
+            pnlTop.Location = new Point(0, 80);
+            pnlTop.Margin = new Padding(5, 6, 5, 6);
             pnlTop.Name = "pnlTop";
-            pnlTop.Padding = new Padding(42, 41, 42, 41);
-            pnlTop.Size = new Size(3400, 451);
+            pnlTop.Padding = new Padding(20);
+            pnlTop.Size = new Size(1475, 220);
             pnlTop.TabIndex = 1;
             // 
             // cboTrangThai
@@ -114,10 +112,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             cboTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             cboTrangThai.FormattingEnabled = true;
             cboTrangThai.Items.AddRange(new object[] { "Nháp", "Đã thanh toán", "Đã hủy" });
-            cboTrangThai.Location = new Point(2879, 297);
-            cboTrangThai.Margin = new Padding(11, 12, 11, 12);
+            cboTrangThai.Location = new Point(1355, 145);
+            cboTrangThai.Margin = new Padding(5, 6, 5, 6);
             cboTrangThai.Name = "cboTrangThai";
-            cboTrangThai.Size = new Size(712, 54);
+            cboTrangThai.Size = new Size(337, 31);
             cboTrangThai.TabIndex = 9;
             // 
             // lblTrangThai
@@ -125,10 +123,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTrangThai.AutoSize = true;
             lblTrangThai.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             lblTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
-            lblTrangThai.Location = new Point(2344, 308);
-            lblTrangThai.Margin = new Padding(11, 0, 11, 0);
+            lblTrangThai.Location = new Point(1103, 150);
+            lblTrangThai.Margin = new Padding(5, 0, 5, 0);
             lblTrangThai.Name = "lblTrangThai";
-            lblTrangThai.Size = new Size(183, 46);
+            lblTrangThai.Size = new Size(91, 23);
             lblTrangThai.TabIndex = 8;
             lblTrangThai.Text = "Trạng thái:";
             // 
@@ -138,11 +136,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             txtPhuongThucTT.BorderStyle = BorderStyle.FixedSingle;
             txtPhuongThucTT.Font = new Font("Segoe UI", 10.2F);
             txtPhuongThucTT.ForeColor = Color.FromArgb(51, 51, 51);
-            txtPhuongThucTT.Location = new Point(944, 297);
-            txtPhuongThucTT.Margin = new Padding(11, 12, 11, 12);
+            txtPhuongThucTT.Location = new Point(357, 148);
+            txtPhuongThucTT.Margin = new Padding(5, 6, 5, 6);
             txtPhuongThucTT.Name = "txtPhuongThucTT";
             txtPhuongThucTT.ReadOnly = true;
-            txtPhuongThucTT.Size = new Size(714, 53);
+            txtPhuongThucTT.Size = new Size(337, 30);
             txtPhuongThucTT.TabIndex = 7;
             // 
             // lblPhuongThucTT
@@ -150,10 +148,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblPhuongThucTT.AutoSize = true;
             lblPhuongThucTT.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             lblPhuongThucTT.ForeColor = Color.FromArgb(51, 51, 51);
-            lblPhuongThucTT.Location = new Point(72, 308);
-            lblPhuongThucTT.Margin = new Padding(11, 0, 11, 0);
+            lblPhuongThucTT.Location = new Point(34, 150);
+            lblPhuongThucTT.Margin = new Padding(5, 0, 5, 0);
             lblPhuongThucTT.Name = "lblPhuongThucTT";
-            lblPhuongThucTT.Size = new Size(406, 46);
+            lblPhuongThucTT.Size = new Size(205, 23);
             lblPhuongThucTT.TabIndex = 6;
             lblPhuongThucTT.Text = "Phương thức thanh toán:";
             // 
@@ -163,10 +161,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             txtGhiChu.BorderStyle = BorderStyle.FixedSingle;
             txtGhiChu.Font = new Font("Segoe UI", 10.2F);
             txtGhiChu.ForeColor = Color.FromArgb(51, 51, 51);
-            txtGhiChu.Location = new Point(361, 174);
-            txtGhiChu.Margin = new Padding(11, 12, 11, 12);
+            txtGhiChu.Location = new Point(357, 85);
+            txtGhiChu.Margin = new Padding(5, 6, 5, 6);
             txtGhiChu.Name = "txtGhiChu";
-            txtGhiChu.Size = new Size(1436, 53);
+            txtGhiChu.Size = new Size(337, 30);
             txtGhiChu.TabIndex = 5;
             // 
             // lblGhiChu
@@ -174,10 +172,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblGhiChu.AutoSize = true;
             lblGhiChu.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             lblGhiChu.ForeColor = Color.FromArgb(51, 51, 51);
-            lblGhiChu.Location = new Point(72, 184);
-            lblGhiChu.Margin = new Padding(11, 0, 11, 0);
+            lblGhiChu.Location = new Point(34, 90);
+            lblGhiChu.Margin = new Padding(5, 0, 5, 0);
             lblGhiChu.Name = "lblGhiChu";
-            lblGhiChu.Size = new Size(146, 46);
+            lblGhiChu.Size = new Size(73, 23);
             lblGhiChu.TabIndex = 4;
             lblGhiChu.Text = "Ghi chú:";
             // 
@@ -187,11 +185,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             txtMaNV.BorderStyle = BorderStyle.FixedSingle;
             txtMaNV.Font = new Font("Segoe UI", 10.2F);
             txtMaNV.ForeColor = Color.FromArgb(51, 51, 51);
-            txtMaNV.Location = new Point(2879, 51);
-            txtMaNV.Margin = new Padding(11, 12, 11, 12);
+            txtMaNV.Location = new Point(1355, 25);
+            txtMaNV.Margin = new Padding(5, 6, 5, 6);
             txtMaNV.Name = "txtMaNV";
             txtMaNV.ReadOnly = true;
-            txtMaNV.Size = new Size(714, 53);
+            txtMaNV.Size = new Size(337, 30);
             txtMaNV.TabIndex = 3;
             // 
             // txtMaKH
@@ -200,10 +198,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             txtMaKH.BorderStyle = BorderStyle.FixedSingle;
             txtMaKH.Font = new Font("Segoe UI", 10.2F);
             txtMaKH.ForeColor = Color.FromArgb(51, 51, 51);
-            txtMaKH.Location = new Point(759, 51);
-            txtMaKH.Margin = new Padding(11, 12, 11, 12);
+            txtMaKH.Location = new Point(357, 25);
+            txtMaKH.Margin = new Padding(5, 6, 5, 6);
             txtMaKH.Name = "txtMaKH";
-            txtMaKH.Size = new Size(714, 53);
+            txtMaKH.Size = new Size(337, 30);
             txtMaKH.TabIndex = 1;
             // 
             // lblNV
@@ -211,10 +209,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblNV.AutoSize = true;
             lblNV.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             lblNV.ForeColor = Color.FromArgb(51, 51, 51);
-            lblNV.Location = new Point(2344, 62);
-            lblNV.Margin = new Padding(11, 0, 11, 0);
+            lblNV.Location = new Point(1103, 30);
+            lblNV.Margin = new Padding(5, 0, 5, 0);
             lblNV.Name = "lblNV";
-            lblNV.Size = new Size(237, 46);
+            lblNV.Size = new Size(120, 23);
             lblNV.TabIndex = 2;
             lblNV.Text = "Mã nhân viên:";
             // 
@@ -223,10 +221,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblKH.AutoSize = true;
             lblKH.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             lblKH.ForeColor = Color.FromArgb(51, 51, 51);
-            lblKH.Location = new Point(72, 62);
-            lblKH.Margin = new Padding(11, 0, 11, 0);
+            lblKH.Location = new Point(34, 30);
+            lblKH.Margin = new Padding(5, 0, 5, 0);
             lblKH.Name = "lblKH";
-            lblKH.Size = new Size(265, 46);
+            lblKH.Size = new Size(134, 23);
             lblKH.TabIndex = 0;
             lblKH.Text = "Mã khách hàng:";
             // 
@@ -235,11 +233,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlLeft.BackColor = Color.FromArgb(240, 240, 240);
             pnlLeft.Controls.Add(grpAdd);
             pnlLeft.Dock = DockStyle.Left;
-            pnlLeft.Location = new Point(0, 615);
-            pnlLeft.Margin = new Padding(11, 12, 11, 12);
+            pnlLeft.Location = new Point(0, 300);
+            pnlLeft.Margin = new Padding(5, 6, 5, 6);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Padding = new Padding(42, 41, 42, 41);
-            pnlLeft.Size = new Size(1275, 1230);
+            pnlLeft.Padding = new Padding(20);
+            pnlLeft.Size = new Size(600, 215);
             pnlLeft.TabIndex = 2;
             // 
             // grpAdd
@@ -263,11 +261,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             grpAdd.Controls.Add(lblSanPham);
             grpAdd.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             grpAdd.ForeColor = Color.FromArgb(51, 51, 51);
-            grpAdd.Location = new Point(42, 41);
-            grpAdd.Margin = new Padding(11, 12, 11, 12);
+            grpAdd.Location = new Point(20, 20);
+            grpAdd.Margin = new Padding(5, 6, 5, 6);
             grpAdd.Name = "grpAdd";
-            grpAdd.Padding = new Padding(32, 31, 32, 31);
-            grpAdd.Size = new Size(1190, 1114);
+            grpAdd.Padding = new Padding(15);
+            grpAdd.Size = new Size(560, 158);
             grpAdd.TabIndex = 0;
             grpAdd.TabStop = false;
             grpAdd.Text = "THÊM SẢN PHẨM";
@@ -277,10 +275,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTotal.AutoSize = true;
             lblTotal.Font = new Font("Segoe UI", 14F, FontStyle.Bold);
             lblTotal.ForeColor = Color.FromArgb(231, 76, 60);
-            lblTotal.Location = new Point(53, 779);
-            lblTotal.Margin = new Padding(6, 0, 6, 0);
+            lblTotal.Location = new Point(25, 380);
             lblTotal.Name = "lblTotal";
-            lblTotal.Size = new Size(237, 62);
+            lblTotal.Size = new Size(124, 32);
             lblTotal.TabIndex = 15;
             lblTotal.Text = "Tổng: 0 ₫";
             // 
@@ -293,10 +290,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(53, 950);
-            btnSave.Margin = new Padding(6);
+            btnSave.Location = new Point(25, 78);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(531, 123);
+            btnSave.Size = new Size(250, 60);
             btnSave.TabIndex = 16;
             btnSave.Text = "LƯU";
             btnSave.UseVisualStyleBackColor = false;
@@ -311,10 +307,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.FromArgb(51, 51, 51);
-            btnCancel.Location = new Point(616, 950);
-            btnCancel.Margin = new Padding(6);
+            btnCancel.Location = new Point(290, 78);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(510, 123);
+            btnCancel.Size = new Size(240, 60);
             btnCancel.TabIndex = 17;
             btnCancel.Text = "HUỶ";
             btnCancel.UseVisualStyleBackColor = false;
@@ -326,10 +321,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblGiaSP.BorderStyle = BorderStyle.Fixed3D;
             lblGiaSP.Font = new Font("Segoe UI", 10.2F);
             lblGiaSP.ForeColor = Color.Green;
-            lblGiaSP.Location = new Point(382, 328);
-            lblGiaSP.Margin = new Padding(6, 0, 6, 0);
+            lblGiaSP.Location = new Point(180, 160);
             lblGiaSP.Name = "lblGiaSP";
-            lblGiaSP.Size = new Size(744, 62);
+            lblGiaSP.Size = new Size(350, 30);
             lblGiaSP.TabIndex = 7;
             lblGiaSP.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -338,10 +332,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTenSP.BackColor = SystemColors.Control;
             lblTenSP.BorderStyle = BorderStyle.Fixed3D;
             lblTenSP.Font = new Font("Segoe UI", 10.2F);
-            lblTenSP.Location = new Point(382, 246);
-            lblTenSP.Margin = new Padding(6, 0, 6, 0);
+            lblTenSP.Location = new Point(180, 120);
             lblTenSP.Name = "lblTenSP";
-            lblTenSP.Size = new Size(744, 62);
+            lblTenSP.Size = new Size(350, 30);
             lblTenSP.TabIndex = 5;
             lblTenSP.TextAlign = ContentAlignment.MiddleLeft;
             // 
@@ -350,20 +343,18 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblMaSPValue.BackColor = SystemColors.Control;
             lblMaSPValue.BorderStyle = BorderStyle.Fixed3D;
             lblMaSPValue.Font = new Font("Segoe UI", 10.2F);
-            lblMaSPValue.Location = new Point(382, 164);
-            lblMaSPValue.Margin = new Padding(6, 0, 6, 0);
+            lblMaSPValue.Location = new Point(180, 80);
             lblMaSPValue.Name = "lblMaSPValue";
-            lblMaSPValue.Size = new Size(744, 62);
+            lblMaSPValue.Size = new Size(350, 30);
             lblMaSPValue.TabIndex = 3;
             lblMaSPValue.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // lblMaSPLabel
             // 
             lblMaSPLabel.ImageAlign = ContentAlignment.MiddleLeft;
-            lblMaSPLabel.Location = new Point(53, 164);
-            lblMaSPLabel.Margin = new Padding(6, 0, 6, 0);
+            lblMaSPLabel.Location = new Point(25, 80);
             lblMaSPLabel.Name = "lblMaSPLabel";
-            lblMaSPLabel.Size = new Size(298, 62);
+            lblMaSPLabel.Size = new Size(140, 30);
             lblMaSPLabel.TabIndex = 2;
             lblMaSPLabel.Text = "Mã sản phẩm:";
             lblMaSPLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -371,10 +362,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // lblTenSPLabel
             // 
             lblTenSPLabel.ImageAlign = ContentAlignment.MiddleLeft;
-            lblTenSPLabel.Location = new Point(53, 246);
-            lblTenSPLabel.Margin = new Padding(6, 0, 6, 0);
+            lblTenSPLabel.Location = new Point(25, 120);
             lblTenSPLabel.Name = "lblTenSPLabel";
-            lblTenSPLabel.Size = new Size(298, 62);
+            lblTenSPLabel.Size = new Size(140, 30);
             lblTenSPLabel.TabIndex = 4;
             lblTenSPLabel.Text = "Tên sản phẩm:";
             lblTenSPLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -382,10 +372,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // lblGiaSPLabel
             // 
             lblGiaSPLabel.ImageAlign = ContentAlignment.MiddleLeft;
-            lblGiaSPLabel.Location = new Point(53, 328);
-            lblGiaSPLabel.Margin = new Padding(6, 0, 6, 0);
+            lblGiaSPLabel.Location = new Point(25, 160);
             lblGiaSPLabel.Name = "lblGiaSPLabel";
-            lblGiaSPLabel.Size = new Size(298, 62);
+            lblGiaSPLabel.Size = new Size(140, 30);
             lblGiaSPLabel.TabIndex = 6;
             lblGiaSPLabel.Text = "Giá sản phẩm:";
             lblGiaSPLabel.TextAlign = ContentAlignment.MiddleLeft;
@@ -398,10 +387,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnChonSP.FlatStyle = FlatStyle.Flat;
             btnChonSP.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
             btnChonSP.ForeColor = Color.White;
-            btnChonSP.Location = new Point(382, 62);
-            btnChonSP.Margin = new Padding(6);
+            btnChonSP.Location = new Point(180, 30);
             btnChonSP.Name = "btnChonSP";
-            btnChonSP.Size = new Size(744, 82);
+            btnChonSP.Size = new Size(350, 40);
             btnChonSP.TabIndex = 1;
             btnChonSP.Text = "Chọn sản phẩm";
             btnChonSP.UseVisualStyleBackColor = false;
@@ -415,10 +403,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnRemove.FlatStyle = FlatStyle.Flat;
             btnRemove.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnRemove.ForeColor = Color.White;
-            btnRemove.Location = new Point(654, 563);
-            btnRemove.Margin = new Padding(6);
+            btnRemove.Location = new Point(308, 275);
             btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(332, 102);
+            btnRemove.Size = new Size(156, 50);
             btnRemove.TabIndex = 11;
             btnRemove.Text = "XOÁ";
             btnRemove.UseVisualStyleBackColor = false;
@@ -432,10 +419,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnAdd.ForeColor = Color.White;
-            btnAdd.Location = new Point(171, 563);
-            btnAdd.Margin = new Padding(6);
+            btnAdd.Location = new Point(80, 275);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(332, 102);
+            btnAdd.Size = new Size(156, 50);
             btnAdd.TabIndex = 10;
             btnAdd.Text = "THÊM";
             btnAdd.UseVisualStyleBackColor = false;
@@ -447,12 +433,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             numQty.BorderStyle = BorderStyle.FixedSingle;
             numQty.Font = new Font("Segoe UI", 10.2F);
             numQty.ForeColor = Color.FromArgb(51, 51, 51);
-            numQty.Location = new Point(382, 420);
-            numQty.Margin = new Padding(6);
+            numQty.Location = new Point(180, 205);
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(744, 53);
+            numQty.Size = new Size(350, 30);
             numQty.TabIndex = 9;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -460,10 +445,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             lblQty.ForeColor = Color.FromArgb(51, 51, 51);
             lblQty.ImageAlign = ContentAlignment.MiddleLeft;
-            lblQty.Location = new Point(53, 420);
-            lblQty.Margin = new Padding(6, 0, 6, 0);
+            lblQty.Location = new Point(25, 205);
             lblQty.Name = "lblQty";
-            lblQty.Size = new Size(298, 62);
+            lblQty.Size = new Size(140, 30);
             lblQty.TabIndex = 8;
             lblQty.Text = "Số lượng:";
             lblQty.TextAlign = ContentAlignment.MiddleLeft;
@@ -471,10 +455,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // lblSanPham
             // 
             lblSanPham.ForeColor = Color.FromArgb(51, 51, 51);
-            lblSanPham.Location = new Point(53, 72);
-            lblSanPham.Margin = new Padding(6, 0, 6, 0);
+            lblSanPham.Location = new Point(25, 35);
             lblSanPham.Name = "lblSanPham";
-            lblSanPham.Size = new Size(298, 62);
+            lblSanPham.Size = new Size(140, 30);
             lblSanPham.TabIndex = 0;
             lblSanPham.Text = "Sản phẩm:";
             lblSanPham.TextAlign = ContentAlignment.MiddleLeft;
@@ -484,11 +467,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlRight.BackColor = Color.FromArgb(240, 240, 240);
             pnlRight.Controls.Add(dgvCart);
             pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(1275, 615);
-            pnlRight.Margin = new Padding(11, 12, 11, 12);
+            pnlRight.Location = new Point(600, 300);
+            pnlRight.Margin = new Padding(5, 6, 5, 6);
             pnlRight.Name = "pnlRight";
-            pnlRight.Padding = new Padding(42, 41, 42, 41);
-            pnlRight.Size = new Size(2125, 1230);
+            pnlRight.Padding = new Padding(20);
+            pnlRight.Size = new Size(875, 215);
             pnlRight.TabIndex = 3;
             // 
             // dgvCart
@@ -519,8 +502,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvCart.Dock = DockStyle.Fill;
             dgvCart.EnableHeadersVisualStyles = false;
             dgvCart.GridColor = Color.LightGray;
-            dgvCart.Location = new Point(42, 41);
-            dgvCart.Margin = new Padding(11, 12, 11, 12);
+            dgvCart.Location = new Point(20, 20);
+            dgvCart.Margin = new Padding(5, 6, 5, 6);
             dgvCart.MultiSelect = false;
             dgvCart.Name = "dgvCart";
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
@@ -534,25 +517,25 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvCart.RowHeadersVisible = false;
             dgvCart.RowHeadersWidth = 51;
             dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCart.Size = new Size(2041, 1148);
+            dgvCart.Size = new Size(835, 175);
             dgvCart.TabIndex = 0;
             dgvCart.CellEndEdit += dgvCart_CellEndEdit;
             // 
             // HoaDonBanEditForm
             // 
-            AutoScaleDimensions = new SizeF(17F, 41F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(240, 240, 240);
-            ClientSize = new Size(3400, 1845);
+            ClientSize = new Size(1475, 515);
             Controls.Add(pnlRight);
             Controls.Add(pnlLeft);
             Controls.Add(pnlTop);
             Controls.Add(pnlHeader);
-            Margin = new Padding(6);
-            MinimumSize = new Size(2939, 1548);
+            MinimumSize = new Size(912, 521);
             Name = "HoaDonBanEditForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Chỉnh sửa hoá đơn bán";
+            WindowState = FormWindowState.Maximized;
             Load += HoaDonBanEditForm_Load;
             pnlHeader.ResumeLayout(false);
             pnlHeader.PerformLayout();
