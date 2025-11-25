@@ -33,11 +33,12 @@
             // 
             // panelHeader
             // 
-            panelHeader.BackColor = SystemColors.MenuHighlight;
+            panelHeader.BackColor = SystemColors.Control;
             panelHeader.Dock = DockStyle.Top;
+            panelHeader.ForeColor = Color.White;
             panelHeader.Location = new Point(0, 0);
             panelHeader.Name = "panelHeader";
-            panelHeader.Size = new Size(605, 80);
+            panelHeader.Size = new Size(599, 61);
             panelHeader.TabIndex = 0;
             // 
             // HeaderControl
@@ -47,7 +48,7 @@
             BackColor = SystemColors.ControlLight;
             Controls.Add(panelHeader);
             Name = "HeaderControl";
-            Size = new Size(605, 80);
+            Size = new Size(599, 61);
             ResumeLayout(false);
         }
 

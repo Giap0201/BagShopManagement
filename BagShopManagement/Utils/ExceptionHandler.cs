@@ -6,26 +6,42 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.Utils
 {
-    //phuong thuc xu li loi cua toan he thong
+    /// <summary>
+    /// Xử lý exception tập trung cho toàn hệ thống
+    /// Phân loại exception và hiển thị thông báo phù hợp cho user
+    /// </summary>
     public static class ExceptionHandler
     {
-        //xu li mot ex, hien thi thong bao cho user
+        /// <summary>
+        /// Xử lý exception và hiển thị thông báo lỗi cho người dùng
+        /// </summary>
+        /// <param name="ex">Exception cần xử lý</param>
+        /// <param name="userMessage">Thông báo custom cho user (mặc định: "Đã xảy ra lỗi không mong muốn")</param>
+        /// <remarks>
+        /// Phân loại exception:
+        /// - ArgumentException: Lỗi nhập liệu → hiển thị chi tiết
+        /// - ApplicationException: Lỗi nghiệp vụ/DB → hiển thị thông báo chung
+        /// - Các lỗi khác: Hiển thị userMessage
+        /// </remarks>
         public static void Handle(Exception ex, string userMessage = "Đã xảy ra lỗi không mong muốn.")
         {
-            //kiem tra loai loi
+            // Log exception để phục vụ debug
+            Logger.Log($"[ERROR] {ex.GetType().Name}: {ex.Message}\n{ex.StackTrace}");
+
+            // Phân loại và hiển thị thông báo phù hợp
             if (ex is ArgumentException)
             {
-                //neu la loi nhap lieu sai hien thi chi tiet cho nguoi dung
+                // Lỗi nhập liệu → hiển thị chi tiết cho user
                 MessageBox.Show(ex.Message, "Lỗi nhập liệu", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-            if (ex is ApplicationException)
+            else if (ex is ApplicationException)
             {
-                //neu la loi nghiep vu hoac loi db hien thi thong bao chung khong hien thi loi chi tiet
+                // Lỗi nghiệp vụ/DB → hiển thị thông báo chung, không expose chi tiết
                 MessageBox.Show(ex.Message, "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
             {
-                //loi chua xac dinh
+                // Lỗi chưa xác định → hiển thị userMessage
                 MessageBox.Show(userMessage, "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }

@@ -1,0 +1,111 @@
+﻿namespace BagShopManagement.Views.Dev1
+{
+    partial class ForgotPasswordForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            lblTitle = new Label();
+            txtTenDangNhap = new TextBox();
+            txtGuiYeuCau = new Button();
+            btnHuy = new Button();
+            SuspendLayout();
+            // 
+            // lblTitle
+            // 
+            lblTitle.AutoSize = true;
+            lblTitle.Font = new Font("Segoe UI", 10.2F);
+            lblTitle.Location = new Point(22, 86);
+            lblTitle.Name = "lblTitle";
+            lblTitle.Size = new Size(349, 23);
+            lblTitle.TabIndex = 0;
+            lblTitle.Text = "Nhập tên đăng nhập của bạn để khôi phục: ";
+            // 
+            // txtTenDangNhap
+            // 
+            txtTenDangNhap.Font = new Font("Segoe UI", 10.2F);
+            txtTenDangNhap.Location = new Point(377, 83);
+            txtTenDangNhap.Name = "txtTenDangNhap";
+            txtTenDangNhap.Size = new Size(229, 30);
+            txtTenDangNhap.TabIndex = 1;
+            // 
+            // txtGuiYeuCau
+            // 
+            txtGuiYeuCau.BackColor = SystemColors.Highlight;
+            txtGuiYeuCau.FlatAppearance.BorderSize = 0;
+            txtGuiYeuCau.FlatStyle = FlatStyle.Flat;
+            txtGuiYeuCau.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            txtGuiYeuCau.ForeColor = Color.White;
+            txtGuiYeuCau.Location = new Point(171, 187);
+            txtGuiYeuCau.Name = "txtGuiYeuCau";
+            txtGuiYeuCau.Size = new Size(140, 42);
+            txtGuiYeuCau.TabIndex = 2;
+            txtGuiYeuCau.Text = "Gửi Yêu Cầu";
+            txtGuiYeuCau.UseVisualStyleBackColor = false;
+            txtGuiYeuCau.Click += btnGuiYeuCau_Click;
+            // 
+            // btnHuy
+            // 
+            btnHuy.BackColor = Color.FromArgb(231, 76, 60);
+            btnHuy.FlatAppearance.BorderSize = 0;
+            btnHuy.FlatStyle = FlatStyle.Flat;
+            btnHuy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnHuy.ForeColor = Color.White;
+            btnHuy.Location = new Point(345, 187);
+            btnHuy.Name = "btnHuy";
+            btnHuy.Size = new Size(94, 42);
+            btnHuy.TabIndex = 3;
+            btnHuy.Text = "Huỷ";
+            btnHuy.UseVisualStyleBackColor = false;
+            btnHuy.Click += btnHuy_Click;
+            // 
+            // ForgotPasswordForm
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.ButtonFace;
+            CancelButton = btnHuy;
+            ClientSize = new Size(646, 337);
+            Controls.Add(btnHuy);
+            Controls.Add(txtGuiYeuCau);
+            Controls.Add(txtTenDangNhap);
+            Controls.Add(lblTitle);
+            FormBorderStyle = FormBorderStyle.FixedDialog;
+            Name = "ForgotPasswordForm";
+            StartPosition = FormStartPosition.CenterParent;
+            Text = "Quên mật khẩu";
+            ResumeLayout(false);
+            PerformLayout();
+        }
+
+        #endregion
+
+        private Label lblTitle;
+        private TextBox txtTenDangNhap;
+        private Button txtGuiYeuCau;
+        private Button btnHuy;
+    }
+}

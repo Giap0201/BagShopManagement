@@ -28,45 +28,71 @@
         /// </summary>
         private void InitializeComponent()
         {
-            headerControl1 = new BagShopManagement.Views.Controls.HeaderControl();
-            sideBarControl1 = new BagShopManagement.Views.Controls.SideBarControl();
+            sideBarControl = new BagShopManagement.Views.Controls.SideBarControl();
+            panelContent = new Panel();
+            mainPanel = new Panel();
+            ucPanel = new Panel();
+            panelContent.SuspendLayout();
+            mainPanel.SuspendLayout();
             SuspendLayout();
             // 
-            // headerControl1
+            // sideBarControl
             // 
-            headerControl1.BackColor = SystemColors.ControlLight;
-            headerControl1.Dock = DockStyle.Top;
-            headerControl1.Location = new Point(0, 0);
-            headerControl1.Name = "headerControl1";
-            headerControl1.Size = new Size(1226, 76);
-            headerControl1.TabIndex = 0;
+            sideBarControl.BackColor = Color.FromArgb(30, 41, 59);
+            sideBarControl.Dock = DockStyle.Left;
+            sideBarControl.Location = new Point(0, 0);
+            sideBarControl.Margin = new Padding(6);
+            sideBarControl.Name = "sideBarControl";
+            sideBarControl.Size = new Size(351, 841);
+            sideBarControl.TabIndex = 1;
+            sideBarControl.Load += sideBarControl_Load;
             // 
-            // sideBarControl1
+            // panelContent
             // 
-            sideBarControl1.Dock = DockStyle.Left;
-            sideBarControl1.Location = new Point(0, 76);
-            sideBarControl1.Name = "sideBarControl1";
-            sideBarControl1.Size = new Size(336, 620);
-            sideBarControl1.TabIndex = 1;
-            sideBarControl1.Load += sideBarControl1_Load;
+            panelContent.Controls.Add(mainPanel);
+            panelContent.Dock = DockStyle.Fill;
+            panelContent.Location = new Point(351, 0);
+            panelContent.Name = "panelContent";
+            panelContent.Size = new Size(808, 841);
+            panelContent.TabIndex = 2;
+            // 
+            // mainPanel
+            // 
+            mainPanel.Controls.Add(ucPanel);
+            mainPanel.Dock = DockStyle.Fill;
+            mainPanel.Location = new Point(0, 0);
+            mainPanel.Margin = new Padding(1);
+            mainPanel.Name = "mainPanel";
+            mainPanel.Size = new Size(808, 841);
+            mainPanel.TabIndex = 0;
+            // 
+            // ucPanel
+            // 
+            ucPanel.Dock = DockStyle.Fill;
+            ucPanel.Location = new Point(0, 0);
+            ucPanel.Name = "ucPanel";
+            ucPanel.Size = new Size(808, 841);
+            ucPanel.TabIndex = 4;
             // 
             // QuanLiBanHang
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1226, 696);
-            Controls.Add(sideBarControl1);
-            Controls.Add(headerControl1);
+            ClientSize = new Size(1159, 841);
+            Controls.Add(panelContent);
+            Controls.Add(sideBarControl);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Name = "QuanLiBanHang";
-            Text = "QuanLiBanHang";
+            Text = "Quản lý bán hàng - Bag Shop Management";
             WindowState = FormWindowState.Maximized;
+            Load += QuanLiBanHang_Load;
+            panelContent.ResumeLayout(false);
+            mainPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
-
-        #endregion
-
-        private Controls.HeaderControl headerControl1;
-        private Controls.SideBarControl sideBarControl1;
+        private BagShopManagement.Views.Controls.SideBarControl sideBarControl;
+        private System.Windows.Forms.Panel panelContent;
+        private Panel mainPanel;
+        private Panel ucPanel;
     }
 }

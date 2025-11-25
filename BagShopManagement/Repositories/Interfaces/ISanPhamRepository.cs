@@ -1,0 +1,31 @@
+﻿using BagShopManagement.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BagShopManagement.Repositories.Interfaces
+{
+    public interface ISanPhamRepository
+    {
+        List<SanPham> GetAvailableProducts(string maCTGG);
+        List<SanPham> GetAll();
+
+        SanPham GetById(string maSP);
+
+        bool Add(SanPham sp);
+
+        bool Update(SanPham sp);
+
+        bool Delete(string maSP);
+
+        List<SanPham> Search(string keyword);
+
+        string GetMaxCode();
+
+        int GetTonKho(string maSP);
+
+        void UpdateSoLuong(string maSP, int soLuongMoi);
+    }
+}
