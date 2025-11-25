@@ -35,9 +35,6 @@ namespace BagShopManagement.Views.Dev5
             LoadData();
         }
 
-        #endregion
-
-        #region Data Handling Methods
 
         private void LoadData()
         {
@@ -64,19 +61,36 @@ namespace BagShopManagement.Views.Dev5
 
         private void CustomizeGridView()
         {
-            if (dgvTonKho.Columns.Count > 0)
-            {
-                dgvTonKho.Columns["MaSP"].HeaderText = "Mã Sản Phẩm";
-                dgvTonKho.Columns["TenSP"].HeaderText = "Tên Sản Phẩm";
-                dgvTonKho.Columns["SoLuongTon"].HeaderText = "Tồn Kho";
+            dgvTonKho.Columns.Clear();
 
-                dgvTonKho.Columns["TenSP"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            }
+            dgvTonKho.AutoGenerateColumns = false;
+
+            // Cột Mã SP
+            dgvTonKho.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "MaSP",
+                HeaderText = "Mã Sản Phẩm",
+                Name = "MaSP"
+            });
+
+            // Cột Tên SP
+            dgvTonKho.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "TenSP",
+                HeaderText = "Tên Sản Phẩm",
+                Name = "TenSP",
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+            });
+
+            // Cột Tồn Kho
+            dgvTonKho.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "SoLuongTon",
+                HeaderText = "Tồn Kho",
+                Name = "SoLuongTon"
+            });
         }
 
-        #endregion
-
-        #region UI Event Handlers
 
         private void btnDieuChinh_Click(object sender, EventArgs e)
         {
@@ -187,7 +201,7 @@ namespace BagShopManagement.Views.Dev5
         {
             bool isRowSelected = (dgvTonKho.CurrentRow != null);
             btnDieuChinh.Enabled = isRowSelected;
-            btnXemLichSu.Enabled = isRowSelected;
+            //btnXemLichSu.Enabled = isRowSelected;
         }
 
         #endregion

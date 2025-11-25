@@ -53,7 +53,6 @@
             label2 = new Label();
             label5 = new Label();
             pnlTopInfo.SuspendLayout();
-            panel1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             pnlLeft.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvKhoSanPham).BeginInit();
@@ -71,27 +70,26 @@
             pnlTopInfo.Dock = DockStyle.Top;
             pnlTopInfo.Location = new Point(0, 0);
             pnlTopInfo.Name = "pnlTopInfo";
-            pnlTopInfo.Size = new Size(905, 71);
+            pnlTopInfo.Size = new Size(1753, 71);
             pnlTopInfo.TabIndex = 0;
             // 
             // lblTenChuongTrinh
             // 
             lblTenChuongTrinh.AutoSize = true;
-            lblTenChuongTrinh.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            lblTenChuongTrinh.Location = new Point(482, 28);
+            lblTenChuongTrinh.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTenChuongTrinh.Location = new Point(593, 9);
             lblTenChuongTrinh.Name = "lblTenChuongTrinh";
-            lblTenChuongTrinh.Size = new Size(141, 23);
+            lblTenChuongTrinh.Size = new Size(296, 38);
             lblTenChuongTrinh.TabIndex = 0;
-            lblTenChuongTrinh.Text = "Tên chương trình";
+            lblTenChuongTrinh.Text = "TÊN CHƯƠNG TRÌNH";
             // 
             // panel1
             // 
-            panel1.Controls.Add(btnHuỵChonKM);
             panel1.Dock = DockStyle.Bottom;
             panel1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            panel1.Location = new Point(0, 624);
+            panel1.Location = new Point(0, 527);
             panel1.Name = "panel1";
-            panel1.Size = new Size(905, 87);
+            panel1.Size = new Size(1753, 33);
             panel1.TabIndex = 1;
             // 
             // btnHuỵChonKM
@@ -100,9 +98,9 @@
             btnHuỵChonKM.Cursor = Cursors.Hand;
             btnHuỵChonKM.FlatStyle = FlatStyle.Flat;
             btnHuỵChonKM.ForeColor = Color.White;
-            btnHuỵChonKM.Location = new Point(1385, 16);
+            btnHuỵChonKM.Location = new Point(87, 351);
             btnHuỵChonKM.Name = "btnHuỵChonKM";
-            btnHuỵChonKM.Size = new Size(122, 55);
+            btnHuỵChonKM.Size = new Size(94, 53);
             btnHuỵChonKM.TabIndex = 0;
             btnHuỵChonKM.Text = "Đóng";
             btnHuỵChonKM.UseVisualStyleBackColor = false;
@@ -122,7 +120,7 @@
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 1;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel1.Size = new Size(905, 357);
+            tableLayoutPanel1.Size = new Size(1753, 456);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // pnlLeft
@@ -133,7 +131,7 @@
             pnlLeft.Dock = DockStyle.Fill;
             pnlLeft.Location = new Point(3, 3);
             pnlLeft.Name = "pnlLeft";
-            pnlLeft.Size = new Size(318, 351);
+            pnlLeft.Size = new Size(742, 450);
             pnlLeft.TabIndex = 0;
             // 
             // dgvKhoSanPham
@@ -143,7 +141,7 @@
             dgvKhoSanPham.Location = new Point(0, 148);
             dgvKhoSanPham.Name = "dgvKhoSanPham";
             dgvKhoSanPham.RowHeadersWidth = 51;
-            dgvKhoSanPham.Size = new Size(640, 399);
+            dgvKhoSanPham.Size = new Size(742, 302);
             dgvKhoSanPham.TabIndex = 2;
             dgvKhoSanPham.CellContentClick += dgvKhoSanPham_CellContentClick;
             // 
@@ -155,7 +153,7 @@
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 23);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(318, 125);
+            groupBox1.Size = new Size(742, 125);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Tìm kiếm";
@@ -200,14 +198,15 @@
             // 
             // pnlCenter
             // 
+            pnlCenter.Controls.Add(btnHuỵChonKM);
             pnlCenter.Controls.Add(btnXoa);
             pnlCenter.Controls.Add(btnThem);
             pnlCenter.Controls.Add(nudPhanTramGiam);
             pnlCenter.Controls.Add(label1);
             pnlCenter.Dock = DockStyle.Fill;
-            pnlCenter.Location = new Point(327, 3);
+            pnlCenter.Location = new Point(751, 3);
             pnlCenter.Name = "pnlCenter";
-            pnlCenter.Size = new Size(250, 351);
+            pnlCenter.Size = new Size(250, 450);
             pnlCenter.TabIndex = 1;
             // 
             // btnXoa
@@ -259,19 +258,22 @@
             pnlRight.Controls.Add(groupBox2);
             pnlRight.Controls.Add(label5);
             pnlRight.Dock = DockStyle.Fill;
-            pnlRight.Location = new Point(583, 3);
+            pnlRight.Location = new Point(1007, 3);
             pnlRight.Name = "pnlRight";
-            pnlRight.Size = new Size(319, 351);
+            pnlRight.Size = new Size(743, 450);
             pnlRight.TabIndex = 2;
             // 
             // dgvSanPhamApDung
             // 
+            dgvSanPhamApDung.AllowUserToDeleteRows = false;
+            dgvSanPhamApDung.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvSanPhamApDung.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvSanPhamApDung.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvSanPhamApDung.Dock = DockStyle.Fill;
             dgvSanPhamApDung.Location = new Point(0, 148);
             dgvSanPhamApDung.Name = "dgvSanPhamApDung";
             dgvSanPhamApDung.RowHeadersWidth = 51;
-            dgvSanPhamApDung.Size = new Size(641, 399);
+            dgvSanPhamApDung.Size = new Size(743, 302);
             dgvSanPhamApDung.TabIndex = 5;
             // 
             // groupBox2
@@ -282,7 +284,7 @@
             groupBox2.Dock = DockStyle.Top;
             groupBox2.Location = new Point(0, 23);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(319, 125);
+            groupBox2.Size = new Size(743, 125);
             groupBox2.TabIndex = 4;
             groupBox2.TabStop = false;
             groupBox2.Text = "Tìm kiếm";
@@ -330,15 +332,15 @@
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(905, 515);
+            ClientSize = new Size(1753, 560);
             Controls.Add(tableLayoutPanel1);
             Controls.Add(panel1);
             Controls.Add(pnlTopInfo);
             Name = "frmApDungChiTiet";
             Text = "frmApDungChiTiet";
+            WindowState = FormWindowState.Maximized;
             pnlTopInfo.ResumeLayout(false);
             pnlTopInfo.PerformLayout();
-            panel1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             pnlLeft.ResumeLayout(false);
             pnlLeft.PerformLayout();

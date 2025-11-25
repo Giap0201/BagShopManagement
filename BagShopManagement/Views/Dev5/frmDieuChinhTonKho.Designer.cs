@@ -42,6 +42,7 @@
             label4 = new Label();
             btnHuy = new Button();
             btnXacNhan = new Button();
+            label6 = new Label();
             grpThongTinSP.SuspendLayout();
             grpThongTinMoi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)nudSoLuongMoi).BeginInit();
@@ -56,9 +57,9 @@
             grpThongTinSP.Controls.Add(lblMaSP);
             grpThongTinSP.Controls.Add(label1);
             grpThongTinSP.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            grpThongTinSP.Location = new Point(8, 4);
+            grpThongTinSP.Location = new Point(12, 63);
             grpThongTinSP.Name = "grpThongTinSP";
-            grpThongTinSP.Size = new Size(320, 338);
+            grpThongTinSP.Size = new Size(337, 340);
             grpThongTinSP.TabIndex = 0;
             grpThongTinSP.TabStop = false;
             grpThongTinSP.Text = "Thông tin sản phẩm";
@@ -92,7 +93,6 @@
             label3.Size = new Size(139, 23);
             label3.TabIndex = 3;
             label3.Text = "Tồn kho hiện tại:";
-            label3.Click += label3_Click;
             // 
             // label2
             // 
@@ -129,7 +129,7 @@
             grpThongTinMoi.Controls.Add(nudSoLuongMoi);
             grpThongTinMoi.Controls.Add(label4);
             grpThongTinMoi.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
-            grpThongTinMoi.Location = new Point(349, 2);
+            grpThongTinMoi.Location = new Point(380, 63);
             grpThongTinMoi.Name = "grpThongTinMoi";
             grpThongTinMoi.Size = new Size(450, 340);
             grpThongTinMoi.TabIndex = 1;
@@ -161,7 +161,6 @@
             nudSoLuongMoi.Name = "nudSoLuongMoi";
             nudSoLuongMoi.Size = new Size(150, 30);
             nudSoLuongMoi.TabIndex = 1;
-            nudSoLuongMoi.ValueChanged += nudSoLuongMoi_ValueChanged;
             // 
             // label4
             // 
@@ -179,7 +178,7 @@
             btnHuy.FlatStyle = FlatStyle.Flat;
             btnHuy.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             btnHuy.ForeColor = Color.Transparent;
-            btnHuy.Location = new Point(513, 377);
+            btnHuy.Location = new Point(555, 431);
             btnHuy.Name = "btnHuy";
             btnHuy.Size = new Size(104, 46);
             btnHuy.TabIndex = 2;
@@ -194,7 +193,7 @@
             btnXacNhan.FlatStyle = FlatStyle.Flat;
             btnXacNhan.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold);
             btnXacNhan.ForeColor = SystemColors.ButtonHighlight;
-            btnXacNhan.Location = new Point(643, 377);
+            btnXacNhan.Location = new Point(685, 431);
             btnXacNhan.Name = "btnXacNhan";
             btnXacNhan.Size = new Size(102, 46);
             btnXacNhan.TabIndex = 3;
@@ -202,11 +201,22 @@
             btnXacNhan.UseVisualStyleBackColor = false;
             btnXacNhan.Click += btnXacNhan_Click;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(276, 1);
+            label6.Name = "label6";
+            label6.Size = new Size(315, 38);
+            label6.TabIndex = 4;
+            label6.Text = "ĐIỀU CHỈNH TỒN KHO";
+            // 
             // frmDieuChinhTonKho
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(842, 504);
+            Controls.Add(label6);
             Controls.Add(btnXacNhan);
             Controls.Add(btnHuy);
             Controls.Add(grpThongTinMoi);
@@ -224,6 +234,7 @@
             grpThongTinMoi.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)nudSoLuongMoi).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -242,5 +253,6 @@
         private Label label4;
         private Button btnHuy;
         private Button btnXacNhan;
+        private Label label6;
     }
 }

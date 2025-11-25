@@ -11,11 +11,10 @@ namespace BagShopManagement.Views.Controls
     public partial class frmApDungChiTiet : Form
     {
         private readonly string _maCTGG;
-        private readonly ChiTietGiamGiaController _controller; // Đã sửa: Controller sẽ được truyền vào
+        private readonly ChiTietGiamGiaController _controller; 
         private List<SanPham> _toanBoKhoSanPham;
         private List<ChiTietGiamGiaDto> _toanBoSanPhamApDung;
 
-        // SỬA LỖI LOGIC: Hàm khởi tạo giờ đây nhận vào một ChiTietGiamGiaController
         public frmApDungChiTiet(string maCTGG, string tenChuongTrinh, ChiTietGiamGiaController chiTietGiamGiaController)
         {
             InitializeComponent();
@@ -170,11 +169,28 @@ namespace BagShopManagement.Views.Controls
 
         private void CustomizeKhoGridView()
         {
-            dgvKhoSanPham.Columns["MaSP"].HeaderText = "Mã SP";
-            dgvKhoSanPham.Columns["TenSP"].HeaderText = "Tên Sản Phẩm";
-            dgvKhoSanPham.Columns["SoLuongTon"].HeaderText = "Tồn Kho";
-            //dgvKhoSanPham.Columns["TenSP"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            if (dgvKhoSanPham.Columns["MaSP"] != null)
+                dgvKhoSanPham.Columns["MaSP"].HeaderText = "Mã SP";
+
+            if (dgvKhoSanPham.Columns["TenSP"] != null)
+                dgvKhoSanPham.Columns["TenSP"].HeaderText = "Tên Sản Phẩm";
+
+            if (dgvKhoSanPham.Columns["SoLuongTon"] != null)
+                dgvKhoSanPham.Columns["SoLuongTon"].HeaderText = "Tồn Kho";
+
+            foreach (DataGridViewColumn col in dgvKhoSanPham.Columns)
+            {
+                if (col.Name != "MaSP" &&
+                    col.Name != "TenSP" &&
+                    col.Name != "SoLuongTon")
+                {
+                    col.Visible = false;  
+                }
+            }
+
+            dgvKhoSanPham.Columns["TenSP"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
         }
+
 
         private void CustomizeApDungGridView()
         {

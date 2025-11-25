@@ -39,6 +39,7 @@ namespace BagShopManagement.Views.Controls
             dgvDanhSachCTGG = new DataGridView();
             splitter1 = new Splitter();
             pnlHeader = new Panel();
+            panel3 = new Panel();
             label7 = new Label();
             panel2 = new Panel();
             splitter2 = new Splitter();
@@ -111,9 +112,9 @@ namespace BagShopManagement.Views.Controls
             panel4.Controls.Add(dgvDanhSachCTGG);
             panel4.Controls.Add(splitter1);
             panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(0, 107);
+            panel4.Location = new Point(0, 101);
             panel4.Name = "panel4";
-            panel4.Size = new Size(661, 494);
+            panel4.Size = new Size(661, 500);
             panel4.TabIndex = 1;
             // 
             // dgvDanhSachCTGG
@@ -161,13 +162,13 @@ namespace BagShopManagement.Views.Controls
             dgvDanhSachCTGG.RowHeadersVisible = false;
             dgvDanhSachCTGG.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToFirstHeader;
             dgvDanhSachCTGG.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDanhSachCTGG.Size = new Size(661, 445);
+            dgvDanhSachCTGG.Size = new Size(661, 451);
             dgvDanhSachCTGG.TabIndex = 15;
             // 
             // splitter1
             // 
             splitter1.Dock = DockStyle.Bottom;
-            splitter1.Location = new Point(0, 445);
+            splitter1.Location = new Point(0, 451);
             splitter1.Name = "splitter1";
             splitter1.Size = new Size(661, 49);
             splitter1.TabIndex = 1;
@@ -176,19 +177,27 @@ namespace BagShopManagement.Views.Controls
             // pnlHeader
             // 
             pnlHeader.BackColor = Color.FromArgb(52, 73, 94);
+            pnlHeader.Controls.Add(panel3);
             pnlHeader.Controls.Add(label7);
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(661, 107);
+            pnlHeader.Size = new Size(661, 101);
             pnlHeader.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            panel3.Location = new Point(421, 64);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(8, 8);
+            panel3.TabIndex = 1;
             // 
             // label7
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 18F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.White;
-            label7.Location = new Point(3, 34);
+            label7.Location = new Point(87, 31);
             label7.Name = "label7";
             label7.Size = new Size(637, 41);
             label7.TabIndex = 0;
@@ -450,5 +459,6 @@ namespace BagShopManagement.Views.Controls
         private Splitter splitter1;
         private Splitter splitter2;
         private DataGridView dgvDanhSachCTGG;
+        private Panel panel3;
     }
 }
