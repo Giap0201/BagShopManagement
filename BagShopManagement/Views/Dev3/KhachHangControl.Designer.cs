@@ -61,12 +61,13 @@
             // 
             // btnTim
             // 
+            btnTim.BackColor = SystemColors.ActiveCaption;
             btnTim.Location = new Point(243, 29);
             btnTim.Name = "btnTim";
             btnTim.Size = new Size(125, 38);
             btnTim.TabIndex = 2;
             btnTim.Text = "Tìm kiếm";
-            btnTim.UseVisualStyleBackColor = true;
+            btnTim.UseVisualStyleBackColor = false;
             btnTim.Click += btnTim_Click;
             // 
             // btnThemMoi
