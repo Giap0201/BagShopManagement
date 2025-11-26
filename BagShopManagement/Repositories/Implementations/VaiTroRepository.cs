@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class VaiTroImpl : BaseRepository, IVaiTroRepository
+    public class VaiTroRepository : BaseRepository, IVaiTroRepository
     {
         // Không cần Constructor đọc chuỗi kết nối nữa, BaseRepository đã lo.
 

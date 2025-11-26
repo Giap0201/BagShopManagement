@@ -13,7 +13,7 @@ using DataAccessBase = BagShopManagement.Repositories.BaseRepository;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class NhanVienImpl : BaseRepository, INhanVienRepository
+    public class NhanVienRepository : BaseRepository, INhanVienRepository
     {
         // --- MAPPERS ---
         private NhanVien MapToNhanVien(DataRow row)

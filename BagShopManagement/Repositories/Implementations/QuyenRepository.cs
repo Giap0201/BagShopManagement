@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class QuyenImpl : BaseRepository, IQuyenRepository
+    public class QuyenRepository : BaseRepository, IQuyenRepository
     {
         // Helper map dữ liệu từ DataRow
         private Quyen MapToQuyen(DataRow row)

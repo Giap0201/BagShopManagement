@@ -88,10 +88,10 @@ namespace BagShopManagement
             services.AddTransient<IBaoCaoRepository, BaoCaoRepository>();
 
             // === Đăng ký Repositories - Dev1 (Bổ sung và Thay thế) ===
-            services.AddTransient<INhanVienRepository, NhanVienImpl>(); // <-- Thay thế NhanVienRepository bằng NhanVienImpl
-            services.AddTransient<ITaiKhoanRepository, TaiKhoanImpl>();
-            services.AddTransient<IQuyenRepository, QuyenImpl>();
-            services.AddTransient<IVaiTroRepository, VaiTroImpl>();
+            services.AddTransient<INhanVienRepository, NhanVienRepository>(); // <-- Thay thế NhanVienRepository bằng NhanVienImpl
+            services.AddTransient<ITaiKhoanRepository, TaiKhoanRepository>();
+            services.AddTransient<IQuyenRepository, QuyenRepository>();
+            services.AddTransient<IVaiTroRepository, VaiTroRepository>();
 
             // === Đăng ký Services - Dev2 (Giữ nguyên) ===
             services.AddTransient<ILoaiTuiService, LoaiTuiService>();

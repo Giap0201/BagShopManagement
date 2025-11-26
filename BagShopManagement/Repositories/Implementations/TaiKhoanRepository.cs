@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace BagShopManagement.Repositories.Implementations
 {
-    public class TaiKhoanImpl : BaseRepository, ITaiKhoanRepository
+    public class TaiKhoanRepository : BaseRepository, ITaiKhoanRepository
     {
         // Helper map dữ liệu
         private TaiKhoan MapToTaiKhoan(DataRow row)
