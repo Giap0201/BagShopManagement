@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+
 using System.Drawing; // <-- BỔ SUNG: Cần cho Color
 
 namespace BagShopManagement.Views.Controls
@@ -53,6 +54,8 @@ namespace BagShopManagement.Views.Controls
         public event EventHandler ShowEmployeeManagementClicked;
 
         public event EventHandler ShowProfileClicked;
+
+        public event EventHandler ShowDangXuatClicked;
 
         public SideBarControl()
         {
@@ -202,6 +205,24 @@ namespace BagShopManagement.Views.Controls
 
         private void button1_Click(object sender, EventArgs e)
         {
+        }
+
+        private void btnDangXuat_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show(
+                "Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?",
+                "Xác nhận đăng xuất",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
+
+            if (result == DialogResult.Yes)
+            {
+                // Kích hoạt sự kiện để Form cha xử lý
+                ResetButtonDefault(_currentButton); // THÊM DÒNG NÀY
+                SetButtonActive((Button)sender);      // THÊM DÒNG NÀY
+                ShowDangXuatClicked?.Invoke(this, EventArgs.Empty);
+            }
         }
     }
 }

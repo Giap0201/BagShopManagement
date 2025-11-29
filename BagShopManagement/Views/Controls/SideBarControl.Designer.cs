@@ -47,6 +47,7 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             btnNhanVien = new Button();
             label1 = new Label();
+            btnDangXuat = new Button();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
             // 
@@ -325,6 +326,7 @@
             // 
             tableLayoutPanel1.ColumnCount = 1;
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Controls.Add(btnDangXuat, 0, 13);
             tableLayoutPanel1.Controls.Add(btnBanHang, 0, 1);
             tableLayoutPanel1.Controls.Add(btnDanhMuc, 0, 2);
             tableLayoutPanel1.Controls.Add(btnSanPham, 0, 3);
@@ -398,6 +400,29 @@
             label1.Text = "UTC SHOP";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // btnDangXuat
+            // 
+            btnDangXuat.BackColor = Color.FromArgb(30, 41, 59);
+            btnDangXuat.Dock = DockStyle.Fill;
+            btnDangXuat.FlatAppearance.BorderSize = 0;
+            btnDangXuat.FlatAppearance.MouseDownBackColor = Color.FromArgb(37, 99, 235);
+            btnDangXuat.FlatAppearance.MouseOverBackColor = Color.FromArgb(51, 65, 85);
+            btnDangXuat.FlatStyle = FlatStyle.Flat;
+            btnDangXuat.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDangXuat.ForeColor = Color.White;
+            btnDangXuat.Image = Properties.Resources.logout;
+            btnDangXuat.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDangXuat.Location = new Point(3, 787);
+            btnDangXuat.Name = "btnDangXuat";
+            btnDangXuat.Padding = new Padding(60, 0, 10, 0);
+            btnDangXuat.Size = new Size(359, 51);
+            btnDangXuat.TabIndex = 14;
+            btnDangXuat.Text = "    Đăng xuất";
+            btnDangXuat.TextAlign = ContentAlignment.MiddleLeft;
+            btnDangXuat.TextImageRelation = TextImageRelation.ImageBeforeText;
+            btnDangXuat.UseVisualStyleBackColor = false;
+            btnDangXuat.Click += btnDangXuat_Click;
+            // 
             // SideBarControl
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -441,5 +466,6 @@
         private TableLayoutPanel tableLayoutPanel1;
         public Button btnNhanVien;
         private Label label1;
+        public Button btnDangXuat;
     }
 }
