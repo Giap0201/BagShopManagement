@@ -38,7 +38,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnPrint = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
-            btnEdit = new Button();
             btnViewDetails = new Button();
             lblTotal = new Label();
             dgvHoaDon = new DataGridView();
@@ -222,7 +221,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.Controls.Add(btnPrint);
             pnlBottom.Controls.Add(btnDelete);
             pnlBottom.Controls.Add(btnCancel);
-            pnlBottom.Controls.Add(btnEdit);
             pnlBottom.Controls.Add(btnViewDetails);
             pnlBottom.Location = new Point(38, 810);
             pnlBottom.Name = "pnlBottom";
@@ -276,22 +274,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnCancel.Text = "HUỶ HOÁ ĐƠN";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
-            // 
-            // btnEdit
-            // 
-            btnEdit.BackColor = Color.LightGray;
-            btnEdit.Cursor = Cursors.Hand;
-            btnEdit.FlatAppearance.BorderSize = 0;
-            btnEdit.FlatStyle = FlatStyle.Flat;
-            btnEdit.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnEdit.ForeColor = Color.FromArgb(51, 51, 51);
-            btnEdit.Location = new Point(1062, 40);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(153, 50);
-            btnEdit.TabIndex = 2;
-            btnEdit.Text = "SỬA";
-            btnEdit.UseVisualStyleBackColor = false;
-            btnEdit.Click += btnEdit_Click;
             // 
             // btnViewDetails
             // 
@@ -417,7 +399,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private Panel pnlBottom;
         private Label lblTotal;
         private Button btnViewDetails;
-        private Button btnEdit;
         private Button btnCancel;
         private Button btnDelete;
         private Button btnPrint;

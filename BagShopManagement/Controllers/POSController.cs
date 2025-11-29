@@ -25,10 +25,10 @@ namespace BagShopManagement.Controllers
         public void ApplyDiscountToProduct(string maSP, decimal percent)
             => _pos.ApplyDiscountToProduct(maSP, percent);
 
-        // 🧾 Thanh toán hoặc lưu tạm hóa đơn
+        // 🧾 Thanh toán hóa đơn (hoàn thành)
         public (bool ok, string res) Checkout(string maKH, string maNV,
-            bool saveDraft = false, string? phuongThucTT = null, string? ghiChu = null)
-            => _pos.Checkout(maKH, maNV, saveDraft, phuongThucTT, ghiChu);
+            string? phuongThucTT = null, string? ghiChu = null)
+            => _pos.Checkout(maKH, maNV, phuongThucTT, ghiChu);
 
         // 📋 Lấy danh sách sản phẩm trong giỏ
         public List<CartItem> GetCart()
