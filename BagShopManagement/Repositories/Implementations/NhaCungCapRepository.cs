@@ -74,27 +74,18 @@ namespace BagShopManagement.Repositories.Implementations
             return ExecuteNonQuery(query, new SqlParameter("@MaNCC", maNCC));
         }
 
-        public List<NhaCungCap> Search(string ten, string sdt, string email)
+        public List<NhaCungCap> Search(string keyword)
         {
-            string query = @"
-                SELECT * FROM NhaCungCap
-                WHERE (@Ten IS NULL OR TenNCC LIKE '%' + @Ten + '%')
-                  AND (@SDT IS NULL OR SoDienThoai LIKE '%' + @SDT + '%')
-                  AND (@Email IS NULL OR Email LIKE '%' + @Email + '%')";
+            string q = @"SELECT * FROM NhaCungCap
+                 WHERE MaNCC LIKE @kw 
+                    OR TenNCC LIKE @kw
+                    OR SoDienThoai LIKE @kw
+                 ORDER BY MaNCC";
 
-            DataTable dt = ExecuteQuery(query,
-                new SqlParameter("@Ten", string.IsNullOrWhiteSpace(ten) ? DBNull.Value : ten),
-                new SqlParameter("@SDT", string.IsNullOrWhiteSpace(sdt) ? DBNull.Value : sdt),
-                new SqlParameter("@Email", string.IsNullOrWhiteSpace(email) ? DBNull.Value : email)
-            );
-
-            List<NhaCungCap> list = new List<NhaCungCap>();
-            foreach (DataRow row in dt.Rows)
-            {
-                list.Add(Map(row));
-            }
-            return list;
+            var dt = ExecuteQuery(q, new SqlParameter("@kw", $"%{keyword}%"));
+            return dt.AsEnumerable().Select(Map).ToList();
         }
+
 
         private NhaCungCap Map(DataRow row)
         {

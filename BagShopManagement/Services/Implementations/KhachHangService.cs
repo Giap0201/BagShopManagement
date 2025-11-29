@@ -30,11 +30,11 @@ namespace BagShopManagement.Services.Implementations
             }
         }
 
-        public KhachHang? GetById(string maKH)
+        public List<KhachHang>? GetById(string kw)
         {
             try
             {
-                return _repository.GetById(maKH);
+                return _repository.Search(kw);
             }
             catch (Exception ex)
             {

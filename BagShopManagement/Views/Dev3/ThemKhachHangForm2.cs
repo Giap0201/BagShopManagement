@@ -63,7 +63,6 @@ namespace BagShopManagement.Views.Dev3
             txtSoDienThoai.Text = kh.SoDienThoai;
             txtEmail.Text = kh.Email;
             txtDiaChi.Text = kh.DiaChi;
-            txtDiemTichLuy.Text = kh.DiemTichLuy.ToString();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
@@ -109,17 +108,6 @@ namespace BagShopManagement.Views.Dev3
             }
 
             int diemTichLuy = 0;
-            string diemText = txtDiemTichLuy.Text.Trim();
-
-            if (!string.IsNullOrEmpty(diemText))
-            {
-                if (!int.TryParse(diemText, out diemTichLuy))
-                {
-                    MessageBox.Show("Điểm tích lũy phải là một con số hợp lệ.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    txtDiemTichLuy.Focus();
-                    return;
-                }
-            }
 
             var kh = new KhachHang
             {

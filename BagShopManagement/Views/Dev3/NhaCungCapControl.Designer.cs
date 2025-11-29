@@ -51,9 +51,9 @@
             // 
             btnTim.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTim.ForeColor = Color.FromArgb(51, 51, 51);
-            btnTim.Location = new Point(67, 165);
+            btnTim.Location = new Point(424, 165);
             btnTim.Name = "btnTim";
-            btnTim.Size = new Size(125, 36);
+            btnTim.Size = new Size(109, 36);
             btnTim.TabIndex = 1;
             btnTim.Text = "Tìm kiếm ";
             btnTim.UseVisualStyleBackColor = true;
@@ -104,7 +104,7 @@
             // 
             txtTimKiem.BackColor = Color.White;
             txtTimKiem.ForeColor = Color.Black;
-            txtTimKiem.Location = new Point(188, 165);
+            txtTimKiem.Location = new Point(91, 165);
             txtTimKiem.Multiline = true;
             txtTimKiem.Name = "txtTimKiem";
             txtTimKiem.PlaceholderText = "Nhập mã nhà cung cấp ...";
