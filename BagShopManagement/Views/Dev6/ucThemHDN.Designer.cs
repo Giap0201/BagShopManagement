@@ -86,7 +86,7 @@
             groupBox1.ForeColor = Color.FromArgb(54, 54, 54);
             groupBox1.Location = new Point(46, 70);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1472, 189);
+            groupBox1.Size = new Size(1472, 200);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "THÔNG TIN CHUNG";
@@ -240,7 +240,7 @@
             groupBox2.ForeColor = Color.FromArgb(54, 54, 54);
             groupBox2.Location = new Point(46, 276);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(1472, 494);
+            groupBox2.Size = new Size(1472, 545);
             groupBox2.TabIndex = 1;
             groupBox2.TabStop = false;
             groupBox2.Text = "CHI TIẾT HOÁ ĐƠN";
@@ -390,7 +390,7 @@
             btnThemChiTietHDN.BackColor = Color.FromArgb(224, 224, 224);
             btnThemChiTietHDN.Cursor = Cursors.Hand;
             btnThemChiTietHDN.FlatAppearance.BorderSize = 0;
-            btnThemChiTietHDN.FlatAppearance.MouseOverBackColor = Color.FromArgb(0, 192, 192);
+            btnThemChiTietHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnThemChiTietHDN.FlatStyle = FlatStyle.Flat;
             btnThemChiTietHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnThemChiTietHDN.ForeColor = Color.FromArgb(54, 54, 54);
@@ -499,6 +499,7 @@
             btnInHDN.BackColor = Color.DodgerBlue;
             btnInHDN.Cursor = Cursors.Hand;
             btnInHDN.FlatAppearance.BorderSize = 0;
+            btnInHDN.FlatAppearance.MouseOverBackColor = Color.Blue;
             btnInHDN.FlatStyle = FlatStyle.Flat;
             btnInHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnInHDN.ForeColor = Color.White;
@@ -515,7 +516,7 @@
             btnDuyetHDN.BackColor = Color.FromArgb(224, 224, 224);
             btnDuyetHDN.Cursor = Cursors.Hand;
             btnDuyetHDN.FlatAppearance.BorderSize = 0;
-            btnDuyetHDN.FlatAppearance.MouseOverBackColor = Color.Cyan;
+            btnDuyetHDN.FlatAppearance.MouseOverBackColor = Color.Gray;
             btnDuyetHDN.FlatStyle = FlatStyle.Flat;
             btnDuyetHDN.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDuyetHDN.ForeColor = Color.FromArgb(54, 54, 54);
@@ -567,9 +568,9 @@
             panel1.Controls.Add(btnThoat);
             panel1.Controls.Add(btnDuyetHDN);
             panel1.Controls.Add(btnTamLuuHDN);
-            panel1.Location = new Point(46, 800);
+            panel1.Location = new Point(46, 827);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1472, 116);
+            panel1.Size = new Size(1472, 118);
             panel1.TabIndex = 15;
             // 
             // ucThemHDN
@@ -580,7 +581,7 @@
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
             Name = "ucThemHDN";
-            Size = new Size(1591, 964);
+            Size = new Size(1591, 1024);
             Load += ucChiTietHDN_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();

@@ -17,9 +17,9 @@
 
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             picSanPham = new PictureBox();
             pnlTop = new Panel();
             label2 = new Label();
@@ -36,7 +36,6 @@
             grpAdd = new GroupBox();
             cboPhuongThucTT = new ComboBox();
             lblPhuongThucTT = new Label();
-            //btnPrint = new Button();
             btnCheckout = new Button();
             btnSaveDraft = new Button();
             lblTotal = new Label();
@@ -57,6 +56,7 @@
             lblSanPham = new Label();
             label7 = new Label();
             dgvCart = new DataGridView();
+            label3 = new Label();
             ((System.ComponentModel.ISupportInitialize)picSanPham).BeginInit();
             pnlTop.SuspendLayout();
             grpAdd.SuspendLayout();
@@ -78,6 +78,7 @@
             // 
             pnlTop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlTop.BackColor = Color.FromArgb(255, 255, 255);
+            pnlTop.Controls.Add(label3);
             pnlTop.Controls.Add(label2);
             pnlTop.Controls.Add(label1);
             pnlTop.Controls.Add(txtTenNV);
@@ -93,7 +94,7 @@
             pnlTop.ForeColor = Color.FromArgb(54, 54, 54);
             pnlTop.Location = new Point(43, 50);
             pnlTop.Name = "pnlTop";
-            pnlTop.Size = new Size(1476, 160);
+            pnlTop.Size = new Size(1476, 184);
             pnlTop.TabIndex = 2;
             // 
             // label2
@@ -102,7 +103,7 @@
             label2.ForeColor = Color.FromArgb(51, 51, 51);
             label2.Location = new Point(3, 9);
             label2.Name = "label2";
-            label2.Size = new Size(315, 46);
+            label2.Size = new Size(159, 23);
             label2.TabIndex = 9;
             label2.Text = "LỌC KHÁCH HÀNG";
             // 
@@ -112,7 +113,7 @@
             label1.ForeColor = Color.FromArgb(51, 51, 51);
             label1.Location = new Point(672, 44);
             label1.Name = "label1";
-            label1.Size = new Size(270, 46);
+            label1.Size = new Size(135, 23);
             label1.TabIndex = 8;
             label1.Text = "Tên khách hàng:";
             // 
@@ -122,10 +123,10 @@
             txtTenNV.BorderStyle = BorderStyle.FixedSingle;
             txtTenNV.Font = new Font("Segoe UI", 10.2F);
             txtTenNV.ForeColor = Color.FromArgb(51, 51, 51);
-            txtTenNV.Location = new Point(467, 94);
+            txtTenNV.Location = new Point(225, 139);
             txtTenNV.Name = "txtTenNV";
             txtTenNV.ReadOnly = true;
-            txtTenNV.Size = new Size(300, 53);
+            txtTenNV.Size = new Size(236, 30);
             txtTenNV.TabIndex = 11;
             // 
             // txtMaNV
@@ -137,7 +138,7 @@
             txtMaNV.Location = new Point(225, 94);
             txtMaNV.Name = "txtMaNV";
             txtMaNV.ReadOnly = true;
-            txtMaNV.Size = new Size(236, 53);
+            txtMaNV.Size = new Size(236, 30);
             txtMaNV.TabIndex = 0;
             // 
             // lblNv
@@ -146,7 +147,7 @@
             lblNv.ForeColor = Color.FromArgb(51, 51, 51);
             lblNv.Location = new Point(46, 94);
             lblNv.Name = "lblNv";
-            lblNv.Size = new Size(237, 46);
+            lblNv.Size = new Size(120, 23);
             lblNv.TabIndex = 2;
             lblNv.Text = "Mã nhân viên:";
             // 
@@ -172,7 +173,7 @@
             txtSDT.ForeColor = Color.FromArgb(51, 51, 51);
             txtSDT.Location = new Point(908, 94);
             txtSDT.Name = "txtSDT";
-            txtSDT.Size = new Size(262, 53);
+            txtSDT.Size = new Size(262, 30);
             txtSDT.TabIndex = 6;
             // 
             // lblSDT
@@ -181,7 +182,7 @@
             lblSDT.ForeColor = Color.FromArgb(51, 51, 51);
             lblSDT.Location = new Point(672, 94);
             lblSDT.Name = "lblSDT";
-            lblSDT.Size = new Size(232, 46);
+            lblSDT.Size = new Size(115, 23);
             lblSDT.TabIndex = 5;
             lblSDT.Text = "Số điện thoại:";
             // 
@@ -194,7 +195,7 @@
             txtTenKH.Location = new Point(908, 44);
             txtTenKH.Name = "txtTenKH";
             txtTenKH.ReadOnly = true;
-            txtTenKH.Size = new Size(262, 53);
+            txtTenKH.Size = new Size(262, 30);
             txtTenKH.TabIndex = 4;
             // 
             // txtMaKH
@@ -206,7 +207,7 @@
             txtMaKH.Location = new Point(225, 44);
             txtMaKH.Name = "txtMaKH";
             txtMaKH.ReadOnly = true;
-            txtMaKH.Size = new Size(236, 53);
+            txtMaKH.Size = new Size(236, 30);
             txtMaKH.TabIndex = 1;
             // 
             // lblKh
@@ -215,7 +216,7 @@
             lblKh.ForeColor = Color.FromArgb(51, 51, 51);
             lblKh.Location = new Point(46, 44);
             lblKh.Name = "lblKh";
-            lblKh.Size = new Size(265, 46);
+            lblKh.Size = new Size(134, 23);
             lblKh.TabIndex = 3;
             lblKh.Text = "Mã khách hàng:";
             // 
@@ -246,7 +247,7 @@
             grpAdd.Controls.Add(lblSanPham);
             grpAdd.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpAdd.ForeColor = Color.FromArgb(51, 51, 51);
-            grpAdd.Location = new Point(43, 225);
+            grpAdd.Location = new Point(43, 240);
             grpAdd.Name = "grpAdd";
             grpAdd.Size = new Size(595, 746);
             grpAdd.TabIndex = 1;
@@ -263,7 +264,7 @@
             cboPhuongThucTT.Items.AddRange(new object[] { "Tiền mặt", "Chuyển khoản", "Card" });
             cboPhuongThucTT.Location = new Point(43, 602);
             cboPhuongThucTT.Name = "cboPhuongThucTT";
-            cboPhuongThucTT.Size = new Size(268, 53);
+            cboPhuongThucTT.Size = new Size(268, 31);
             cboPhuongThucTT.TabIndex = 8;
             // 
             // lblPhuongThucTT
@@ -480,7 +481,7 @@
             numQty.Maximum = new decimal(new int[] { 9999, 0, 0, 0 });
             numQty.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             numQty.Name = "numQty";
-            numQty.Size = new Size(311, 53);
+            numQty.Size = new Size(311, 30);
             numQty.TabIndex = 3;
             numQty.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
@@ -512,7 +513,7 @@
             label7.ForeColor = Color.FromArgb(54, 54, 54);
             label7.Location = new Point(685, 9);
             label7.Name = "label7";
-            label7.Size = new Size(341, 74);
+            label7.Size = new Size(174, 38);
             label7.TabIndex = 11;
             label7.Text = "BÁN HÀNG";
             // 
@@ -525,43 +526,53 @@
             dgvCart.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvCart.BackgroundColor = SystemColors.ControlLight;
             dgvCart.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvCart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle4.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvCart.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvCart.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvCart.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvCart.DefaultCellStyle = dataGridViewCellStyle5;
             dgvCart.EnableHeadersVisualStyles = false;
             dgvCart.GridColor = Color.LightGray;
-            dgvCart.Location = new Point(656, 225);
+            dgvCart.Location = new Point(656, 240);
             dgvCart.MultiSelect = false;
             dgvCart.Name = "dgvCart";
             dgvCart.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvCart.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvCart.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvCart.RowHeadersVisible = false;
             dgvCart.RowHeadersWidth = 51;
             dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCart.Size = new Size(863, 746);
             dgvCart.TabIndex = 12;
             dgvCart.CellClick += dgvCart_CellContentClick;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.ForeColor = Color.FromArgb(51, 51, 51);
+            label3.Location = new Point(46, 146);
+            label3.Name = "label3";
+            label3.Size = new Size(121, 23);
+            label3.TabIndex = 12;
+            label3.Text = "Tên nhân viên:";
             // 
             // UC_POS
             // 
@@ -621,5 +632,6 @@
         private Label label7;
         private Label label2;
         private DataGridView dgvCart;
+        private Label label3;
     }
 }

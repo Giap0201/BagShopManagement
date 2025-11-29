@@ -217,6 +217,7 @@ namespace BagShopManagement.Views.Dev6
             txtDonGia.Clear();
             txtThanhTien.Clear();
             cboSanPham.Focus();
+            cboSanPham.Enabled = true;
         }
 
         // Hàm này chỉ thực hiện lưu thông tin chung, trả về true nếu thành công
@@ -349,6 +350,7 @@ namespace BagShopManagement.Views.Dev6
             {
                 MessageBox.Show($"Lỗi khi sửa chi tiết: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            cboSanPham.Enabled = true;
         }
 
         // xoa chi tiet
@@ -381,6 +383,7 @@ namespace BagShopManagement.Views.Dev6
             {
                 MessageBox.Show($"Lỗi khi xóa: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+            cboSanPham.Enabled = true;
         }
 
         // click vao grid show len form
@@ -393,6 +396,7 @@ namespace BagShopManagement.Views.Dev6
             txtSoLuong.Text = row.Cells["SoLuong"].Value.ToString();
             txtDonGia.Text = row.Cells["DonGia"].Value.ToString();
             txtThanhTien.Text = row.Cells["ThanhTien"].Value.ToString();
+            cboSanPham.Enabled = false;
         }
 
         // tinh thanh tien tu dong
@@ -428,6 +432,7 @@ namespace BagShopManagement.Views.Dev6
             dgvChiTiet.DataSource = res.ChiTiet;
             FormatGrid();
             UpdateTongTien();
+            cboSanPham.Enabled = true;
         }
 
         // an/hien nut theo trang thai

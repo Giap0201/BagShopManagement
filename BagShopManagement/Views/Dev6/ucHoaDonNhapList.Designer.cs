@@ -82,7 +82,7 @@
             groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
             groupBox1.Location = new Point(42, 81);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(1492, 211);
+            groupBox1.Size = new Size(1492, 218);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "TÌM KIẾM";
@@ -260,7 +260,7 @@
             btnSua.FlatStyle = FlatStyle.Flat;
             btnSua.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnSua.ForeColor = Color.FromArgb(51, 51, 51);
-            btnSua.Location = new Point(658, 13);
+            btnSua.Location = new Point(657, 23);
             btnSua.Name = "btnSua";
             btnSua.Size = new Size(132, 39);
             btnSua.TabIndex = 7;
@@ -277,7 +277,7 @@
             btnInHoaDon.FlatStyle = FlatStyle.Flat;
             btnInHoaDon.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnInHoaDon.ForeColor = Color.FromArgb(51, 51, 51);
-            btnInHoaDon.Location = new Point(1157, 13);
+            btnInHoaDon.Location = new Point(1156, 23);
             btnInHoaDon.Name = "btnInHoaDon";
             btnInHoaDon.Size = new Size(132, 39);
             btnInHoaDon.TabIndex = 8;
@@ -294,7 +294,7 @@
             btnXuatExel.FlatStyle = FlatStyle.Flat;
             btnXuatExel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXuatExel.ForeColor = Color.FromArgb(51, 51, 51);
-            btnXuatExel.Location = new Point(1402, 876);
+            btnXuatExel.Location = new Point(1402, 897);
             btnXuatExel.Name = "btnXuatExel";
             btnXuatExel.Size = new Size(132, 39);
             btnXuatExel.TabIndex = 6;
@@ -311,7 +311,7 @@
             btnHuy.FlatStyle = FlatStyle.Flat;
             btnHuy.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnHuy.ForeColor = Color.White;
-            btnHuy.Location = new Point(916, 13);
+            btnHuy.Location = new Point(915, 23);
             btnHuy.Name = "btnHuy";
             btnHuy.Size = new Size(132, 39);
             btnHuy.TabIndex = 5;
@@ -328,7 +328,7 @@
             btnDuyet.FlatStyle = FlatStyle.Flat;
             btnDuyet.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDuyet.ForeColor = Color.White;
-            btnDuyet.Location = new Point(389, 13);
+            btnDuyet.Location = new Point(388, 23);
             btnDuyet.Name = "btnDuyet";
             btnDuyet.Size = new Size(132, 39);
             btnDuyet.TabIndex = 4;
@@ -345,7 +345,7 @@
             btnXem.FlatStyle = FlatStyle.Flat;
             btnXem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnXem.ForeColor = Color.FromArgb(54, 54, 54);
-            btnXem.Location = new Point(155, 13);
+            btnXem.Location = new Point(154, 23);
             btnXem.Name = "btnXem";
             btnXem.Size = new Size(132, 39);
             btnXem.TabIndex = 3;
@@ -362,7 +362,7 @@
             btnThem.FlatStyle = FlatStyle.Flat;
             btnThem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnThem.ForeColor = Color.White;
-            btnThem.Location = new Point(1223, 876);
+            btnThem.Location = new Point(1223, 897);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(132, 39);
             btnThem.TabIndex = 2;
@@ -397,7 +397,7 @@
             dgvDanhSach.DefaultCellStyle = dataGridViewCellStyle2;
             dgvDanhSach.EnableHeadersVisualStyles = false;
             dgvDanhSach.GridColor = Color.LightGray;
-            dgvDanhSach.Location = new Point(42, 407);
+            dgvDanhSach.Location = new Point(42, 394);
             dgvDanhSach.MultiSelect = false;
             dgvDanhSach.Name = "dgvDanhSach";
             dgvDanhSach.ReadOnly = true;
@@ -412,7 +412,7 @@
             dgvDanhSach.RowHeadersVisible = false;
             dgvDanhSach.RowHeadersWidth = 51;
             dgvDanhSach.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvDanhSach.Size = new Size(1492, 448);
+            dgvDanhSach.Size = new Size(1492, 483);
             dgvDanhSach.TabIndex = 8;
             dgvDanhSach.CellClick += dgvDanhSach_CellClick;
             dgvDanhSach.SelectionChanged += dgvDanhSach_SelectionChanged;
@@ -436,9 +436,9 @@
             panel1.Controls.Add(btnDuyet);
             panel1.Controls.Add(btnInHoaDon);
             panel1.Controls.Add(btnHuy);
-            panel1.Location = new Point(42, 314);
+            panel1.Location = new Point(42, 305);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1492, 67);
+            panel1.Size = new Size(1492, 83);
             panel1.TabIndex = 10;
             // 
             // ucHoaDonNhapList
