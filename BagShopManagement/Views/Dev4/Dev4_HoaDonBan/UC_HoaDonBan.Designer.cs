@@ -370,6 +370,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             //
             // label7
             //
+            label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);

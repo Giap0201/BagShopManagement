@@ -63,6 +63,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = SystemColors.ControlLightLight;
             groupBox1.Controls.Add(dtpDenNgay);
             groupBox1.Controls.Add(dtpTuNgay);
@@ -287,6 +288,7 @@
             // 
             // btnXuatExel
             // 
+            btnXuatExel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnXuatExel.BackColor = Color.FromArgb(224, 224, 224);
             btnXuatExel.Cursor = Cursors.Hand;
             btnXuatExel.FlatAppearance.BorderSize = 0;
@@ -355,6 +357,7 @@
             // 
             // btnThem
             // 
+            btnThem.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnThem.BackColor = SystemColors.Highlight;
             btnThem.Cursor = Cursors.Hand;
             btnThem.FlatAppearance.BorderSize = 0;
@@ -372,6 +375,7 @@
             // 
             // dgvDanhSach
             // 
+            dgvDanhSach.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvDanhSach.AllowUserToAddRows = false;
             dgvDanhSach.AllowUserToDeleteRows = false;
             dgvDanhSach.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -419,6 +423,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);
@@ -430,6 +435,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.White;
             panel1.Controls.Add(btnXem);
             panel1.Controls.Add(btnSua);

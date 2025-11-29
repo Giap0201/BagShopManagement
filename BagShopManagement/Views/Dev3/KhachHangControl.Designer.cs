@@ -50,6 +50,7 @@
             // 
             // txtTimKhachHang
             // 
+            txtTimKhachHang.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             txtTimKhachHang.Location = new Point(239, 134);
             txtTimKhachHang.Multiline = true;
             txtTimKhachHang.Name = "txtTimKhachHang";
@@ -59,6 +60,7 @@
             // 
             // btnTim
             // 
+            btnTim.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             btnTim.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTim.ForeColor = Color.FromArgb(51, 51, 51);
             btnTim.Location = new Point(137, 134);
@@ -125,6 +127,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(605, 36);
@@ -141,6 +144,7 @@
             groupBox1.Controls.Add(btnXoa);
             groupBox1.Controls.Add(btnXuatExcel);
             groupBox1.Controls.Add(btnThemMoi);
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(110, 196);
             groupBox1.Name = "groupBox1";
@@ -164,6 +168,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dgvKhachHang);
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.Location = new Point(532, 196);
@@ -199,6 +204,7 @@
             dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
             dgvKhachHang.DefaultCellStyle = dataGridViewCellStyle5;
             dgvKhachHang.EnableHeadersVisualStyles = false;
+            dgvKhachHang.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvKhachHang.GridColor = Color.LightGray;
             dgvKhachHang.Location = new Point(16, 26);
             dgvKhachHang.MultiSelect = false;

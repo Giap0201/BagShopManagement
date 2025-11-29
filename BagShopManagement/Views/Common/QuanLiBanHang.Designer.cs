@@ -81,8 +81,11 @@
             ClientSize = new Size(1159, 841);
             Controls.Add(panelContent);
             Controls.Add(sideBarControl);
-            FormBorderStyle = FormBorderStyle.FixedSingle;
+            FormBorderStyle = FormBorderStyle.Sizable;
+            MaximizeBox = true;
+            MinimumSize = new Size(1024, 768);
             Name = "QuanLiBanHang";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Quản lý bán hàng - Bag Shop Management";
             WindowState = FormWindowState.Maximized;
             Load += QuanLiBanHang_Load;

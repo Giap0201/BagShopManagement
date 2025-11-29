@@ -47,6 +47,7 @@
             // 
             // dgvKichThuoc
             // 
+            dgvKichThuoc.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 163);
@@ -158,6 +159,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.Controls.Add(txtSearch);
             groupBox1.Controls.Add(btnDelete);
             groupBox1.Controls.Add(btnExport);
@@ -175,6 +177,7 @@
             // 
             // groupBox
             // 
+            groupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox.Controls.Add(dgvKichThuoc);
             groupBox.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox.Location = new Point(564, 142);
@@ -186,6 +189,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             label1.Location = new Point(640, 53);

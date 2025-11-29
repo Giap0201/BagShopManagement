@@ -56,6 +56,7 @@
             // 
             // pnlMenu
             // 
+            pnlMenu.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlMenu.BackColor = Color.White;
             pnlMenu.Controls.Add(btnGiamGia);
             pnlMenu.Controls.Add(btnSanPham);
@@ -190,6 +191,7 @@
             // 
             // dgvBaoCao
             // 
+            dgvBaoCao.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvBaoCao.AllowUserToAddRows = false;
             dgvBaoCao.AllowUserToDeleteRows = false;
             dgvBaoCao.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -236,6 +238,7 @@
             // 
             // pnlHeader
             // 
+            pnlHeader.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlHeader.BackColor = Color.White;
             pnlHeader.Controls.Add(dtpTuNgay);
             pnlHeader.Controls.Add(dtpDenNgay);
@@ -339,6 +342,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);

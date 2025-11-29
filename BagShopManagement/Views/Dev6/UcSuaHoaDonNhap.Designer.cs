@@ -64,6 +64,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.White;
             groupBox1.Controls.Add(txtNhanVien);
             groupBox1.Controls.Add(cboTrangThai);
@@ -231,6 +232,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.BackColor = Color.White;
             groupBox2.Controls.Add(lblTongTien);
             groupBox2.Controls.Add(txtThanhTien);
@@ -475,6 +477,7 @@
             // 
             // btnThoat
             // 
+            btnThoat.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnThoat.BackColor = Color.FromArgb(224, 224, 224);
             btnThoat.Cursor = Cursors.Hand;
             btnThoat.FlatAppearance.BorderSize = 0;
@@ -491,6 +494,7 @@
             // 
             // btnInHDN
             // 
+            btnInHDN.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             btnInHDN.BackColor = Color.DodgerBlue;
             btnInHDN.Cursor = Cursors.Hand;
             btnInHDN.FlatAppearance.BorderSize = 0;
@@ -511,6 +515,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);

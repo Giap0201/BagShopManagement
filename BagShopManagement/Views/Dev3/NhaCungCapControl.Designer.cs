@@ -118,6 +118,7 @@
             groupBox1.Controls.Add(btnSua);
             groupBox1.Controls.Add(btnXoa);
             groupBox1.Controls.Add(btnThem);
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(67, 227);
             groupBox1.Name = "groupBox1";
@@ -155,6 +156,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.Controls.Add(dgvNCC);
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox2.Location = new Point(555, 227);
@@ -190,6 +192,7 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvNCC.DefaultCellStyle = dataGridViewCellStyle2;
             dgvNCC.EnableHeadersVisualStyles = false;
+            dgvNCC.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvNCC.GridColor = Color.LightGray;
             dgvNCC.Location = new Point(6, 26);
             dgvNCC.MultiSelect = false;
@@ -212,6 +215,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(527, 27);

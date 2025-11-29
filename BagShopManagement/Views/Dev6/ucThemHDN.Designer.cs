@@ -68,6 +68,7 @@
             // 
             // groupBox1
             // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.BackColor = Color.White;
             groupBox1.Controls.Add(txtNhanVien);
             groupBox1.Controls.Add(cboTrangThai);
@@ -219,6 +220,7 @@
             // 
             // groupBox2
             // 
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox2.BackColor = SystemColors.Window;
             groupBox2.Controls.Add(lblTongTien);
             groupBox2.Controls.Add(txtThanhTien);
@@ -550,6 +552,7 @@
             // 
             // label7
             // 
+            label7.Anchor = AnchorStyles.Top;
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);
@@ -561,6 +564,7 @@
             // 
             // panel1
             // 
+            panel1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             panel1.BackColor = Color.White;
             panel1.Controls.Add(btnTaoMoiHDN);
             panel1.Controls.Add(btnInHDN);

@@ -55,6 +55,7 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dgvMauSac.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dgvMauSac.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvMauSac.ColumnHeadersHeight = 40;
             dgvMauSac.Location = new Point(16, 29);
             dgvMauSac.Name = "dgvMauSac";
@@ -164,6 +165,7 @@
             groupBox1.Controls.Add(btnAdd);
             groupBox1.Controls.Add(btnImport);
             groupBox1.Controls.Add(btnEdit);
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
             groupBox1.Location = new Point(27, 142);
@@ -175,6 +177,7 @@
             // 
             // groupBox
             // 
+            groupBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox.Controls.Add(dgvMauSac);
             groupBox.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox.Location = new Point(564, 142);
@@ -186,6 +189,7 @@
             // 
             // label1
             // 
+            label1.Anchor = AnchorStyles.Top;
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             label1.Location = new Point(640, 53);

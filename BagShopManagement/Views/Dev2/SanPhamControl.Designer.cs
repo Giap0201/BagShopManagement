@@ -81,6 +81,7 @@
             dgvSanPham.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvSanPham.ColumnHeadersHeight = 40;
             dgvSanPham.EnableHeadersVisualStyles = false;
+            dgvSanPham.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dgvSanPham.GridColor = SystemColors.Control;
             dgvSanPham.Location = new Point(32, 530);
             dgvSanPham.Name = "dgvSanPham";
@@ -180,9 +181,11 @@
             // 
             // picAnhChinh
             // 
+            picAnhChinh.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             picAnhChinh.Location = new Point(15, 26);
             picAnhChinh.Name = "picAnhChinh";
             picAnhChinh.Size = new Size(622, 358);
+            picAnhChinh.SizeMode = PictureBoxSizeMode.Zoom;
             picAnhChinh.TabIndex = 7;
             picAnhChinh.TabStop = false;
             // 
@@ -221,6 +224,7 @@
             groupBox1.Controls.Add(cboThuongHieu);
             groupBox1.Controls.Add(cboLoaiTui);
             groupBox1.Controls.Add(cboGiaBan);
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             groupBox1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox1.ForeColor = Color.FromArgb(51, 51, 51);
             groupBox1.Location = new Point(32, 126);
@@ -468,6 +472,7 @@
             groupBox2.Controls.Add(btnExport);
             groupBox2.Controls.Add(btnDelete);
             groupBox2.Controls.Add(btnEdit);
+            groupBox2.Anchor = AnchorStyles.Top | AnchorStyles.Left;
             groupBox2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox2.ForeColor = Color.FromArgb(51, 51, 51);
             groupBox2.Location = new Point(482, 126);
@@ -479,6 +484,7 @@
             // 
             // groupBox3
             // 
+            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox3.Controls.Add(picAnhChinh);
             groupBox3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             groupBox3.ForeColor = Color.FromArgb(51, 51, 51);
@@ -491,6 +497,7 @@
             // 
             // label9
             // 
+            label9.Anchor = AnchorStyles.Top;
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 163);
             label9.ForeColor = Color.FromArgb(51, 51, 51);

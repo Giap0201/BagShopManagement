@@ -70,6 +70,7 @@
             grpThongTin.Controls.Add(lblEmail);
             grpThongTin.Controls.Add(lblChucVu);
             grpThongTin.Controls.Add(lblHoTen);
+            grpThongTin.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             grpThongTin.FlatStyle = FlatStyle.Flat;
             grpThongTin.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpThongTin.ForeColor = Color.FromArgb(54, 54, 54);
@@ -212,6 +213,7 @@
             grpDoiMatKhau.Controls.Add(lblXacNhanMatKhau);
             grpDoiMatKhau.Controls.Add(lblMatKhauMoi);
             grpDoiMatKhau.Controls.Add(lblMatKhauCu);
+            grpDoiMatKhau.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grpDoiMatKhau.FlatStyle = FlatStyle.Flat;
             grpDoiMatKhau.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             grpDoiMatKhau.ForeColor = Color.FromArgb(54, 54, 54);
@@ -312,10 +314,11 @@
             // 
             // lblTitle
             // 
+            lblTitle.Anchor = AnchorStyles.Top;
             lblTitle.AutoSize = true;
             lblTitle.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitle.ForeColor = Color.FromArgb(54, 54, 54);
-            lblTitle.Location = new Point(636, 14);
+            lblTitle.Location = new Point(42, 21);
             lblTitle.Name = "lblTitle";
             lblTitle.Size = new Size(351, 38);
             lblTitle.TabIndex = 10;
