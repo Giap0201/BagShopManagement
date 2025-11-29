@@ -1,6 +1,7 @@
 using BagShopManagement.Controllers;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
+using BagShopManagement.Utils;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -115,9 +116,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
         private void SetupComboBoxes()
         {
-            // Trạng thái: 1=Tạm, 2=Hoàn thành, 3=Hủy
+            // Trạng thái: 2=Hoàn thành, 3=Hủy
             cmbTrangThai.Items.Add("Tất cả");
-            cmbTrangThai.Items.Add("Tạm (1)");
             cmbTrangThai.Items.Add("Hoàn thành (2)");
             cmbTrangThai.Items.Add("Hủy (3)");
             cmbTrangThai.SelectedIndex = 0;
@@ -137,7 +137,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
                 if (chkFilterTrangThai.Checked && cmbTrangThai.SelectedIndex > 0)
                 {
-                    trangThai = (byte)(cmbTrangThai.SelectedIndex); // 1, 2, hoặc 3
+                    trangThai = (byte)(cmbTrangThai.SelectedIndex + 1); // 2 hoặc 3 (index 1 = Hoàn thành (2), index 2 = Hủy (3))
                 }
 
                 var list = _controller.Filter(fromDate, toDate, maNV, trangThai);
@@ -170,7 +170,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         {
             return trangThai switch
             {
-                1 => "Tạm",
                 2 => "Hoàn thành",
                 3 => "Hủy",
                 _ => "Không xác định"
@@ -269,41 +268,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             }
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvHoaDon.SelectedRows.Count == 0)
-            {
-                MessageBox.Show("Vui lòng chọn một hóa đơn để sửa.",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            var selectedRow = dgvHoaDon.SelectedRows[0];
-            var maHDB = selectedRow.Cells["MaHDB"].Value?.ToString();
-            var trangThai = Convert.ToByte(selectedRow.Cells["TrangThaiHD"].Value);
-
-            if (string.IsNullOrEmpty(maHDB))
-            {
-                MessageBox.Show("Không thể xác định mã hóa đơn.",
-                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return;
-            }
-
-            // Chỉ cho phép sửa hóa đơn tạm (TrangThaiHD = 1)
-            if (trangThai != 1)
-            {
-                MessageBox.Show("Chỉ có thể sửa hóa đơn tạm (chưa thanh toán).",
-                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                return;
-            }
-
-            var editForm = new HoaDonBanEditForm(maHDB, _controller);
-            if (editForm.ShowDialog() == DialogResult.OK)
-            {
-                LoadHoaDonBanList();
-            }
-        }
-
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvHoaDon.SelectedRows.Count == 0)
@@ -359,6 +323,46 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private void lblToDate_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (dgvHoaDon.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một hóa đơn để in.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var selectedRow = dgvHoaDon.SelectedRows[0];
+            var maHDB = selectedRow.Cells["MaHDB"].Value?.ToString();
+            var trangThai = Convert.ToByte(selectedRow.Cells["TrangThaiHD"].Value);
+
+            if (string.IsNullOrEmpty(maHDB))
+            {
+                MessageBox.Show("Không thể xác định mã hóa đơn.",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Chỉ cho phép in hóa đơn đã hoàn thành (TrangThaiHD = 2)
+            if (trangThai != 2)
+            {
+                MessageBox.Show("Chỉ có thể in hóa đơn đã hoàn thành (đã thanh toán).",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var printService = new InvoicePrintService();
+                printService.PrintInvoice(maHDB);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

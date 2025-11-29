@@ -2,7 +2,7 @@
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
 using BagShopManagement.Utils;
-using BagShopManagement.Views.Dev3; // Thêm để sử dụng ThemKhachHangForm2
+using BagShopManagement.Views.Dev3;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -12,13 +12,11 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
     public partial class UC_POS : UserControl
     {
         private readonly POSController _controller;
-        private string? _lastSavedInvoiceId;
 
         public UC_POS()
         {
             InitializeComponent();
 
-            // Nếu không dùng DI thì khởi tạo thủ công (tạm thời)
             var sanPhamRepo = new SanPhamRepository();
             var hoaDonRepo = new HoaDonBanRepository();
 
@@ -33,11 +31,12 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         {
             SetupCartColumns();
 
-            // Tự động điền mã nhân viên từ UserContext sau khi đăng nhập
             if (!string.IsNullOrEmpty(UserContext.MaNV))
             {
                 txtMaNV.Text = UserContext.MaNV;
-                txtMaNV.ReadOnly = true; // Không cho sửa mã NV
+                txtTenNV.Text = UserContext.HoTen ?? "";
+                txtMaNV.ReadOnly = true;
+                txtTenNV.ReadOnly = true;
             }
         }
 
@@ -49,7 +48,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             dgvCart.AutoGenerateColumns = false;
             dgvCart.Columns.Clear();
 
-            // Cấu hình DataGridView để hiển thị tốt hơn - các cột tự động fill hết không gian
             dgvCart.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dgvCart.AllowUserToResizeColumns = true;
             dgvCart.ColumnHeadersHeight = 45;
@@ -145,34 +143,75 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     return;
                 }
 
-                // Tìm khách hàng theo số điện thoại
+                if (sdt.Length != 10)
+                {
+                    MessageBox.Show("Số điện thoại phải có đúng 10 số!\nVui lòng nhập lại.",
+                        "Số điện thoại không hợp lệ",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSDT.Focus();
+                    txtSDT.SelectAll();
+                    return;
+                }
+
+                if (!sdt.All(char.IsDigit))
+                {
+                    MessageBox.Show("Số điện thoại chỉ được chứa các chữ số (0-9)!\nVui lòng nhập lại.",
+                        "Số điện thoại không hợp lệ",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSDT.Focus();
+                    txtSDT.SelectAll();
+                    return;
+                }
+
+                if (!sdt.StartsWith("0"))
+                {
+                    MessageBox.Show("Số điện thoại phải bắt đầu bằng số 0!\nVui lòng nhập lại.",
+                        "Số điện thoại không hợp lệ",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSDT.Focus();
+                    txtSDT.SelectAll();
+                    return;
+                }
+
                 var khRepo = new KhachHangRepository();
                 var khachHang = khRepo.GetBySDT(sdt);
 
                 if (khachHang != null)
                 {
-                    // Khách hàng đã tồn tại - hiển thị thông tin
+                    MessageBox.Show($"✓ Đã tìm thấy khách hàng có số điện thoại \"{sdt}\"\n\n" +
+                                    $"Họ tên: {khachHang.HoTen}\n" +
+                                    $"Mã KH: {khachHang.MaKH}",
+                        "Tìm thấy khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                     txtMaKH.Text = khachHang.MaKH;
                     txtTenKH.Text = khachHang.HoTen;
-                    MessageBox.Show($"Đã tìm thấy khách hàng:\n{khachHang.HoTen}",
-                        "Thông tin khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // Khách hàng chưa tồn tại - hiển thị form thêm mới (Dev3) với SĐT đã nhập
-                    var khController = new KhachHangController();
-                    var themKHForm = new ThemKhachHangForm2(khController, null, sdt);
+                    var result = MessageBox.Show(
+                        $"⚠ Không tìm thấy khách hàng có số điện thoại \"{sdt}\"\n\n" +
+                        $"Bạn có muốn thêm khách hàng mới không?",
+                        "Không tìm thấy khách hàng",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
 
-                    if (themKHForm.ShowDialog() == DialogResult.OK)
+                    if (result == DialogResult.Yes)
                     {
-                        // Sau khi thêm thành công, tìm lại khách hàng theo SĐT
-                        var khMoi = khRepo.GetBySDT(sdt);
-                        if (khMoi != null)
+                        var khController = new KhachHangController();
+                        var themKHForm = new ThemKhachHangForm2(khController, kh: null, soDienThoaiMacDinh: sdt);
+
+                        if (themKHForm.ShowDialog() == DialogResult.OK)
                         {
-                            txtMaKH.Text = khMoi.MaKH;
-                            txtTenKH.Text = khMoi.HoTen;
-                            MessageBox.Show($"Đã thêm khách hàng mới thành công!\n{khMoi.HoTen}",
-                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            var khMoi = khRepo.GetBySDT(sdt);
+                            if (khMoi != null)
+                            {
+                                txtMaKH.Text = khMoi.MaKH;
+                                txtTenKH.Text = khMoi.HoTen;
+                                MessageBox.Show($"✓ Đã thêm khách hàng mới thành công!\n\n" +
+                                                $"Họ tên: {khMoi.HoTen}\n" +
+                                                $"Mã KH: {khMoi.MaKH}",
+                                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                 }
@@ -198,11 +237,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     lblMaSPValue.Text = sp.MaSP;
                     lblTenSP.Text = $"Tên: {sp.TenSP}";
 
-                    // Tự động lấy % giảm giá từ chương trình khuyến mãi đang active
                     decimal phanTramGiam = GetActiveDiscountForProduct(sp.MaSP);
                     decimal giaSauGiam = sp.GiaBan * (1 - phanTramGiam / 100);
 
-                    // ✅ Hiển thị % khuyến mãi trong label riêng
                     if (phanTramGiam > 0)
                     {
                         lblKhuyenMaiValue.Text = $"🎉 Giảm {phanTramGiam}%";
@@ -218,10 +255,8 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                         lblGiaSP.ForeColor = Color.Green;
                     }
 
-                    // Hiển thị ảnh sản phẩm
                     LoadProductImage(sp.AnhChinh);
 
-                    // Focus vào số lượng
                     numQty.Focus();
                     numQty.Select(0, numQty.Text.Length);
                 }
@@ -243,42 +278,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             {
                 var ctggRepo = new ChiTietGiamGiaRepository();
 
-                // 🔍 DEBUG: Xem TẤT CẢ khuyến mãi cho sản phẩm (không lọc gì)
-                string debugQuery = @"
-                    SELECT ctgg.MaSP, ctgg.PhanTramGiam, ctkm.MaCTGG, ctkm.TenChuongTrinh,
-                           ctkm.TrangThai, ctkm.NgayBatDau, ctkm.NgayKetThuc, GETDATE() as NgayHienTai
-                    FROM ChiTietGiamGia ctgg
-                    INNER JOIN ChuongTrinhGiamGia ctkm ON ctgg.MaCTGG = ctkm.MaCTGG
-                    WHERE ctgg.MaSP = @MaSP";
-
-                var debugParam = new Microsoft.Data.SqlClient.SqlParameter("@MaSP", maSP);
-                var debugDt = ctggRepo.ExecuteQuery(debugQuery, debugParam);
-
-                Logger.Log($"=== DEBUG: Khuyến mãi cho {maSP} ===");
-                if (debugDt.Rows.Count > 0)
-                {
-                    foreach (System.Data.DataRow r in debugDt.Rows)
-                    {
-                        Logger.Log($"  MaCTGG: {r["MaCTGG"]}, Tên: {r["TenChuongTrinh"]}, " +
-                            $"TrangThai: {r["TrangThai"]}, % Giảm: {r["PhanTramGiam"]}, " +
-                            $"Từ {r["NgayBatDau"]:dd/MM/yyyy} đến {r["NgayKetThuc"]:dd/MM/yyyy}, " +
-                            $"Hiện tại: {r["NgayHienTai"]:dd/MM/yyyy HH:mm:ss}");
-                    }
-                }
-                else
-                {
-                    Logger.Log($"  => KHÔNG có bất kỳ khuyến mãi nào cho {maSP} trong DB!");
-                }
-
-                // Query thực tế - lấy % giảm cao nhất
-                // ⚠️ TẠM BỎ kiểm tra ngày để test (uncomment dòng dưới khi deploy thật)
                 string query = @"
-                    SELECT TOP 1 ctgg.PhanTramGiam, ctkm.MaCTGG, ctkm.TenChuongTrinh
+                    SELECT TOP 1 ctgg.PhanTramGiam
                     FROM ChiTietGiamGia ctgg
                     INNER JOIN ChuongTrinhGiamGia ctkm ON ctgg.MaCTGG = ctkm.MaCTGG
                     WHERE ctgg.MaSP = @MaSP
                         AND ctkm.TrangThai = 1
-                        -- AND GETDATE() BETWEEN ctkm.NgayBatDau AND ctkm.NgayKetThuc  -- TẠM BỎ để test
+                        AND GETDATE() BETWEEN ctkm.NgayBatDau AND ctkm.NgayKetThuc
                     ORDER BY ctgg.PhanTramGiam DESC";
 
                 var param = new Microsoft.Data.SqlClient.SqlParameter("@MaSP", maSP);
@@ -286,22 +292,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
                 if (dt.Rows.Count > 0)
                 {
-                    var row = dt.Rows[0];
-                    decimal discount = Convert.ToDecimal(row["PhanTramGiam"]);
-                    string? tenCTKM = row["TenChuongTrinh"]?.ToString();
+                    return Convert.ToDecimal(dt.Rows[0]["PhanTramGiam"]);
+                }
 
-                    Logger.Log($"✓ Áp dụng CTKM '{tenCTKM}': Giảm {discount}% cho {maSP}");
-                    return discount;
-                }
-                else
-                {
-                    Logger.Log($"=> Không có CTKM ACTIVE (TrangThai=1 + ngày hợp lệ) cho {maSP}");
-                    return 0;
-                }
+                return 0;
             }
             catch (Exception ex)
             {
-                Logger.Log($"GetActiveDiscountForProduct Error: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                Logger.Log($"GetActiveDiscountForProduct Error: {ex.Message}");
                 return 0;
             }
         }
@@ -319,19 +317,16 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // Kiểm tra tồn kho trước khi thêm
             var sanPhamRepo = new SanPhamRepository();
             var sp = sanPhamRepo.GetById(maSP);
 
             if (sp != null)
             {
-                // Kiểm tra tồn kho hiện tại trong giỏ
                 var cart = _controller.GetCart();
                 var existingItem = cart?.FirstOrDefault(x => x.MaSP == maSP);
                 int currentQtyInCart = existingItem?.SoLuong ?? 0;
                 int totalQty = currentQtyInCart + qty;
 
-                // Hiển thị thông tin tồn kho
                 if (sp.SoLuongTon < totalQty)
                 {
                     MessageBox.Show($"Sản phẩm '{sp.TenSP}' chỉ còn {sp.SoLuongTon} trong kho!\n" +
@@ -342,7 +337,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 }
                 else if (sp.SoLuongTon <= 10)
                 {
-                    // Cảnh báo sắp hết hàng
                     var result = MessageBox.Show($"⚠️ Sản phẩm '{sp.TenSP}' sắp hết hàng!\n" +
                         $"Tồn kho: {sp.SoLuongTon}\n\n" +
                         $"Bạn có muốn tiếp tục thêm vào giỏ không?",
@@ -362,7 +356,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             }
             else
             {
-                // Tự động áp dụng giảm giá từ CTKM
                 decimal phanTramGiam = GetActiveDiscountForProduct(maSP);
                 if (phanTramGiam > 0)
                 {
@@ -371,7 +364,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
                 RefreshCartGrid();
 
-                // Hiển thị thông báo thành công với tồn kho còn lại
                 if (sp != null)
                 {
                     string discountMsg = phanTramGiam > 0 ? $" (Giảm {phanTramGiam}%)" : "";
@@ -403,21 +395,18 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         {
             try
             {
-                // Xóa ảnh cũ
                 if (picSanPham.Image != null)
                 {
                     picSanPham.Image.Dispose();
                     picSanPham.Image = null;
                 }
 
-                // Nếu không có URL thì dùng placeholder
                 if (string.IsNullOrWhiteSpace(imageUrl))
                 {
                     picSanPham.Image = Properties.Resources.image_placeholder;
                     return;
                 }
 
-                // Kiểm tra nếu là URL (http/https)
                 if (imageUrl.StartsWith("http://", StringComparison.OrdinalIgnoreCase) ||
                     imageUrl.StartsWith("https://", StringComparison.OrdinalIgnoreCase))
                 {
@@ -497,14 +486,12 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     return;
                 }
 
-                // Setup columns nếu chưa có
                 if (dgvCart.Columns.Count == 0)
                     SetupCartColumns();
 
                 dgvCart.DataSource = null;
                 dgvCart.DataSource = cart;
 
-                // ✅ FIXED: Dùng ThanhTien thay vì tính sai công thức
                 decimal total = cart.Sum(i => i.ThanhTien);
                 lblTotal.Text = $"Tổng: {total:N0} ₫";
             }
@@ -524,19 +511,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             }
         }
 
-        private void btnSaveDraft_Click(object sender, EventArgs e)
-        {
-            SaveOrCheckout(saveDraft: true);
-        }
-
         private void btnCheckout_Click(object sender, EventArgs e)
         {
-            SaveOrCheckout(saveDraft: false);
+            SaveOrCheckout();
         }
 
-        private void SaveOrCheckout(bool saveDraft)
+        private void SaveOrCheckout()
         {
-            // Kiểm tra giỏ hàng
             var cart = _controller.GetCart();
             if (cart == null || cart.Count == 0)
             {
@@ -545,7 +526,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // Validate thông tin
             string maKH = txtMaKH.Text.Trim();
             string maNV = txtMaNV.Text.Trim();
 
@@ -557,7 +537,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // Validate phương thức thanh toán (bắt buộc)
             if (cboPhuongThucTT.SelectedIndex < 0)
             {
                 MessageBox.Show("Vui lòng chọn phương thức thanh toán!",
@@ -568,24 +547,18 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
 
             string phuongThucTT = cboPhuongThucTT.SelectedItem?.ToString() ?? "";
 
-            // Tính tổng tiền
             decimal tongTien = cart.Sum(i => (i.DonGia - i.GiamGiaSP) * i.SoLuong);
 
-            // Xác nhận trước khi lưu/thanh toán
-            string confirmMsg = saveDraft
-                ? $"Lưu tạm hóa đơn?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nNhân viên: {maNV}\nPhương thức: {phuongThucTT}"
-                : $"Xác nhận thanh toán?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nKhách hàng: {(string.IsNullOrEmpty(maKH) ? "Khách lẻ" : maKH)}\nNhân viên: {maNV}\nPhương thức: {phuongThucTT}";
+            string confirmMsg = $"Xác nhận thanh toán?\n\nTổng tiền: {tongTien:N0} ₫\nSố sản phẩm: {cart.Count}\nKhách hàng: {(string.IsNullOrEmpty(maKH) ? "Khách lẻ" : maKH)}\nNhân viên: {maNV}\nPhương thức: {phuongThucTT}";
 
-            var confirm = MessageBox.Show(confirmMsg,
-                saveDraft ? "Xác nhận lưu tạm" : "Xác nhận thanh toán",
+            var confirm = MessageBox.Show(confirmMsg, "Xác nhận thanh toán",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question);
 
             if (confirm != DialogResult.Yes)
                 return;
 
-            // Thực hiện checkout với phương thức thanh toán
-            var (ok, res) = _controller.Checkout(maKH, maNV, saveDraft, phuongThucTT);
+            var (ok, res) = _controller.Checkout(maKH, maNV, phuongThucTT);
 
             if (!ok)
             {
@@ -593,25 +566,33 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // Lưu mã hóa đơn để in sau
-            _lastSavedInvoiceId = res;
+            string successMsg = $"✓ Thanh toán thành công!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫";
 
-            // Thông báo thành công với chi tiết
-            string successMsg = saveDraft
-                ? $"✓ Hóa đơn tạm đã lưu!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nBạn có thể chỉnh sửa hóa đơn này sau."
-                : $"✓ Thanh toán thành công!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nBạn có muốn in hóa đơn ngay không?";
-
-            var result = MessageBox.Show(successMsg, "Thành công",
-                saveDraft ? MessageBoxButtons.OK : MessageBoxButtons.YesNo,
+            MessageBox.Show(successMsg, "Thành công",
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
 
-            // Nếu thanh toán thành công và muốn in ngay
-            if (!saveDraft && result == DialogResult.Yes)
+            var printResult = MessageBox.Show(
+                "Bạn có muốn in hóa đơn không?",
+                "In hóa đơn",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (printResult == DialogResult.Yes)
             {
-                btnPrint_Click(this, EventArgs.Empty);
+                try
+                {
+                    var printService = new InvoicePrintService();
+                    printService.PrintInvoice(res);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi in hóa đơn: {ex.Message}",
+                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Logger.Log($"UC_POS PrintInvoice Error: {ex.Message}");
+                }
             }
 
-            // Reset form sau khi hoàn tất
             ResetForm();
         }
 
@@ -626,61 +607,10 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             txtTenKH.Clear();
             txtSDT.Clear();
             ClearProductSelection();
-            cboPhuongThucTT.SelectedIndex = -1; // Reset phương thức thanh toán
+            cboPhuongThucTT.SelectedIndex = -1;
             btnChonSP.Focus();
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(_lastSavedInvoiceId))
-            {
-                MessageBox.Show("Chưa có hóa đơn nào để in.\n\nVui lòng thanh toán hoặc lưu tạm hóa đơn trước.",
-                    "Không có hóa đơn",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            try
-            {
-                // Xác nhận trước khi in
-                var confirm = MessageBox.Show(
-                    $"In hóa đơn {_lastSavedInvoiceId}?",
-                    "Xác nhận in",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (confirm != DialogResult.Yes)
-                    return;
-
-                var printService = new InvoicePrintService();
-                printService.PrintInvoice(_lastSavedInvoiceId);
-
-                // Thông báo sau khi in xong (nếu không có lỗi)
-                MessageBox.Show(
-                    $"✓ Đã gửi hóa đơn {_lastSavedInvoiceId} đến máy in!",
-                    "In thành công",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                // Dispose printService
-                printService.Dispose();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"❌ Lỗi khi in hóa đơn:\n\n{ex.Message}\n\nVui lòng kiểm tra:\n" +
-                    $"- Máy in đã được kết nối?\n" +
-                    $"- Driver máy in đã được cài đặt?\n" +
-                    $"- Có giấy trong máy in?",
-                    "Lỗi in hóa đơn",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
-
-        /// <summary>
-        /// Xóa 1 sản phẩm khỏi giỏ
-        /// </summary>
         private void btnDelete_Click(object sender, EventArgs e)
         {
             if (dgvCart.SelectedRows.Count == 0)
@@ -711,26 +641,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 RefreshCartGrid();
                 dgvCart.Focus();
             }
-        }
-
-        private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void txtMaNV_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void lblGiaSPLabel_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lblTenSP_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void lblQty_Click(object sender, EventArgs e)
-        {
         }
     }
 }

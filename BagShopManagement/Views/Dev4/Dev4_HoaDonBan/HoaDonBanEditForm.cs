@@ -2,6 +2,7 @@ using BagShopManagement.Controllers;
 using BagShopManagement.DTOs;
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Implementations;
+using BagShopManagement.Services.Implementations;
 using BagShopManagement.Views.Dev4.Dev4_POS;
 using Microsoft.Data.SqlClient;
 
@@ -14,7 +15,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private readonly HoaDonBanRepository _hoaDonRepo;
         private readonly SanPhamRepository _sanPhamRepo;
         private readonly KhachHangRepository _khachHangRepo;
+        private readonly TonKhoService _tonKhoService;
         private readonly List<CartItem> _cart = new List<CartItem>();
+        private byte _originalTrangThai; // Lưu trạng thái ban đầu
 
         public HoaDonBanEditForm(string maHDB, HoaDonBanController controller)
         {
@@ -24,6 +27,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             _hoaDonRepo = new HoaDonBanRepository();
             _sanPhamRepo = new SanPhamRepository();
             _khachHangRepo = new KhachHangRepository();
+            _tonKhoService = new TonKhoService(_sanPhamRepo);
         }
 
         private void HoaDonBanEditForm_Load(object sender, EventArgs e)
@@ -52,7 +56,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                 txtGhiChu.Text = hoaDon.GhiChu ?? "";
                 txtPhuongThucTT.Text = hoaDon.PhuongThucTT ?? "";
 
-                // Load trạng thái
+                // Load trạng thái và LƯU TRẠNG THÁI BAN ĐẦU
+                _originalTrangThai = hoaDon.TrangThaiHD;
+
                 switch (hoaDon.TrangThaiHD)
                 {
                     case 1:
@@ -369,8 +375,53 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
                 hoaDon.PhuongThucTT = string.IsNullOrWhiteSpace(txtPhuongThucTT.Text) ? null : txtPhuongThucTT.Text.Trim();
                 hoaDon.TongTien = _cart.Sum(i => i.ThanhTien);
 
+                // Lấy trạng thái mới
+                byte newTrangThai = (byte)(cboTrangThai.SelectedIndex + 1); // 1: Nháp, 2: Đã thanh toán, 3: Đã hủy
+
+                // 🔑 LOGIC XỬ LÝ TỒN KHO KHI ĐỔI TRẠNG THÁI
+                // Case 1: Nháp (1) → Hoàn thành (2): TRỪ TỒN KHO
+                // Case 2: Hoàn thành (2) → Nháp (1): HOÀN TRẢ TỒN KHO (không nên xảy ra, nhưng xử lý để an toàn)
+                // Case 3: Hoàn thành (2) → Hủy (3): HOÀN TRẢ TỒN KHO (xử lý ở nút Hủy, không ở đây)
+
+                if (_originalTrangThai == 1 && newTrangThai == 2)
+                {
+                    // Đổi từ NHÁP → HOÀN THÀNH: Phải TRỪ TỒN KHO
+                    foreach (var item in _cart)
+                    {
+                        bool success = _tonKhoService.DecreaseStock(item.MaSP, item.SoLuong);
+                        if (!success)
+                        {
+                            MessageBox.Show(
+                                $"Không đủ tồn kho cho sản phẩm {item.MaSP}!\n" +
+                                $"Vui lòng kiểm tra lại số lượng.",
+                                "Lỗi tồn kho",
+                                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+                else if (_originalTrangThai == 2 && newTrangThai == 1)
+                {
+                    // Đổi từ HOÀN THÀNH → NHÁP: Phải HOÀN TRẢ TỒN KHO
+                    var confirmRevert = MessageBox.Show(
+                        "⚠️ Bạn đang chuyển hóa đơn từ 'Hoàn thành' về 'Nháp'.\n\n" +
+                        "Hệ thống sẽ HOÀN TRẢ tồn kho cho các sản phẩm.\n" +
+                        "Bạn có chắc chắn muốn tiếp tục?",
+                        "Xác nhận hoàn trả tồn kho",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Warning);
+
+                    if (confirmRevert != DialogResult.Yes)
+                        return;
+
+                    foreach (var item in _cart)
+                    {
+                        _tonKhoService.IncreaseStock(item.MaSP, item.SoLuong);
+                    }
+                }
+
                 // Cập nhật trạng thái
-                hoaDon.TrangThaiHD = (byte)(cboTrangThai.SelectedIndex + 1); // 1: Nháp, 2: Đã thanh toán, 3: Đã hủy
+                hoaDon.TrangThaiHD = newTrangThai;
 
                 // Chuyển đổi CartItem sang ChiTietHoaDonBan
                 var chiTiets = _cart.Select(i => new ChiTietHoaDonBan

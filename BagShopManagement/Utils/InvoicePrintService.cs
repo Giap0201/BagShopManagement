@@ -1,9 +1,12 @@
 using BagShopManagement.Models;
 using BagShopManagement.Repositories.Implementations;
+using OfficeOpenXml;
+using OfficeOpenXml.Style;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -11,17 +14,6 @@ namespace BagShopManagement.Utils
 {
     public class InvoicePrintService
     {
-        private HoaDonBan? _hoaDon;
-        private List<ChiTietHoaDonBan>? _chiTiets;
-        private List<SanPham>? _sanPhams;
-        private PrintDocument? _printDocument;
-        private Font? _titleFont;
-        private Font? _headerFont;
-        private Font? _normalFont;
-        private int _yPos;
-        private int _leftMargin;
-        private int _rightMargin;
-
         public void PrintInvoice(string maHDB)
         {
             try
@@ -29,16 +21,16 @@ namespace BagShopManagement.Utils
                 var hoaDonRepo = new HoaDonBanRepository();
                 var sanPhamRepo = new SanPhamRepository();
 
-                _hoaDon = hoaDonRepo.GetByMaHDB(maHDB);
-                if (_hoaDon == null)
+                var hoaDon = hoaDonRepo.GetByMaHDB(maHDB);
+                if (hoaDon == null)
                 {
                     MessageBox.Show("Không tìm thấy hóa đơn.", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return;
                 }
 
-                _chiTiets = hoaDonRepo.GetChiTietByMaHDB(maHDB);
-                if (_chiTiets == null || _chiTiets.Count == 0)
+                var chiTiets = hoaDonRepo.GetChiTietByMaHDB(maHDB);
+                if (chiTiets == null || chiTiets.Count == 0)
                 {
                     MessageBox.Show("Hóa đơn không có chi tiết.", "Lỗi",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -46,174 +38,254 @@ namespace BagShopManagement.Utils
                 }
 
                 // Lấy thông tin sản phẩm
-                _sanPhams = new List<SanPham>();
-                foreach (var ct in _chiTiets)
+                var sanPhams = new List<SanPham>();
+                foreach (var ct in chiTiets)
                 {
                     var sp = sanPhamRepo.GetById(ct.MaSP);
-                    if (sp != null) _sanPhams.Add(sp);
+                    if (sp != null) sanPhams.Add(sp);
                 }
 
-                // Setup fonts
-                _titleFont = new Font("Arial", 16, FontStyle.Bold);
-                _headerFont = new Font("Arial", 10, FontStyle.Bold);
-                _normalFont = new Font("Arial", 9, FontStyle.Regular);
-
-                // Setup print document
-                _printDocument = new PrintDocument();
-                _printDocument.PrintPage += PrintDocument_PrintPage;
-
-                // Show print dialog
-                PrintDialog printDialog = new PrintDialog();
-                printDialog.Document = _printDocument;
-
-                if (printDialog.ShowDialog() == DialogResult.OK)
-                {
-                    _printDocument.Print();
-                }
+                // Tạo file Excel
+                ExportToExcel(hoaDon, chiTiets, sanPhams);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message, "Lỗi",
+                MessageBox.Show("Lỗi khi xuất hóa đơn: " + ex.Message, "Lỗi",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Logger.Log($"PrintInvoice Error: {ex.Message}");
             }
         }
 
-        private void PrintDocument_PrintPage(object sender, PrintPageEventArgs e)
+        private void ExportToExcel(HoaDonBan hoaDon, List<ChiTietHoaDonBan> chiTiets, List<SanPham> sanPhams)
         {
-            if (_hoaDon == null || _chiTiets == null) return;
+            // Set license context cho EPPlus
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
-            Graphics g = e.Graphics!;
-            _leftMargin = 50;
-            _rightMargin = (int)e.MarginBounds.Right - 50;
-            _yPos = 50;
+            // Tạo tên file mặc định
+            string defaultFileName = $"HoaDon_{hoaDon.MaHDB}_{DateTime.Now:yyyyMMdd_HHmmss}.xlsx";
+            string defaultFolderPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "HoaDon");
 
-            // Title
-            string title = "HÓA ĐƠN BÁN HÀNG";
-            SizeF titleSize = g.MeasureString(title, _titleFont!);
-            g.DrawString(title, _titleFont!, Brushes.Black,
-                new PointF((e.PageBounds.Width - titleSize.Width) / 2, _yPos));
-            _yPos += (int)titleSize.Height + 20;
-
-            // Line
-            g.DrawLine(Pens.Black, _leftMargin, _yPos, _rightMargin, _yPos);
-            _yPos += 15;
-
-            // Thông tin hóa đơn
-            g.DrawString($"Mã HĐ: {_hoaDon.MaHDB}", _normalFont!, Brushes.Black,
-                new PointF(_leftMargin, _yPos));
-            _yPos += 20;
-
-            g.DrawString($"Ngày bán: {_hoaDon.NgayBan:dd/MM/yyyy HH:mm}", _normalFont!,
-                Brushes.Black, new PointF(_leftMargin, _yPos));
-            _yPos += 20;
-
-            g.DrawString($"Mã KH: {(_hoaDon.MaKH ?? "Khách lẻ")}", _normalFont!,
-                Brushes.Black, new PointF(_leftMargin, _yPos));
-            _yPos += 20;
-
-            g.DrawString($"Mã NV: {_hoaDon.MaNV}", _normalFont!, Brushes.Black,
-                new PointF(_leftMargin, _yPos));
-            _yPos += 20;
-
-            if (!string.IsNullOrWhiteSpace(_hoaDon.PhuongThucTT))
+            // Hiển thị SaveFileDialog để người dùng chọn nơi lưu
+            using (SaveFileDialog saveFileDialog = new SaveFileDialog())
             {
-                g.DrawString($"Phương thức TT: {_hoaDon.PhuongThucTT}", _normalFont!,
-                    Brushes.Black, new PointF(_leftMargin, _yPos));
-                _yPos += 20;
-            }
+                saveFileDialog.Title = "Lưu hóa đơn Excel";
+                saveFileDialog.Filter = "Excel Files (*.xlsx)|*.xlsx|All Files (*.*)|*.*";
+                saveFileDialog.FilterIndex = 1;
+                saveFileDialog.FileName = defaultFileName;
+                saveFileDialog.InitialDirectory = defaultFolderPath;
+                saveFileDialog.RestoreDirectory = true;
 
-            _yPos += 10;
-            g.DrawLine(Pens.Black, _leftMargin, _yPos, _rightMargin, _yPos);
-            _yPos += 15;
-
-            // Header bảng
-            int col1 = _leftMargin;                    // STT
-            int col2 = col1 + 40;                      // Mã SP
-            int col3 = col2 + 100;                     // Tên SP
-            int col4 = col3 + 200;                     // SL
-            int col5 = col4 + 80;                      // Đơn giá
-            int col6 = col5 + 100;                     // Giảm giá
-            int col7 = col6 + 100;                     // Thành tiền
-
-            g.DrawString("STT", _headerFont!, Brushes.Black, new PointF(col1, _yPos));
-            g.DrawString("Mã SP", _headerFont!, Brushes.Black, new PointF(col2, _yPos));
-            g.DrawString("Tên sản phẩm", _headerFont!, Brushes.Black, new PointF(col3, _yPos));
-            g.DrawString("SL", _headerFont!, Brushes.Black, new PointF(col4, _yPos));
-            g.DrawString("Đơn giá", _headerFont!, Brushes.Black, new PointF(col5, _yPos));
-            g.DrawString("Giảm giá", _headerFont!, Brushes.Black, new PointF(col6, _yPos));
-            g.DrawString("Thành tiền", _headerFont!, Brushes.Black, new PointF(col7, _yPos));
-            _yPos += 25;
-
-            g.DrawLine(Pens.Black, _leftMargin, _yPos, _rightMargin, _yPos);
-            _yPos += 10;
-
-            // Chi tiết
-            int stt = 1;
-            foreach (var ct in _chiTiets)
-            {
-                if (_yPos > e.PageBounds.Height - 100) // Kiểm tra hết trang
+                // Nếu người dùng Cancel, thoát
+                if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 {
-                    e.HasMorePages = true;
                     return;
                 }
 
-                var sp = _sanPhams?.FirstOrDefault(s => s.MaSP == ct.MaSP);
-                string tenSP = sp?.TenSP ?? "N/A";
-                decimal thanhTien = (ct.DonGia - ct.GiamGiaSP) * ct.SoLuong;
+                string filePath = saveFileDialog.FileName;
 
-                g.DrawString(stt.ToString(), _normalFont!, Brushes.Black, new PointF(col1, _yPos));
-                g.DrawString(ct.MaSP, _normalFont!, Brushes.Black, new PointF(col2, _yPos));
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Hóa đơn");
 
-                // Tên SP có thể dài, cắt nếu quá dài
-                if (tenSP.Length > 25) tenSP = tenSP.Substring(0, 22) + "...";
-                g.DrawString(tenSP, _normalFont!, Brushes.Black, new PointF(col3, _yPos));
+                    // ========== TIÊU ĐỀ ==========
+                    worksheet.Cells["A1:G1"].Merge = true;
+                    worksheet.Cells["A1"].Value = "HÓA ĐƠN BÁN HÀNG";
+                    worksheet.Cells["A1"].Style.Font.Size = 18;
+                    worksheet.Cells["A1"].Style.Font.Bold = true;
+                    worksheet.Cells["A1"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                    worksheet.Row(1).Height = 30;
 
-                g.DrawString(ct.SoLuong.ToString(), _normalFont!, Brushes.Black, new PointF(col4, _yPos));
-                g.DrawString(ct.DonGia.ToString("N0"), _normalFont!, Brushes.Black, new PointF(col5, _yPos));
-                g.DrawString(ct.GiamGiaSP.ToString("N0"), _normalFont!, Brushes.Black, new PointF(col6, _yPos));
-                g.DrawString(thanhTien.ToString("N0"), _normalFont!, Brushes.Black, new PointF(col7, _yPos));
+                    // ========== THÔNG TIN HÓA ĐƠN ==========
+                    int row = 3;
+                    worksheet.Cells[$"A{row}"].Value = "Mã hóa đơn:";
+                    worksheet.Cells[$"B{row}"].Value = hoaDon.MaHDB;
+                    worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                    row++;
 
-                _yPos += 20;
-                stt++;
+                    worksheet.Cells[$"A{row}"].Value = "Ngày bán:";
+                    worksheet.Cells[$"B{row}"].Value = hoaDon.NgayBan.ToString("dd/MM/yyyy HH:mm");
+                    worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                    row++;
+
+                    worksheet.Cells[$"A{row}"].Value = "Mã khách hàng:";
+                    worksheet.Cells[$"B{row}"].Value = hoaDon.MaKH ?? "Khách lẻ";
+                    worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                    row++;
+
+                    worksheet.Cells[$"A{row}"].Value = "Mã nhân viên:";
+                    worksheet.Cells[$"B{row}"].Value = hoaDon.MaNV;
+                    worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                    row++;
+
+                    if (!string.IsNullOrWhiteSpace(hoaDon.PhuongThucTT))
+                    {
+                        worksheet.Cells[$"A{row}"].Value = "Phương thức thanh toán:";
+                        worksheet.Cells[$"B{row}"].Value = hoaDon.PhuongThucTT;
+                        worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                        row++;
+                    }
+
+                    string trangThai = hoaDon.TrangThaiHD switch
+                    {
+                        1 => "Tạm",
+                        2 => "Hoàn thành",
+                        3 => "Hủy",
+                        _ => "Không xác định"
+                    };
+                    worksheet.Cells[$"A{row}"].Value = "Trạng thái:";
+                    worksheet.Cells[$"B{row}"].Value = trangThai;
+                    worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                    row++;
+
+                    // ========== HEADER BẢNG CHI TIẾT ==========
+                    row += 2;
+                    int headerRow = row;
+
+                    worksheet.Cells[$"A{headerRow}"].Value = "STT";
+                    worksheet.Cells[$"B{headerRow}"].Value = "Mã sản phẩm";
+                    worksheet.Cells[$"C{headerRow}"].Value = "Tên sản phẩm";
+                    worksheet.Cells[$"D{headerRow}"].Value = "Số lượng";
+                    worksheet.Cells[$"E{headerRow}"].Value = "Đơn giá";
+                    worksheet.Cells[$"F{headerRow}"].Value = "Giảm giá/SP";
+                    worksheet.Cells[$"G{headerRow}"].Value = "Thành tiền";
+
+                    // Style header
+                    using (var range = worksheet.Cells[$"A{headerRow}:G{headerRow}"])
+                    {
+                        range.Style.Font.Bold = true;
+                        range.Style.Fill.PatternType = ExcelFillStyle.Solid;
+                        range.Style.Fill.BackgroundColor.SetColor(Color.FromArgb(79, 129, 189));
+                        range.Style.Font.Color.SetColor(Color.White);
+                        range.Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        range.Style.VerticalAlignment = ExcelVerticalAlignment.Center;
+                        range.Style.Border.BorderAround(ExcelBorderStyle.Thin);
+                    }
+
+                    // ========== CHI TIẾT SẢN PHẨM ==========
+                    row++;
+                    int startDataRow = row;
+                    int stt = 1;
+
+                    foreach (var ct in chiTiets)
+                    {
+                        var sp = sanPhams.FirstOrDefault(s => s.MaSP == ct.MaSP);
+                        decimal thanhTien = (ct.DonGia - ct.GiamGiaSP) * ct.SoLuong;
+
+                        worksheet.Cells[$"A{row}"].Value = stt;
+                        worksheet.Cells[$"B{row}"].Value = ct.MaSP;
+                        worksheet.Cells[$"C{row}"].Value = sp?.TenSP ?? "N/A";
+                        worksheet.Cells[$"D{row}"].Value = ct.SoLuong;
+                        worksheet.Cells[$"E{row}"].Value = ct.DonGia;
+                        worksheet.Cells[$"F{row}"].Value = ct.GiamGiaSP;
+                        worksheet.Cells[$"G{row}"].Value = thanhTien;
+
+                        // Format số tiền
+                        worksheet.Cells[$"E{row}"].Style.Numberformat.Format = "#,##0";
+                        worksheet.Cells[$"F{row}"].Style.Numberformat.Format = "#,##0";
+                        worksheet.Cells[$"G{row}"].Style.Numberformat.Format = "#,##0";
+
+                        // Align center cho STT và SL
+                        worksheet.Cells[$"A{row}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+                        worksheet.Cells[$"D{row}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                        // Border cho mỗi dòng
+                        using (var range = worksheet.Cells[$"A{row}:G{row}"])
+                        {
+                            range.Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                            range.Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                            range.Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                            range.Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        }
+
+                        row++;
+                        stt++;
+                    }
+
+                    // ========== TỔNG TIỀN ==========
+                    row++;
+                    decimal tongTien = chiTiets.Sum(ct => (ct.DonGia - ct.GiamGiaSP) * ct.SoLuong);
+
+                    worksheet.Cells[$"F{row}"].Value = "TỔNG TIỀN:";
+                    worksheet.Cells[$"F{row}"].Style.Font.Bold = true;
+                    worksheet.Cells[$"F{row}"].Style.Font.Size = 12;
+                    worksheet.Cells[$"F{row}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Right;
+
+                    worksheet.Cells[$"G{row}"].Value = tongTien;
+                    worksheet.Cells[$"G{row}"].Style.Font.Bold = true;
+                    worksheet.Cells[$"G{row}"].Style.Font.Size = 12;
+                    worksheet.Cells[$"G{row}"].Style.Numberformat.Format = "#,##0";
+                    worksheet.Cells[$"G{row}"].Style.Font.Color.SetColor(Color.Red);
+
+                    // ========== GHI CHÚ ==========
+                    if (!string.IsNullOrWhiteSpace(hoaDon.GhiChu))
+                    {
+                        row += 2;
+                        worksheet.Cells[$"A{row}"].Value = "Ghi chú:";
+                        worksheet.Cells[$"A{row}"].Style.Font.Bold = true;
+                        row++;
+                        worksheet.Cells[$"A{row}:G{row}"].Merge = true;
+                        worksheet.Cells[$"A{row}"].Value = hoaDon.GhiChu;
+                        worksheet.Cells[$"A{row}"].Style.WrapText = true;
+                    }
+
+                    // ========== FOOTER ==========
+                    row += 3;
+                    worksheet.Cells[$"A{row}:G{row}"].Merge = true;
+                    worksheet.Cells[$"A{row}"].Value = "Cảm ơn quý khách!";
+                    worksheet.Cells[$"A{row}"].Style.Font.Italic = true;
+                    worksheet.Cells[$"A{row}"].Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+
+                    // ========== TỰ ĐỘNG ĐIỀU CHỈNH ĐỘ RỘNG CỘT ==========
+                    worksheet.Column(1).Width = 30;  // STT / Thông tin HĐ (cột A rộng hơn để hiển thị labels)
+                    worksheet.Column(2).Width = 20;  // Mã SP / Giá trị thông tin
+                    worksheet.Column(3).Width = 35;  // Tên SP
+                    worksheet.Column(4).Width = 12;  // SL
+                    worksheet.Column(5).Width = 15;  // Đơn giá
+                    worksheet.Column(6).Width = 15;  // Giảm giá
+                    worksheet.Column(7).Width = 18;  // Thành tiền
+
+                    // ========== LƯU FILE ==========
+                    try
+                    {
+                        package.SaveAs(new FileInfo(filePath));
+
+                        // ========== MỞ FILE SAU KHI TẠO ==========
+                        var result = MessageBox.Show(
+                            $"✓ Đã xuất hóa đơn thành công!\n\nĐường dẫn: {filePath}\n\nBạn có muốn mở file ngay không?",
+                            "Xuất Excel thành công",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Information);
+
+                        if (result == DialogResult.Yes)
+                        {
+                            try
+                            {
+                                Process.Start(new ProcessStartInfo
+                                {
+                                    FileName = filePath,
+                                    UseShellExecute = true
+                                });
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Không thể mở file: {ex.Message}\n\nVui lòng mở thủ công tại:\n{filePath}",
+                                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Lỗi khi lưu file: {ex.Message}",
+                            "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Logger.Log($"ExportToExcel SaveFile Error: {ex.Message}");
+                    }
+                }
             }
-
-            _yPos += 10;
-            g.DrawLine(Pens.Black, _leftMargin, _yPos, _rightMargin, _yPos);
-            _yPos += 15;
-
-            // Tổng tiền
-            decimal tongTien = _chiTiets.Sum(ct => (ct.DonGia - ct.GiamGiaSP) * ct.SoLuong);
-            string tongTienText = $"TỔNG TIỀN: {tongTien:N0} ₫";
-            SizeF tongTienSize = g.MeasureString(tongTienText, _headerFont!);
-            g.DrawString(tongTienText, _headerFont!, Brushes.Black,
-                new PointF(_rightMargin - tongTienSize.Width, _yPos));
-            _yPos += 30;
-
-            // Ghi chú
-            if (!string.IsNullOrWhiteSpace(_hoaDon.GhiChu))
-            {
-                g.DrawString("Ghi chú:", _normalFont!, Brushes.Black, new PointF(_leftMargin, _yPos));
-                _yPos += 20;
-                g.DrawString(_hoaDon.GhiChu, _normalFont!, Brushes.Black, new PointF(_leftMargin, _yPos));
-                _yPos += 20;
-            }
-
-            // Footer
-            _yPos += 20;
-            g.DrawLine(Pens.Black, _leftMargin, _yPos, _rightMargin, _yPos);
-            _yPos += 15;
-            g.DrawString("Cảm ơn quý khách!", _normalFont!, Brushes.Black,
-                new PointF((e.PageBounds.Width - g.MeasureString("Cảm ơn quý khách!", _normalFont!).Width) / 2, _yPos));
-
-            e.HasMorePages = false;
         }
 
         public void Dispose()
         {
-            _titleFont?.Dispose();
-            _headerFont?.Dispose();
-            _normalFont?.Dispose();
-            _printDocument?.Dispose();
+            // No resources to dispose in Excel export
         }
     }
 }

@@ -8,10 +8,10 @@ namespace BagShopManagement.Views.Dev3
     public partial class ThemKhachHangForm2 : Form
     {
         private readonly KhachHangController _controller;
-        private readonly KhachHang _khachHang;
+        private readonly KhachHang? _khachHang;
         private readonly bool _isEdit;
 
-        public ThemKhachHangForm2(KhachHangController controller, KhachHang kh = null, string soDienThoaiMacDinh = null)
+        public ThemKhachHangForm2(KhachHangController controller, KhachHang? kh = null, string? soDienThoaiMacDinh = null)
         {
             InitializeComponent();
             _controller = controller;
@@ -36,7 +36,7 @@ namespace BagShopManagement.Views.Dev3
                 }
             }
         }
-        private void ThemKhachHangForm2_load (object sender, EventArgs e)
+        private void ThemKhachHangForm2_load(object sender, EventArgs e)
         {
             foreach (Control c in this.Controls)
             {

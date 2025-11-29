@@ -225,6 +225,7 @@ namespace BagShopManagement.Views.Dev6
                 txtSoLuong.Text = row.Cells["SoLuong"].Value.ToString();
                 txtDonGia.Text = row.Cells["DonGia"].Value.ToString();
                 txtThanhTien.Text = row.Cells["ThanhTien"].Value.ToString();
+                cboSanPham.Enabled = false;
             }
         }
 
@@ -233,6 +234,7 @@ namespace BagShopManagement.Views.Dev6
         {
             ClearFieldThongTinSanPham();
             btnLuuChiTietHDN.Enabled = true;
+            cboSanPham.Enabled = true;
             //btnSuaChiTietHDN.Enabled = false;
             //btnXoaChiTietHDN.Enabled = false;
         }
@@ -265,6 +267,7 @@ namespace BagShopManagement.Views.Dev6
             }
             MessageBox.Show("Đã xoá thông tin sản phẩm thành công!",
                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cboSanPham.Enabled = true;
         }
 
         private void btnSuaChiTietHDN_Click(object sender, EventArgs e)
@@ -310,6 +313,7 @@ namespace BagShopManagement.Views.Dev6
 
             MessageBox.Show("Đã cập nhật thông tin sản phẩm thành công!",
                 "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            cboSanPham.Enabled = true;
         }
 
         private void btnLuuChiTietHDN_Click(object sender, EventArgs e)
@@ -427,6 +431,7 @@ namespace BagShopManagement.Views.Dev6
             btnLuuChiTietHDN.Enabled = true;
             btnSuaChiTietHDN.Enabled = true;
             btnXoaChiTietHDN.Enabled = true;
+            cboSanPham.Enabled = true;
             //dtpNgayDuyet.Visible = false;
             //lblNgayDuyet.Visible = false;
             //dtpNgayHuy.Visible = false;

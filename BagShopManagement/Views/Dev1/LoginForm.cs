@@ -53,14 +53,25 @@ namespace BagShopManagement.Views.Dev1
 
                 MessageBox.Show($"Đăng nhập thành công! Xin chào, {loginResponse.HoTen}.", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                // === LOGIC MỞ MAINFORM ===
-                var mainForm = _mainFormFactory();
+                // === [SỬA LẠI LOGIC MỞ FORM ĐỂ HỖ TRỢ ĐĂNG XUẤT] ===
 
-                // Khi MainForm đóng, ứng dụng sẽ tự động đóng
-                mainForm.FormClosed += (s, args) => Application.ExitThread();
+                // 1. Ẩn form đăng nhập trước
+                this.Hide();
 
-                mainForm.Show();
-                this.Hide(); // Ẩn form đăng nhập
+                // 2. Tạo và mở MainForm dưới dạng MODAL (ShowDialog)
+                // Code sẽ "dừng" ở dòng này cho đến khi MainForm bị đóng (do bấm X hoặc bấm Đăng xuất)
+                using (var mainForm = _mainFormFactory())
+                {
+                    mainForm.ShowDialog();
+                }
+
+                // 3. Khi MainForm đóng lại, dòng code này sẽ chạy tiếp
+                // Hiện lại form đăng nhập để người khác đăng nhập
+                this.Show();
+
+                // 4. Xóa mật khẩu cũ để bảo mật
+                txtMatKhau.Clear();
+                txtTenDangNhap.Focus();
             }
             catch (Exception ex)
             {
