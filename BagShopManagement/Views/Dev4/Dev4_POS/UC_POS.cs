@@ -137,6 +137,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             {
                 string sdt = txtSDT.Text.Trim();
 
+                // 1. Validate: Kiểm tra rỗng
                 if (string.IsNullOrWhiteSpace(sdt))
                 {
                     MessageBox.Show("Vui lòng nhập số điện thoại khách hàng!", "Thiếu thông tin",
@@ -145,34 +146,73 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                     return;
                 }
 
-                // Tìm khách hàng theo số điện thoại
+                // 2. Validate: Kiểm tra đúng 10 số
+                if (sdt.Length != 10)
+                {
+                    MessageBox.Show("Số điện thoại phải có đúng 10 số!\nVui lòng nhập lại.",
+                        "Số điện thoại không hợp lệ",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSDT.Focus();
+                    txtSDT.SelectAll();
+                    return;
+                }
+
+                // 3. Validate: Kiểm tra chỉ chứa số
+                if (!sdt.All(char.IsDigit))
+                {
+                    MessageBox.Show("Số điện thoại chỉ được chứa các chữ số (0-9)!\nVui lòng nhập lại.",
+                        "Số điện thoại không hợp lệ",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtSDT.Focus();
+                    txtSDT.SelectAll();
+                    return;
+                }
+
+                // 4. Tìm khách hàng theo số điện thoại
                 var khRepo = new KhachHangRepository();
                 var khachHang = khRepo.GetBySDT(sdt);
 
                 if (khachHang != null)
                 {
-                    // Khách hàng đã tồn tại - hiển thị thông tin
+                    // ✅ Khách hàng đã tồn tại - Hiển thị message trước
+                    MessageBox.Show($"✓ Đã tìm thấy khách hàng có số điện thoại \"{sdt}\"\n\n" +
+                                    $"Họ tên: {khachHang.HoTen}\n" +
+                                    $"Mã KH: {khachHang.MaKH}",
+                        "Tìm thấy khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Sau đó mới hiển thị thông tin lên form
                     txtMaKH.Text = khachHang.MaKH;
                     txtTenKH.Text = khachHang.HoTen;
-                    MessageBox.Show($"Đã tìm thấy khách hàng:\n{khachHang.HoTen}",
-                        "Thông tin khách hàng", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 else
                 {
-                    // Khách hàng chưa tồn tại - hiển thị form thêm mới (Dev3) với SĐT đã nhập
-                    var khController = new KhachHangController();
-                    var themKHForm = new ThemKhachHangForm2(khController, null, sdt);
+                    // ❌ Khách hàng chưa tồn tại - Hiển thị message trước
+                    var result = MessageBox.Show(
+                        $"⚠ Chưa tìm thấy khách hàng có số điện thoại \"{sdt}\"\n\n" +
+                        $"Bạn có muốn thêm khách hàng mới không?",
+                        "Không tìm thấy khách hàng",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question);
 
-                    if (themKHForm.ShowDialog() == DialogResult.OK)
+                    // Nếu chọn Yes, hiển thị form thêm mới (Dev3) với SĐT đã nhập
+                    if (result == DialogResult.Yes)
                     {
-                        // Sau khi thêm thành công, tìm lại khách hàng theo SĐT
-                        var khMoi = khRepo.GetBySDT(sdt);
-                        if (khMoi != null)
+                        var khController = new KhachHangController();
+                        var themKHForm = new ThemKhachHangForm2(khController, null, sdt);
+
+                        if (themKHForm.ShowDialog() == DialogResult.OK)
                         {
-                            txtMaKH.Text = khMoi.MaKH;
-                            txtTenKH.Text = khMoi.HoTen;
-                            MessageBox.Show($"Đã thêm khách hàng mới thành công!\n{khMoi.HoTen}",
-                                "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            // Sau khi thêm thành công, tìm lại khách hàng theo SĐT
+                            var khMoi = khRepo.GetBySDT(sdt);
+                            if (khMoi != null)
+                            {
+                                txtMaKH.Text = khMoi.MaKH;
+                                txtTenKH.Text = khMoi.HoTen;
+                                MessageBox.Show($"✓ Đã thêm khách hàng mới thành công!\n\n" +
+                                                $"Họ tên: {khMoi.HoTen}\n" +
+                                                $"Mã KH: {khMoi.MaKH}",
+                                    "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
                         }
                     }
                 }

@@ -90,6 +90,9 @@
             mainPanel.ResumeLayout(false);
             ResumeLayout(false);
         }
+
+        #endregion
+
         private BagShopManagement.Views.Controls.SideBarControl sideBarControl;
         private System.Windows.Forms.Panel panelContent;
         private Panel mainPanel;

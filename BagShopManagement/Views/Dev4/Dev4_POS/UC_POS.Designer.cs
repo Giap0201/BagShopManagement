@@ -173,7 +173,7 @@
             // 
             // txtTenKH
             // 
-            txtTenKH.BackColor = Color.FromArgb(255, 255, 255);
+            txtTenKH.BackColor = Color.FromArgb(240, 240, 240);
             txtTenKH.BorderStyle = BorderStyle.FixedSingle;
             txtTenKH.Font = new Font("Segoe UI", 10.2F);
             txtTenKH.ForeColor = Color.FromArgb(51, 51, 51);
@@ -185,7 +185,7 @@
             // 
             // txtMaKH
             // 
-            txtMaKH.BackColor = Color.FromArgb(255, 255, 255);
+            txtMaKH.BackColor = Color.FromArgb(240, 240, 240);
             txtMaKH.BorderStyle = BorderStyle.FixedSingle;
             txtMaKH.Font = new Font("Segoe UI", 10.2F);
             txtMaKH.ForeColor = Color.FromArgb(51, 51, 51);
