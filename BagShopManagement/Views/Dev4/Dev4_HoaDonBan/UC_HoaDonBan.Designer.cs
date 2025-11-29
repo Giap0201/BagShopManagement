@@ -35,6 +35,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             chkFilterNV = new CheckBox();
             chkFilterDate = new CheckBox();
             pnlBottom = new Panel();
+            btnPrint = new Button();
             btnDelete = new Button();
             btnCancel = new Button();
             btnEdit = new Button();
@@ -218,6 +219,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             //
             pnlBottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlBottom.BackColor = Color.White;
+            pnlBottom.Controls.Add(btnPrint);
             pnlBottom.Controls.Add(btnDelete);
             pnlBottom.Controls.Add(btnCancel);
             pnlBottom.Controls.Add(btnEdit);
@@ -226,57 +228,73 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.Name = "pnlBottom";
             pnlBottom.Size = new Size(1492, 119);
             pnlBottom.TabIndex = 2;
-            //
+            // 
+            // btnPrint
+            // 
+            btnPrint.BackColor = Color.FromArgb(34, 139, 34);
+            btnPrint.Cursor = Cursors.Hand;
+            btnPrint.FlatAppearance.BorderSize = 0;
+            btnPrint.FlatStyle = FlatStyle.Flat;
+            btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnPrint.ForeColor = Color.FromArgb(255, 255, 255);
+            btnPrint.Location = new Point(55, 40);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(180, 50);
+            btnPrint.TabIndex = 5;
+            btnPrint.Text = "IN HÓA ĐƠN";
+            btnPrint.UseVisualStyleBackColor = false;
+            btnPrint.Click += btnPrint_Click;
+            // 
             // btnDelete
-            //
+            // 
             btnDelete.BackColor = Color.FromArgb(231, 76, 60);
             btnDelete.Cursor = Cursors.Hand;
             btnDelete.FlatAppearance.BorderSize = 0;
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDelete.ForeColor = Color.FromArgb(255, 255, 255);
-            btnDelete.Location = new Point(1184, 40);
+            btnDelete.Location = new Point(1284, 40);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(159, 50);
             btnDelete.TabIndex = 4;
             btnDelete.Text = "XOÁ";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
-            //
+            // 
             // btnCancel
-            //
+            // 
             btnCancel.BackColor = Color.FromArgb(231, 76, 60);
             btnCancel.Cursor = Cursors.Hand;
             btnCancel.FlatAppearance.BorderSize = 0;
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.FromArgb(255, 255, 255);
-            btnCancel.Location = new Point(495, 40);
+            btnCancel.Location = new Point(705, 40);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(189, 50);
             btnCancel.TabIndex = 3;
             btnCancel.Text = "HUỶ HOÁ ĐƠN";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
-            //
+            // 
             // btnEdit
-            //
+            // 
             btnEdit.BackColor = Color.LightGray;
             btnEdit.Cursor = Cursors.Hand;
             btnEdit.FlatAppearance.BorderSize = 0;
             btnEdit.FlatStyle = FlatStyle.Flat;
             btnEdit.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnEdit.ForeColor = Color.FromArgb(51, 51, 51);
-            btnEdit.Location = new Point(852, 40);
+            btnEdit.Location = new Point(1062, 40);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(153, 50);
             btnEdit.TabIndex = 2;
             btnEdit.Text = "SỬA";
             btnEdit.UseVisualStyleBackColor = false;
             btnEdit.Click += btnEdit_Click;
-            //
+            // 
             // btnViewDetails
-            //
+            // 
             btnViewDetails.BackColor = Color.Gainsboro;
             btnViewDetails.Cursor = Cursors.Hand;
             btnViewDetails.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
@@ -284,7 +302,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnViewDetails.FlatStyle = FlatStyle.Flat;
             btnViewDetails.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnViewDetails.ForeColor = Color.FromArgb(51, 51, 51);
-            btnViewDetails.Location = new Point(150, 40);
+            btnViewDetails.Location = new Point(280, 40);
             btnViewDetails.Name = "btnViewDetails";
             btnViewDetails.Size = new Size(180, 50);
             btnViewDetails.TabIndex = 1;
@@ -402,6 +420,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private Button btnEdit;
         private Button btnCancel;
         private Button btnDelete;
+        private Button btnPrint;
         private DataGridView dgvHoaDon;
         private Label label7;
     }

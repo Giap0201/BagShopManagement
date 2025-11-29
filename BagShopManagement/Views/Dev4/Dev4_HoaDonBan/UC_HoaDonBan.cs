@@ -1,6 +1,7 @@
 using BagShopManagement.Controllers;
 using BagShopManagement.Repositories.Implementations;
 using BagShopManagement.Services.Implementations;
+using BagShopManagement.Utils;
 using System;
 using System.Linq;
 using System.Windows.Forms;
@@ -359,6 +360,46 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
         private void lblToDate_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnPrint_Click(object sender, EventArgs e)
+        {
+            if (dgvHoaDon.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Vui lòng chọn một hóa đơn để in.",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            var selectedRow = dgvHoaDon.SelectedRows[0];
+            var maHDB = selectedRow.Cells["MaHDB"].Value?.ToString();
+            var trangThai = Convert.ToByte(selectedRow.Cells["TrangThaiHD"].Value);
+
+            if (string.IsNullOrEmpty(maHDB))
+            {
+                MessageBox.Show("Không thể xác định mã hóa đơn.",
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Chỉ cho phép in hóa đơn đã hoàn thành (TrangThaiHD = 2)
+            if (trangThai != 2)
+            {
+                MessageBox.Show("Chỉ có thể in hóa đơn đã hoàn thành (đã thanh toán).",
+                    "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                var printService = new InvoicePrintService();
+                printService.PrintInvoice(maHDB);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Lỗi khi in hóa đơn: " + ex.Message,
+                    "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -24,6 +24,7 @@
             pnlTop = new Panel();
             label2 = new Label();
             label1 = new Label();
+            txtTenNV = new TextBox();
             txtMaNV = new TextBox();
             lblNv = new Label();
             btnLoc = new Button();
@@ -35,7 +36,7 @@
             grpAdd = new GroupBox();
             cboPhuongThucTT = new ComboBox();
             lblPhuongThucTT = new Label();
-            btnPrint = new Button();
+            //btnPrint = new Button();
             btnCheckout = new Button();
             btnSaveDraft = new Button();
             lblTotal = new Label();
@@ -79,6 +80,7 @@
             pnlTop.BackColor = Color.FromArgb(255, 255, 255);
             pnlTop.Controls.Add(label2);
             pnlTop.Controls.Add(label1);
+            pnlTop.Controls.Add(txtTenNV);
             pnlTop.Controls.Add(txtMaNV);
             pnlTop.Controls.Add(lblNv);
             pnlTop.Controls.Add(btnLoc);
@@ -114,17 +116,29 @@
             label1.TabIndex = 8;
             label1.Text = "Tên khách hàng:";
             // 
+            // txtTenNV
+            // 
+            txtTenNV.BackColor = Color.FromArgb(240, 240, 240);
+            txtTenNV.BorderStyle = BorderStyle.FixedSingle;
+            txtTenNV.Font = new Font("Segoe UI", 10.2F);
+            txtTenNV.ForeColor = Color.FromArgb(51, 51, 51);
+            txtTenNV.Location = new Point(467, 94);
+            txtTenNV.Name = "txtTenNV";
+            txtTenNV.ReadOnly = true;
+            txtTenNV.Size = new Size(300, 53);
+            txtTenNV.TabIndex = 11;
+            // 
             // txtMaNV
             // 
-            txtMaNV.BackColor = Color.FromArgb(255, 255, 255);
+            txtMaNV.BackColor = Color.FromArgb(240, 240, 240);
             txtMaNV.BorderStyle = BorderStyle.FixedSingle;
             txtMaNV.Font = new Font("Segoe UI", 10.2F);
             txtMaNV.ForeColor = Color.FromArgb(51, 51, 51);
             txtMaNV.Location = new Point(225, 94);
             txtMaNV.Name = "txtMaNV";
+            txtMaNV.ReadOnly = true;
             txtMaNV.Size = new Size(236, 53);
             txtMaNV.TabIndex = 0;
-            txtMaNV.TextChanged += txtMaNV_TextChanged;
             // 
             // lblNv
             // 
@@ -211,7 +225,6 @@
             grpAdd.BackColor = Color.FromArgb(255, 255, 255);
             grpAdd.Controls.Add(cboPhuongThucTT);
             grpAdd.Controls.Add(lblPhuongThucTT);
-            grpAdd.Controls.Add(btnPrint);
             grpAdd.Controls.Add(btnCheckout);
             grpAdd.Controls.Add(btnSaveDraft);
             grpAdd.Controls.Add(lblTotal);
@@ -262,23 +275,6 @@
             lblPhuongThucTT.Size = new Size(292, 27);
             lblPhuongThucTT.TabIndex = 7;
             lblPhuongThucTT.Text = "Phương thức TT:";
-            // 
-            // btnPrint
-            // 
-            btnPrint.BackColor = Color.FromArgb(248, 248, 248);
-            btnPrint.Cursor = Cursors.Hand;
-            btnPrint.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
-            btnPrint.FlatAppearance.BorderSize = 0;
-            btnPrint.FlatStyle = FlatStyle.Flat;
-            btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnPrint.ForeColor = Color.FromArgb(51, 51, 51);
-            btnPrint.Location = new Point(43, 659);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(203, 47);
-            btnPrint.TabIndex = 0;
-            btnPrint.Text = "IN HOÁ ĐƠN";
-            btnPrint.UseVisualStyleBackColor = false;
-            btnPrint.Click += btnPrint_Click;
             // 
             // btnCheckout
             // 
@@ -593,6 +589,7 @@
         private Label lblNv;
         private Label lblKh;
         private Label lblSDT;
+        private TextBox txtTenNV;
         private TextBox txtMaNV;
         private TextBox txtMaKH;
         private TextBox txtTenKH;
@@ -616,7 +613,6 @@
         private Button btnCheckout;
         private Button btnSaveDraft;
         private Label lblTotal;
-        private Button btnPrint;
         private Button btnDelete;
         private Label label1;
         private PictureBox picSanPham;

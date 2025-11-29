@@ -12,7 +12,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
     public partial class UC_POS : UserControl
     {
         private readonly POSController _controller;
-        private string? _lastSavedInvoiceId;
 
         public UC_POS()
         {
@@ -33,11 +32,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         {
             SetupCartColumns();
 
-            // Tự động điền mã nhân viên từ UserContext sau khi đăng nhập
+            // Tự động điền mã nhân viên và tên nhân viên từ UserContext sau khi đăng nhập
             if (!string.IsNullOrEmpty(UserContext.MaNV))
             {
                 txtMaNV.Text = UserContext.MaNV;
-                txtMaNV.ReadOnly = true; // Không cho sửa mã NV
+                txtTenNV.Text = UserContext.HoTen ?? "";
+                txtMaNV.ReadOnly = true;
+                txtTenNV.ReadOnly = true;
             }
         }
 
@@ -633,23 +634,14 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
                 return;
             }
 
-            // Lưu mã hóa đơn để in sau
-            _lastSavedInvoiceId = res;
-
             // Thông báo thành công với chi tiết
             string successMsg = saveDraft
                 ? $"✓ Hóa đơn tạm đã lưu!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nBạn có thể chỉnh sửa hóa đơn này sau."
-                : $"✓ Thanh toán thành công!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nBạn có muốn in hóa đơn ngay không?";
+                : $"✓ Thanh toán thành công!\n\nMã HĐ: {res}\nTổng tiền: {tongTien:N0} ₫\n\nNếu cần in hóa đơn, vui lòng vào Quản lý hóa đơn bán.";
 
-            var result = MessageBox.Show(successMsg, "Thành công",
-                saveDraft ? MessageBoxButtons.OK : MessageBoxButtons.YesNo,
+            MessageBox.Show(successMsg, "Thành công",
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Information);
-
-            // Nếu thanh toán thành công và muốn in ngay
-            if (!saveDraft && result == DialogResult.Yes)
-            {
-                btnPrint_Click(this, EventArgs.Empty);
-            }
 
             // Reset form sau khi hoàn tất
             ResetForm();
@@ -670,53 +662,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
             btnChonSP.Focus();
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(_lastSavedInvoiceId))
-            {
-                MessageBox.Show("Chưa có hóa đơn nào để in.\n\nVui lòng thanh toán hoặc lưu tạm hóa đơn trước.",
-                    "Không có hóa đơn",
-                    MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
 
-            try
-            {
-                // Xác nhận trước khi in
-                var confirm = MessageBox.Show(
-                    $"In hóa đơn {_lastSavedInvoiceId}?",
-                    "Xác nhận in",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (confirm != DialogResult.Yes)
-                    return;
-
-                var printService = new InvoicePrintService();
-                printService.PrintInvoice(_lastSavedInvoiceId);
-
-                // Thông báo sau khi in xong (nếu không có lỗi)
-                MessageBox.Show(
-                    $"✓ Đã gửi hóa đơn {_lastSavedInvoiceId} đến máy in!",
-                    "In thành công",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Information);
-
-                // Dispose printService
-                printService.Dispose();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(
-                    $"❌ Lỗi khi in hóa đơn:\n\n{ex.Message}\n\nVui lòng kiểm tra:\n" +
-                    $"- Máy in đã được kết nối?\n" +
-                    $"- Driver máy in đã được cài đặt?\n" +
-                    $"- Có giấy trong máy in?",
-                    "Lỗi in hóa đơn",
-                    MessageBoxButtons.OK,
-                    MessageBoxIcon.Error);
-            }
-        }
 
         /// <summary>
         /// Xóa 1 sản phẩm khỏi giỏ
@@ -754,10 +700,6 @@ namespace BagShopManagement.Views.Dev4.Dev4_POS
         }
 
         private void dgvCart_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-        }
-
-        private void txtMaNV_TextChanged(object sender, EventArgs e)
         {
         }
 
