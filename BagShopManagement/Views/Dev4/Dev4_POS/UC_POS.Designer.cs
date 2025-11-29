@@ -37,7 +37,6 @@
             cboPhuongThucTT = new ComboBox();
             lblPhuongThucTT = new Label();
             btnCheckout = new Button();
-            btnSaveDraft = new Button();
             lblTotal = new Label();
             lblKhuyenMaiValue = new Label();
             lblKhuyenMai = new Label();
@@ -227,7 +226,6 @@
             grpAdd.Controls.Add(cboPhuongThucTT);
             grpAdd.Controls.Add(lblPhuongThucTT);
             grpAdd.Controls.Add(btnCheckout);
-            grpAdd.Controls.Add(btnSaveDraft);
             grpAdd.Controls.Add(lblTotal);
             grpAdd.Controls.Add(picSanPham);
             grpAdd.Controls.Add(lblKhuyenMaiValue);
@@ -293,22 +291,6 @@
             btnCheckout.UseVisualStyleBackColor = false;
             btnCheckout.Click += btnCheckout_Click;
             // 
-            // btnSaveDraft
-            // 
-            btnSaveDraft.BackColor = Color.FromArgb(224, 224, 224);
-            btnSaveDraft.Cursor = Cursors.Hand;
-            btnSaveDraft.FlatAppearance.BorderSize = 0;
-            btnSaveDraft.FlatStyle = FlatStyle.Flat;
-            btnSaveDraft.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnSaveDraft.ForeColor = Color.FromArgb(51, 51, 51);
-            btnSaveDraft.Location = new Point(352, 659);
-            btnSaveDraft.Name = "btnSaveDraft";
-            btnSaveDraft.Size = new Size(203, 47);
-            btnSaveDraft.TabIndex = 2;
-            btnSaveDraft.Text = "💾 LƯU TẠM";
-            btnSaveDraft.UseVisualStyleBackColor = false;
-            btnSaveDraft.Click += btnSaveDraft_Click;
-            // 
             // lblTotal
             // 
             lblTotal.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
@@ -365,7 +347,6 @@
             lblTenSP.Size = new Size(311, 34);
             lblTenSP.TabIndex = 9;
             lblTenSP.TextAlign = ContentAlignment.MiddleLeft;
-            lblTenSP.Click += lblTenSP_Click;
             // 
             // lblMaSPValue
             // 
@@ -407,7 +388,6 @@
             lblGiaSPLabel.TabIndex = 13;
             lblGiaSPLabel.Text = "Giá sản phẩm:";
             lblGiaSPLabel.TextAlign = ContentAlignment.MiddleLeft;
-            lblGiaSPLabel.Click += lblGiaSPLabel_Click;
             // 
             // btnChonSP
             // 
@@ -495,7 +475,6 @@
             lblQty.TabIndex = 4;
             lblQty.Text = "Số lượng:";
             lblQty.TextAlign = ContentAlignment.MiddleLeft;
-            lblQty.Click += lblQty_Click;
             // 
             // lblSanPham
             // 
@@ -562,7 +541,6 @@
             dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvCart.Size = new Size(863, 746);
             dgvCart.TabIndex = 12;
-            dgvCart.CellClick += dgvCart_CellContentClick;
             // 
             // label3
             // 
@@ -622,7 +600,6 @@
         private Button btnClear;
         private Button btnAdd;
         private Button btnCheckout;
-        private Button btnSaveDraft;
         private Label lblTotal;
         private Button btnDelete;
         private Label label1;

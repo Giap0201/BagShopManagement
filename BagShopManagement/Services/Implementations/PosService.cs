@@ -108,15 +108,14 @@ namespace BagShopManagement.Services.Implementations
         }
 
         /// <summary>
-        /// Thực hiện thanh toán giỏ hàng và tạo hóa đơn
+        /// Thực hiện thanh toán giỏ hàng và tạo hóa đơn (hoàn thành)
         /// </summary>
         /// <param name="maKH">Mã khách hàng (nullable - null = khách lẻ)</param>
         /// <param name="maNV">Mã nhân viên bán hàng</param>
-        /// <param name="saveDraft">True = lưu nháp, False = thanh toán ngay</param>
         /// <param name="phuongThucTT">Phương thức thanh toán (Tiền mặt, Chuyển khoản...)</param>
         /// <param name="ghiChu">Ghi chú đơn hàng</param>
         /// <returns>Tuple (success, maHDB) - thành công và mã hóa đơn được tạo</returns>
-        public (bool ok, string result) Checkout(string maKH, string maNV, bool saveDraft = false,
+        public (bool ok, string result) Checkout(string maKH, string maNV,
                                                  string? phuongThucTT = null, string? ghiChu = null)
         {
             if (_cart.Count == 0)
@@ -134,7 +133,7 @@ namespace BagShopManagement.Services.Implementations
                 TongTien = _cart.Sum(i => i.ThanhTien),
                 PhuongThucTT = phuongThucTT,
                 GhiChu = ghiChu,
-                TrangThaiHD = saveDraft ? (byte)1 : (byte)2
+                TrangThaiHD = 2  // Luôn là Hoàn thành khi thanh toán
             };
 
             var dto = new HoaDonBanDTO
@@ -155,14 +154,12 @@ namespace BagShopManagement.Services.Implementations
                 {
                     _hoaDonService.SaveHoaDon(dto);
 
-                    if (!saveDraft)
+                    // Luôn giảm tồn kho khi thanh toán
+                    foreach (var item in _cart)
                     {
-                        foreach (var item in _cart)
-                        {
-                            var ok = _tonKhoService.DecreaseStock(item.MaSP, item.SoLuong);
-                            if (!ok)
-                                throw new Exception($"Không đủ tồn kho cho sản phẩm: {item.MaSP}");
-                        }
+                        var ok = _tonKhoService.DecreaseStock(item.MaSP, item.SoLuong);
+                        if (!ok)
+                            throw new Exception($"Không đủ tồn kho cho sản phẩm: {item.MaSP}");
                     }
                 });
 
