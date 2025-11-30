@@ -80,11 +80,11 @@ namespace BagShopManagement.Services
             }
         }
 
-        public List<NhaCungCap> Search(string ten, string sdt, string email)
+        public List<NhaCungCap> Search(string kw)
         {
             try
             {
-                return _repository.Search(ten, sdt, email);
+                return _repository.Search(kw);
             }
             catch (Exception ex)
             {

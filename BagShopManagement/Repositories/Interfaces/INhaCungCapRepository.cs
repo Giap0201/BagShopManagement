@@ -19,7 +19,7 @@ namespace BagShopManagement.Repositories.Interfaces
 
         public int Delete(string maNCC);
 
-        public List<NhaCungCap> Search(string ten, string sdt, string email);
+        public List<NhaCungCap> Search(string kw);
 
         public string GetMaxCode();
        
