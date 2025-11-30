@@ -116,10 +116,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
 
         private void SetupComboBoxes()
         {
-            // Trạng thái: 2=Hoàn thành, 3=Hủy
             cmbTrangThai.Items.Add("Tất cả");
-            cmbTrangThai.Items.Add("Hoàn thành (2)");
-            cmbTrangThai.Items.Add("Hủy (3)");
+            cmbTrangThai.Items.Add("Hoàn thành ");
+            cmbTrangThai.Items.Add("Hủy ");
             cmbTrangThai.SelectedIndex = 0;
 
             dtpFromDate.Value = DateTime.Now.AddDays(-30); // 30 ngày gần nhất
