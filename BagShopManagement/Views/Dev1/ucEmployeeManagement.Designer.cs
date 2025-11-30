@@ -61,9 +61,9 @@
             // txtTimKiem
             // 
             txtTimKiem.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtTimKiem.Location = new Point(172, 102);
+            txtTimKiem.Location = new Point(140, 95);
             txtTimKiem.Name = "txtTimKiem";
-            txtTimKiem.Size = new Size(249, 30);
+            txtTimKiem.Size = new Size(264, 30);
             txtTimKiem.TabIndex = 5;
             txtTimKiem.KeyDown += txtTimKiem_KeyDown;
             // 
@@ -72,11 +72,11 @@
             btnTimKiem.BackColor = SystemColors.Highlight;
             btnTimKiem.FlatAppearance.BorderSize = 0;
             btnTimKiem.FlatStyle = FlatStyle.Flat;
-            btnTimKiem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            btnTimKiem.Font = new Font("Segoe UI", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTimKiem.ForeColor = Color.White;
-            btnTimKiem.Location = new Point(26, 95);
+            btnTimKiem.Location = new Point(29, 95);
             btnTimKiem.Name = "btnTimKiem";
-            btnTimKiem.Size = new Size(94, 37);
+            btnTimKiem.Size = new Size(116, 30);
             btnTimKiem.TabIndex = 4;
             btnTimKiem.Text = "Tìm kiếm";
             btnTimKiem.UseVisualStyleBackColor = false;

@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             groupBox1 = new GroupBox();
             dtpDenNgay = new DateTimePicker();
             dtpTuNgay = new DateTimePicker();
@@ -93,7 +93,7 @@
             dtpDenNgay.CalendarMonthBackground = Color.FromArgb(252, 252, 252);
             dtpDenNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpDenNgay.Format = DateTimePickerFormat.Short;
-            dtpDenNgay.Location = new Point(757, 92);
+            dtpDenNgay.Location = new Point(900, 92);
             dtpDenNgay.Name = "dtpDenNgay";
             dtpDenNgay.Size = new Size(227, 30);
             dtpDenNgay.TabIndex = 11;
@@ -105,7 +105,7 @@
             dtpTuNgay.Cursor = Cursors.Hand;
             dtpTuNgay.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dtpTuNgay.Format = DateTimePickerFormat.Short;
-            dtpTuNgay.Location = new Point(275, 92);
+            dtpTuNgay.Location = new Point(293, 92);
             dtpTuNgay.Name = "dtpTuNgay";
             dtpTuNgay.Size = new Size(227, 30);
             dtpTuNgay.TabIndex = 10;
@@ -117,7 +117,7 @@
             cmbSearchNhanVien.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchNhanVien.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchNhanVien.FormattingEnabled = true;
-            cmbSearchNhanVien.Location = new Point(757, 38);
+            cmbSearchNhanVien.Location = new Point(900, 38);
             cmbSearchNhanVien.Name = "cmbSearchNhanVien";
             cmbSearchNhanVien.Size = new Size(227, 31);
             cmbSearchNhanVien.TabIndex = 9;
@@ -129,7 +129,7 @@
             cmbSearchTrangThai.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchTrangThai.FormattingEnabled = true;
-            cmbSearchTrangThai.Location = new Point(757, 148);
+            cmbSearchTrangThai.Location = new Point(900, 148);
             cmbSearchTrangThai.Name = "cmbSearchTrangThai";
             cmbSearchTrangThai.Size = new Size(227, 31);
             cmbSearchTrangThai.TabIndex = 8;
@@ -142,7 +142,7 @@
             btnLamMoi.FlatAppearance.MouseOverBackColor = Color.DarkGray;
             btnLamMoi.FlatStyle = FlatStyle.Flat;
             btnLamMoi.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnLamMoi.Location = new Point(1070, 124);
+            btnLamMoi.Location = new Point(1262, 124);
             btnLamMoi.Name = "btnLamMoi";
             btnLamMoi.Size = new Size(132, 39);
             btnLamMoi.TabIndex = 1;
@@ -157,7 +157,7 @@
             cmbSearchNCC.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchNCC.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchNCC.FormattingEnabled = true;
-            cmbSearchNCC.Location = new Point(275, 147);
+            cmbSearchNCC.Location = new Point(293, 147);
             cmbSearchNCC.Name = "cmbSearchNCC";
             cmbSearchNCC.Size = new Size(227, 31);
             cmbSearchNCC.TabIndex = 7;
@@ -171,7 +171,7 @@
             btnTimKiem.FlatStyle = FlatStyle.Flat;
             btnTimKiem.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTimKiem.ForeColor = Color.White;
-            btnTimKiem.Location = new Point(1070, 46);
+            btnTimKiem.Location = new Point(1262, 46);
             btnTimKiem.Name = "btnTimKiem";
             btnTimKiem.Size = new Size(132, 39);
             btnTimKiem.TabIndex = 0;
@@ -186,7 +186,7 @@
             cmbSearchMaHDN.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbSearchMaHDN.ForeColor = Color.FromArgb(51, 51, 51);
             cmbSearchMaHDN.FormattingEnabled = true;
-            cmbSearchMaHDN.Location = new Point(275, 38);
+            cmbSearchMaHDN.Location = new Point(293, 38);
             cmbSearchMaHDN.Name = "cmbSearchMaHDN";
             cmbSearchMaHDN.Size = new Size(227, 31);
             cmbSearchMaHDN.TabIndex = 6;
@@ -195,7 +195,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(617, 46);
+            label6.Location = new Point(760, 46);
             label6.Name = "label6";
             label6.Size = new Size(89, 23);
             label6.TabIndex = 5;
@@ -205,7 +205,7 @@
             // 
             label5.AutoSize = true;
             label5.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.Location = new Point(617, 151);
+            label5.Location = new Point(760, 151);
             label5.Name = "label5";
             label5.Size = new Size(87, 23);
             label5.TabIndex = 4;
@@ -215,7 +215,7 @@
             // 
             label4.AutoSize = true;
             label4.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label4.Location = new Point(26, 150);
+            label4.Location = new Point(44, 150);
             label4.Name = "label4";
             label4.Size = new Size(117, 23);
             label4.TabIndex = 3;
@@ -225,7 +225,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.Location = new Point(617, 99);
+            label3.Location = new Point(760, 99);
             label3.Name = "label3";
             label3.Size = new Size(84, 23);
             label3.TabIndex = 2;
@@ -235,7 +235,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(26, 99);
+            label2.Location = new Point(44, 99);
             label2.Name = "label2";
             label2.Size = new Size(73, 23);
             label2.TabIndex = 1;
@@ -245,7 +245,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(26, 46);
+            label1.Location = new Point(44, 46);
             label1.Name = "label1";
             label1.Size = new Size(148, 23);
             label1.TabIndex = 0;
@@ -378,37 +378,37 @@
             dgvDanhSach.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvDanhSach.BackgroundColor = SystemColors.ControlLight;
             dgvDanhSach.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dgvDanhSach.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle4.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dgvDanhSach.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dgvDanhSach.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dgvDanhSach.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dgvDanhSach.DefaultCellStyle = dataGridViewCellStyle5;
             dgvDanhSach.EnableHeadersVisualStyles = false;
             dgvDanhSach.GridColor = Color.LightGray;
             dgvDanhSach.Location = new Point(42, 394);
             dgvDanhSach.MultiSelect = false;
             dgvDanhSach.Name = "dgvDanhSach";
             dgvDanhSach.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dgvDanhSach.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dgvDanhSach.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dgvDanhSach.RowHeadersVisible = false;
             dgvDanhSach.RowHeadersWidth = 51;
             dgvDanhSach.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
