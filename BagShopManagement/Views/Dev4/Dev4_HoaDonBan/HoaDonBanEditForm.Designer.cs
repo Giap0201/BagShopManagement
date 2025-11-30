@@ -237,7 +237,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlLeft.Margin = new Padding(5, 6, 5, 6);
             pnlLeft.Name = "pnlLeft";
             pnlLeft.Padding = new Padding(20);
-            pnlLeft.Size = new Size(600, 215);
+            pnlLeft.Size = new Size(600, 560);
             pnlLeft.TabIndex = 2;
             // 
             // grpAdd
@@ -265,7 +265,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             grpAdd.Margin = new Padding(5, 6, 5, 6);
             grpAdd.Name = "grpAdd";
             grpAdd.Padding = new Padding(15);
-            grpAdd.Size = new Size(560, 158);
+            grpAdd.Size = new Size(560, 503);
             grpAdd.TabIndex = 0;
             grpAdd.TabStop = false;
             grpAdd.Text = "THÊM SẢN PHẨM";
@@ -290,7 +290,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(25, 78);
+            btnSave.Location = new Point(25, 423);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(250, 60);
             btnSave.TabIndex = 16;
@@ -307,7 +307,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.FromArgb(51, 51, 51);
-            btnCancel.Location = new Point(290, 78);
+            btnCancel.Location = new Point(290, 423);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(240, 60);
             btnCancel.TabIndex = 17;
@@ -471,7 +471,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlRight.Margin = new Padding(5, 6, 5, 6);
             pnlRight.Name = "pnlRight";
             pnlRight.Padding = new Padding(20);
-            pnlRight.Size = new Size(875, 215);
+            pnlRight.Size = new Size(875, 560);
             pnlRight.TabIndex = 3;
             // 
             // dgvCart
@@ -517,7 +517,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvCart.RowHeadersVisible = false;
             dgvCart.RowHeadersWidth = 51;
             dgvCart.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvCart.Size = new Size(835, 175);
+            dgvCart.Size = new Size(835, 520);
             dgvCart.TabIndex = 0;
             dgvCart.CellEndEdit += dgvCart_CellEndEdit;
             // 
@@ -526,7 +526,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(240, 240, 240);
-            ClientSize = new Size(1475, 515);
+            ClientSize = new Size(1475, 860);
             Controls.Add(pnlRight);
             Controls.Add(pnlLeft);
             Controls.Add(pnlTop);

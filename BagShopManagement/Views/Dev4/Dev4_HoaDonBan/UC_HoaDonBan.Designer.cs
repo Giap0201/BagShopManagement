@@ -46,9 +46,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlBottom.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvHoaDon).BeginInit();
             SuspendLayout();
-            //
+            // 
             // pnlFilter
-            //
+            // 
             pnlFilter.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             pnlFilter.BackColor = Color.FromArgb(255, 255, 255);
             pnlFilter.Controls.Add(btnRefresh);
@@ -69,9 +69,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             pnlFilter.Name = "pnlFilter";
             pnlFilter.Size = new Size(1492, 207);
             pnlFilter.TabIndex = 0;
-            //
+            // 
             // btnRefresh
-            //
+            // 
             btnRefresh.BackColor = Color.LightGray;
             btnRefresh.Cursor = Cursors.Hand;
             btnRefresh.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
@@ -86,25 +86,25 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnRefresh.Text = "LÀM MỚI";
             btnRefresh.UseVisualStyleBackColor = false;
             btnRefresh.Click += btnRefresh_Click;
-            //
+            // 
             // btnFilter
-            //
+            // 
             btnFilter.BackColor = Color.FromArgb(37, 99, 235);
             btnFilter.Cursor = Cursors.Hand;
             btnFilter.FlatAppearance.BorderSize = 0;
             btnFilter.FlatStyle = FlatStyle.Flat;
             btnFilter.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnFilter.ForeColor = Color.White;
-            btnFilter.Location = new Point(1011, 137);
+            btnFilter.Location = new Point(1033, 137);
             btnFilter.Name = "btnFilter";
             btnFilter.Size = new Size(168, 51);
             btnFilter.TabIndex = 11;
             btnFilter.Text = "LỌC";
             btnFilter.UseVisualStyleBackColor = false;
             btnFilter.Click += btnFilter_Click;
-            //
+            // 
             // cmbTrangThai
-            //
+            // 
             cmbTrangThai.BackColor = Color.LightGray;
             cmbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbTrangThai.Font = new Font("Segoe UI", 10.2F);
@@ -113,9 +113,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             cmbTrangThai.Name = "cmbTrangThai";
             cmbTrangThai.Size = new Size(200, 31);
             cmbTrangThai.TabIndex = 10;
-            //
+            // 
             // lblTrangThai
-            //
+            // 
             lblTrangThai.AutoSize = true;
             lblTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             lblTrangThai.Location = new Point(1088, 75);
@@ -123,9 +123,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTrangThai.Size = new Size(91, 23);
             lblTrangThai.TabIndex = 9;
             lblTrangThai.Text = "Trạng thái:";
-            //
+            // 
             // txtMaNV
-            //
+            // 
             txtMaNV.BackColor = Color.White;
             txtMaNV.BorderStyle = BorderStyle.FixedSingle;
             txtMaNV.Font = new Font("Segoe UI", 10.2F);
@@ -134,9 +134,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             txtMaNV.Name = "txtMaNV";
             txtMaNV.Size = new Size(200, 30);
             txtMaNV.TabIndex = 8;
-            //
+            // 
             // lblMaNV
-            //
+            // 
             lblMaNV.AutoSize = true;
             lblMaNV.ForeColor = Color.FromArgb(51, 51, 51);
             lblMaNV.Location = new Point(538, 75);
@@ -144,9 +144,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblMaNV.Size = new Size(120, 23);
             lblMaNV.TabIndex = 7;
             lblMaNV.Text = "Mã nhân viên:";
-            //
+            // 
             // lblToDate
-            //
+            // 
             lblToDate.AutoSize = true;
             lblToDate.ForeColor = Color.FromArgb(51, 51, 51);
             lblToDate.Location = new Point(56, 143);
@@ -155,9 +155,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblToDate.TabIndex = 6;
             lblToDate.Text = "Đến ngày:";
             lblToDate.Click += lblToDate_Click;
-            //
+            // 
             // lblFromDate
-            //
+            // 
             lblFromDate.AutoSize = true;
             lblFromDate.ForeColor = Color.FromArgb(51, 51, 51);
             lblFromDate.Location = new Point(56, 75);
@@ -165,27 +165,27 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblFromDate.Size = new Size(77, 23);
             lblFromDate.TabIndex = 5;
             lblFromDate.Text = "Từ ngày:";
-            //
+            // 
             // dtpToDate
-            //
+            // 
             dtpToDate.Font = new Font("Segoe UI", 10.2F);
             dtpToDate.Format = DateTimePickerFormat.Short;
             dtpToDate.Location = new Point(186, 137);
             dtpToDate.Name = "dtpToDate";
             dtpToDate.Size = new Size(200, 30);
             dtpToDate.TabIndex = 4;
-            //
+            // 
             // dtpFromDate
-            //
+            // 
             dtpFromDate.Font = new Font("Segoe UI", 10.2F);
             dtpFromDate.Format = DateTimePickerFormat.Short;
             dtpFromDate.Location = new Point(186, 72);
             dtpFromDate.Name = "dtpFromDate";
             dtpFromDate.Size = new Size(200, 30);
             dtpFromDate.TabIndex = 3;
-            //
+            // 
             // chkFilterTrangThai
-            //
+            // 
             chkFilterTrangThai.AutoSize = true;
             chkFilterTrangThai.ForeColor = Color.FromArgb(51, 51, 51);
             chkFilterTrangThai.Location = new Point(1088, 14);
@@ -193,9 +193,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             chkFilterTrangThai.Size = new Size(178, 27);
             chkFilterTrangThai.TabIndex = 2;
             chkFilterTrangThai.Text = "Lọc theo trạng thái";
-            //
+            // 
             // chkFilterNV
-            //
+            // 
             chkFilterNV.AutoSize = true;
             chkFilterNV.ForeColor = Color.FromArgb(51, 51, 51);
             chkFilterNV.Location = new Point(538, 14);
@@ -203,9 +203,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             chkFilterNV.Size = new Size(179, 27);
             chkFilterNV.TabIndex = 1;
             chkFilterNV.Text = "Lọc theo nhân viên";
-            //
+            // 
             // chkFilterDate
-            //
+            // 
             chkFilterDate.AutoSize = true;
             chkFilterDate.ForeColor = Color.FromArgb(51, 51, 51);
             chkFilterDate.Location = new Point(56, 14);
@@ -213,9 +213,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             chkFilterDate.Size = new Size(141, 27);
             chkFilterDate.TabIndex = 0;
             chkFilterDate.Text = "Lọc theo ngày";
-            //
+            // 
             // pnlBottom
-            //
+            // 
             pnlBottom.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             pnlBottom.BackColor = Color.White;
             pnlBottom.Controls.Add(btnPrint);
@@ -229,13 +229,13 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             // btnPrint
             // 
-            btnPrint.BackColor = Color.FromArgb(34, 139, 34);
+            btnPrint.BackColor = Color.LightGray;
             btnPrint.Cursor = Cursors.Hand;
             btnPrint.FlatAppearance.BorderSize = 0;
             btnPrint.FlatStyle = FlatStyle.Flat;
             btnPrint.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            btnPrint.ForeColor = Color.FromArgb(255, 255, 255);
-            btnPrint.Location = new Point(55, 40);
+            btnPrint.ForeColor = Color.FromArgb(51, 51, 51);
+            btnPrint.Location = new Point(225, 40);
             btnPrint.Name = "btnPrint";
             btnPrint.Size = new Size(180, 50);
             btnPrint.TabIndex = 5;
@@ -251,7 +251,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDelete.ForeColor = Color.FromArgb(255, 255, 255);
-            btnDelete.Location = new Point(1284, 40);
+            btnDelete.Location = new Point(1107, 40);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(159, 50);
             btnDelete.TabIndex = 4;
@@ -267,7 +267,7 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             btnCancel.FlatStyle = FlatStyle.Flat;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.FromArgb(255, 255, 255);
-            btnCancel.Location = new Point(705, 40);
+            btnCancel.Location = new Point(793, 40);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(189, 50);
             btnCancel.TabIndex = 3;
@@ -277,23 +277,23 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             // 
             // btnViewDetails
             // 
-            btnViewDetails.BackColor = Color.Gainsboro;
+            btnViewDetails.BackColor = Color.LightGray;
             btnViewDetails.Cursor = Cursors.Hand;
             btnViewDetails.FlatAppearance.BorderColor = Color.FromArgb(187, 187, 187);
             btnViewDetails.FlatAppearance.BorderSize = 0;
             btnViewDetails.FlatStyle = FlatStyle.Flat;
             btnViewDetails.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnViewDetails.ForeColor = Color.FromArgb(51, 51, 51);
-            btnViewDetails.Location = new Point(280, 40);
+            btnViewDetails.Location = new Point(504, 40);
             btnViewDetails.Name = "btnViewDetails";
             btnViewDetails.Size = new Size(180, 50);
             btnViewDetails.TabIndex = 1;
             btnViewDetails.Text = "CHI TIẾT";
             btnViewDetails.UseVisualStyleBackColor = false;
             btnViewDetails.Click += btnViewDetails_Click;
-            //
+            // 
             // lblTotal
-            //
+            // 
             lblTotal.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotal.AutoSize = true;
             lblTotal.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -303,9 +303,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             lblTotal.Size = new Size(67, 23);
             lblTotal.TabIndex = 0;
             lblTotal.Text = "Tổng: 0";
-            //
+            // 
             // dgvHoaDon
-            //
+            // 
             dgvHoaDon.AllowUserToAddRows = false;
             dgvHoaDon.AllowUserToDeleteRows = false;
             dgvHoaDon.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -349,9 +349,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             dgvHoaDon.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvHoaDon.Size = new Size(1492, 427);
             dgvHoaDon.TabIndex = 9;
-            //
+            // 
             // label7
-            //
+            // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI Black", 16.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label7.ForeColor = Color.FromArgb(54, 54, 54);
@@ -360,9 +360,9 @@ namespace BagShopManagement.Views.Dev4.Dev4_HoaDonBan
             label7.Size = new Size(353, 38);
             label7.TabIndex = 10;
             label7.Text = "QUẢN LÍ HOÁ ĐƠN BÁN";
-            //
+            // 
             // UC_HoaDonBan
-            //
+            // 
             BackColor = SystemColors.Control;
             Controls.Add(label7);
             Controls.Add(dgvHoaDon);

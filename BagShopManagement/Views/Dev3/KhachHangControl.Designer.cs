@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             txtTimKhachHang = new TextBox();
             btnTim = new Button();
             btnThemMoi = new Button();
@@ -50,7 +50,7 @@
             // 
             // txtTimKhachHang
             // 
-            txtTimKhachHang.Location = new Point(239, 134);
+            txtTimKhachHang.Location = new Point(131, 134);
             txtTimKhachHang.Multiline = true;
             txtTimKhachHang.Name = "txtTimKhachHang";
             txtTimKhachHang.PlaceholderText = "Nhập mã khách hàng";
@@ -61,9 +61,9 @@
             // 
             btnTim.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnTim.ForeColor = Color.FromArgb(51, 51, 51);
-            btnTim.Location = new Point(137, 134);
+            btnTim.Location = new Point(402, 134);
             btnTim.Name = "btnTim";
-            btnTim.Size = new Size(105, 35);
+            btnTim.Size = new Size(112, 35);
             btnTim.TabIndex = 2;
             btnTim.Text = "Tìm kiếm";
             btnTim.UseVisualStyleBackColor = true;
@@ -181,41 +181,42 @@
             dgvKhachHang.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dgvKhachHang.BackgroundColor = SystemColors.ControlLight;
             dgvKhachHang.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle4.BackColor = Color.DodgerBlue;
-            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = Color.White;
-            dataGridViewCellStyle4.SelectionBackColor = Color.DodgerBlue;
-            dataGridViewCellStyle4.SelectionForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
-            dgvKhachHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.SelectionForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
+            dgvKhachHang.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dgvKhachHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle5.BackColor = SystemColors.Window;
-            dataGridViewCellStyle5.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dgvKhachHang.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dgvKhachHang.DefaultCellStyle = dataGridViewCellStyle2;
+            dgvKhachHang.Dock = DockStyle.Fill;
             dgvKhachHang.EnableHeadersVisualStyles = false;
             dgvKhachHang.GridColor = Color.LightGray;
-            dgvKhachHang.Location = new Point(16, 26);
+            dgvKhachHang.Location = new Point(3, 26);
             dgvKhachHang.MultiSelect = false;
             dgvKhachHang.Name = "dgvKhachHang";
             dgvKhachHang.ReadOnly = true;
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = Color.DodgerBlue;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
-            dgvKhachHang.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.DodgerBlue;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dgvKhachHang.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dgvKhachHang.RowHeadersVisible = false;
             dgvKhachHang.RowHeadersWidth = 51;
             dgvKhachHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvKhachHang.Size = new Size(893, 576);
+            dgvKhachHang.Size = new Size(922, 591);
             dgvKhachHang.TabIndex = 9;
             dgvKhachHang.CellContentClick += dgvKhachHang_CellContentClick;
             dgvKhachHang.SelectionChanged += dgvKhachHang_SelectionChanged;

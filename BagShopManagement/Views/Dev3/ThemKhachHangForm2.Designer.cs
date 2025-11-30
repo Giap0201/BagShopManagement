@@ -33,14 +33,12 @@
             label3 = new Label();
             label4 = new Label();
             label5 = new Label();
-            txtDiemTichLuy = new TextBox();
             txtSoDienThoai = new TextBox();
             txtMaKH = new TextBox();
             txtDiaChi = new TextBox();
             txtHoTen = new TextBox();
             btnSave = new Button();
             btnCancel = new Button();
-            label6 = new Label();
             txtEmail = new TextBox();
             SuspendLayout();
             // 
@@ -94,14 +92,6 @@
             label5.TabIndex = 4;
             label5.Text = "Địa chỉ";
             // 
-            // txtDiemTichLuy
-            // 
-            txtDiemTichLuy.Location = new Point(276, 514);
-            txtDiemTichLuy.Multiline = true;
-            txtDiemTichLuy.Name = "txtDiemTichLuy";
-            txtDiemTichLuy.Size = new Size(286, 43);
-            txtDiemTichLuy.TabIndex = 5;
-            // 
             // txtSoDienThoai
             // 
             txtSoDienThoai.Location = new Point(276, 421);
@@ -140,7 +130,7 @@
             btnSave.BackColor = SystemColors.MenuHighlight;
             btnSave.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSave.ForeColor = Color.Transparent;
-            btnSave.Location = new Point(104, 628);
+            btnSave.Location = new Point(104, 584);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(136, 57);
             btnSave.TabIndex = 6;
@@ -153,23 +143,13 @@
             btnCancel.BackColor = Color.Red;
             btnCancel.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnCancel.ForeColor = Color.Transparent;
-            btnCancel.Location = new Point(387, 628);
+            btnCancel.Location = new Point(386, 584);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(123, 57);
             btnCancel.TabIndex = 13;
             btnCancel.Text = "Hủy";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            label6.Location = new Point(85, 524);
-            label6.Name = "label6";
-            label6.Size = new Size(132, 28);
-            label6.TabIndex = 14;
-            label6.Text = "Điểm tích lũy";
             // 
             // txtEmail
             // 
@@ -185,14 +165,12 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(663, 732);
             Controls.Add(txtEmail);
-            Controls.Add(label6);
             Controls.Add(btnCancel);
             Controls.Add(btnSave);
             Controls.Add(txtHoTen);
             Controls.Add(txtDiaChi);
             Controls.Add(txtMaKH);
             Controls.Add(txtSoDienThoai);
-            Controls.Add(txtDiemTichLuy);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
@@ -212,14 +190,12 @@
         private Label label3;
         private Label label4;
         private Label label5;
-        private TextBox txtDiemTichLuy;
         private TextBox txtSoDienThoai;
         private TextBox txtMaKH;
         private TextBox txtDiaChi;
         private TextBox txtHoTen;
         private Button btnSave;
         private Button btnCancel;
-        private Label label6;
         private TextBox txtEmail;
     }
 }

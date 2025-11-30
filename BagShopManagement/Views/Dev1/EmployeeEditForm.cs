@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions; // Added for Regex validation
 
 namespace BagShopManagement.Views.Dev1
 {
@@ -24,6 +25,7 @@ namespace BagShopManagement.Views.Dev1
         // Biến trạng thái
         private bool _isEditMode = false;
         private string _editMaNV = null;
+        private ErrorProvider _errorProvider; // Added ErrorProvider
 
         public EmployeeEditForm(
             NhanVienController nhanVienController,
@@ -36,6 +38,7 @@ namespace BagShopManagement.Views.Dev1
             _nhanVienRepo = nhanVienRepo;
             _taiKhoanRepo = taiKhoanRepo;
             _vaiTroRepo = vaiTroRepo;
+            _errorProvider = new ErrorProvider(); // Initialize ErrorProvider
         }
 
         // Đây là hàm public mà ucEmployeeManagement gọi
@@ -122,12 +125,99 @@ namespace BagShopManagement.Views.Dev1
             }
         }
 
+        /// <summary>
+        /// Hàm kiểm tra tính hợp lệ của dữ liệu đầu vào
+        /// </summary>
+        private bool ValidateInput()
+        {
+            bool isValid = true;
+            _errorProvider.Clear(); // Xóa các lỗi cũ
+
+            // 1. Kiểm tra Họ tên (Bắt buộc)
+            if (string.IsNullOrWhiteSpace(txtHoTen.Text))
+            {
+                _errorProvider.SetError(txtHoTen, "Vui lòng nhập họ tên nhân viên.");
+                isValid = false;
+            }
+
+            // 2. Kiểm tra Email (Định dạng & Bắt buộc nếu cần)
+            if (string.IsNullOrWhiteSpace(txtEmail.Text))
+            {
+                // Nếu email là bắt buộc, uncomment dòng dưới:
+                _errorProvider.SetError(txtEmail, "Vui lòng nhập email.");
+                isValid = false;
+            }
+            else
+            {
+                // Regex kiểm tra định dạng email chuẩn
+                // Pattern này chấp nhận các email dạng: user@domain.com, user.name@domain.co.uk, v.v.
+                string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
+
+                if (!Regex.IsMatch(txtEmail.Text, emailPattern))
+                {
+                    _errorProvider.SetError(txtEmail, "Email không đúng định dạng (ví dụ: abc@domain.com).");
+                    isValid = false;
+                }
+            }
+
+            // 3. Kiểm tra SĐT (Bắt buộc & Định dạng số)
+            if (string.IsNullOrWhiteSpace(txtSoDienThoai.Text))
+            {
+                _errorProvider.SetError(txtSoDienThoai, "Vui lòng nhập số điện thoại.");
+                isValid = false;
+            }
+            else if (!Regex.IsMatch(txtSoDienThoai.Text, @"^\d{10,11}$")) // Chỉ chấp nhận 10-11 số
+            {
+                _errorProvider.SetError(txtSoDienThoai, "Số điện thoại phải là số và có 10-11 chữ số.");
+                isValid = false;
+            }
+
+            // 4. Kiểm tra Tên đăng nhập (Bắt buộc & Ký tự đặc biệt) - Chỉ kiểm tra khi thêm mới vì khi sửa bị disable
+            if (!_isEditMode)
+            {
+                if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text))
+                {
+                    _errorProvider.SetError(txtTenDangNhap, "Vui lòng nhập tên đăng nhập.");
+                    isValid = false;
+                }
+                else if (txtTenDangNhap.Text.Contains(" "))
+                {
+                    _errorProvider.SetError(txtTenDangNhap, "Tên đăng nhập không được chứa khoảng trắng.");
+                    isValid = false;
+                }
+            }
+
+
+            // 5. Kiểm tra Mật khẩu (Chỉ bắt buộc khi THÊM MỚI)
+            if (!_isEditMode && string.IsNullOrWhiteSpace(txtMatKhau.Text))
+            {
+                _errorProvider.SetError(txtMatKhau, "Vui lòng nhập mật khẩu cho nhân viên mới.");
+                isValid = false;
+            }
+            // Nếu là Sửa mà người dùng có nhập mật khẩu -> Kiểm tra độ dài tối thiểu (Logic này có thể ko cần thiết vì ô mật khẩu ẩn khi sửa nhưng để an toàn)
+            if (_isEditMode && txtMatKhau.Visible && !string.IsNullOrEmpty(txtMatKhau.Text) && txtMatKhau.Text.Length < 6)
+            {
+                _errorProvider.SetError(txtMatKhau, "Mật khẩu mới phải có ít nhất 6 ký tự.");
+                isValid = false;
+            }
+
+            // 6. Kiểm tra vai trò
+            if (cboVaiTro.SelectedValue == null)
+            {
+                _errorProvider.SetError(cboVaiTro, "Vui lòng chọn vai trò.");
+                isValid = false;
+            }
+
+
+            return isValid;
+        }
+
         private void btnLuu_Click(object sender, EventArgs e)
         {
             // 1. Kiểm tra dữ liệu (Validation)
-            if (string.IsNullOrWhiteSpace(txtHoTen.Text) || cboVaiTro.SelectedValue == null)
+            if (!ValidateInput()) // Sử dụng hàm ValidateInput thay vì kiểm tra thủ công
             {
-                MessageBox.Show("Họ tên và Vai trò là bắt buộc.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Vui lòng kiểm tra lại thông tin nhập liệu.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
 
@@ -157,11 +247,7 @@ namespace BagShopManagement.Views.Dev1
                 else
                 {
                     // Chế độ THÊM MỚI
-                    if (string.IsNullOrWhiteSpace(txtTenDangNhap.Text) || string.IsNullOrWhiteSpace(txtMatKhau.Text))
-                    {
-                        MessageBox.Show("Tên đăng nhập và Mật khẩu là bắt buộc khi thêm mới.", "Thiếu thông tin", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                        return;
-                    }
+                    // Logic validate TenDangNhap & MatKhau đã được chuyển vào ValidateInput
 
                     var request = new CreateNhanVienRequest
                     {

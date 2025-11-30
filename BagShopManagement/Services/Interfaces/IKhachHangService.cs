@@ -6,7 +6,7 @@ namespace BagShopManagement.Services
     public interface IKhachHangService
     {
         List<KhachHang> GetAll();
-        KhachHang? GetById(string maKH);
+        List<KhachHang>? GetById(string kw);
         bool Add(KhachHang kh);
         bool Update(KhachHang kh);
         bool Delete(string maKH);

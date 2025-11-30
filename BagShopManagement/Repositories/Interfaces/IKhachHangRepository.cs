@@ -1,4 +1,5 @@
 ﻿using BagShopManagement.Models;
+using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -23,13 +24,13 @@ namespace BagShopManagement.Repositories.Interfaces
 
         public int Delete(string maKH);
 
-        public List<KhachHang> Search(string ten, string sdt, string email);
-
         bool Exists(string maKH);
 
         string GetMaxCode();
-        
-          
+
+        public List<KhachHang> Search(string keyword);
+
+
 
     }
 }

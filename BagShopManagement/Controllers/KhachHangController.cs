@@ -20,7 +20,7 @@ namespace BagShopManagement.Controllers
         public List<KhachHang> GetAll() => _service.GetAll();
 
         // Lấy khách hàng theo mã
-        public KhachHang GetById(string maKH) => _service.GetById(maKH);
+        public List<KhachHang> GetById(string maKH) => _service.GetById(maKH);
 
         // Thêm khách hàng mới
         public bool Add(KhachHang kh) => _service.Add(kh);

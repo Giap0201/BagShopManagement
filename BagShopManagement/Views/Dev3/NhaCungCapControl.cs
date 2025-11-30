@@ -74,19 +74,19 @@ namespace BagShopManagement.Views.Dev3
         {
             if (txtTimKiem.Text.Length == 0)
             {
-                MessageBox.Show("Vui lòng nhập mã nhà cung cấp", "Thông báo");
+                MessageBox.Show("Vui lòng thông tin nhà cung cấp", "Thông báo");
                 txtTimKiem.Focus();
                 return;
             }
 
-            var ncc = _controller.GetById(txtTimKiem.Text.Trim());
+            var ncc = _controller.Search(txtTimKiem.Text.Trim());
             if (ncc == null)
             {
                 MessageBox.Show("Nhà cung cấp không tồn tại", "Thông báo");
             }
             else
             {
-                dgvNCC.DataSource = new List<NhaCungCap> { ncc };
+                dgvNCC.DataSource = ncc;
             }
         }
 

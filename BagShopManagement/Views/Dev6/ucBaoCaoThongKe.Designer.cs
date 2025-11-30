@@ -66,7 +66,7 @@
             pnlMenu.Controls.Add(btnDoanhThu);
             pnlMenu.Location = new Point(40, 74);
             pnlMenu.Name = "pnlMenu";
-            pnlMenu.Size = new Size(1497, 90);
+            pnlMenu.Size = new Size(1497, 104);
             pnlMenu.TabIndex = 0;
             // 
             // btnGiamGia
@@ -78,7 +78,7 @@
             btnGiamGia.FlatStyle = FlatStyle.Flat;
             btnGiamGia.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnGiamGia.ForeColor = Color.FromArgb(54, 54, 54);
-            btnGiamGia.Location = new Point(1281, 20);
+            btnGiamGia.Location = new Point(1281, 30);
             btnGiamGia.Name = "btnGiamGia";
             btnGiamGia.Size = new Size(178, 46);
             btnGiamGia.TabIndex = 19;
@@ -95,7 +95,7 @@
             btnSanPham.FlatStyle = FlatStyle.Flat;
             btnSanPham.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnSanPham.ForeColor = Color.FromArgb(54, 54, 54);
-            btnSanPham.Location = new Point(1070, 20);
+            btnSanPham.Location = new Point(1070, 30);
             btnSanPham.Name = "btnSanPham";
             btnSanPham.Size = new Size(178, 46);
             btnSanPham.TabIndex = 18;
@@ -112,7 +112,7 @@
             btnKhachHang.FlatStyle = FlatStyle.Flat;
             btnKhachHang.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnKhachHang.ForeColor = Color.FromArgb(54, 54, 54);
-            btnKhachHang.Location = new Point(863, 20);
+            btnKhachHang.Location = new Point(863, 30);
             btnKhachHang.Name = "btnKhachHang";
             btnKhachHang.Size = new Size(178, 46);
             btnKhachHang.TabIndex = 17;
@@ -129,7 +129,7 @@
             btnNhanVien.FlatStyle = FlatStyle.Flat;
             btnNhanVien.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnNhanVien.ForeColor = Color.FromArgb(54, 54, 54);
-            btnNhanVien.Location = new Point(654, 20);
+            btnNhanVien.Location = new Point(654, 30);
             btnNhanVien.Name = "btnNhanVien";
             btnNhanVien.Size = new Size(178, 46);
             btnNhanVien.TabIndex = 16;
@@ -146,7 +146,7 @@
             btnTonKho.FlatStyle = FlatStyle.Flat;
             btnTonKho.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnTonKho.ForeColor = Color.FromArgb(54, 54, 54);
-            btnTonKho.Location = new Point(447, 20);
+            btnTonKho.Location = new Point(447, 30);
             btnTonKho.Name = "btnTonKho";
             btnTonKho.Size = new Size(178, 46);
             btnTonKho.TabIndex = 15;
@@ -163,7 +163,7 @@
             btnNhapHang.FlatStyle = FlatStyle.Flat;
             btnNhapHang.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnNhapHang.ForeColor = Color.FromArgb(54, 54, 54);
-            btnNhapHang.Location = new Point(241, 20);
+            btnNhapHang.Location = new Point(241, 30);
             btnNhapHang.Name = "btnNhapHang";
             btnNhapHang.Size = new Size(178, 46);
             btnNhapHang.TabIndex = 14;
@@ -180,7 +180,7 @@
             btnDoanhThu.FlatStyle = FlatStyle.Flat;
             btnDoanhThu.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             btnDoanhThu.ForeColor = Color.FromArgb(54, 54, 54);
-            btnDoanhThu.Location = new Point(36, 20);
+            btnDoanhThu.Location = new Point(36, 30);
             btnDoanhThu.Name = "btnDoanhThu";
             btnDoanhThu.Size = new Size(178, 46);
             btnDoanhThu.TabIndex = 13;
@@ -215,7 +215,7 @@
             dgvBaoCao.DefaultCellStyle = dataGridViewCellStyle2;
             dgvBaoCao.EnableHeadersVisualStyles = false;
             dgvBaoCao.GridColor = Color.LightGray;
-            dgvBaoCao.Location = new Point(40, 308);
+            dgvBaoCao.Location = new Point(40, 290);
             dgvBaoCao.MultiSelect = false;
             dgvBaoCao.Name = "dgvBaoCao";
             dgvBaoCao.ReadOnly = true;
@@ -231,7 +231,7 @@
             dgvBaoCao.RowHeadersWidth = 51;
             dgvBaoCao.RowTemplate.Height = 35;
             dgvBaoCao.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvBaoCao.Size = new Size(1497, 593);
+            dgvBaoCao.Size = new Size(1497, 611);
             dgvBaoCao.TabIndex = 9;
             // 
             // pnlHeader

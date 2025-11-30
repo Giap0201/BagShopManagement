@@ -186,5 +186,16 @@ namespace BagShopManagement.Repositories.Implementations
             var obj = dt.Rows[0]["MaxCode"];
             return obj == DBNull.Value ? null : obj.ToString();
         }
+        public List<KhachHang> Search(string keyword)
+        {
+            string q = "SELECT * FROM KhachHang " +
+                       "WHERE MaKH LIKE @kw OR HoTen LIKE @kw OR SoDienThoai LIKE @kw " +
+                       "ORDER BY MaKH";
+
+            var dt = ExecuteQuery(q, new SqlParameter("@kw", $"%{keyword}%"));
+
+            return dt.AsEnumerable().Select(MapKhachHang).ToList();
+        }
+
     }
 }

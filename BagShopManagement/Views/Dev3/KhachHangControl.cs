@@ -44,17 +44,40 @@ namespace BagShopManagement.Views.Dev3
         }
         private void SetColumnHeaders()
         {
+            if (dgvKhachHang.Columns.Contains("DiemTichLuy"))
+            {
+                // Đặt thuộc tính Visible của cột là false
+                dgvKhachHang.Columns["DiemTichLuy"].Visible = false;
+            }
+            // Tắt row header
+            dgvKhachHang.RowHeadersVisible = false;
+
+            // Không autosize theo nội dung
+            dgvKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Không để header tự thay đổi kích thước
+            dgvKhachHang.ColumnHeadersHeightSizeMode =
+                DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
+
+            // Ép tất cả cột hiển thị fill
+            foreach (DataGridViewColumn col in dgvKhachHang.Columns)
+            {
+                if (col.Visible)
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            }
+
+            // Tùy chọn tránh chừa chỗ scrollbar ảo
+            dgvKhachHang.ScrollBars = ScrollBars.Vertical;
+
             // Đổi header tiếng Việt
             dgvKhachHang.Columns["MaKH"].HeaderText = "Mã KH";
             dgvKhachHang.Columns["HoTen"].HeaderText = "Họ và tên";
             dgvKhachHang.Columns["SoDienThoai"].HeaderText = "Số điện thoại";
             dgvKhachHang.Columns["Email"].HeaderText = "Email";
             dgvKhachHang.Columns["DiaChi"].HeaderText = "Địa chỉ";
-            dgvKhachHang.Columns["DiemTichLuy"].HeaderText = "Điểm tích luỹ";
 
             // Căn giữa chỉ cột Số điện thoại và Điểm tích lũy
             dgvKhachHang.Columns["SoDienThoai"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dgvKhachHang.Columns["DiemTichLuy"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             dgvKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dgvKhachHang.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
@@ -73,7 +96,7 @@ namespace BagShopManagement.Views.Dev3
         {
             if (txtTimKhachHang.Text.Length == 0)
             {
-                MessageBox.Show("Vui lòng nhập mã khách hàng", "Thông báo");
+                MessageBox.Show("Vui lòng nhập thông tin", "Thông báo");
                 txtTimKhachHang.Focus();
                 return;
             }
@@ -84,7 +107,7 @@ namespace BagShopManagement.Views.Dev3
             }
             else
             {
-                dgvKhachHang.DataSource = new List<KhachHang> { KH };
+                dgvKhachHang.DataSource = KH;
             }
 
         }
